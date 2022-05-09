@@ -11,7 +11,7 @@ public class Purchase {
 	private String updateDate;
 	
 	public Purchase() {
-		super();
+		
 	}
 	
 	public Purchase(int purchaseId, String memberId, String status, String payment, String totalPrice, String createDate,

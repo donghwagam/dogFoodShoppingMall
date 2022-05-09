@@ -14,7 +14,7 @@ public class ProductPhoto {
 	private String updateDate;
 	
 	public ProductPhoto() {
-		super();
+		
 	}
 	
 	public ProductPhoto(int photoId, String originalName, String name, String photo, String type, int volume,

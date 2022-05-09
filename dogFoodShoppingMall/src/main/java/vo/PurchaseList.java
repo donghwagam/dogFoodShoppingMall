@@ -9,7 +9,6 @@ public class PurchaseList {
 	
 	
 	public PurchaseList() {
-		super();
 
 	}
 	
