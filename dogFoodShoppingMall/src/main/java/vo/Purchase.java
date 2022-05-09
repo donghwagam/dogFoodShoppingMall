@@ -3,7 +3,7 @@ package vo;
 public class Purchase {
 	
 	private int purchaseId;
-	private int memberId;
+	private String memberId;
 	private String status;
 	private String payment;
 	private String totalPrice;
@@ -14,7 +14,7 @@ public class Purchase {
 		super();
 	}
 	
-	public Purchase(int purchaseId, int memberId, String status, String payment, String totalPrice, String createDate,
+	public Purchase(int purchaseId, String memberId, String status, String payment, String totalPrice, String createDate,
 			String updateDate) {
 		super();
 		this.purchaseId = purchaseId;
@@ -32,10 +32,10 @@ public class Purchase {
 	public void setPurchaseId(int purchaseId) {
 		this.purchaseId = purchaseId;
 	}
-	public int getMemberId() {
+	public String getMemberId() {
 		return memberId;
 	}
-	public void setMemberId(int memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 	public String getStatus() {
