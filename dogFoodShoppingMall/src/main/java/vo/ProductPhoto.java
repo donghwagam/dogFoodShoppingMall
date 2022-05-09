@@ -1,12 +1,23 @@
 package vo;
 
-public class productPhoto {
+public class ProductPhoto {
 	
-	public productPhoto() {
+	
+	private int photoId;
+	private String originalName;
+	private String name;
+	private String photo;
+	private String type;
+	private int volume;
+	private int productId;
+	private String createDate;
+	private String updateDate;
+	
+	public ProductPhoto() {
 		super();
 	}
 	
-	public productPhoto(int photoId, String originalName, String name, String photo, String type, int volume,
+	public ProductPhoto(int photoId, String originalName, String name, String photo, String type, int volume,
 			int productId, String createDate, String updateDate) {
 		super();
 		this.photoId = photoId;
@@ -74,6 +85,7 @@ public class productPhoto {
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
 	}
+	
 	@Override
 	public String toString() {
 		return "productPhoto [photoId=" + photoId + ", originalName=" + originalName + ", name=" + name + ", photo="
@@ -82,16 +94,4 @@ public class productPhoto {
 	}
 	
 	
-	private int photoId;
-	private String originalName;
-	private String name;
-	private String photo;
-	private String type;
-	private int volume;
-	private int productId;
-	private String createDate;
-	private String updateDate;
-	
-	
-
 }

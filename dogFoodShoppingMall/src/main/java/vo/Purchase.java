@@ -1,14 +1,20 @@
 package vo;
 
-public class purchase {
+public class Purchase {
 	
+	private int purchaseId;
+	private int memberId;
+	private String status;
+	private String payment;
+	private String totalPrice;
+	private String createDate;
+	private String updateDate;
 	
-	
-	public purchase() {
+	public Purchase() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public purchase(int purchaseId, int memberId, String status, String payment, String totalPrice, String createDate,
+	
+	public Purchase(int purchaseId, int memberId, String status, String payment, String totalPrice, String createDate,
 			String updateDate) {
 		super();
 		this.purchaseId = purchaseId;
@@ -19,12 +25,7 @@ public class purchase {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
-	@Override
-	public String toString() {
-		return "purchase [purchaseId=" + purchaseId + ", memberId=" + memberId + ", status=" + status + ", payment="
-				+ payment + ", totalPrice=" + totalPrice + ", createDate=" + createDate + ", updateDate=" + updateDate
-				+ "]";
-	}
+	
 	public int getPurchaseId() {
 		return purchaseId;
 	}
@@ -68,15 +69,11 @@ public class purchase {
 		this.updateDate = updateDate;
 	}
 	
-	
-	private int purchaseId;
-	private int memberId;
-	private String status;
-	private String payment;
-	private String totalPrice;
-	private String createDate;
-	private String updateDate;
-	
-	
+	@Override
+	public String toString() {
+		return "purchase [purchaseId=" + purchaseId + ", memberId=" + memberId + ", status=" + status + ", payment="
+				+ payment + ", totalPrice=" + totalPrice + ", createDate=" + createDate + ", updateDate=" + updateDate
+				+ "]";
+	} 
 
 }
