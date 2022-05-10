@@ -8,9 +8,7 @@ public class PurchaseList {
 	private String updateDate;
 	
 	
-	public PurchaseList() {
-
-	}
+	public PurchaseList() {}
 	
 	
 	public PurchaseList(int purchaseId, int productId, int quantity, String updateDate) {

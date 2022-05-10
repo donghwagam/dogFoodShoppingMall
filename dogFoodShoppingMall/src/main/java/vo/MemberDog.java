@@ -9,7 +9,7 @@ public class MemberDog {
 	private String createDate;
 	private String updateDate;
 	
-	public MemberDog() {};
+	public MemberDog() {}
 	
 	public MemberDog(int memberDogId, String memberId, int dogId, String birth, int weight, String createDate,
 			String updateDate) {

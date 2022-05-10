@@ -6,6 +6,8 @@ public class Dog {
 	private String createDate;
 	private String updateDate;
 	
+	public Dog() {}
+	
 	public Dog(int dogId, String spiece, String createDate, String updateDate) {
 		super();
 		this.dogId = dogId;

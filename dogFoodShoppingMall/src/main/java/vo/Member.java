@@ -14,6 +14,8 @@ public class Member {
 	private String createDate;
 	private String updateDate;
 	
+	public Member() {}
+	
 	public Member(String memberId, String memberPw, String name, String phone, String email, String gender,
 			String level, String active, int addressId, String detailAddr, String createDate, String updateDate) {
 		super();

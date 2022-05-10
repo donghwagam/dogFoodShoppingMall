@@ -13,9 +13,7 @@ public class ProductPhoto {
 	private String createDate;
 	private String updateDate;
 	
-	public ProductPhoto() {
-		
-	}
+	public ProductPhoto() {}
 	
 	public ProductPhoto(int photoId, String originalName, String name, String photo, String type, int volume,
 			int productId, String createDate, String updateDate) {

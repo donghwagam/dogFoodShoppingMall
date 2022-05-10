@@ -6,6 +6,7 @@ public class Component {
 	private String createDate;
 	private String updateDate;
 
+	public Component() {}
 	
 	public Component(int componentId, String name, String createDate, String updateDate) {
 		super();
