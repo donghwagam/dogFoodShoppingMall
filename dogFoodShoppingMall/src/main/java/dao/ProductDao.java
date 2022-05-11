@@ -15,6 +15,7 @@ import vo.Category;
 
 public class ProductDao {
 	
+	// Component 이름을 불러오는 메서드
 	public List<Component> selectComponent(){
 		List<Component> list = new ArrayList<>();
 		
@@ -46,6 +47,8 @@ public class ProductDao {
 		return list;
 		
 	}
+	
+	// 최신순으로 상품리스트를 불러오기 위한 메서드
 	public List<Map<String, Object>> selectProductListBySearch() {
 		List<Map<String,Object>> list = new ArrayList<>();
 		
@@ -56,7 +59,7 @@ public class ProductDao {
 		String sql = "";
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			sql = "SELECT p.name, p.price, p.gram, pp.photo_id, (SELECT AVG(r.star) FROM review r) star"
+			sql = "SELECT p.name productName, p.price, p.gram, pp.name photoName, (SELECT AVG(r.star) FROM review r) star"
 					+ "	FROM product p"
 					+ "		LEFT JOIN product_photo pp"
 					+ "		ON p.product_id = pp.product_id"
@@ -70,10 +73,10 @@ public class ProductDao {
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				Map<String, Object> m = new HashMap<>();
-				m.put("name", rs.getString("name"));
+				m.put("productName", rs.getString("productName"));
 				m.put("price", rs.getInt("price"));
 				m.put("gram", rs.getInt("gram"));
-				m.put("photoId", rs.getInt("photo_id"));
+				m.put("photoName", rs.getString("photoName"));
 				m.put("star", rs.getDouble("star"));
 				list.add(m);
 			}
@@ -91,6 +94,7 @@ public class ProductDao {
 		return list;
 	}
 	
+	// 상세검색 구현을 위한 메서드
 	public List<Map<String, Object>> selectProductListBySearchCategory(String age, String allergy, String feedType, String size) {
 		List<Map<String,Object>> list = new ArrayList<>();
 		
@@ -231,7 +235,7 @@ public class ProductDao {
 		return list;
 	}
 	
-//-----------------------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------
 	//상품리스트 출력하는 메서드 
 	public List<Map<String, Object>> selectProductList() { 
 		List<Map<String, Object>> list = new ArrayList<>();

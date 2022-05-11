@@ -36,10 +36,10 @@ public class ProductSearchController extends HttpServlet {
 		
 		// 디버깅
 		for(Map<String, Object> m : searchList) {
-			System.out.println("ProductSearchController(doGet) name: "+m.get("name"));
+			System.out.println("ProductSearchController(doGet) name: "+m.get("productName"));
 			System.out.println("ProductSearchController(doGet) price: "+m.get("price"));
 			System.out.println("ProductSearchController(doGet) gram: "+m.get("gram"));
-			System.out.println("ProductSearchController(doGet) photoId: "+m.get("photoId"));
+			System.out.println("ProductSearchController(doGet) name: "+m.get("photoName"));
 			System.out.println("ProductSearchController(doGet) star: "+m.get("star"));
 		}
 		
@@ -52,13 +52,13 @@ public class ProductSearchController extends HttpServlet {
 		
 		// 요청값 불러오기
 		String age = request.getParameter("age");
-		String allergy = request.getParameter("allergy");
+		String component = request.getParameter("component");
 		String feedType = request.getParameter("feedType");
 		String size = request.getParameter("size");
 		
 		// 디버깅
 		System.out.println("ProductSearchController(doPost) age: "+age);
-		System.out.println("ProductSearchController(doPost) allergy: "+allergy);
+		System.out.println("ProductSearchController(doPost) component: "+component);
 		System.out.println("ProductSearchController(doPost) feedType: "+feedType);
 		System.out.println("ProductSearchController(doPost) size: "+size);
 
