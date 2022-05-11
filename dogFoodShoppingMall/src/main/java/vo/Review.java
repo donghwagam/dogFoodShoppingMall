@@ -5,18 +5,18 @@ public class Review {
 	private int purchaseId;
 	private String title;
 	private String reviewContent;
-	private int rate;
+	private int star;
 	private String createDate;
 	
 	public Review() {}
 
-	public Review(int reviewId, int purchaseId, String title, String reviewContent, int rate, String createDate) {
+	public Review(int reviewId, int purchaseId, String title, String reviewContent, int star, String createDate) {
 		super();
 		this.reviewId = reviewId;
 		this.purchaseId = purchaseId;
 		this.title = title;
 		this.reviewContent = reviewContent;
-		this.rate = rate;
+		this.star = star;
 		this.createDate = createDate;
 	}
 
@@ -52,12 +52,12 @@ public class Review {
 		this.reviewContent = reviewContent;
 	}
 
-	public int getRate() {
-		return rate;
+	public int getstar() {
+		return star;
 	}
 
-	public void setRate(int rate) {
-		this.rate = rate;
+	public void setstar(int star) {
+		this.star = star;
 	}
 
 	public String getCreateDate() {
@@ -71,7 +71,7 @@ public class Review {
 	@Override
 	public String toString() {
 		return "Review [reviewId=" + reviewId + ", purchaseId=" + purchaseId + ", title=" + title + ", reviewContent="
-				+ reviewContent + ", rate=" + rate + ", createDate=" + createDate + "]";
+				+ reviewContent + ", star=" + star + ", createDate=" + createDate + "]";
 	}
 	
 	
