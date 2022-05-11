@@ -121,7 +121,7 @@
 					</div>
 					<div class="forgot" style="text-align:right;">
 						<input type="checkbox" name="rememberId" vlaue="rememberId"> 아이디 저장<br>
-						<a href="#" >아이디 찾기</a> /
+						<a href="${pageContext.request.contextPath}/searchMemberIdController" >아이디 찾기</a> /
 						<a href="#">비밀번호 찾기</a>
 					</div>
 					<button type="submit" class="btn btn-primary">로그인</button>

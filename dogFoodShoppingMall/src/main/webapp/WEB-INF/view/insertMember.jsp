@@ -38,7 +38,7 @@
 		            <input class="form-control" name="memberPwCheck" placeholder="비밀번호 확인" type="password"/>
 		            <input class="form-control" name="birth" type="date"/>
 		            <input class="form-control" name="phone" placeholder="전화번호" type="text"/>
-		            <input class="form-control" name="email" placeholder="이메일주소" type="text"/>
+		            <input class="form-control" name="email" placeholder="이메일주소" type="text"/>      
 		            
 		            <label class="radio-inline">
 		                <input type="radio" name="gender" id="inlineCheckbox1" value="남"/>남

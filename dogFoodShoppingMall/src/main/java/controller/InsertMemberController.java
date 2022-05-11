@@ -27,10 +27,13 @@ public class InsertMemberController extends HttpServlet {
 			return;
 		}
 		
-		request.getRequestDispatcher("WEB-INF/view/insertLogin.jsp").forward(request, response); // 회원가입 입력폼 연결
+	
+		
+		request.getRequestDispatcher("WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 입력폼 연결
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		int addressId = Integer.parseInt(request.getParameter("addressId"));
 		String detailAddr = request.getParameter("detailAddr");
 		String name = request.getParameter("name");
@@ -40,6 +43,7 @@ public class InsertMemberController extends HttpServlet {
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
+
 		
 		// 디버깅
 		System.out.println("InsertLoginController.doPost() addressId : " + addressId);
@@ -51,6 +55,7 @@ public class InsertMemberController extends HttpServlet {
 		System.out.println("InsertLoginController.doPost() phone : " + phone);
 		System.out.println("InsertLoginController.doPost() email : " + email);
 		System.out.println("InsertLoginController.doPost() gender : " + gender);
+
 		
 		Member member = new Member();
 		member.setAddressId(addressId);
@@ -62,8 +67,10 @@ public class InsertMemberController extends HttpServlet {
 		member.setPhone(phone);
 		member.setEmail(email);
 		member.setGender(gender);
+
 		
-		this.memberDao.insertMember(member);
+		memberDao = new MemberDao();
+		memberDao.insertMember(member);
 		
 		System.out.println("회원가입 성공");
 		response.sendRedirect(request.getContextPath()+"/loginController");

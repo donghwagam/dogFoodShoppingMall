@@ -47,41 +47,5 @@ public class AddressDao {
 		
 		return list;
 	}
-	
-	public List<Map<String, Object>> selectAddress() {
-		List<Map<String, Object>> list = new ArrayList<>();
-		
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-
-		String sql = "SELECT address_id addressId, CONCAT('(', zip_code, ') ', province, ' ', city, ' ', town, ' ', street, ' ', building1, '-', building2, ' ') addr"
-				+ " FROM address";
-		
-		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			stmt = conn.prepareStatement(sql);
-			rs = stmt.executeQuery();
-			
-			while(rs.next()) {
-				Map map = new HashMap();
-				map.put("addressId", rs.getInt("addressId"));
-				map.put("addr", rs.getInt("addr"));
-				list.add(map);
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return list;
-	}
-	
 
 }

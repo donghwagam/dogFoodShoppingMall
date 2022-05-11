@@ -7,12 +7,51 @@ import vo.Member;
 
 public class MemberDao {
 	
+	public String searchMemberId(Member member) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String memberId = null;
+		
+		String sql = "SELECT member_id memberId"
+						+ " FROM member"
+						+ " WHERE name=? AND phone=?";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, member.getName());
+			stmt.setString(2, member.getPhone());
+			
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				memberId = rs.getString("memberId");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close(); // 자원 반환
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return memberId;
+	}
+	
+	
 	public void insertMember(Member member) { // 회원가입 메서드
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
-		String sql = "INSERT INTO (member_id, member_pw, name, birth, phone, email, gender, address_id, detail_addr, create_date, update_date)"
-				+ " VALUES ( ?, PASSWORD(?), ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+		String sql = "INSERT INTO member (member_id, member_pw, name, birth, phone, email, gender, address_id, detail_addr, create_date, update_date)"
+				+ " VALUES"
+				+ " (?, PASSWORD(?), ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -27,10 +66,17 @@ public class MemberDao {
 			stmt.setInt(8, member.getAddressId());
 			stmt.setString(9, member.getDetailAddr());
 			
+			
 			stmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close(); // 자원 반환
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}

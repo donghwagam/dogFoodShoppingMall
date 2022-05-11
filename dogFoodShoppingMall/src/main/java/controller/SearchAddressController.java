@@ -25,7 +25,7 @@ public class SearchAddressController extends HttpServlet {
 		
 		request.setAttribute("searchAddressList", list); // 리스트 값 searchAddressList에 셋팅
 		
-		request.getRequestDispatcher("/WEB-INF/view/insertLogin.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response);
 	}
 
 }
