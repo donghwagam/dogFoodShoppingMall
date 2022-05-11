@@ -95,7 +95,9 @@
     <header class="header">
         <div class="header__top">
             <div class="container">
-                <div class="row">
+                <div class="row">>
+                        </div>
+          
                     <div class="col-lg-6">
                         <div class="header__top__left">
                             <ul>
@@ -103,7 +105,6 @@
                                 <li>Free Shipping for all Order of $99</li>
                             </ul>
                         </div>
-                    </div>
                     <div class="col-lg-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
@@ -189,70 +190,86 @@
     </section>
     <!-- Breadcrumb Section End -->
     
-	<!-- Search Box Begin -->
-	<div class="container">
-		<form method="post" action="${pageContext.request.contextPath}/ProductSearchController">
-	      <table border="1">
-	         <tr>
-	            <td>연령</td>
-	            <td>
-	               <input type="radio" name="age" value="" checked="checked">선택안함
-	               <input type="radio" name="age" value="puppy" >퍼피
-	               <input type="radio" name="age" value="adult" >어덜트
-	               <input type="radio" name="age" value="senior" >시니어   
-	            </td>
-	            <td rowspan="4">
-	            	<button type="submit">Search</button>
-	            </td>
-	         </tr>
-	         <tr>
-	            <td>알러지</td>
-	            <td>
-	               <select name="component">
-	                  <option value="">선택없음</option>
-	                  <c:forEach var="c" items="${componentList}">
-		                  <option value="${c.componentId}">${c.name}</option>
-		              </c:forEach>
-	               </select>
-	            </td>
-	         </tr>
-	         <tr>
-	            <td>사료타입</td>
-	            <td>
-	               <select name="feedType">
-	                  <option value="" checked="checked">선택없음</option>
-	                  <option value="dry">건식사료</option>
-	                  <option value="wet">습식사료</option>
-	                  <option value="soft">소프트사료</option>
-	               </select>
-	            </td>
-	         </tr>
-	         <tr>
-	            <td>알갱이 크기</td>
-	            <td>
-	               <select name="size">
-	                  <option value="" checked="checked">선택없음</option>
-	                  <option value="small">소</option>
-	                  <option value="medium">중</option>
-	                  <option value="big">대</option>
-	               </select>
-	            </td>
-	         </tr>
-	      </table>
-	     
-	   </form>
+   <!-- Search Box Begin -->
+   <div class="container">
+      <form method="post" action="${pageContext.request.contextPath}/ProductSearchController">
+         <table border="1">
+            <tr>
+               <td>연령</td>
+               <td>
+                  <input type="radio" name="age" value="" checked="checked">선택안함
+                  <c:forEach var="a" items="${ageList}">
+                        <input type="radio" name="age" value="${a.categoryId}"> ${a.name}
+                  </c:forEach>  
+               </td>
+               <td rowspan="4">
+                  <button type="submit">Search</button>
+               </td>
+            </tr>
+            <tr>
+               <td>알러지</td>
+               <td>
+                  <select name="component">
+                     <option value="">선택없음</option>
+                     <c:forEach var="c" items="${componentList}">
+                        <option value="${c.componentId}">${c.name}</option>
+                    </c:forEach>
+                  </select>
+               </td>
+            </tr>
+            <tr>
+               <td>사료타입</td>
+               <td>
+                  <select name="feedType">
+                     <option value="" checked="checked">선택없음</option>
+                     <c:forEach var="t" items="${feedTypeList}">
+                        <option value="${t.categoryId}">${t.name}</option>
+                     </c:forEach>
+                  </select>
+               </td>
+            </tr>
+            <tr>
+               <td>알갱이 크기</td>
+               <td>
+                  <select name="size">
+                     <option value="" checked="checked">선택없음</option>
+                     <option value="소">소</option>
+                     <option value="중">중</option>
+                     <option value="대">대</option>
+                  </select>
+               </td>
+            </tr>
+         </table>
+        
+      </form>
    </div>
    <!-- Search Box End -->
+   
+   <!-- 검색분기에 들어온 값이 없다면 -->
+   
    <!-- 리스트 출력 -->
    <table border="1">
-   <c:forEach var="s" items="${searchList}">
-   	<tr><td><img src="${pageContext.request.contextPath}/images/${s.photoName}" width="200" height="200"></td></tr>
-   	<tr><td>${s.productName } ${s.gram}</td></tr>
-   	<tr><td>${s.price }</td></tr>
-   	<tr><td>${s.star}</td></tr>
-   </c:forEach>
-
-   </table>
+      <c:forEach var="s" items="${searchList}">
+            <tr>
+               <td>
+                  <img src="${pageContext.request.contextPath}/images/${s.photoName}" width="200" height="200">
+               </td>
+            </tr>
+            <tr>
+               <td>${s.productName} ${s.gram}</td>
+            </tr>
+            <tr>
+               <td>${s.price }</td>
+            </tr>
+            <tr>
+               <td>${s.star}</td>
+            </tr>
+      </c:forEach>
+     </table>
+    
+   <!-- 사용자가 검색을 했다면 -->
+  
+  
     <!-- Product Section Begin -->
     <section class="product spad">
         <div class="container">
@@ -364,8 +381,6 @@
     <script src="./Resources/js/mixitup.min.js"></script>
     <script src="./Resources/js/owl.carousel.min.js"></script>
     <script src="./Resources/js/main.js"></script>
-
-
 
 </body>
 
