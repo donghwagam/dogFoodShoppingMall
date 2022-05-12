@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/loginCheak/*")
-public class LoginCheakFilter implements Filter { // 로그인 안되어있으면 로그인 페이지로 이동
+@WebFilter("/loginCheck/*")
+public class LoginCheckFilter implements Filter { // 로그인 안되어있으면 로그인 페이지로 이동
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 	     if(request instanceof HttpServletRequest) { // request가 HttpServletRequest로 변경가능하다면 
@@ -24,7 +24,7 @@ public class LoginCheakFilter implements Filter { // 로그인 안되어있으�
 			
 			if(memberId == null) {
 				if(response instanceof HttpServletResponse) {
-					((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginController");
+					((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginDenied/loginController");
 				} 
 			}
 	     }
