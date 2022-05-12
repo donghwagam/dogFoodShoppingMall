@@ -67,7 +67,15 @@
 				</ul>
 			</div>
 			<div class="header__top__right__auth">
-				<a href="#"><i class="fa fa-user"></i> Login</a>
+				<c:choose>
+					<c:when test="${sessionMemberId == null}">
+						<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
+					</c:when>
+					<c:otherwise>
+						<div>${sessionMemberId}님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">|마이페이지 </a><a href="${pageContext.request.contextPath}/logoutController">| 로그아웃 </a>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<nav class="humberger__menu__nav mobile-menu">
@@ -131,7 +139,14 @@
 								</ul>
 							</div>
 							<div class="header__top__right__auth">
-								<a href="#"><i class="fa fa-user"></i> Login</a>
+								<c:choose>
+									<c:when test="${sessionMemberId == null}">
+										<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
+									</c:when>
+									<c:otherwise>
+										<div>${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
@@ -188,7 +203,7 @@
                             <li>
 							<c:forEach var="category" items="${categoryList}">
 								<tr>
-									<td><a href="<%=request.getContextPath()%>/MainPageController?categoryName=${category.name}">${category.name}</a></td>
+									<td><a href="${pageContext.request.contextPath}/MainPageController?categoryName=${category.name}">${category.name}</a></td>
 								</tr>
 							</c:forEach>
 							</li>
@@ -390,9 +405,8 @@
 						<h4>Latest Products</h4>
 						<div class="latest-product__slider owl-carousel">
 							<div class="latest-prdouct__slider__item">
-							
-								<a href="#" class="latest-product__item">
-									<c:forEach var="l" items="${latestProductList}" begin="0" end="2" step="1">
+								<c:forEach var="l" items="${latestProductList}" begin="0" end="2" step="1">
+								<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${l.productId}" class="latest-product__item">
 										<div class="latest-product__item_pic">
 											<img src="${pageContext.request.contextPath}/images/${l.photoName}" width="200" height="200" alt="">
 										</div>
@@ -400,12 +414,12 @@
 										<h6>${l.productName}</h6>
 										<span>${l.price} 원</span>
 									</div>
-								</c:forEach>
-								</a> 
+								</a>
+								</c:forEach> 
 							</div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<c:forEach var="l" items="${latestProductList}" begin="3" end="5" step="1">
+							<c:forEach var="l" items="${latestProductList}" begin="3" end="5" step="1">
+								<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${l.productId}" class="latest-product__item">
 										<div class="latest-product__item_pic">
 												<img src="${pageContext.request.contextPath}/images/${l.photoName}" width="200" height="200" alt="">
 										</div>
@@ -413,75 +427,50 @@
 										<h6>${l.productName}</h6>
 										<span>${l.price} 원</span>
 									</div>
-									</c:forEach>
-								</a> 
+									</a> 
+								</c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-6">
 					<div class="latest-product__text">
-						<h4>Top Rated Products</h4>
+						<h4>TopRate Products</h4>
 						<div class="latest-product__slider owl-carousel">
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="./Resources/img/latest-product/lp-1.jpg" alt="">
+							
+							
+									<c:forEach var="t" items="${topRateList}" begin="0" end="2" step="1">
+									<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${t.productId}" class="latest-product__item">
+										<div class="latest-product__item_pic">
+											<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="200" height="200" alt="">
+										</div>
+									<div class="latest-product__item_text">
+										<h6>${t.productName}</h6>
+										<span>${t.price} 원</span>
 									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="./Resources/img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="./Resources/img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+									</a> 
+								</c:forEach>
+								
 							</div>
 							<div class="latest-prdouct__slider__item">
-								<a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="./Resources/img/latest-product/lp-1.jpg" alt="">
+							<c:forEach var="t" items="${topRateList}" begin="0" end="2" step="1">
+							<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${t.productId}" class="latest-product__item">
+										<div class="latest-product__item_pic">
+												<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="200" height="200" alt="">
+										</div>
+									<div class="latest-product__item_text">
+										<h6>${t.productName}</h6>
+										<span>${t.price} 원</span>
 									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="./Resources/img/latest-product/lp-2.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a> <a href="#" class="latest-product__item">
-									<div class="latest-product__item__pic">
-										<img src="./Resources/img/latest-product/lp-3.jpg" alt="">
-									</div>
-									<div class="latest-product__item__text">
-										<h6>Crab Pool Security</h6>
-										<span>$30.00</span>
-									</div>
-								</a>
+								</a> 
+								</c:forEach>
 							</div>
 						</div>
-					</div>
 				</div>
 				
 			</div>
+		</div>
 		</div>
 	</section>
 	<!-- Latest Product Section End -->

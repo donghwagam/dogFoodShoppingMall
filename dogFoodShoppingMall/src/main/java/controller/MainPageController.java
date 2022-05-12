@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,13 @@ public class MainPageController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		HttpSession session = request.getSession(); // 세션 정보 불러오기
+		
+		
 		MainProductDao mainProductDao = new MainProductDao(); // mainProductDao 호출 
+		
+		
 		
 		String categoryName = request.getParameter("categoryName"); // 카테고리 받아오기 
 		

@@ -48,13 +48,13 @@ public class MainProductDao {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.println("Exception 예외발생 <-- ProductDao.selectProductList()");
+					System.out.println("Exception 예외발생 <-- MainProductDao.selectProductList()");
 				} finally {
 					try {
 						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						System.out.println("SQLException 예외발생 <-- ProductDao.selectProductList()");
+						System.out.println("SQLException 예외발생 <-- MainProductDao.selectProductList()");
 					}
 				}
 				return list;
@@ -80,14 +80,14 @@ public class MainProductDao {
 					
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.println("Exception 예외발생 <-- ProductDao.selectCategoryList()");
+					System.out.println("Exception 예외발생 <-- MainProductDao.selectCategoryList()");
 				} finally {
 					try {
 					
 						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						System.out.println("SQLException 예외발생 <-- ProductDao.selectCategoryList()");
+						System.out.println("SQLException 예외발생 <-- MainProductDao.selectCategoryList()");
 					}
 				} 
 				return list;
@@ -98,7 +98,7 @@ public class MainProductDao {
 				Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
-				String sql = "SELECT p.name productName, p.price, p.gram, pp.name photoName, (select AVG(r.star) from review r) star "
+				String sql = "SELECT p.product_id productId, p.name productName, p.price, p.gram, pp.name photoName, (select AVG(r.star) from review r) star "
 			            + "   FROM product p "
 			            + "   LEFT JOIN product_photo pp "
 			            + "   ON p.product_id=pp.product_id "
@@ -114,6 +114,7 @@ public class MainProductDao {
 					rs = stmt.executeQuery();
 					while(rs.next()) {
 						 Map<String ,Object> map = new HashMap<>();
+						 map.put("productId",rs.getInt("productId"));
 						 map.put("productName", rs.getString("productName"));
 						 map.put("gram" ,rs.getInt("gram"));
 						 map.put("price", rs.getInt("price"));
@@ -124,14 +125,14 @@ public class MainProductDao {
 					}
 				} catch (Exception e) { // 예외발생시 출력 
 					e.printStackTrace();
-					System.out.println("Exception 예외발생 <-- ProductDao.selectProductListByLatest()");
+					System.out.println("Exception 예외발생 <-- MainProductDao.selectProductListByLatest()");
 				} finally {
 					try {
 						
 						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						System.out.println("SQLException 예외발생 <-- ProductDao.selectProductListByLatest()");
+						System.out.println("SQLException 예외발생 <-- MainProductDao.selectProductListByLatest()");
 					}
 				}
 				return list;
@@ -142,13 +143,13 @@ public class MainProductDao {
 				Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
-				String sql = "SELECT p.name productName, p.gram gram, p.price price, pp.name photoName, SUM(pl.quantity)  sum FROM purchase_list pl"
-						+ "JOIN product p"
-						+ "ON pl.product_id = p.product_id"
-						+ "JOIN product_photo pp"
-						+ "ON pp.product_id = p.product_id"
-						+ "GROUP BY pl.product_id"
-						+ "ORDER BY SUM desc"; 
+				String sql = "SELECT p.product_id productId ,p.name productName, p.gram gram, p.price price, pp.name photoName, SUM(pl.quantity)  sum FROM purchase_list pl"
+						+ " JOIN product p"
+						+ " ON pl.product_id = p.product_id"
+						+ " JOIN product_photo pp"
+						+ " ON pp.product_id = p.product_id"
+						+ " GROUP BY pl.product_id"
+						+ " ORDER BY SUM desc"; 
 				
 				try {
 				conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -156,21 +157,22 @@ public class MainProductDao {
 				 rs = stmt.executeQuery();
 				 while(rs.next()) {
 					 Map<String ,Object> map = new HashMap<>();
-					 map.put("productId",rs.getInt("productId"));
-					 map.put("name",rs.getString("name"));
+					 map.put("productId", rs.getInt("productId"));
+					 map.put("productName",rs.getString("productName"));
+					 map.put("gram",rs.getString("gram"));
 					 map.put("price",rs.getInt("price"));
-					 map.put("result",rs.getInt("result"));
+					 map.put("photoName",rs.getString("photoName"));
 					 list.add(map);
 				 }
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.println("Exception 예외발생 <-- ProductDao.selectProductListByTopRated()");
+					System.out.println("Exception 예외발생 <-- MainProductDao.selectProductListByTopRated()");
 				}finally {
 					try {
 						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						System.out.println("SQLException 예외발생 <-- ProductDao.selectProductListByTopRated()");
+						System.out.println("SQLException 예외발생 <-- MainProductDao.selectProductListByTopRated()");
 					}
 				}
 				return list;
@@ -208,17 +210,77 @@ public class MainProductDao {
 					 }
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.println("Exception 예외발생 <— ProductDao.selectProductListByCategory()");
+					System.out.println("Exception 예외발생 <— MainProductDao.selectProductListByCategory()");
 				}finally {
 					try {
 						conn.close();
 					} catch (SQLException e) {
 						e.printStackTrace();
-						System.out.println("SQLException 예외발생 <— ProductDao.selectProductListByCategory()");
+						System.out.println("SQLException 예외발생 <— MainProductDao.selectProductListByCategory()");
 					}
 				}
 				return list;
 		 	}
+			public List<Map<String, Object>> selectProductOne(int productId) {
+				List<Map<String, Object>> list = new ArrayList<>();
+				Connection conn = null;
+				PreparedStatement stmt = null;
+				ResultSet rs = null;
+				String sql = "SELECT"
+						+ " p.name productName "
+						+ " , p.price price "
+						+ " , p.gram gram "
+						+ " , p.rate rate "
+						+ " , p.feed_size feedSize "
+						+ " , p.origin origin "
+						+ " , p.info info "
+						+ " , b.name brandName "
+						+ " , pp.name photoName "
+						+ " , cp.name componentName "
+						+ " FROM product p "
+						+ " JOIN brand b "
+						+ " ON b.brand_id = p.brand_id "
+						+ " JOIN product_photo pp "
+						+ " ON pp.product_id = p.product_id "
+						+ " JOIN product_component pc "
+						+ " ON pc.product_id = p.product_id "
+						+ " JOIN component cp "
+						+ " ON cp.component_id = pc.component_id "
+						+ " WHERE p.product_id = ?";
+				System.out.println("selectProductOne() productId : " + productId);
+				try {
+					conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+					stmt = conn.prepareStatement(sql);
+					stmt.setInt(1, productId);
+					rs = stmt.executeQuery();
+					while (rs.next()) {
+						 Map<String ,Object> map = new HashMap<>();
+						 map.put("productName", rs.getString("productName"));
+						 map.put("price", rs.getInt("price"));
+						 map.put("gram", rs.getDouble("gram"));
+						 map.put("rate", rs.getString("rate"));
+						 map.put("feedSize", rs.getString("feedSize"));
+						 map.put("origin", rs.getString("origin"));
+						 map.put("info", rs.getString("info"));
+						 map.put("brandName",rs.getString("brandName"));
+						 map.put("photoName",rs.getString("photoName"));
+						 map.put("componentName",rs.getString("componentName"));
+						 list.add(map);
+						 
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("Exception 예외발생 <— MainProductDao.selectProductOne()");
+				} finally {
+					
+				} try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					System.out.println("Exception 예외발생 <— MainProductDao.selectProductOne()");
+				}
+				return list;
+			}
 	}
 
 
