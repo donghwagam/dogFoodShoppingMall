@@ -220,56 +220,71 @@
             <tr>
                <td>사료타입</td>
                <td>
-                  <select name="feedType">
-                     <option value="" checked="checked">선택없음</option>
+                  <input type="radio" name="feedType" value="" checked="checked">선택안함
                      <c:forEach var="t" items="${feedTypeList}">
-                        <option value="${t.categoryId}">${t.name}</option>
+                        <input type="radio" name="feedType" value="${t.categoryId}">${t.name}
                      </c:forEach>
-                  </select>
                </td>
             </tr>
             <tr>
                <td>알갱이 크기</td>
                <td>
-                  <select name="size">
-                     <option value="" checked="checked">선택없음</option>
-                     <option value="소">소</option>
-                     <option value="중">중</option>
-                     <option value="대">대</option>
-                  </select>
+                  <input type="radio" name="size" value="" checked="checked">선택안함
+                  <input type="radio" name="size" value="소">소
+                  <input type="radio" name="size" value="중">중
+                  <input type="radio" name="size" value="대">대
                </td>
             </tr>
          </table>
-        
       </form>
    </div>
    <!-- Search Box End -->
    
-   <!-- 검색분기에 들어온 값이 없다면 -->
+   <!-- 검색을 안했다면 -->
    
-   <!-- 리스트 출력 -->
+   <!-- 최신순 리스트 출력 -->
    <table border="1">
       <c:forEach var="s" items="${searchList}">
             <tr>
                <td>
                   <img src="${pageContext.request.contextPath}/images/${s.photoName}" width="200" height="200">
+                  <a href="${pageContext.request.contextPath}/AddBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a>
                </td>
             </tr>
             <tr>
                <td>${s.productName} ${s.gram}</td>
             </tr>
             <tr>
-               <td>${s.price }</td>
+               <td>${s.price}</td>
             </tr>
             <tr>
                <td>${s.star}</td>
             </tr>
-      </c:forEach>
+         </c:forEach>
      </table>
-    
-   <!-- 사용자가 검색을 했다면 -->
+    <!-- 사용자가 검색을 했다면 -->
+    <!--  검색조건에 맞는 리스트 출력 -->
   
-  
+      <table border="1">
+         <c:forEach var="sc" items="${searchCategoryList}">
+            <tr>
+               <td>
+                  <img src="${pageContext.request.contextPath}/images/${sc.photoName}" width="200" height="200">
+                  <a href="${pageContext.request.contextPath}/AddBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a>
+               </td>
+            </tr>
+            <tr>
+               <td>${sc.productName} ${sc.gram}</td>
+            </tr>
+            <tr>
+               <td>${sc.price}</td>
+            </tr>
+            <tr>
+               <td>${sc.star}</td>
+            </tr>
+         </c:forEach>
+      </table>
+   
     <!-- Product Section Begin -->
     <section class="product spad">
         <div class="container">

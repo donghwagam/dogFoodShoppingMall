@@ -114,172 +114,31 @@ public class ProductDao {
 	      
 
 	// 최신순으로 상품리스트를 불러오기 위한 메서드
-	public List<Map<String, Object>> selectProductListBySearch() {
-		List<Map<String,Object>> list = new ArrayList<>();
-		
-		// 드라이버 자원 로딩
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		String sql = "";
-		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			sql = "SELECT p.name productName, p.price, p.gram, pp.name photoName, (SELECT AVG(r.star) FROM review r) star"
-					+ "	FROM product p"
-					+ "		LEFT JOIN product_photo pp"
-					+ "		ON p.product_id = pp.product_id"
-					+ "			LEFT JOIN purchase_list pl"
-					+ "			ON p.product_id = pl.product_id"
-					+ "				LEFT JOIN review r"
-					+ "				ON r.purchase_id = pl.purchase_id"
-					+ "	ORDER BY p.create_date desc"
-					+ "	LIMIT 0, 10";
-			stmt = conn.prepareStatement(sql);
-			rs = stmt.executeQuery();
-			while(rs.next()) {
-				Map<String, Object> m = new HashMap<>();
-				m.put("productName", rs.getString("productName"));
-				m.put("price", rs.getInt("price"));
-				m.put("gram", rs.getInt("gram"));
-				m.put("photoName", rs.getString("photoName"));
-				m.put("star", rs.getDouble("star"));
-				list.add(m);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		
-		return list;
-	}
-	
-	  // 상세검색 구현을 위한 메서드
-	   public List<Map<String, Object>> selectProductListBySearchCategory(int age, int component, int feedType, String size) {
+	   public List<Map<String, Object>> selectProductListBySearch() {
 	      List<Map<String,Object>> list = new ArrayList<>();
 	      
-	      //드라이버 자원 로딩
+	      // 드라이버 자원 로딩
 	      Connection conn = null;
 	      PreparedStatement stmt = null;
 	      ResultSet rs = null;
-	      String sql = "SELECT p.name productName, p.price, p.gram, pp.name photoName, (select AVG(r.star) from review r) star "
-	            + "      FROM product p "
-	            + "      LEFT JOIN product_photo pp "
-	            + "      ON p.product_id=pp.product_id "
-	            + "         LEFT JOIN product_category pca "
-	            + "         ON p.product_id=pca.product_id "
-	            + "            LEFT JOIN purchase_list pl "
-	            + "            ON p.product_id = pl.product_id "
-	            + "               LEFT JOIN review r "
-	            + "               ON r.purchase_id = pl.purchase_id "
-	            + "                  LEFT JOIN product_component pco "
-	            + "                  ON p.product_id = pco.product_id";
+	      String sql = "";
 	      try {
 	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-	         if(age==-1 && component ==-1 && feedType == -1 && "".equals(size)) {
-	            sql += " ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            
-	         } else if(age!=-1 && component ==-1 && feedType == -1 && "".equals(size)) {
-	            sql += " WHERE pca.category_id=? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, age);
-	            
-	         } else if(age==-1 && component !=-1 && feedType == -1 && "".equals(size)) {
-	            sql += " WHERE pco.component_id != ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, component);
-	            
-	         } else if(age==-1 && component ==-1 && feedType != -1 && "".equals(size)) {
-	            sql += " WHERE pca.category_id=? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, feedType);
-	            
-	         } else if(age==-1 && component ==-1 && feedType == -1 && !"".equals(size)) {
-	            sql += " WHERE p.feed_size=? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setString(1, "size");
-	            
-	         } else if(age!=-1 && component !=-1 && feedType == -1 && "".equals(size)) {
-	            sql += " WHERE pca.category_id = ? AND pco.component_id != ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1,age);
-	            stmt.setInt(2, component);
-	            
-	         } else if(age!=-1 && component ==-1 && feedType != -1 && "".equals(size)) {
-	            sql += " WHERE pca.category_id=? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, age);
-	            stmt.setInt(2, feedType);
-	            
-	         } else if(age!=-1 && component ==-1 && feedType == -1 && !"".equals(size)) {
-	            sql += " WHERE pca.category_id=? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, age);
-	            stmt.setString(2, "size");
-	            
-	         } else if(age==-1 && component !=-1 && feedType != -1 && "".equals(size)) {
-	            sql += " WHERE pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, component);
-	            stmt.setInt(2, feedType);
-	            
-	         } else if(age==-1 && component !=-1 && feedType == -1 && !"".equals(size)) {
-	            sql += " WHERE pco.component_id != ? AND p.feed_size = ?ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, component);
-	            stmt.setString(2, "size");
-	            
-	         } else if(age==-1 && component ==-1 && feedType != -1 && !"".equals(size)) {
-	            sql += " WHERE pca.category_id=? AND p.feed_size = ?ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, feedType);
-	            stmt.setString(2, "size");
-	            
-	         } else if(age!=-1 && component !=-1 && feedType != -1 && "".equals(size)) {
-	            sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, age);
-	            stmt.setInt(2, component);
-	            stmt.setInt(3, feedType);
-	            
-	         } else if(age!=-1 && component !=-1 && feedType == -1 && !"".equals(size)) {
-	            sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, age);
-	            stmt.setInt(2, component);
-	            stmt.setString(3, "size");
-	            
-	         } else if(age!=-1 && component ==-1 && feedType != -1 && !"".equals(size)) {
-	            sql += " WHERE pca.category_id = ? AND pca.category_id=? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, age);
-	            stmt.setInt(2, feedType);
-	            stmt.setString(3, "size");
-	            
-	         } else if(age==-1 && component !=-1 && feedType != -1 && !"".equals(size)) {
-	            sql += " WHERE pco.component_id != ? AND pca.category_id = ? AND p.feed_size =? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, component);
-	            stmt.setInt(2, feedType);
-	            stmt.setString(3, "size");
-	            
-	         } else if(age!=-1 && component !=-1 && feedType != -1 && !"".equals(size)) {
-	            sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
-	            stmt = conn.prepareStatement(sql);
-	            stmt.setInt(1, age);
-	            stmt.setInt(2, component);
-	            stmt.setInt(3, feedType);
-	            stmt.setString(4, "size");   
-	         }
+	         sql = "SELECT p.product_id productId, p.name productName, p.price, p.gram, pp.name photoName, (SELECT AVG(r.star) FROM review r) star"
+	               + "   FROM product p"
+	               + "      LEFT JOIN product_photo pp"
+	               + "      ON p.product_id = pp.product_id"
+	               + "         LEFT JOIN purchase_list pl"
+	               + "         ON p.product_id = pl.product_id"
+	               + "            LEFT JOIN review r"
+	               + "            ON r.purchase_id = pl.purchase_id"
+	               + "   ORDER BY p.create_date desc"
+	               + "   LIMIT 0, 10";
+	         stmt = conn.prepareStatement(sql);
 	         rs = stmt.executeQuery();
 	         while(rs.next()) {
 	            Map<String, Object> m = new HashMap<>();
+	            m.put("productId", rs.getInt("productId"));
 	            m.put("productName", rs.getString("productName"));
 	            m.put("price", rs.getInt("price"));
 	            m.put("gram", rs.getInt("gram"));
@@ -297,8 +156,151 @@ public class ProductDao {
 	         }
 	      }
 	      
+	      
 	      return list;
 	   }
+	   
+	     // 상세검색 구현을 위한 메서드
+	      public List<Map<String, Object>> selectProductListBySearchCategory(int age, int component, int feedType, String size) {
+	         List<Map<String,Object>> list = new ArrayList<>();
+	         
+	         //드라이버 자원 로딩
+	         Connection conn = null;
+	         PreparedStatement stmt = null;
+	         ResultSet rs = null;
+	         String sql = "SELECT p.product_id productId, p.name productName, p.price, p.gram, pp.name photoName, (select AVG(r.star) from review r) star "
+	               + "      FROM product p "
+	               + "      LEFT JOIN product_photo pp "
+	               + "      ON p.product_id=pp.product_id "
+	               + "         LEFT JOIN product_category pca "
+	               + "         ON p.product_id=pca.product_id "
+	               + "            LEFT JOIN purchase_list pl "
+	               + "            ON p.product_id = pl.product_id "
+	               + "               LEFT JOIN review r "
+	               + "               ON r.purchase_id = pl.purchase_id "
+	               + "                  LEFT JOIN product_component pco "
+	               + "                  ON p.product_id = pco.product_id";
+	         try {
+	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	            if(age==-1 && component ==-1 && feedType == -1 && "".equals(size)) {
+	               sql += " ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               
+	            } else if(age!=-1 && component ==-1 && feedType == -1 && "".equals(size)) {
+	               sql += " WHERE pca.category_id=? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, age);
+	               
+	            } else if(age==-1 && component !=-1 && feedType == -1 && "".equals(size)) {
+	               sql += " WHERE pco.component_id != ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, component);
+	               
+	            } else if(age==-1 && component ==-1 && feedType != -1 && "".equals(size)) {
+	               sql += " WHERE pca.category_id=? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, feedType);
+	               
+	            } else if(age==-1 && component ==-1 && feedType == -1 && !"".equals(size)) {
+	               sql += " WHERE p.feed_size=? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setString(1, "size");
+	               
+	            } else if(age!=-1 && component !=-1 && feedType == -1 && "".equals(size)) {
+	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1,age);
+	               stmt.setInt(2, component);
+	               
+	            } else if(age!=-1 && component ==-1 && feedType != -1 && "".equals(size)) {
+	               sql += " WHERE pca.category_id=? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, age);
+	               stmt.setInt(2, feedType);
+	               
+	            } else if(age!=-1 && component ==-1 && feedType == -1 && !"".equals(size)) {
+	               sql += " WHERE pca.category_id=? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, age);
+	               stmt.setString(2, "size");
+	               
+	            } else if(age==-1 && component !=-1 && feedType != -1 && "".equals(size)) {
+	               sql += " WHERE pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, component);
+	               stmt.setInt(2, feedType);
+	               
+	            } else if(age==-1 && component !=-1 && feedType == -1 && !"".equals(size)) {
+	               sql += " WHERE pco.component_id != ? AND p.feed_size = ?ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, component);
+	               stmt.setString(2, "size");
+	               
+	            } else if(age==-1 && component ==-1 && feedType != -1 && !"".equals(size)) {
+	               sql += " WHERE pca.category_id=? AND p.feed_size = ?ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, feedType);
+	               stmt.setString(2, "size");
+	               
+	            } else if(age!=-1 && component !=-1 && feedType != -1 && "".equals(size)) {
+	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, age);
+	               stmt.setInt(2, component);
+	               stmt.setInt(3, feedType);
+	               
+	            } else if(age!=-1 && component !=-1 && feedType == -1 && !"".equals(size)) {
+	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, age);
+	               stmt.setInt(2, component);
+	               stmt.setString(3, "size");
+	               
+	            } else if(age!=-1 && component ==-1 && feedType != -1 && !"".equals(size)) {
+	               sql += " WHERE pca.category_id = ? AND pca.category_id=? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, age);
+	               stmt.setInt(2, feedType);
+	               stmt.setString(3, "size");
+	               
+	            } else if(age==-1 && component !=-1 && feedType != -1 && !"".equals(size)) {
+	               sql += " WHERE pco.component_id != ? AND pca.category_id = ? AND p.feed_size =? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, component);
+	               stmt.setInt(2, feedType);
+	               stmt.setString(3, "size");
+	               
+	            } else if(age!=-1 && component !=-1 && feedType != -1 && !"".equals(size)) {
+	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, age);
+	               stmt.setInt(2, component);
+	               stmt.setInt(3, feedType);
+	               stmt.setString(4, "size");   
+	            }
+	            rs = stmt.executeQuery();
+	            while(rs.next()) {
+	               Map<String, Object> m = new HashMap<>();
+	               m.put("productId", rs.getInt("productId"));
+	               m.put("productName", rs.getString("productName"));
+	               m.put("price", rs.getInt("price"));
+	               m.put("gram", rs.getInt("gram"));
+	               m.put("photoName", rs.getString("photoName"));
+	               m.put("star", rs.getDouble("star"));
+	               list.add(m);
+	            }
+	         } catch (Exception e) {
+	            e.printStackTrace();
+	         } finally {
+	            try {
+	               conn.close();
+	            } catch (SQLException e) {
+	               e.printStackTrace();
+	            }
+	         }
+	         
+	         return list;
+	      }
 	   
 	//-----------------------------------------------------------------------------------------------------
 	//상품리스트 출력하는 메서드 
