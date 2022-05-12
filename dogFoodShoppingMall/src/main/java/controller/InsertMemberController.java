@@ -14,7 +14,7 @@ import dao.AddressDao;
 import dao.MemberDao;
 import vo.Member;
 
-@WebServlet("/insertMemberController")
+@WebServlet("/loginDenied/insertMemberController")
 public class InsertMemberController extends HttpServlet {
 	MemberDao memberDao = null;
 
@@ -29,7 +29,7 @@ public class InsertMemberController extends HttpServlet {
 		
 	
 		
-		request.getRequestDispatcher("WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 입력폼 연결
+		request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 입력폼 연결
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -73,7 +73,7 @@ public class InsertMemberController extends HttpServlet {
 		memberDao.insertMember(member);
 		
 		System.out.println("회원가입 성공");
-		response.sendRedirect(request.getContextPath()+"/loginController");
+		response.sendRedirect(request.getContextPath()+"/loginDenied/loginController");
 	}
 
 }

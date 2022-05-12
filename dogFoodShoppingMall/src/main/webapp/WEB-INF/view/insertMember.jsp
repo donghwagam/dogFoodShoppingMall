@@ -22,7 +22,7 @@
 		          	<input class="form-control" name="searchAddress" placeholder="주소" type="text""/>
 		          	<button class="btn btn-sm btn-danger btn-block" type="submit">주소검색</button><br>
 		        </form>
-	            <form action="${pageContext.request.contextPath}/insertMemberController" method="post" class="form" role="form">
+	            <form action="${pageContext.request.contextPath}/loginDenied/insertMemberController" method="post" class="form" role="form">
 	            	<c:if test="${searchAddressList != null}">
 	            		<select class="form-control" name="addressId">
 		       		    	<option value = "" style="text-align:center;">:: 주소 선택 ::</option>

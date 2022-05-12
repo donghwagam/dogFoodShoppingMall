@@ -11,24 +11,21 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<title>search MemberId</title>
+<title>update MemberPw</title>
 </head>
 <body>
 	<div class="container">
 	    <div class="row">
 	        <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
-	            <legend style="text-align:center;">아이디 찾기</legend>
-	            <form action="${pageContext.request.contextPath}/loginDenied/searchMemberIdController" method="post" class="form" role="form">
-		            <input class="form-control" name="name" placeholder="이름" type="text" required/>
-		            <input class="form-control" name="phone" placeholder="전화번호" type="text"/>
+	            <legend style="text-align:center;">비딜번호 찾기</legend>
+	            <form action="${pageContext.request.contextPath}/loginDenied/updateMemberPwController" method="post" class="form" role="form">
+	            	<input type="hidden" name="memberId" value="${memberId}">
+	            	<input type="hidden" name="phone" value="${phone}">
+		            <input class="form-control" name="memberPw" placeholder="변경할 비밀번호" type="password" required/>
+		            <input class="form-control" name="memberPwCheck" placeholder="비밀번호 확인" type="password" required/>
 		            <br/>
 		            <br/>
-		            <button class="btn btn-lg btn-primary btn-block" type="submit">아이디 찾기</button>
-		            <c:if test="${memberId != null}">
-	            		 <br>
-	            		 <br>
-	            		 <input class="form-control" type = "text" value="${memberId}" readonly="readonly">
-	            	</c:if>
+		            <button class="btn btn-lg btn-primary btn-block" type="submit">비밀번호 수정</button>
 	            </form>
 	        </div>
 	    </div>

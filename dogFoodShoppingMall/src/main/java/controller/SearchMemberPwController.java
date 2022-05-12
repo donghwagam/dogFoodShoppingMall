@@ -11,8 +11,10 @@ import javax.servlet.http.HttpSession;
 import dao.MemberDao;
 import vo.Member;
 
-@WebServlet("/loginDenied/searchMemberIdController")
-public class SearchMemberIdController extends HttpServlet {
+
+@WebServlet("/loginDenied/searchMemberPwController")
+public class SearchMemberPwController extends HttpServlet {
+
 	MemberDao memberDao = null;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,29 +28,37 @@ public class SearchMemberIdController extends HttpServlet {
 			return;
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/view/searchMemberId.jsp").forward(request, response);
-	}
+		
+		request.getRequestDispatcher("/WEB-INF/view/searchMemberPw.jsp").forward(request, response);
+	} 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		String memberId = request.getParameter("memberId");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		
-		System.out.println("SearchMemberController.doPost() name : " + name);
-		System.out.println("SearchMemberController.doPost() phone : " + phone);
+		
+		System.out.println("SearchMemberPwController.doPost() memberId : " + memberId);
+		System.out.println("SearchMemberPwController.doPost() name : " + name);
+		System.out.println("SearchMemberPwController.doPost() phone : " + phone);
 		
 		Member member = new Member();
+		member.setMemberId(memberId);
 		member.setName(name);
 		member.setPhone(phone);
 		
 		memberDao = new MemberDao();
+		String memberPw = memberDao.searchMemberPw(member);
+		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇmemberPw : " + memberPw);
 		
-		String memberId = memberDao.searchMemberId(member);
 		
-		request.setAttribute("memberId", memberId);
+		if(memberPw != null) {
+			response.sendRedirect(request.getContextPath()+"/loginDenied/updateMemberPwController?memberId="+memberId+"&phone="+phone);
+			return;
+		}
 		
-		request.getRequestDispatcher("/WEB-INF/view/searchMemberId.jsp").forward(request, response);
-		
+		response.sendRedirect(request.getContextPath()+"/loginDenied/searchMemberPwController");
 	}
 
 }
