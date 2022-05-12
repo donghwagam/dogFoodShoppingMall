@@ -42,7 +42,7 @@ public class MainPageController extends HttpServlet {
 		List<Map<String ,Object>> productCategoryList =  mainProductDao.selectProductListByCategory(categoryName);
 		request.setAttribute("productCategoryList", productCategoryList);
 		
-		request.getRequestDispatcher("WEB-INF/view/mainPage.jsp").forward(request,response); // 뷰 포워딩 
+		request.getRequestDispatcher("/WEB-INF/view/mainPage.jsp").forward(request,response); // 뷰 포워딩 
 	}
 
 }
