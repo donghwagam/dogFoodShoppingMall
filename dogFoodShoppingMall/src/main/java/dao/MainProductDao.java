@@ -28,11 +28,7 @@ public class MainProductDao {
 			            + "            ON p.product_id = pl.product_id "
 			            + "               LEFT JOIN review r "
 			            + "               ON r.purchase_id = pl.purchase_id ";
-				            
-				            
-			            
-						
-						
+				         
 				try {
 					conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 					stmt = conn.prepareStatement(sql);
@@ -237,6 +233,7 @@ public class MainProductDao {
 						+ " , p.rate rate "
 						+ " , p.feed_size feedSize "
 						+ " , p.origin origin "
+						+ " , p.stock stock"
 						+ " , p.info info "
 						+ " , b.name brandName "
 						+ " , pp.name photoName "
@@ -266,6 +263,7 @@ public class MainProductDao {
 						 map.put("rate", rs.getString("rate"));
 						 map.put("feedSize", rs.getString("feedSize"));
 						 map.put("origin", rs.getString("origin"));
+						 map.put("stock" , rs.getInt("stock"));
 						 map.put("info", rs.getString("info"));
 						 map.put("brandName",rs.getString("brandName"));
 						 map.put("photoName",rs.getString("photoName"));

@@ -285,8 +285,17 @@
                         <a href="#" class="primary-btn">ADD TO CARD</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Availability</b> <span>In Stock</span></li>
-                            <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
+                            <li><b>수량 </b> <span>
+                            <c:choose>
+                            <c:when test="${list.stock == 0}">
+                            품
+                            </c:when>
+                            <c:otherwise>
+                            ${list.stock}
+                            </c:otherwise>
+                            </c:choose>
+                            </span></li>
+                            <li><b>원산지</b> <span>${list.origin} <samp>Free pickup today</samp></span></li>
                             <li><b>gram</b> <span>${list.gram}</span></li>
                             <li><b>Share on</b>
                                 <div class="share">

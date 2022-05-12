@@ -28,11 +28,12 @@ public class MainPageController extends HttpServlet {
 		
 		
 		this.mainProductDao = new MainProductDao(); // dao 호출
-		
+		//-------------------------------------------------------
 		String categoryName = request.getParameter("categoryName"); // 카테고리 받아오기 
-		
 		System.out.println("MainPageController.doGet() categoryName : " + categoryName);
 		
+		
+		//----------------------------------------------------------
 		System.out.println("-----------------메서드---------------");
 		// 1) 상품리스트를 보여주는 리스트 
 		List<Map<String, Object>> productList = mainProductDao.selectProductList(); 
@@ -51,12 +52,12 @@ public class MainPageController extends HttpServlet {
 		
 		// 4) 상품을 인기순으로 보여주는 리스트 
 		List<Map<String,Object>> topRateList =  mainProductDao.selectProductListByTopRated();
-		System.out.println("MainPageController.doGet() topRateList : " + topRateList);
+		System.out.println("MainPageController.doGet() topRateList : " + topRateList.size());
 		request.setAttribute("topRateList", topRateList);
 		
 		// 5) 카테고리 정보로 상품을 보여주는 리스트
 		List<Map<String ,Object>> productCategoryList =  mainProductDao.selectProductListByCategory(categoryName);
-		System.out.println("MainPageController.doGet() productCategoryList :" + productCategoryList);
+		System.out.println("MainPageController.doGet() productCategoryList :" + productCategoryList.size());
 		request.setAttribute("productCategoryList", productCategoryList);
 		
 		request.getRequestDispatcher("/WEB-INF/view/mainPage.jsp").forward(request,response); // 뷰 포워딩 
