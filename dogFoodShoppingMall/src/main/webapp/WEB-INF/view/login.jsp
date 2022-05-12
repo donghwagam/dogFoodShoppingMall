@@ -113,13 +113,13 @@
 				</div>
 				<form method="post" action="${pageContext.request.contextPath}/loginDenied/loginController" id="Login">
 					<div class="form-group">
-						<input type="text" class="form-control" name="memberId" id="memberId" placeholder="아이디">
+						<input type="text" class="form-control" name="memberId" id="memberId" value="${cookieId}" placeholder="아이디">
 					</div>
 					<div class="form-group">
 						<input type="password" class="form-control" name="memberPw" id="memberPw" placeholder="비밀번호">
 					</div>
 					<div class="forgot" style="text-align:right;">
-						<input type="checkbox" name="rememberId" vlaue="rememberId"> 아이디 저장<br>
+						<input type="checkbox" name="idSave"> 아이디 저장<br>
 						<a href="${pageContext.request.contextPath}/loginDenied/insertMemberController" >회원가입</a> /
 						<a href="${pageContext.request.contextPath}/loginDenied/searchMemberIdController" >아이디 찾기</a> /
 						<a href="${pageContext.request.contextPath}/loginDenied/searchMemberPwController" >비밀번호 찾기</a>  

@@ -13,7 +13,7 @@ import vo.Member;
 
 @WebServlet("/loginDenied/searchMemberIdController")
 public class SearchMemberIdController extends HttpServlet {
-	MemberDao memberDao = null;
+	private MemberDao memberDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -41,7 +41,7 @@ public class SearchMemberIdController extends HttpServlet {
 		member.setName(name);
 		member.setPhone(phone);
 		
-		memberDao = new MemberDao();
+		this.memberDao = new MemberDao();
 		
 		String memberId = memberDao.searchMemberId(member);
 		

@@ -15,7 +15,7 @@ import vo.Member;
 @WebServlet("/loginDenied/searchMemberPwController")
 public class SearchMemberPwController extends HttpServlet {
 
-	MemberDao memberDao = null;
+	private MemberDao memberDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -48,9 +48,8 @@ public class SearchMemberPwController extends HttpServlet {
 		member.setName(name);
 		member.setPhone(phone);
 		
-		memberDao = new MemberDao();
+		this.memberDao = new MemberDao();
 		String memberPw = memberDao.searchMemberPw(member);
-		System.out.println("ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇmemberPw : " + memberPw);
 		
 		
 		if(memberPw != null) {

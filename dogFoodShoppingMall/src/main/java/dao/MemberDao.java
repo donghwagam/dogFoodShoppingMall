@@ -47,10 +47,6 @@ public class MemberDao {
 		String sql = "SELECT member_pw memberPw"
 				+ " FROM member"
 				+ " WHERE member_id=? And name=? AND phone=?";
-		
-		System.out.println("ㅌㅌㅌㅌㅌㅌㅌㅌㅌ memberId : " + member.getMemberId());
-		System.out.println("ㅌㅌㅌㅌㅌㅌㅌㅌㅌ memberName : " + member.getName());
-		System.out.println("ㅌㅌㅌㅌㅌㅌㅌㅌㅌ memberPhone : " + member.getPhone());
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);

@@ -16,7 +16,7 @@ import vo.Member;
 
 @WebServlet("/loginDenied/insertMemberController")
 public class InsertMemberController extends HttpServlet {
-	MemberDao memberDao = null;
+	private MemberDao memberDao;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(); // 현재 세션 받아오기
@@ -69,8 +69,8 @@ public class InsertMemberController extends HttpServlet {
 		member.setGender(gender);
 
 		
-		memberDao = new MemberDao();
-		memberDao.insertMember(member);
+		this.memberDao = new MemberDao();
+		this.memberDao.insertMember(member);
 		
 		System.out.println("회원가입 성공");
 		response.sendRedirect(request.getContextPath()+"/loginDenied/loginController");
