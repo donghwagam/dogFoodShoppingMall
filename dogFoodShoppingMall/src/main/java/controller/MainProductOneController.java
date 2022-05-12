@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.MainProductDao;
 import vo.Category;
@@ -19,19 +20,25 @@ public class MainProductOneController extends HttpServlet {
 	private MainProductDao mainProductDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
 		// 선택한 상품의 productId값을 받아옴
 		int productId = Integer.parseInt(request.getParameter("productId"));
-		System.out.println(productId + " <-MainProductOneController.doGet()");
+		System.out.println("MainProductOneController.doGet() productId : " + productId);
 		
 		this.mainProductDao = new MainProductDao(); // dao 호출
+		
 		
 		// 선택한 상품 상세정보 불러오는 리스트
 		List<Map<String, Object>> list = mainProductDao.selectProductOne(productId);
 		
-		System.out.println("list size : " + list.size());
+		System.out.println("ManProductOneController.doGet() list size : " + list.size());
 		
 		// 카테고리 정보 불러오는 리스트
 		List<Category> categoryList =  mainProductDao.selectCategoryList();
+		
+		System.out.println("MainProductController.doGet() categoryList size :" + categoryList.size());
 		request.setAttribute("categoryList", categoryList);
 		
 		request.setAttribute("list", list);

@@ -164,7 +164,7 @@
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="./index.html">상세검색</a></li>
+							<li class="active"><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
 							<li><a href="./shop-grid.html">브랜드</a></li>
 							<li><a href="./blog.html">랭킹</a></li>
 							<li><a href="./contact.html">신상품</a></li>
@@ -217,7 +217,7 @@
 						<div class="hero__text">
 							<span>FRUIT FRESH</span>
 							<h2>
-								Vegetable <br />100% Organic
+								Vegetable <br/>100% Organic
 							</h2>
 							<p>Free Pickup and Delivery Available</p>
 							<a href="#" class="primary-btn">SHOP NOW</a>
@@ -239,7 +239,7 @@
 					<div class="featured__controls">
 						<ul>
 							<li class="active" data-filter="*">All</li>
-							<li data-filter=".puppy">퍼피</li>
+							<li data-filter=".puppy"><a href="${pageContext.request.contextPath}/mainPageController?categoryName=퍼피">퍼피</a></li>
 							<li data-filter=".어덜트">어덜트</li>
 							<li data-filter=".시니어">시니어</li>
 						</ul>
@@ -265,8 +265,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
+				<div class="col-lg-3 col-md-4 col-sm-6 mix 어덜트 ">
 					<div class="featured__item">
+					
 						<div class="featured__item__pic set-bg"
 							data-setbg="./Resources/img/featured/feature-2.jpg">
 							<ul class="featured__item__pic__hover">
@@ -283,7 +284,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
+				<div class="col-lg-3 col-md-4 col-sm-6 mix 시니어  fresh-meat">
 					<div class="featured__item">
 						<div class="featured__item__pic set-bg"
 							data-setbg="./Resources/img/featured/feature-3.jpg">
@@ -454,7 +455,7 @@
 								
 							</div>
 							<div class="latest-prdouct__slider__item">
-							<c:forEach var="t" items="${topRateList}" begin="0" end="2" step="1">
+							<c:forEach var="t" items="${topRateList}" begin="3" end="5" step="1">
 							<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${t.productId}" class="latest-product__item">
 										<div class="latest-product__item_pic">
 												<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="200" height="200" alt="">

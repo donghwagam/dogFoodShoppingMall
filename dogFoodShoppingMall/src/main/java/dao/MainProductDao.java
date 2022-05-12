@@ -196,8 +196,12 @@ public class MainProductDao {
 						+ " WHERE c.name = ? " ;
 				try {
 					conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+				if("".equals(categoryName)) {
+					stmt = conn.prepareStatement(sql);
+				} else if (!"".equals(categoryName)){
 					stmt = conn.prepareStatement(sql);
 					stmt.setString(1,categoryName);
+				}
 					 rs = stmt.executeQuery();
 					 while(rs.next()) {
 						 Map<String ,Object> map = new HashMap<>();
@@ -236,7 +240,7 @@ public class MainProductDao {
 						+ " , p.info info "
 						+ " , b.name brandName "
 						+ " , pp.name photoName "
-						+ " , cp.name componentName "
+						+ " , group_concat(concat(cp.name,_utf8mb4' ') separator ', ') componentName  "
 						+ " FROM product p "
 						+ " JOIN brand b "
 						+ " ON b.brand_id = p.brand_id "
@@ -246,7 +250,8 @@ public class MainProductDao {
 						+ " ON pc.product_id = p.product_id "
 						+ " JOIN component cp "
 						+ " ON cp.component_id = pc.component_id "
-						+ " WHERE p.product_id = ?";
+						+ " WHERE p.product_id = ?"
+						+ " GROUP BY p.product_id";
 				System.out.println("selectProductOne() productId : " + productId);
 				try {
 					conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
