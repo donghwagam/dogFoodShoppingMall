@@ -14,7 +14,7 @@ import dao.ProductDao;
 import vo.Category;
 import vo.Component;
 
-@WebServlet("/ProductSearchController")
+@WebServlet("/productSearchController")
 public class ProductSearchController extends HttpServlet {
    private ProductDao productDao;
    

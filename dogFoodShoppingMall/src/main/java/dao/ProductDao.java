@@ -318,9 +318,7 @@ public class ProductDao {
 		            + " FROM product p"
 		            + " JOIN product_photo pph"
 		            + " ON p.product_id = pph.product_id";
-		            
-					
-					
+		            	
 			try {
 				conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 				stmt = conn.prepareStatement(sql);

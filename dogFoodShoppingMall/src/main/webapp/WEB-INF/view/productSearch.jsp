@@ -192,7 +192,7 @@
     
    <!-- Search Box Begin -->
    <div class="container">
-      <form method="post" action="${pageContext.request.contextPath}/ProductSearchController">
+      <form method="post" action="${pageContext.request.contextPath}/productSearchController">
          <table border="1">
             <tr>
                <td>연령</td>
@@ -248,7 +248,7 @@
             <tr>
                <td>
                   <img src="${pageContext.request.contextPath}/images/${s.photoName}" width="200" height="200">
-                  <a href="${pageContext.request.contextPath}/AddBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a>
+                  <a href="${pageContext.request.contextPath}/addBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a>
                </td>
             </tr>
             <tr>
@@ -270,7 +270,7 @@
             <tr>
                <td>
                   <img src="${pageContext.request.contextPath}/images/${sc.photoName}" width="200" height="200">
-                  <a href="${pageContext.request.contextPath}/AddBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a>
+                  <a href="${pageContext.request.contextPath}/addBasketController?productId=${sc.productId}"><i class="fa fa-shopping-cart"></i></a>
                </td>
             </tr>
             <tr>
