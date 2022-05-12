@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/insertReviewController")
-public class ReviewFilter implements Filter {
+@WebFilter("/loginCheak/*")
+public class LoginCheakFilter implements Filter { // 로그인 안되어있으면 로그인 페이지로 이동
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 	     if(request instanceof HttpServletRequest) { // request가 HttpServletRequest로 변경가능하다면 
