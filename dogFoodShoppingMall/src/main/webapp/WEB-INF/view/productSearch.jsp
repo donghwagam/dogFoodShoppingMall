@@ -240,85 +240,57 @@
    </div>
    <!-- Search Box End -->
    
-   <!-- 검색을 안했다면 -->
-   
-   <!-- 최신순 리스트 출력 -->
+   <!-- 검색을 안했다면 -->  
+   <!-- 최신순으로 리스트 출력 -->  
+   <c:set var="i" value="0"/>
+   <c:set var="j" value="4"/>
    <table border="1">
-      <c:forEach var="s" items="${searchList}">
-            <tr>
-               <td>
-                  <img src="${pageContext.request.contextPath}/images/${s.photoName}" width="200" height="200">
-                  <a href="${pageContext.request.contextPath}/addBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a>
-               </td>
-            </tr>
-            <tr>
-               <td>${s.productName} ${s.gram}</td>
-            </tr>
-            <tr>
-               <td>${s.price}</td>
-            </tr>
-            <tr>
-               <td>${s.star}</td>
-            </tr>
-         </c:forEach>
-     </table>
-    <!-- 사용자가 검색을 했다면 -->
-    <!--  검색조건에 맞는 리스트 출력 -->
-  
-      <table border="1">
-         <c:forEach var="sc" items="${searchCategoryList}">
-            <tr>
-               <td>
-                  <img src="${pageContext.request.contextPath}/images/${sc.photoName}" width="200" height="200">
-                  <a href="${pageContext.request.contextPath}/addBasketController?productId=${sc.productId}"><i class="fa fa-shopping-cart"></i></a>
-               </td>
-            </tr>
-            <tr>
-               <td>${sc.productName} ${sc.gram}</td>
-            </tr>
-            <tr>
-               <td>${sc.price}</td>
-            </tr>
-            <tr>
-               <td>${sc.star}</td>
-            </tr>
-         </c:forEach>
-      </table>
+	   <c:forEach var="s" items="${searchList}"> 
+		   <c:if test="${i%j == 0}">
+		   		<tr> 
+		   </c:if>
+		   <td>
+			   <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${s.photoName}">
+			   		<a href="${pageContext.request.contextPath}/addBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
+			   </div>
+			   <div class="product__item__text">
+			   		<h6>${s.productName} ${s.gram}g</h6>
+			   		<h5>$ ${s.price}</h5>
+			   		<div>${s.star}</div>
+			   </div>
+		   </td> 
+		   <c:if test="${i%j == j-1}"> 
+		  		</tr> 
+		   </c:if>
+		   <c:set var="i" value="${i+1}"/>
+	   </c:forEach>
+   </table>
    
-    <!-- Product Section Begin -->
-    <section class="product spad">
-        <div class="container">
-            <div class="row">
-                    <div class="filter__item">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="./Resources/img/product/product-1.jpg">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="#">Crab Pool Security</a></h6>
-                                    <h5>$30.00</h5>
-                                </div>
-                            </div>
-                        </div>
-                   </div>    
-                    <div class="product__pagination">
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Product Section End -->
-
+   <!-- 사용자가 검색을 했다면 -->
+   <!--  검색조건에 맞는 리스트 출력 -->
+   <c:set var="i" value="0"/>
+   <c:set var="j" value="4"/>				
+   <table border="1">
+       <c:forEach var="sc" items="${searchCategoryList}">
+          <c:if test="${i%j == 0}">
+		   		<tr> 
+		   </c:if>
+           <td>
+           <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${sc.photoName}">
+		   <a href="${pageContext.request.contextPath}/addBasketController?productId=${sc.productId}">><i class="fa fa-shopping-cart"></i></a>
+		   </div>
+			<div class="product__item__text">
+				<h6>${sc.productName} ${sc.gram}g</h6>
+			   	<h5>$ ${sc.price}</h5>
+			   	<div>${sc.star}</div>
+			</div>
+     		</td>
+     	<c:if test="${i%j == j-1}">
+     		</tr>
+     	</c:if>
+     	<c:set var="i" value="${i+1}"/>
+       </c:forEach>
+   </table>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
         <div class="container">

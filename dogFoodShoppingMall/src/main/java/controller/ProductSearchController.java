@@ -28,6 +28,7 @@ public class ProductSearchController extends HttpServlet {
       
       //디버깅
       for(Component component : componentList) {
+    	  
          System.out.println("ProductSearchController(doGet) componentId: "+component.getComponentId());
          System.out.println("ProductSearchController(doGet) componentName: "+component.getName());
       }
@@ -69,6 +70,7 @@ public class ProductSearchController extends HttpServlet {
       //component 정보 받아오기 위한 메서드 호출해서 componentList에 저장
       List<Component> componentList = this.productDao.selectComponent();
       
+      
       request.setAttribute("componentList", componentList);
       
       //디버깅
@@ -90,16 +92,16 @@ public class ProductSearchController extends HttpServlet {
       // ---------------------------
       
       // 요청값 불러오기
-      int age = -1;
+      int age = -1; // 퍼피, 어덜트, 시니어
       if(!"".equals(request.getParameter("age"))) { //뭔가를 선택했다면
          age = Integer.parseInt(request.getParameter("age")); 
       }
-      int component = -1;
-      if(!"".equals(request.getParameter("component"))) {
+      int component = -1; // 알러지 여부 구분하기 위한 상품성분
+      if(!"".equals(request.getParameter("component"))) { 
          component = Integer.parseInt(request.getParameter("component"));
       }
-      int feedType = -1;
-      if(!"".equals(request.getParameter("feedType"))) {
+      int feedType = -1; // 건식, 소프트, 습식
+      if(!"".equals(request.getParameter("feedType"))) { 
          feedType = Integer.parseInt(request.getParameter("feedType"));
       }
       String size = request.getParameter("size"); //소,증,대
@@ -110,13 +112,14 @@ public class ProductSearchController extends HttpServlet {
       System.out.println("ProductSearchController(doPost) feedType: "+feedType);
       System.out.println("ProductSearchController(doPost) size: "+size);
       
+      // 검색 조건에 맞는 리스트들고올 메서드 호출해서 searchCategoryList에 저장
       List<Map<String, Object>> searchCategoryList = this.productDao.selectProductListBySearchCategory(age, component, feedType, size);
 
       request.setAttribute("searchCategoryList", searchCategoryList);
       
       //디버깅
       for(Map<String, Object> m : searchCategoryList) {
-         System.out.println("--------searchCategoryList----------");
+         System.out.println("--------sear0chCategoryList----------");
          System.out.println("ProductSearchController(doPost) productName: "+m.get("productName"));
          System.out.println("ProductSearchController(doPost) price: "+m.get("price"));
          System.out.println("ProductSearchController(doPost) gram: "+m.get("gram"));

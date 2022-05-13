@@ -16,17 +16,17 @@
 					<img src = "${pageContext.request.contextPath}/images/${b.photoName}"  width="200" height="200"> 
 				</td>
 				<td>
-					${b.productName} ${b.gram}
+					${b.productName} ${b.gram}g
 				</td>
 				<td>
 					${b.price}원
 				</td>
 				<td>
-				 <select name="basketCount">
-				 	<c:forEach var="i" begin="1" end="10">
-						<option value="${i}" > ${i} </option>
+				<select name="basketCount">
+					<c:forEach var="i" begin="1" end="10">
+						<option value="${i}" <c:if test="${i eq b.quantity}">selected</c:if>> ${i} </option>
 					</c:forEach>
-				 </select>
+				</select>
 				</td>
 				<td>
 					<a href="${pageContext.request.contextPath}/removeBasketController?productId=${b.productId}">삭제</a>

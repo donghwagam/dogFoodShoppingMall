@@ -5,16 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import vo.GuestBasket;
 
 public class BasketDao {
    
-   // 장바구니에 상품이 담겼을 때 리스트를 출력하기 위한 메서드
-	public List<Map<String, Object>> selectBasketList(int productId){
-		List<Map<String, Object>> list = new ArrayList<>();
+   // 장바구니에 상품을 담기위해 상품 정보를 들고오기 위한 메서드
+	public GuestBasket selectGuestBasketList(int productId){
+		GuestBasket guestBasket= new GuestBasket();
 		
 		//드라이버 자원 준비 
 		Connection conn = null;
@@ -33,13 +31,11 @@ public class BasketDao {
 			stmt.setInt(1, productId);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
-				Map<String, Object> m = new HashMap<>();
-				m.put("productId", rs.getInt("productId"));
-				m.put("photoName", rs.getString("photoName"));
-				m.put("productName", rs.getString("productName"));
-				m.put("gram", rs.getInt("gram"));
-				m.put("price", rs.getInt("price"));
-				list.add(m);
+				guestBasket.setProductId(rs.getInt("productId"));
+				guestBasket.setPhotoName(rs.getString("photoName"));
+				guestBasket.setProductName(rs.getString("productName"));
+				guestBasket.setGram(rs.getInt("gram"));
+				guestBasket.setPrice(rs.getInt("price"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -50,7 +46,7 @@ public class BasketDao {
 				e.printStackTrace();
 			}
 		}
-		return list;
+		return guestBasket;
 	}
 
 }
