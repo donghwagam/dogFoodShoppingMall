@@ -18,7 +18,7 @@ import vo.Category;
 @WebServlet("/mainPageController")
 public class MainPageController extends HttpServlet {
 	
-	private MainProductDao mainProductDao;
+	private MainProductDao mainProductDao; //멤버 변수 MainProductDao 선언 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

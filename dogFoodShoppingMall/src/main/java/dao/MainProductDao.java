@@ -20,14 +20,15 @@ public class MainProductDao {
 				Connection conn = null;
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
-				String sql = "SELECT p.name productName, p.price, p.gram, pp.name photoName, (select AVG(r.star) from review r) star "
+				String sql = "SELECT p.product_id productId " // 상품 id
+						+ ",p.name productName" // 상품 이름 
+						+ ", p.price price" // 가격 
+						+ ", p.gram gram" //그램 
+						+ ", pp.name photoName" // 사진이름 
 			            + "      FROM product p "
 			            + "      LEFT JOIN product_photo pp "
 			            + "      ON p.product_id=pp.product_id "
-			            + "            LEFT JOIN purchase_list pl "
-			            + "            ON p.product_id = pl.product_id "
-			            + "               LEFT JOIN review r "
-			            + "               ON r.purchase_id = pl.purchase_id ";
+			            + " GROUP BY p.product_id ";
 				         
 				try {
 					conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -35,11 +36,11 @@ public class MainProductDao {
 					rs = stmt.executeQuery();
 					while(rs.next()) {
 					Map<String, Object> map = new HashMap<>();
+					map.put("productId",rs.getInt("productId"));
 					map.put("productName", rs.getString("productName"));
 					map.put("gram", rs.getInt("gram"));
 					map.put("price", rs.getInt("price"));
 					map.put("photoName", rs.getString("photoName"));
-					map.put("star", rs.getInt("star"));
 					list.add(map);
 					}
 				} catch (Exception e) {
@@ -145,7 +146,8 @@ public class MainProductDao {
 						+ " JOIN product_photo pp"
 						+ " ON pp.product_id = p.product_id"
 						+ " GROUP BY pl.product_id"
-						+ " ORDER BY SUM desc"; 
+						+ " ORDER BY SUM desc"
+						+ "   Limit 0,6"; 
 				
 				try {
 				conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -179,10 +181,9 @@ public class MainProductDao {
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
 				String sql = "SELECT p.product_id productId"
-						+ " , p.name name"
+						+ " , p.name productName"
 						+ " , p.price price"
-						+ " , pph.photo_id photoId"
-						+ " , pph.name pphName from product p"
+						+ " , pph.name photoName from product p"
 						+ " JOIN product_category pc"
 						+ " ON p.product_id = pc.product_id"
 						+ " JOIN category c"
@@ -192,20 +193,17 @@ public class MainProductDao {
 						+ " WHERE c.name = ? " ;
 				try {
 					conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-				if("".equals(categoryName)) {
-					stmt = conn.prepareStatement(sql);
-				} else if (!"".equals(categoryName)){
+				
 					stmt = conn.prepareStatement(sql);
 					stmt.setString(1,categoryName);
-				}
+				
 					 rs = stmt.executeQuery();
 					 while(rs.next()) {
 						 Map<String ,Object> map = new HashMap<>();
 						 map.put("productId",rs.getInt("productId"));
-						 map.put("name",rs.getString("name"));
+						 map.put("productName",rs.getString("productName"));
 						 map.put("price",rs.getInt("price"));
-						 map.put("photoId",rs.getInt("photoId"));
-						 map.put("pphName", rs.getString("pphName"));
+						 map.put("photoName", rs.getString("photoName"));
 						 list.add(map);
 					 }
 				} catch (Exception e) {
@@ -227,17 +225,17 @@ public class MainProductDao {
 				PreparedStatement stmt = null;
 				ResultSet rs = null;
 				String sql = "SELECT"
-						+ " p.name productName "
-						+ " , p.price price "
-						+ " , p.gram gram "
-						+ " , p.rate rate "
-						+ " , p.feed_size feedSize "
-						+ " , p.origin origin "
-						+ " , p.stock stock"
-						+ " , p.info info "
-						+ " , b.name brandName "
-						+ " , pp.name photoName "
-						+ " , group_concat(concat(cp.name,_utf8mb4' ') separator ', ') componentName  "
+						+ " p.name productName "  // 상품이름 
+						+ " , p.price price " // 가격 
+						+ " , p.gram gram " // 그램 
+						+ " , p.rate rate " // 등급 
+						+ " , p.feed_size feedSize " //알갱이 크기 
+						+ " , p.origin origin " // 원산지 
+						+ " , p.stock stock" // 재고 
+						+ " , p.info info " // 정보 
+						+ " , b.name brandName " //브랜드 이름 
+						+ " , pp.name photoName "  //사진 
+						+ " , GROUP_CONCAT(CONCAT(cp.name,_utf8mb4' ') separator ', ') componentName  "
 						+ " FROM product p "
 						+ " JOIN brand b "
 						+ " ON b.brand_id = p.brand_id "

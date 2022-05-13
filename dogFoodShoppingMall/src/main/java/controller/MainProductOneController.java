@@ -17,7 +17,7 @@ import vo.Category;
 @WebServlet("/mainProductOneController")
 public class MainProductOneController extends HttpServlet {
 	
-	private MainProductDao mainProductDao;
+	private MainProductDao mainProductDao; //맴버 변수 MainProductDao 선언
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -34,6 +34,7 @@ public class MainProductOneController extends HttpServlet {
 		List<Map<String, Object>> list = mainProductDao.selectProductOne(productId);
 		
 		System.out.println("ManProductOneController.doGet() list size : " + list.size());
+		
 		
 		// 카테고리 정보 불러오는 리스트
 		List<Category> categoryList =  mainProductDao.selectCategoryList();

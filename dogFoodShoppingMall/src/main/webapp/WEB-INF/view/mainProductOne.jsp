@@ -288,7 +288,7 @@
                             <li><b>수량 </b> <span>
                             <c:choose>
                             <c:when test="${list.stock == 0}">
-                            품
+                            품절 
                             </c:when>
                             <c:otherwise>
                             ${list.stock}
@@ -296,7 +296,7 @@
                             </c:choose>
                             </span></li>
                             <li><b>원산지</b> <span>${list.origin} <samp>Free pickup today</samp></span></li>
-                            <li><b>gram</b> <span>${list.gram}</span></li>
+                            <li><b>브랜드</b> <span>${list.brandName}</span></li>
                             <li><b>Share on</b>
                                 <div class="share">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
@@ -330,6 +330,12 @@
                                 <div class="product__details__tab__desc">
                                     <h6>구성표 </h6>
                                     <p>${list.componentName}</p>
+                                    <h6>등급 </h6>
+                                    <p>${list.rate}</p>
+                                    <h6>알갱이크기 </h6>
+                                    <p>${list.feedSize}</p>
+                                    <h6>그램</h6>
+                                    <p>${list.gram }</p>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
