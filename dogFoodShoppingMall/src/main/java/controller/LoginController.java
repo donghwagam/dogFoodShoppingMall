@@ -15,13 +15,13 @@ import vo.Member;
 @WebServlet("/loginDenied/loginController")
 public class LoginController extends HttpServlet {
 
-	private MemberDao memberDao;
+	private MemberDao memberDao; // 전역변수 MemberDao 선언
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Cookie[] cookies = request.getCookies();
+		Cookie[] cookies = request.getCookies(); // 쿠키 받아오기
 		
-		for(Cookie c : cookies) {
+		for(Cookie c : cookies) { // 받아온 쿠키들 중에서 이름이 cookieId인 쿠키 정보 저장
 			if(c.getName().equals("cookieId")) {
 				request.setAttribute("cookieId", c.getValue());
 			}
@@ -32,12 +32,12 @@ public class LoginController extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); // 현재 세션 받아오기
 		String memberId = request.getParameter("memberId"); // memberId 받아오기
 		String memberPw = request.getParameter("memberPw"); // memberPw 받아오기
-		boolean idSave = false;
+		boolean idSave = false; // id저장 체크
 		
-		if(request.getParameter("idSave") != null) {
+		if(request.getParameter("idSave") != null) { // id저장을 체크했으면 idSave를 true로 변경
 			idSave = true;
 		}
 		
@@ -49,10 +49,10 @@ public class LoginController extends HttpServlet {
 		
 		session.setAttribute("sessionMemberId", returnMemberId); // returnMemberId값 session에 저장(키값 : sessionMemberId)
 		
-		if(idSave) {
-			Cookie cookieId = new Cookie("cookieId", returnMemberId);
-			cookieId.setMaxAge(60*60*24);
-			response.addCookie(cookieId);
+		if(idSave) { // idSave가 true면
+			Cookie cookieId = new Cookie("cookieId", returnMemberId); // Cookie 객체 생성 후, 현재 접속된 ID 쿠키값으로 저장
+			cookieId.setMaxAge(60*60*24); // 쿠키 생명주기는 하루로 setting
+			response.addCookie(cookieId); // 쿠키 저장
 		}
 		
 		if(returnMemberId == null) { // returnMemberId값이 null이어서 로그인에 실패했을때 로그인 페이지로 이동

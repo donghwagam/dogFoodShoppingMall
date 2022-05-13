@@ -28,6 +28,7 @@
 	            		 <br>
 	            		 <br>
 	            		 <input class="form-control" type = "text" value="${memberId}" readonly="readonly">
+	            		 <a href="${pageContext.request.contextPath}/loginDenied/loginController" class="btn btn-lg btn-primary btn-block">로그인 하러가기</a>
 	            	</c:if>
 	            </form>
 	        </div>

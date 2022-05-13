@@ -21,11 +21,11 @@ public class LoginDeniedFilter implements Filter { // 로그인이 되어있으�
 	     if(request instanceof HttpServletRequest) { // request가 HttpServletRequest로 변경가능하다면 
 			HttpServletRequest req = (HttpServletRequest)request; 
 			HttpSession session = req.getSession(); //세션 불러오기 
-			String memberId = (String)session.getAttribute("sessionMemberId"); 
+			String memberId = (String)session.getAttribute("sessionMemberId"); // 현재 접속중인 아이디
 			
-			if(memberId != null) {
+			if(memberId != null) { // 로그인이 되어있으면
 				if(response instanceof HttpServletResponse) {
-					((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/mainPageController");
+					((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/mainPageController"); // 메인페이지로 이동
 				} 
 			}
 	     }
