@@ -15,7 +15,7 @@ import dao.AddressDao;
 @WebServlet("/searchAddressController")
 public class SearchAddressController extends HttpServlet {
 	
-	private AddressDao addressDao; // 전역변수 AddressDao 선언
+	private AddressDao addressDao; // 멤버변수 AddressDao 선언
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchAddress = request.getParameter("searchAddress"); // 검색한 주소값 받아오기

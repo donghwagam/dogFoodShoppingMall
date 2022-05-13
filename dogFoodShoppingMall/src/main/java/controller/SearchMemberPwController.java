@@ -15,7 +15,7 @@ import vo.Member;
 @WebServlet("/loginDenied/searchMemberPwController")
 public class SearchMemberPwController extends HttpServlet {
 
-	private MemberDao memberDao; // 전역변수 MemberDao 선언
+	private MemberDao memberDao; // 멤버변수 MemberDao 선언
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
