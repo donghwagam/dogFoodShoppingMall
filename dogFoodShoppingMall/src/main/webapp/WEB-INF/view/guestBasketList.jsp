@@ -10,7 +10,7 @@
 <body>
 <form method="get" action="${pageContext.request.contextPath}/purchaseController">
 	<table border="1">
-		<c:forEach var="b" items="${basketList}">
+		<c:forEach var="b" items="${guestBasketList}">
 			<tr>
 				<td>
 					<img src = "${pageContext.request.contextPath}/images/${b.photoName}"  width="200" height="200"> 
@@ -29,7 +29,7 @@
 				</select>
 				</td>
 				<td>
-					<a href="${pageContext.request.contextPath}/removeBasketController?productId=${b.productId}">삭제</a>
+					<a href="${pageContext.request.contextPath}/removeGuestBasketController?productId=${b.productId}">삭제</a>
 				</td>
 			</tr>
 		</c:forEach>

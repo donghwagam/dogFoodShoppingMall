@@ -28,7 +28,6 @@ public class ProductSearchController extends HttpServlet {
       
       //디버깅
       for(Component component : componentList) {
-    	  
          System.out.println("ProductSearchController(doGet) componentId: "+component.getComponentId());
          System.out.println("ProductSearchController(doGet) componentName: "+component.getName());
       }
@@ -119,7 +118,7 @@ public class ProductSearchController extends HttpServlet {
       
       //디버깅
       for(Map<String, Object> m : searchCategoryList) {
-         System.out.println("--------sear0chCategoryList----------");
+         System.out.println("--------searchCategoryList----------");
          System.out.println("ProductSearchController(doPost) productName: "+m.get("productName"));
          System.out.println("ProductSearchController(doPost) price: "+m.get("price"));
          System.out.println("ProductSearchController(doPost) gram: "+m.get("gram"));

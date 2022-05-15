@@ -10,16 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class BasketListController
- */
-@WebServlet("/basketListController")
-public class BasketListController extends HttpServlet {
+@WebServlet("/guestBasketListController")
+public class GuestBasketListController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
  		//뷰 포워딩
-		request.getRequestDispatcher("/WEB-INF/view/basketList.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/guestBasketList.jsp").forward(request, response);
 		
 	}
 

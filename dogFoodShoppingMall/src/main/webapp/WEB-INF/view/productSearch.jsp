@@ -251,7 +251,7 @@
 		   </c:if>
 		   <td>
 			   <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${s.photoName}">
-			   		<a href="${pageContext.request.contextPath}/addBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
+			   		<a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
 			   </div>
 			   <div class="product__item__text">
 			   		<h6>${s.productName} ${s.gram}g</h6>
@@ -277,7 +277,7 @@
 		   </c:if>
            <td>
            <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${sc.photoName}">
-		   <a href="${pageContext.request.contextPath}/addBasketController?productId=${sc.productId}">><i class="fa fa-shopping-cart"></i></a>
+		   <a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${sc.productId}">><i class="fa fa-shopping-cart"></i></a>
 		   </div>
 			<div class="product__item__text">
 				<h6>${sc.productName} ${sc.gram}g</h6>
@@ -370,5 +370,4 @@
     <script src="./Resources/js/main.js"></script>
 
 </body>
-
 </html>
