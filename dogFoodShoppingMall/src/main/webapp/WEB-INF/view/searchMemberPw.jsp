@@ -4,8 +4,11 @@
 <html>
 <head>
 <style type="text/css">
-	body { padding-top:30px; }
-	.form-control { margin-bottom: 10px; }
+   body { padding-top:30px; }
+   .form-control { margin-bottom: 10px; }
+   .helper {
+      color : #FF0000;
+   }
 </style>
 <meta charset="UTF-8">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -14,20 +17,66 @@
 <title>search MemberPw</title>
 </head>
 <body>
-	<div class="container">
-	    <div class="row">
-	        <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
-	            <legend style="text-align:center;">비밀번호 찾기</legend>
-	            <form action="${pageContext.request.contextPath}/loginDenied/searchMemberPwController" method="post" class="form" role="form">
-		            <input class="form-control" name="memberId" placeholder="아이디" type="text" required/>
-		            <input class="form-control" name="name" placeholder="이름" type="text" required/>
-		            <input class="form-control" name="phone" placeholder="전화번호" type="text"/>
-		            <br/>
-		            <br/>
-		            <button class="btn btn-lg btn-primary btn-block" type="submit">비밀번호 찾기</button>
-	            </form>
-	        </div>
-	    </div>
-	</div>
+   <div class="container">
+       <div class="row">
+           <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
+               <legend style="text-align:center;">비밀번호 찾기</legend>
+               <form id="searchMemberPwForm" action="${pageContext.request.contextPath}/loginDenied/searchMemberPwController" method="post" class="form" role="form">
+                  <input class="form-control" id="memberId" name="memberId" placeholder="아이디" type="text" required/>
+                  <span id="memberIdHelper" class="helper"></span>
+                  <input class="form-control" id="name" name="name" placeholder="이름" type="text" required/>
+                  <span id="nameHelper" class="helper"></span>
+                  <input class="form-control" id="phone" name="phone" placeholder="전화번호" type="text"/>
+                  <span id="phoneHelper" class="helper"></span>
+                  <br/>
+                  <br/>
+                  <button id="searchMemberPw" class="btn btn-lg btn-primary btn-block" type="button">비밀번호 찾기</button>
+               </form>
+           </div>
+       </div>
+   </div>
 </body>
+<script>
+   $('#memberId').blur(function(){
+      if($('#memberId').val() == ''){
+         $('#memberIdHelper').text('아이디를 입력해주세요.');
+         $('#memberId').focus();
+      } else {
+         $('#memberIdHelper').text('');
+      }
+   });
+   $('#name').blur(function(){
+      if($('#name').val() == ''){
+         $('#nameHelper').text('이름을 입력해주세요.');
+         $('#name').focus();
+      } else {
+         $('#nameHelper').text('');
+      }
+   });
+   $('#phone').blur(function(){
+      if($('#phone').val().indexOf('-') != -1){
+         $('#phoneHelper').text('-을 제외해서 입력해주세요.');
+         $('#phone').focus();
+      } else {
+         $('#phoneHelper').text('');
+      }
+   });
+   
+   $('#searchMemberPw').click(function(){
+      if($('#memberId').val() == ''){
+         $('#memberIdHelper').text('아이디를 입력해주세요.')
+         $('#memberId').focus();
+      } else if ($('#name').val() == '') {
+         $('#memberIdHelper').text('')
+         $('#nameHelper').text('이름을 입력해주세요.')
+         $('#name').focus();
+      } else if ($('#phone').val() == '') {
+         $('#nameHelper').text('')
+         $('#phoneHelper').text('핸드폰번호를 입력해주세요.')
+         $('#phone').focus();
+      } else {
+         $('#searchMemberPwForm').submit();
+      }   
+   });
+</script>
 </html>

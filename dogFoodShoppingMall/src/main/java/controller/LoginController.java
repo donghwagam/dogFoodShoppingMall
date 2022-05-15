@@ -25,7 +25,7 @@ public class LoginController extends HttpServlet {
 			if(c.getName().equals("cookieId")) {
 				request.setAttribute("cookieId", c.getValue());
 			}
-		}
+		} 
 		
 		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response); // 로그인 페이지 연결
 	}
