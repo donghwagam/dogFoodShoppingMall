@@ -36,7 +36,7 @@ public class AddMemberBasketController extends HttpServlet {
 	    System.out.println("AddGuestBasketController(doGet) productId : " + productId);
 	    System.out.println("AddGuestBasketController(doGet) memberId : " + memberId);
 
-	    //멤버 아이디로 멤버 구매내역 눌러서 memberBasketList에 저장
+	    //멤버 아이디로 멤버 구매내역 불러서 memberBasketList에 저장
 	    List<MemberBasket> memberBasketList = basketDao.selectMemberBasketList(memberId);
 	    System.out.println(basketDao.selectMemberBasketList(memberId));
 	    

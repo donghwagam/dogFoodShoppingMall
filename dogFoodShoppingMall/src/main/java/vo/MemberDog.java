@@ -1,91 +1,99 @@
 package vo;
 
 public class MemberDog {
-	private int memberDogId;
-	private String memberId;
-	private int dogId;
-	private String birth;
-	private int weight;
-	private String createDate;
-	private String updateDate;
-	
-	public MemberDog() {}
-	
-	public MemberDog(int memberDogId, String memberId, int dogId, String birth, int weight, String createDate,
-			String updateDate) {
-		super();
-		this.memberDogId = memberDogId;
-		this.memberId = memberId;
-		this.dogId = dogId;
-		this.birth = birth;
-		this.weight = weight;
-		this.createDate = createDate;
-		this.updateDate = updateDate;
-	}
+   private int memberDogId;
+   private String memberId;
+   private int dogId;
+   private String dogName;
+   private String birth;
+   private int weight;
+   private String createDate;
+   private String updateDate;
+   
+   public MemberDog() {}
+   
+   public MemberDog(int memberDogId, String memberId, int dogId, String dogName, String birth, int weight,
+         String createDate, String updateDate) {
+      super();
+      this.memberDogId = memberDogId;
+      this.memberId = memberId;
+      this.dogId = dogId;
+      this.dogName = dogName;
+      this.birth = birth;
+      this.weight = weight;
+      this.createDate = createDate;
+      this.updateDate = updateDate;
+   }
 
-	public int getMemberDogId() {
-		return memberDogId;
-	}
+   public int getMemberDogId() {
+      return memberDogId;
+   }
 
-	public void setMemberDogId(int memberDogId) {
-		this.memberDogId = memberDogId;
-	}
+   public void setMemberDogId(int memberDogId) {
+      this.memberDogId = memberDogId;
+   }
 
-	public String getMemberId() {
-		return memberId;
-	}
+   public String getMemberId() {
+      return memberId;
+   }
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
+   public void setMemberId(String memberId) {
+      this.memberId = memberId;
+   }
 
-	public int getDogId() {
-		return dogId;
-	}
+   public int getDogId() {
+      return dogId;
+   }
 
-	public void setDogId(int dogId) {
-		this.dogId = dogId;
-	}
+   public void setDogId(int dogId) {
+      this.dogId = dogId;
+   }
 
-	public String getBirth() {
-		return birth;
-	}
+   public String getDogName() {
+      return dogName;
+   }
 
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+   public void setDogName(String dogName) {
+      this.dogName = dogName;
+   }
 
-	public int getWeight() {
-		return weight;
-	}
+   public String getBirth() {
+      return birth;
+   }
 
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
+   public void setBirth(String birth) {
+      this.birth = birth;
+   }
 
-	public String getCreateDate() {
-		return createDate;
-	}
+   public int getWeight() {
+      return weight;
+   }
 
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
+   public void setWeight(int weight) {
+      this.weight = weight;
+   }
 
-	public String getUpdateDate() {
-		return updateDate;
-	}
+   public String getCreateDate() {
+      return createDate;
+   }
 
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
-	}
+   public void setCreateDate(String createDate) {
+      this.createDate = createDate;
+   }
 
-	@Override
-	public String toString() {
-		return "MemberDog [memberDogId=" + memberDogId + ", memberId=" + memberId + ", dogId=" + dogId + ", birth="
-				+ birth + ", weight=" + weight + ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
-	}
-	
-	
-	
-	
+   public String getUpdateDate() {
+      return updateDate;
+   }
+
+   public void setUpdateDate(String updateDate) {
+      this.updateDate = updateDate;
+   }
+
+   @Override
+   public String toString() {
+      return "MemberDog [memberDogId=" + memberDogId + ", memberId=" + memberId + ", dogId=" + dogId + ", dogName="
+            + dogName + ", birth=" + birth + ", weight=" + weight + ", createDate=" + createDate + ", updateDate="
+            + updateDate + "]";
+   }
+   
 }

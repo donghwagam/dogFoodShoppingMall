@@ -73,8 +73,9 @@ public class BasketDao {
 			
 			if(row != 1) {
 				System.out.println("insertBasket() 입력 실패");
-			} 		
-			System.out.println("insertBasket() 입력 성공");
+			} else {		
+				System.out.println("insertBasket() 입력 성공");
+			}
 	
 		} catch (Exception e) {
 			e.printStackTrace();
