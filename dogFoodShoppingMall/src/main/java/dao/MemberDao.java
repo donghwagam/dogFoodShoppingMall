@@ -1,10 +1,72 @@
 package dao;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import vo.Member;
 
 public class MemberDao {
+	
+	public Map<String, Object> selectMemberInfo(String memberId) {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		String sql = "SELECT"
+				+ " 	m.member_id memberId"
+				+ "		, m.member_pw memberPw"
+				+ "		, m.name"
+				+ "		, m.birth"
+				+ "		, m.phone"
+				+ "		, m.email"
+				+ "		, m.gender"
+				+ "		, m.level"
+				+ "		, m.active"
+				+ "		, m.address_id addressId"
+				+ "		, CONCAT('(', a.zip_code, ') ', a.province, ' ', a.city, ' ', a.town, ' ', a.street, ' ', a.building1, '-', a.building2, ' ', m.detail_addr) addr"
+				+ "		, m.create_date createDate"
+				+ "		, m.update_date updateDate"
+				+ "   FROM member m JOIN address a"
+				+ "   ON m.address_id = a.address_id"
+				+ "   WHERE m.member_id = ?";
+		
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			rs = stmt.executeQuery();
+				
+			if(rs.next()) {
+				map.put("memberId", rs.getString("memberId"));
+				map.put("memberPw", rs.getString("memberPw"));
+				map.put("name", rs.getString("name"));
+				map.put("birth", rs.getString("birth"));
+				map.put("phone", rs.getString("phone"));
+				map.put("email", rs.getString("email"));
+				map.put("gender", rs.getString("gender"));
+				map.put("level", rs.getString("level"));
+				map.put("active", rs.getString("active"));
+				map.put("addressId", rs.getInt("addressId"));
+				map.put("addr", rs.getString("addr"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return map; // 업데이트가 성공했으면 1을 반환 실패했으면 0을 반환 
+	}
+	
 	
 	// 비밀번호 변경 메서드
 	public int updateMemberPw(Member member) {

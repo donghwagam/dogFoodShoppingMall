@@ -21,7 +21,7 @@
 	    <div class="row">
 	        <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
 	            <legend style="text-align:center;">회원가입</legend>
-	            <form method="post" action="${pageContext.request.contextPath}/searchAddressController">
+	            <form method="post" action="${pageContext.request.contextPath}/searchAddressController?msg=insert">
 		          	<input class="form-control" name="searchAddress" placeholder="주소" type="text"/>
 		          	<button class="btn btn-sm btn-danger btn-block" type="submit">주소검색</button><br>
 		        </form>
