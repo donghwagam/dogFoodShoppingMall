@@ -282,7 +282,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="${pageContext.request.contextPath}/loginCheck/purchaseController?productId=${productId}" class="primary-btn">구매하기</a>
+                        <a href="${pageContext.request.contextPath}/loginCheck/purchaseController?productId=${productId}&quantity=${quantity}" class="primary-btn">구매하기</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>수량 </b> <span>

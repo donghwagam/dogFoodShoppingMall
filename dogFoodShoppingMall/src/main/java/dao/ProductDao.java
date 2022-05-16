@@ -16,6 +16,8 @@ import vo.Category;
 public class ProductDao {
 	
 	
+	
+	
 	// Component 이름을 불러오는 메서드
 	public List<Component> selectComponent(){
 		List<Component> list = new ArrayList<>();
