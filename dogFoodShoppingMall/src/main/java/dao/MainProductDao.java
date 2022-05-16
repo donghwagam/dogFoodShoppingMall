@@ -100,15 +100,11 @@ public class MainProductDao {
                   + "         ,p.price"
                   + "         ,p.gram"
                   + "         ,pp.name photoName"
-                  + "         ,(select AVG(r.star)"
-                  + "      FROM review r) star "
                      + "    FROM product p "
                      + "   LEFT JOIN product_photo pp "
                      + "      ON p.product_id=pp.product_id "
                      + "   LEFT JOIN purchase_list pl "
                      + "      ON p.product_id = pl.product_id "
-                     + "     LEFT JOIN review r "
-                     + "      ON r.purchase_id = pl.purchase_id "
                   + "   ORDER BY p.create_date DESC"
                   + "   Limit 0,6" ;
             try {
@@ -122,7 +118,6 @@ public class MainProductDao {
                    map.put("gram" ,rs.getInt("gram"));
                    map.put("price", rs.getInt("price"));
                    map.put("photoName", rs.getString("photoName"));
-                   map.put("star", rs.getInt("star"));
                    list.add(map);
                    
                }
