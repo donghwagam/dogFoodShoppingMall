@@ -19,6 +19,8 @@ public class SearchAddressController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchAddress = request.getParameter("searchAddress"); // 검색한 주소값 받아오기
+		String msg = request.getParameter("msg");
+		
 		
 		// 디버깅
 		System.out.println("insertLoginController.doPost() searchAddress : " + searchAddress);
@@ -28,7 +30,15 @@ public class SearchAddressController extends HttpServlet {
 		
 		request.setAttribute("searchAddressList", list); // 리스트 값 searchAddressList에 setting
 		
-		request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 페이지로 이동
+		
+		if(msg.equals("insertMemberAddr")) { // msg가 insert라면
+			request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 페이지로 이동
+		} else if (msg.equals("purchaseChangeAddr")) { // msg가 purchase라면
+			request.getRequestDispatcher("/WEB-INF/view/purchaseChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
+		} else if (msg.equals("updateMemberAddr")) { // msg가 updateMemberAddr 라면
+			request.getRequestDispatcher("/WEB-INF/view/updateMember.jsp").forward(request, response); // 회원정보수정 페이지로 이동
+		} 
+		
 	}
 
 }
