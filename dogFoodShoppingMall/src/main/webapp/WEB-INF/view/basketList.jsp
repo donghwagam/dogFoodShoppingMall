@@ -11,29 +11,31 @@
 <form method="get" action="${pageContext.request.contextPath}/purchaseController">
 	<table border="1">
 		<!--  비회원으로 들어왔을때 -->
-		<c:forEach var="g" items="${guestBasketList}">
-			<tr>
-				<td>
-					<img src = "${pageContext.request.contextPath}/images/${g.photoName}"  width="200" height="200"> 
-				</td>
-				<td>
-					${g.productName} ${g.gram}g
-				</td>
-				<td>
-					${g.price}원
-				</td>
-				<td>
-				<select name="basketCount">
-					<c:forEach var="i" begin="1" end="10">
-						<option value="${i}" <c:if test="${i eq g.quantity}">selected</c:if>> ${i} </option>
-					</c:forEach>
-				</select>
-				</td>
-				<td>
-					<a href="${pageContext.request.contextPath}/removeGuestBasketController?productId=${g.productId}">삭제</a>
-				</td>
-			</tr>
-		</c:forEach>
+		<c:if test="${sessionMemberId == null}">
+			<c:forEach var="g" items="${guestBasketList}">
+				<tr>
+					<td>
+						<img src = "${pageContext.request.contextPath}/images/${g.photoName}"  width="200" height="200"> 
+					</td>
+					<td>
+						${g.productName} ${g.gram}g
+					</td>
+					<td>
+						${g.price}원
+					</td>
+					<td>
+					<select name="basketCount">
+						<c:forEach var="i" begin="1" end="10">
+							<option value="${i}" <c:if test="${i eq g.quantity}">selected</c:if>> ${i} </option>
+						</c:forEach>
+					</select>
+					</td>
+					<td>
+						<a href="${pageContext.request.contextPath}/removeGuestBasketController?productId=${g.productId}">삭제</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:if>
 		
 		<!--  회원으로 들어왔을때 -->
 		<c:forEach var="m" items="${memberBasketList}">

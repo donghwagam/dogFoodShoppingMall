@@ -52,7 +52,7 @@ public class BasketDao {
 		return guestBasket;
 	}
 	
-	// 장바구니에 상품을 담기위해 상품 정보를 들고오기 위한 메서드
+	// 장바구니테이블에 정보 넣기 위한 메서드
 	public void insertBasket(int productId, String memberId, int quantity){
 
 		//드라이버 자원 준비 
