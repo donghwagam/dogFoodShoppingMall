@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vo.Allergy;
-import vo.Component;
-import vo.Member;
-import vo.MemberDog;
 
 public class DogDao {
 	

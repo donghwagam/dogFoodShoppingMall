@@ -251,7 +251,14 @@
 		   </c:if>
 		   <td>
 			   <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${s.photoName}">
-			   		<a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
+			   <c:choose>
+				   <c:when test="${sessionMemberId== null}">
+			   			<a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
+				   </c:when>
+				   <c:otherwise>
+				   		<a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
+				   </c:otherwise>
+			   </c:choose>
 			   </div>
 			   <div class="product__item__text">
 			   		<h6>${s.productName} ${s.gram}g</h6>
@@ -277,9 +284,16 @@
 		   </c:if>
            <td>
            <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${sc.photoName}">
-		   <a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${sc.productId}">><i class="fa fa-shopping-cart"></i></a>
+           <c:choose>
+			   <c:when test="${sessionMemberId== null}">
+					<a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
+			   </c:when>
+			   <c:otherwise>
+			   		<a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
+			   </c:otherwise>
+		   </c:choose>
 		   </div>
-			<div class="product__item__text">
+		   <div class="product__item__text">
 				<h6>${sc.productName} ${sc.gram}g</h6>
 			   	<h5>$ ${sc.price}</h5>
 			   	<div>${sc.star}</div>

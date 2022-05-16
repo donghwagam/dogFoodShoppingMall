@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,6 +36,6 @@ public class RemoveGuestBasketController extends HttpServlet {
 		
 		System.out.println("RemoveGuestBasketController (doGet) : " +session.getAttribute("guestBasketList"));
 		//리다이렉트
-		response.sendRedirect(request.getContextPath()+"/guestBasketListController");
+		response.sendRedirect(request.getContextPath()+"/basketListController");
 	}
 }
