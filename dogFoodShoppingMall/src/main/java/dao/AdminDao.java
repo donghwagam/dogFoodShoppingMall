@@ -177,42 +177,35 @@ public class AdminDao {
 	         }
 	         return list;
 	      }
-	      return list;
-	   }
-	   
-	   // 브랜드별 판매량
-	   public List<Map<String, Object>> selectChartListByBrand() {
-	      List<Map<String, Object>> list = new ArrayList<>();
-	      Connection conn = null;
-	      PreparedStatement stmt = null;
-	      ResultSet rs = null;
-	      String sql = "SELECT p.product_id productId"            // 상품 Id
-	            + "         ,b.name brandName"                  // 브랜드 이름
-	            + "          ,SUM(pl.quantity) sum"               // 주문량 총합
-	            + "     FROM purchase_list pl"            
-	            + "     JOIN product p"
-	            + "      ON pl.product_id = p.product_id"
-	            + "     JOIN brand b"
-	            + "      ON b.brand_id = p.brand_id"
-	            + "     GROUP BY brandName"                     // 브랜드 이름으로 그룹핑
-	            + "     ORDER BY brandName DESC";                 // 브랜드순으로 정렬
-	   
-	      try {
-	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-	         stmt = conn.prepareStatement(sql);
-	         rs = stmt.executeQuery();
-	         Map<String ,Object> map = new HashMap<>();
-	         map.put("productId",rs.getInt("productId"));
-	         map.put("brandName",rs.getString("brandName"));
-	         map.put("sum",rs.getInt("sum"));
-	         list.add(map);
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      }   finally {
-	            try {
-	               conn.close();
-	            } catch (SQLException e) {
-	               e.printStackTrace();
+	      
+	      // 브랜드별 판매량
+	      public List<Map<String, Object>> selectChartListByBrand() {
+	         List<Map<String, Object>> list = new ArrayList<>();
+	         Connection conn = null;
+	         PreparedStatement stmt = null;
+	         ResultSet rs = null;
+	         String sql = "SELECT b.name brandName"                  // 브랜드 이름
+	               + "          , SUM(pl.quantity) sum"               // 브랜드별 판매량
+	               + "          , SUM(p.price*pl.quantity) AS totalPrice"   // 브랜드별 판매 총액
+	              + "        FROM purchase_list pl"
+	              + "        JOIN product p"
+	              + "         ON p.product_id = pl.product_id"
+	              + "        JOIN brand b"
+	              + "         ON b.brand_id = p.brand_id"
+	              + "     GROUP BY brandName"                        // 브랜드별 그룹핑
+	              + "     ORDER BY totalPrice DESC";                  // 판매 총액 순으로 정렬
+	      
+	         try {
+	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	            stmt = conn.prepareStatement(sql);
+	            rs = stmt.executeQuery();
+	            
+	            while(rs.next()) {
+	            Map<String ,Object> map = new HashMap<>();
+	            map.put("brandName",rs.getString("brandName"));
+	            map.put("sum",rs.getInt("sum"));
+	            map.put("totalPrice",rs.getInt("totalPrice"));
+	            list.add(map);
 	            }
 	         } catch (Exception e) {
 	            e.printStackTrace();
