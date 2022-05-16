@@ -1,3 +1,4 @@
+// chartList.jsp
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -214,13 +215,13 @@
                   <h4>상품별 판매량</h4>
                   <div class="latest-product__slider owl-carousel">
                      <div class="latest-prdouct__slider__item">
-                     	<c:forEach var="c" items="${chartListByProductList}" begin="0" end="2" step="1">
+                        <c:forEach var="c" items="${chartListByProductList}" begin="0" end="2" step="1">
                            <a href="${pageCotext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
                               <div class="latest-product__item_text">
                                  <h6>${c.productName}</h6>
                                  <h6>${c.price} 원</h6>
                                  <h6>${c.sum} 개</h6>
-                                 <span> 총액 : </span>
+                                 <span> 총액 : ${c.totalPrice} 원 </span>
                               </div>
                            </a> 
                         </c:forEach>
@@ -232,7 +233,19 @@
                                  <h6>${c.productName}</h6>
                                  <h6>${c.price} 원</h6>
                                  <h6>${c.sum} 개</h6>
-                                 <span> 총액 : </span>
+                                 <span> 총액 : ${c.totalPrice} 원 </span>
+                              </div>
+                           </a> 
+                        </c:forEach>
+                     </div>
+                     <div class="latest-prdouct__slider__item">
+                        <c:forEach var="c" items="${chartListByProductList}" begin="6" end="8" step="1">
+                           <a href="${pageCotext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
+                              <div class="latest-product__item_text">
+                                 <h6>${c.productName}</h6>
+                                 <h6>${c.price} 원</h6>
+                                 <h6>${c.sum} 개</h6>
+                                 <span> 총액 : ${c.totalPrice} 원 </span>
                               </div>
                            </a> 
                         </c:forEach>
@@ -248,7 +261,7 @@
                            <div class="latest-product__item_text">
                               <h6>${c.updateDate}</h6>
                               <h6>${c.sum} 개</h6>
-                              <span> 총액 : </span>
+                              <span> 총액 : ${c.totalPrice} 원 </span>
                            </div>
                            </a> 
                         </c:forEach>
@@ -259,7 +272,18 @@
                            <div class="latest-product__item_text">
                               <h6>${c.updateDate}</h6>
                               <h6>${c.sum} 개</h6>
-                              <span> 총액 : </span>
+                              <span> 총액 : ${c.totalPrice} 원 </span>
+                           </div>
+                           </a> 
+                        </c:forEach>
+                     </div>
+                     <div class="latest-prdouct__slider__item">
+                        <c:forEach var="c" items="${chartListByDateList}" begin="6" end="8" step="1">
+                           <a href="${pageContext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
+                           <div class="latest-product__item_text">
+                              <h6>${c.updateDate}</h6>
+                              <h6>${c.sum} 개</h6>
+                              <span> 총액 : ${c.totalPrice} 원 </span>
                            </div>
                            </a> 
                         </c:forEach>
@@ -271,27 +295,26 @@
                   <div class="latest-product__slider owl-carousel">
                      <div class="latest-prdouct__slider__item">
                         <c:forEach var="c" items="${chartListByCategoryList}" begin="0" end="2" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
+                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
                            <div class="latest-product__item_text">
                               <h6>${c.categoryName}</h6>
                               <h6>${c.sum} 개</h6>
-                              <span> 총액 : </span>
+                              <span> 총액 : ${c.totalPrice} </span>
                            </div>
                            </a> 
                         </c:forEach>
                      </div>
                      <div class="latest-prdouct__slider__item">
                         <c:forEach var="c" items="${chartListByCategoryList}" begin="3" end="5" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
+                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
                            <div class="latest-product__item_text">
                               <h6>${c.categoryName}</h6>
                               <h6>${c.sum} 개</h6>
-                              <span> 총액 : </span>
+                              <span> 총액 : ${c.totalPrice} </span>
                            </div>
                            </a> 
                         </c:forEach>
                      </div>
-                     
                   </div>
                </div>
                <div class="latest-product__text">
@@ -299,28 +322,48 @@
                   <div class="latest-product__slider owl-carousel">
                      <div class="latest-prdouct__slider__item">
                         <c:forEach var="c" items="${chartListByBrandList}" begin="0" end="2" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
+                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
                            <div class="latest-product__item_text">
                               <h6>${c.brandName}</h6>
                               <h6>${c.sum} 개</h6>
-                              <span> 총액 : </span>
+                              <span> 총액  : ${c.totalPrice} 원</span>
                            </div>
                            </a> 
                         </c:forEach>
                      </div>
-                  <div class="latest-product__slider owl-carousel">
                      <div class="latest-prdouct__slider__item">
                         <c:forEach var="c" items="${chartListByBrandList}" begin="3" end="5" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
+                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
                            <div class="latest-product__item_text">
                               <h6>${c.brandName}</h6>
                               <h6>${c.sum} 개</h6>
-                              <span> 총액 : </span>
+                       <span> 총액  : ${c.totalPrice} 원</span>
                            </div>
                            </a> 
                         </c:forEach>
                      </div>
-                     
+                     <div class="latest-prdouct__slider__item">
+                        <c:forEach var="c" items="${chartListByBrandList}" begin="6" end="8" step="1">
+                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
+                           <div class="latest-product__item_text">
+                              <h6>${c.brandName}</h6>
+                              <h6>${c.sum} 개</h6>
+                       <span> 총액  : ${c.totalPrice} 원</span>
+                           </div>
+                           </a> 
+                        </c:forEach>
+                     </div>
+                     <div class="latest-prdouct__slider__item">
+                        <c:forEach var="c" items="${chartListByBrandList}" begin="9" end="11" step="1">
+                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
+                           <div class="latest-product__item_text">
+                              <h6>${c.brandName}</h6>
+                              <h6>${c.sum} 개</h6>
+                       <span> 총액  : ${c.totalPrice} 원</span>
+                           </div>
+                           </a> 
+                        </c:forEach>
+                     </div>
                   </div>
                </div>
             </div>

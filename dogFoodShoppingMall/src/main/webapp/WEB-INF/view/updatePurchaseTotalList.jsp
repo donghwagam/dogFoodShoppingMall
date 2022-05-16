@@ -410,7 +410,7 @@
 			<div class="side-menu-container">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="${pageContext.request.contextPath}/adminPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
-					<li><a href="${pageContext.request.contextPath}/memberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
+					<li><a href="${pageContext.request.contextPath}/MemberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
 
 					<!-- Dropdown-->
@@ -456,51 +456,33 @@
 	</div>
 </div>
  </div>
- 	<form method="post" action="${pageContext.request.contextPath}/purchaseTotalListController?memberId=${memberId}">
- 	<input type="hidden" name="memberId" value="${memberId}">
- 	<div>
-		<input type="radio" name="status" value="" checked="checked">선택안함
-		<input type="radio" name="status" value="결제전">결제전
-		<input type="radio" name="status" value="결제완료">결제완료
-		<input type="radio" name="status" value="배송완료">배송완료
-	</div>
-	<div>
-		<input type="date" name="aDate"> ~
-		<input type="date" name="bDate">
-	</div>
- 		<button type="submit" class="btn btn-success">검색</button>
- 	
- <div class="container">
+  	<div class="container">
 	<div class="row">
 		<div class="span5">
             <table class="table table-striped table-condensed">
                   <thead>
                   <tr>
-                      <th>주문번호</th>
+                      <th>구매 ID</th>
                       <th>상품</th>
-                      <th>수량</th>
                       <th>구매자ID</th>
                       <th>배송상태</th>
                       <th>결제정보</th>
-                      <th>총 가격</th>
-                      <th>구매일</th>   
-                      <th>배송상태수정</th>                               
+                      <th>총가격</th>
+                      <th>구매일</th>
+                      <th>수정</th>                                  
                   </tr>
               </thead>   
               <tbody>
-               <c:forEach var="p" items="${list}">
+              <c:forEach var="m" items="${list}">
                 <tr>
-                    <td>${p.purchaseId}</td>
-                    <td>${p.productName}</td>
-                    <td>${p.quantity}</td>
-                    <td>${p.memberId}</td>
-                    <td>
-                    ${p.status}
-                    </td>
-                    <td>${p.payment}</td> 
-                    <td>${p.totalPrice}원</td>
-                    <td>${p.createDate}</td>
-                    <td><a href="${pageContext.request.contextPath}//updatePurchaseTotalListController?purchaseId=${p.purchaseId}"><span class="label label-danger">배송정보수정</span></a></td>
+                    <td>${m.memberId}</td>
+                    <td>${m.name}</td>
+                    <td>${m.birth}</td>
+                    <td>${m.phone}</td>
+                    <td>${m.email}</td>
+                    <td>${m.gender}</td> 
+                    <td>${m.addr}</td>
+                    <td><a href="${pageContext.request.contextPath}/purchaseTotalListController?memberId=${m.memberId}"><span class="label label-success">구매내역</span></a></td>
                 </tr>
                 </c:forEach>
               </tbody>
@@ -508,7 +490,6 @@
             </div>
 	</div>
 </div>
- 	</form>	
   		<footer class="pull-left footer">
   			<p class="col-md-12">
   				<hr class="divider">
