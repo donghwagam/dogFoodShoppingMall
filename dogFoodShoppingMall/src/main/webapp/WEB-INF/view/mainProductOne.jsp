@@ -275,14 +275,17 @@
                         </div>
                         <div class="product__details__price">${list.price} 원</div>
                         <p>${list.info} </p>
-                        <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
-                            </div>
-                        </div>
-                        <a href="${pageContext.request.contextPath}/loginCheck/purchaseController?productId=${productId}&quantity=${quantity}" class="primary-btn">구매하기</a>
+                        <form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseController">
+	                        <div class="product__details__quantity">
+	                            <div class="quantity">
+	                                <div class="pro-qty">
+	                                    <input type="text" name="quantity" value="1">
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <input type="hidden" name="productId" value="${productId}">
+	                        <button class="primary-btn" type="submit">구매하기</button>
+                        </form>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>수량 </b> <span>

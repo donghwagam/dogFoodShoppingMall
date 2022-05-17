@@ -12,6 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 public class PurchaseChangeAddressController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String photoName = request.getParameter("photoName");
+		String productName = request.getParameter("productName");
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct"));
+		
+		// 디버깅
+		System.out.println("PurchaseCompleteController.doGet() photoName : " + photoName);
+		System.out.println("PurchaseCompleteController.doGet() productName : " + productName);
+		System.out.println("PurchaseCompleteController.doGet() quantity : " + quantity);
+		System.out.println("PurchaseCompleteController.doGet() totalPriceByProduct : " + totalPriceByProduct);
+		
+		request.setAttribute("photoName", photoName);
+		request.setAttribute("productName", productName);
+		request.setAttribute("quantity", quantity);
+		request.setAttribute("totalPriceByProduct", totalPriceByProduct);
 		
 		request.getRequestDispatcher("/WEB-INF/view/purchaseChangeAddress.jsp").forward(request, response);
 	}
