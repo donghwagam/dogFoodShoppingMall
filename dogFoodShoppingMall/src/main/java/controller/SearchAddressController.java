@@ -34,6 +34,22 @@ public class SearchAddressController extends HttpServlet {
 		if(msg.equals("insertMemberAddr")) { // msg가 insert라면
 			request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 페이지로 이동
 		} else if (msg.equals("purchaseChangeAddr")) { // msg가 purchase라면
+			String photoName = request.getParameter("photoName");
+			String productName = request.getParameter("productName");
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct"));
+			
+			// 디버깅
+			System.out.println("SearchAddressController.doGet() photoName : " + photoName);
+			System.out.println("SearchAddressController.doGet() productName : " + productName);
+			System.out.println("SearchAddressController.doGet() quantity : " + quantity);
+			System.out.println("SearchAddressController.doGet() totalPriceByProduct : " + totalPriceByProduct);
+			
+			request.setAttribute("photoName", photoName);
+			request.setAttribute("productName", productName);
+			request.setAttribute("quantity", quantity);
+			request.setAttribute("totalPriceByProduct", totalPriceByProduct);
+			
 			request.getRequestDispatcher("/WEB-INF/view/purchaseChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
 		} else if (msg.equals("updateMemberAddr")) { // msg가 updateMemberAddr 라면
 			request.getRequestDispatcher("/WEB-INF/view/updateMember.jsp").forward(request, response); // 회원정보수정 페이지로 이동
