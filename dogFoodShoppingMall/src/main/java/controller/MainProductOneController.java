@@ -20,11 +20,11 @@ public class MainProductOneController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		
 		// 선택한 상품의 productId값을 받아옴
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		System.out.println("MainProductOneController.doGet() productId : " + productId);
+		
+		request.setAttribute("productId", productId);
 		
 		this.mainProductDao = new MainProductDao(); // dao 호출
 		

@@ -32,8 +32,23 @@
 		<br><br> 이름 : <input type="text" class="name" name="name" id="name" value="" >
 		<br><br> 휴대폰번호 : <input type="text" class="phone" name="phone" id="phone" value="" > 
 		
+		<table>
+			<tr>
+				<th>사진</th>
+				<th>상품</th>
+				<th>수량</th>
+				<th>가격</th>
+			</tr>
+			<tr>
+				<td>${photoName}</td>
+				<td>${productName}</td>
+				<td>${quantity}</td>
+				<td>${totalPriceByProduct}</td>
+			</tr>
+		</table>
+		
 		<br><br> 결제수단 : <input type="radio" name="payment" value="무통장입금" checked="checked">무통장입금
-      	<br><br><button type = "button">결제하기</button>
+      	<br><br><button type = "submit">결제하기</button>
      	</form>
 
 </body>
