@@ -410,7 +410,7 @@
 			<div class="side-menu-container">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="${pageContext.request.contextPath}/adminPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
-					<li><a href="${pageContext.request.contextPath}/MemberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
+					<li><a href="${pageContext.request.contextPath}/memberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
 
 					<!-- Dropdown-->

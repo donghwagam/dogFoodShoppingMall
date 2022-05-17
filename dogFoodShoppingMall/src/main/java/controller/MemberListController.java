@@ -19,7 +19,6 @@ public class MemberListController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.adminDao = new AdminDao(); // AdminDao 호출 
-		
 		int currentPage = 1;  // 현재 페이지 
 		if (request.getParameter("currentPage") != null ) { // 현재패이지값이 null 이 아니면 
 			currentPage = Integer.parseInt(request.getParameter("currentPage")); // 현재 페이지 값 불러
@@ -34,7 +33,7 @@ public class MemberListController extends HttpServlet {
 		
 		// 페이지 끝 구하기 
 		int lastPage = 0; // 마지막 페이지 
-		int totalCount = adminDao.selectMemberTotalRow(); // 전체 리스트 수
+		int totalCount = list.size(); // 전체 리스트 수
 		lastPage = (int)Math.ceil((double)totalCount / (double)rowPerPage); // 마지막 페이지 구하기
 		//디버깅 
 		System.out.println("MemberListController currentPage :" + currentPage);

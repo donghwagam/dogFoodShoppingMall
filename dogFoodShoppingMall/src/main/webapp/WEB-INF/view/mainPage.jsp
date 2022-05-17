@@ -72,7 +72,10 @@
 						<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
 					</c:when>
 					<c:otherwise>
-						<div>${sessionMemberId}님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">|마이페이지 </a><a href="${pageContext.request.contextPath}/logoutController">| 로그아웃 </a>
+						<div>
+							${sessionMemberId}님 반갑습니다 
+							<a href="${pageContext.request.contextPath}/memberOneController">|마이페이지 </a>
+							<a href="${pageContext.request.contextPath}/logoutController">| 로그아웃 </a>
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -146,7 +149,10 @@
 										<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
 									</c:when>
 									<c:otherwise>
-										<div>${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
+										<div>
+										${sessionMemberId} 님 반갑습니다 
+										<a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a>
+										<a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -289,7 +295,7 @@
 					<div class="featured__controls">
 						<ul>
 							<li class="active" data-filter="*">All</li>
-							<li data-filter=".puppy"> <a href="${pageContext.request.contextPath}/mainPageController?categoryName=퍼피">퍼피</a></li>
+							<li data-filter=".퍼피">퍼피</li>
 							<li data-filter=".어덜트">어덜트</li>
 							<li data-filter=".시니어">시니어</li>
 						</ul>

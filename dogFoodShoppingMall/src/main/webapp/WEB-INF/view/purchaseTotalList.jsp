@@ -456,6 +456,7 @@
 	</div>
 </div>
  </div>
+<div class="container">
  	<form method="post" action="${pageContext.request.contextPath}/purchaseTotalListController?memberId=${memberId}">
  	<input type="hidden" name="memberId" value="${memberId}">
  	<div>
@@ -470,7 +471,7 @@
 	</div>
  		<button type="submit" class="btn btn-success">검색</button>
  	
- <div class="container">
+ 
 	<div class="row">
 		<div class="span5">
             <table class="table table-striped table-condensed">
@@ -507,8 +508,8 @@
             </table>
             </div>
 	</div>
-</div>
  	</form>	
+ </div>
   		<footer class="pull-left footer">
   			<p class="col-md-12">
   				<hr class="divider">
