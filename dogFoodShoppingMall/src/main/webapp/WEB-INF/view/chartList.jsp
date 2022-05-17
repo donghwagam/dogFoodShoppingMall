@@ -1,485 +1,549 @@
-// chartList.jsp
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="zxx">
-
+<html>
 <head>
-   <meta charset="UTF-8">
-   <meta name="description" content="Ogani Template">
-   <meta name="keywords" content="Ogani, unica, creative, html">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>통계</title>
-   
-   <!-- Google Font -->
-   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-   
-   <!-- Css Styles -->
-   <link rel="stylesheet" href="./Resources/css/bootstrap.min.css" type="text/css">
-   <link rel="stylesheet" href="./Resources/css/font-awesome.min.css" type="text/css">
-   <link rel="stylesheet" href="./Resources/css/elegant-icons.css"   type="text/css">
-   <link rel="stylesheet" href="./Resources/css/nice-select.css" type="text/css">
-   <link rel="stylesheet" href="./Resources/css/jquery-ui.min.css"   type="text/css">
-   <link rel="stylesheet" href="./Resources/css/owl.carousel.min.css" type="text/css">
-   <link rel="stylesheet" href="./Resources/css/slicknav.min.css" type="text/css">
-   <link rel="stylesheet" href="./Resources/css/style.css" type="text/css">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<style type="text/css">
+   h1.page-header {
+    margin-top: -5px;
+}
+
+.sidebar {
+   padding-left: 0;
+}
+
+.main-container { 
+   background: #FFF;
+   padding-top: 15px;
+   margin-top: -20px;
+}
+
+.footer {
+   width: 100%;
+}  
+
+:focus {
+   outline: none;
+}
+
+.side-menu {
+   position: relative;
+   width: 100%;
+   height: 100%;
+   background-color: #f8f8f8;
+   border-right: 1px solid #e7e7e7;
+}
+.side-menu .navbar {
+   border: none;
+}
+.side-menu .navbar-header {
+   width: 100%;
+   border-bottom: 1px solid #e7e7e7;
+}
+.side-menu .navbar-nav .active a {
+   background-color: transparent;
+   margin-right: -1px;
+   border-right: 5px solid #e7e7e7;
+}
+.side-menu .navbar-nav li {
+   display: block;
+   width: 100%;
+   border-bottom: 1px solid #e7e7e7;
+}
+.side-menu .navbar-nav li a {
+   padding: 15px;
+}
+.side-menu .navbar-nav li a .glyphicon {
+   padding-right: 10px;
+}
+.side-menu #dropdown {
+   border: 0;
+   margin-bottom: 0;
+   border-radius: 0;
+   background-color: transparent;
+   box-shadow: none;
+}
+.side-menu #dropdown .caret {
+   float: right;
+   margin: 9px 5px 0;
+}
+.side-menu #dropdown .indicator {
+   float: right;
+}
+.side-menu #dropdown > a {
+   border-bottom: 1px solid #e7e7e7;
+}
+.side-menu #dropdown .panel-body {
+   padding: 0;
+   background-color: #f3f3f3;
+}
+.side-menu #dropdown .panel-body .navbar-nav {
+   width: 100%;
+}
+.side-menu #dropdown .panel-body .navbar-nav li {
+   padding-left: 15px;
+   border-bottom: 1px solid #e7e7e7;
+}
+.side-menu #dropdown .panel-body .navbar-nav li:last-child {
+   border-bottom: none;
+}
+.side-menu #dropdown .panel-body .panel > a {
+   margin-left: -20px;
+   padding-left: 35px;
+}
+.side-menu #dropdown .panel-body .panel-body {
+   margin-left: -15px;
+}
+.side-menu #dropdown .panel-body .panel-body li {
+   padding-left: 30px;
+}
+.side-menu #dropdown .panel-body .panel-body li:last-child {
+   border-bottom: 1px solid #e7e7e7;
+}
+.side-menu #search-trigger {
+   background-color: #f3f3f3;
+   border: 0;
+   border-radius: 0;
+   position: absolute;
+   top: 0;
+   right: 0;
+   padding: 15px 18px;
+}
+.side-menu .brand-name-wrapper {
+   min-height: 50px;
+}
+.side-menu .brand-name-wrapper .navbar-brand {
+   display: block;
+}
+.side-menu #search {
+   position: relative;
+   z-index: 1000;
+}
+.side-menu #search .panel-body {
+   padding: 0;
+}
+.side-menu #search .panel-body .navbar-form {
+   padding: 0;
+   padding-right: 50px;
+   width: 100%;
+   margin: 0;
+   position: relative;
+   border-top: 1px solid #e7e7e7;
+}
+.side-menu #search .panel-body .navbar-form .form-group {
+   width: 100%;
+   position: relative;
+}
+.side-menu #search .panel-body .navbar-form input {
+   border: 0;
+   border-radius: 0;
+   box-shadow: none;
+   width: 100%;
+   height: 50px;
+}
+.side-menu #search .panel-body .navbar-form .btn {
+   position: absolute;
+   right: 0;
+   top: 0;
+   border: 0;
+   border-radius: 0;
+   background-color: #f3f3f3;
+   padding: 15px 18px;
+}
+/* Main body section */
+.side-body {
+   margin-left: 310px;
+}
+/* small screen */
+@media (max-width: 768px) {
+   .side-menu {
+      position: relative;
+      width: 100%;
+      height: 0;
+      border-right: 0;
+   }
+
+   .side-menu .navbar {
+      z-index: 999;
+      position: relative;
+      height: 0;
+      min-height: 0;
+      background-color:none !important;
+      border-color: none !important;
+   }
+   .side-menu .brand-name-wrapper .navbar-brand {
+      display: inline-block;
+   }
+   /* Slide in animation */
+   @-moz-keyframes slidein {
+      0% {
+         left: -300px;
+      }
+      100% {
+         left: 10px;
+      }
+   }
+   @-webkit-keyframes slidein {
+      0% {
+         left: -300px;
+      }
+      100% {
+         left: 10px;
+      }
+   }
+   @keyframes slidein {
+      0% {
+         left: -300px;
+      }
+      100% {
+         left: 10px;
+      }
+   }
+   @-moz-keyframes slideout {
+      0% {
+         left: 0;
+      }
+      100% {
+         left: -300px;
+      }
+   }
+   @-webkit-keyframes slideout {
+      0% {
+         left: 0;
+      }
+      100% {
+         left: -300px;
+      }
+   }
+   @keyframes slideout {
+      0% {
+         left: 0;
+      }
+      100% {
+         left: -300px;
+      }
+   }
+   /* Slide side menu*/
+   /* Add .absolute-wrapper.slide-in for scrollable menu -> see top comment */
+   .side-menu-container > .navbar-nav.slide-in {
+      -moz-animation: slidein 300ms forwards;
+      -o-animation: slidein 300ms forwards;
+      -webkit-animation: slidein 300ms forwards;
+      animation: slidein 300ms forwards;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+   }
+   .side-menu-container > .navbar-nav {
+      /* Add position:absolute for scrollable menu -> see top comment */
+      position: fixed;
+      left: -300px;
+      width: 300px;
+      top: 43px;
+      height: 100%;
+      border-right: 1px solid #e7e7e7;
+      background-color: #f8f8f8;
+      overflow: auto;
+      -moz-animation: slideout 300ms forwards;
+      -o-animation: slideout 300ms forwards;
+      -webkit-animation: slideout 300ms forwards;
+      animation: slideout 300ms forwards;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+   }
+   @-moz-keyframes bodyslidein {
+      0% {
+         left: 0;
+      }
+      100% {
+         left: 300px;
+      }
+   }
+   @-webkit-keyframes bodyslidein {
+      0% {
+         left: 0;
+      }
+      100% {
+         left: 300px;
+      }
+   }
+   @keyframes bodyslidein {
+      0% {
+         left: 0;
+      }
+      100% {
+         left: 300px;
+      }
+   }
+   @-moz-keyframes bodyslideout {
+      0% {
+         left: 300px;
+      }
+      100% {
+         left: 0;
+      }
+   }
+   @-webkit-keyframes bodyslideout {
+      0% {
+         left: 300px;
+      }
+      100% {
+         left: 0;
+      }
+   }
+   @keyframes bodyslideout {
+      0% {
+         left: 300px;
+      }
+      100% {
+         left: 0;
+      }
+   }
+   /* Slide side body*/
+   .side-body {
+      margin-left: 5px;
+      margin-top: 70px;
+      position: relative;
+      -moz-animation: bodyslideout 300ms forwards;
+      -o-animation: bodyslideout 300ms forwards;
+      -webkit-animation: bodyslideout 300ms forwards;
+      animation: bodyslideout 300ms forwards;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+   }
+   .body-slide-in {
+      -moz-animation: bodyslidein 300ms forwards;
+      -o-animation: bodyslidein 300ms forwards;
+      -webkit-animation: bodyslidein 300ms forwards;
+      animation: bodyslidein 300ms forwards;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+   }
+   /* Hamburger */
+   .navbar-toggle-sidebar {
+      border: 0;
+      float: left;
+      padding: 18px;
+      margin: 0;
+      border-radius: 0;
+      background-color: #f3f3f3;
+   }
+   /* Search */
+   #search .panel-body .navbar-form {
+      border-bottom: 0;
+   }
+   #search .panel-body .navbar-form .form-group {
+      margin: 0;
+   }
+   .side-menu .navbar-header {
+      /* this is probably redundant */
+      position: fixed;
+      z-index: 3;
+      background-color: #f8f8f8;
+   }
+   /* Dropdown tweek */
+   #dropdown .panel-body .navbar-nav {
+      margin: 0;
+   }
+}
+</style>
 </head>
 <body>
-// chart 구현 css 템플릿 구하기 ( 막대그래프 , 꺽은선 그래프)
+   <!------ Include the above in your HEAD tag ---------->
 
-   <!-- Page Preloder -->
-   <div id="preloder">
-      <div class="loader"></div>
-   </div>
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle navbar-toggle-sidebar collapsed">
+         MENU
+         </button>
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">
+            Administrator
+         </a>
+      </div>
 
-   <!-- Humberger Begin -->
-   <div class="humberger__menu__overlay"></div>
-   <div class="humberger__menu__wrapper">
-      <div class="humberger__menu__logo">
-         <a href="#"><img src="./Resources/img/logo.png" alt=""></a>
-      </div>
-      <div class="humberger__menu__cart">
-         <ul>
-            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-         </ul>
-         <div class="header__cart__price">
-            item: <span>$150.00</span>
-         </div>
-      </div>
-      <div class="humberger__menu__widget">
-         <div class="header__top__right__language">
-            <img src="./Resources/img/language.png" alt="">
-            <div>English</div>
-            <span class="arrow_carrot-down"></span>
-            <ul>
-               <li><a href="#">Spanis</a></li>
-               <li><a href="#">English</a></li>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+         <form class="navbar-form navbar-left" method="GET" role="search">
+            <div class="form-group">
+               <input type="text" name="q" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+         </form>
+         <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown ">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                  ${sessionMemberId} 님 반갑습니다
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                     <li class="dropdown-header">SETTINGS</li>
+                     <li class=""><a href="#">Other Link</a></li>
+                     <li class=""><a href="#">Other Link</a></li>
+                     <li class=""><a href="#">Other Link</a></li>
+                     <li class="divider"></li>
+                     <li><a href="#">Logout</a></li>
+                  </ul>
+               </li>
             </ul>
-         </div>
-         <div class="header__top__right__auth">
-            <c:choose>
-               <c:when test="${sessionMemberId == null}">
-                  <a href="${pageContext.request.contextPath}/loginDenied/loginController"><i   class="fa fa-user"> Login</i></a>
-               </c:when>
-               <c:otherwise>
-                  <div>${sessionMemberId}님 반갑습니다 
-                     <a href="${pageContext.request.contextPath}/memberOneController">|마이페이지</a>
-                     <a href="${pageContext.request.contextPath}/logoutController">|로그아웃</a>
+         </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+   </nav>     <div class="container-fluid main-container">
+        <div class="col-md-2 sidebar">
+           <div class="row">
+   <!-- uncomment code for absolute positioning tweek see top comment in css -->
+   <div class="absolute-wrapper"> </div>
+   <!-- Menu -->
+   <div class="side-menu">
+      <nav class="navbar navbar-default" role="navigation">
+         <!-- Main Menu -->
+         <div class="side-menu-container">
+            <ul class="nav navbar-nav">
+               <li class="active"><a href="${pageContext.request.contextPath}/adminPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
+               <li><a href="${pageContext.request.contextPath}/MemberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
+               <li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
+
+               <!-- Dropdown-->
+               <li class="panel panel-default" id="dropdown">
+                  <a data-toggle="collapse" href="#dropdown-lvl1">
+                     <span class="glyphicon glyphicon-user"></span> Sub Level <span class="caret"></span>
+                  </a>
+
+                  <!-- Dropdown level 1 -->
+                  <div id="dropdown-lvl1" class="panel-collapse collapse">
+                     <div class="panel-body">
+                        <ul class="nav navbar-nav">
+                           <li><a href="#">Link</a></li>
+                           <li><a href="#">Link</a></li>
+                           <li><a href="#">Link</a></li>
+
+                           <!-- Dropdown level 2 -->
+                           <li class="panel panel-default" id="dropdown">
+                              <a data-toggle="collapse" href="#dropdown-lvl2">
+                                 <span class="glyphicon glyphicon-off"></span> Sub Level <span class="caret"></span>
+                              </a>
+                              <div id="dropdown-lvl2" class="panel-collapse collapse">
+                                 <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                       <li><a href="#">Link</a></li>
+                                       <li><a href="#">Link</a></li>
+                                       <li><a href="#">Link</a></li>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </li>
+                        </ul>
+                     </div>
                   </div>
-               </c:otherwise>
-            </c:choose>
-         </div>
-      </div>
-      <nav class="humberger__menu__nav mobile-menu">
-         <ul>
-            <li class="active">
-               <a href="${pageContext.request.contextPath}/mainPageController">Home</a>
-            </li>
-            <li>
-               <a href="./shop-grid.html">Shop</a>
-            </li>
-            <li>
-               <a href="#">Pages</a>
-               <ul class="header__menu__dropdown">
-                  <li><a href="./Resources/shop-details.html">Shop Details</a></li>
-                  <li><a href="./Resources/shoping-cart.html">Shoping Cart</a></li>
-                  <li><a href="./Resources/checkout.html">Check Out</a></li>
-                  <li><a href="./Resources/blog-details.html">Blog Details</a></li>
-               </ul>
-            </li>
-            <li><a href="./Resources/blog.html">Blog</a></li>
-            <li><a href="./Resources/contact.html">Contact</a></li>
-         </ul>
+               </li>
+
+               <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
+
+            </ul>
+         </div><!-- /.navbar-collapse -->
       </nav>
-      <div id="mobile-menu-wrap"></div>
-      <div class="header__top__right__social">
-         <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a> 
-         <a href="#"><i class="fa fa-linkedin"></i></a>
-         <a href="#"><i class="fa fa-pinterest-p"></i></a>
-      </div>
-      <div class="humberger__menu__contact">
-         <ul>
-            <li><i class="fa fa-envelope">hello@colorlib.com</i></li>
-            <li>Free Shipping for all Order of $99</li>
-         </ul>
-      </div>
+
    </div>
-   <!-- Humberger End -->
+</div>
+</div>
+<div class="container" style="height:500px; width:500px;">
+  <canvas id="myChartOne" ></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labelsOne = [
+    '${chartListByProductList[1].productName}',
+    '${chartListByProductList[2].productName}',
+    '${chartListByProductList[3].productName}',
+    '${chartListByProductList[4].productName}',
+    '${chartListByProductList[5].productName}'
+  ];
+  const dataOne = {
+    labels: labelsOne,
+    datasets: [{
+      label: '상품별 판매 총액',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [
+         '${chartListByProductList[1].totalPrice}',
+         '${chartListByProductList[2].totalPrice}',
+         '${chartListByProductList[3].totalPrice}',
+         '${chartListByProductList[4].totalPrice}',
+         '${chartListByProductList[5].totalPrice}'
+],
+    }]
+  };
 
-   <!-- Header Section Begin -->
-   <header class="header">
-      <div class="header__top">
-         <div class="container">
-            <div class="row">
-               <div class="col-lg-6">
-                  <div class="header__top__left">
-                     <ul>
-                        <li><i class="fa fa-envelope">hello@colorlib.com</i></li>
-                        <li>Free Shipping for all Order of $99</li>
-                     </ul>
-                  </div>
-               </div>
-               <div class="col-lg-6">
-                  <div class="header__top__right">
-                     <div class="header__top__right__social">
-                        <a href="#"><i class="fa fa-facebook"></i></a> 
-                        <a href="#"><i class="fa fa-twitter"></i></a> 
-                        <a href="#"><i class="fa fa-linkedin"></i></a> 
-                        <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                     </div>
-                     <div class="header__top__right__language">
-                        <img src="./Resources/img/language.png" alt="">
-                        <div>English</div>
-                        <span class="arrow_carrot-down"></span>
-                        <ul>
-                           <li><a href="#">Spanis</a></li>
-                           <li><a href="#">English</a></li>
-                        </ul>
-                     </div>
-                     <div class="header__top__right__auth">
-                        <c:choose>
-                           <c:when test="${sessionMemberId == null}">
-                              <a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user">Login</i></a>
-                           </c:when>
-                           <c:otherwise>
-                              <div>${sessionMemberId}님 반갑습니다 
-                                 <a href="${pageContext.request.contextPath}/memberOneController">|마이페이지</a>
-                                 <a href="${pageContext.request.contextPath}/logoutController">|로그아웃</a>
-                              </div>
-                           </c:otherwise>
-                        </c:choose>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-3">
-               <div class="header__logo">
-                  <a href="./Resources/index.html"><img src="./Resources/img/logo.png" alt=""></a>
-               </div>
-            </div>
-            <div class="col-lg-6">
-               <nav class="header__menu">
-                  <ul>
-                     <li><a href="${pageContext.request.contextPath}/mainPageController">Home</a></li>
-                     <li class="active"><a href="./Resources/shop-grid.html">Shop</a></li>
-                     <li><a href="#">Pages</a>
-                        <ul class="header__menu__dropdown">
-                           <li><a href="./Resources/shop-details.html">Shop Details</a></li>
-                           <li><a href="./Resources/shoping-cart.html">Shoping   Cart</a></li>
-                           <li><a href="./Resources/checkout.html">Check Out</a></li>
-                           <li><a href="./Resources/blog-details.html">Blog Details</a></li>
-                        </ul></li>
-                     <li><a href="./Resources/blog.html">Blog</a></li>
-                     <li><a href="./Resources/contact.html">Contact</a></li>
-                  </ul>
-               </nav>
-            </div>
-            <div class="col-lg-3">
-               <div class="header__cart">
-                  <ul>
-                     <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                     <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                  </ul>
-                  <div class="header__cart__price">
-                     item: <span>$150.00</span>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="humberger__open">
-            <i class="fa fa-bars"></i>
-         </div>
-      </div>
-   </header>
-   <!-- Header Section End -->
-   <!--  헤드 부분 css 끝 -->
-   
-   
-   
-   
-   
-   
-   
-   
-   <section class="latest-product spad">
-      <div class="container">
-         <div class="row">
-            <div class="col-lg-4 col-md-6">
-               <div class="latest-product__text">
-                  <h4>상품별 판매량</h4>
-                  <div class="latest-product__slider owl-carousel">
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByProductList}" begin="0" end="2" step="1">
-                           <a href="${pageCotext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
-                              <div class="latest-product__item_text">
-                                 <h6>${c.productName}</h6>
-                                 <h6>${c.price} 원</h6>
-                                 <h6>${c.sum} 개</h6>
-                                 <span> 총액 : ${c.totalPrice} 원 </span>
-                              </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByProductList}" begin="3" end="5" step="1">
-                           <a href="${pageCotext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
-                              <div class="latest-product__item_text">
-                                 <h6>${c.productName}</h6>
-                                 <h6>${c.price} 원</h6>
-                                 <h6>${c.sum} 개</h6>
-                                 <span> 총액 : ${c.totalPrice} 원 </span>
-                              </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByProductList}" begin="6" end="8" step="1">
-                           <a href="${pageCotext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
-                              <div class="latest-product__item_text">
-                                 <h6>${c.productName}</h6>
-                                 <h6>${c.price} 원</h6>
-                                 <h6>${c.sum} 개</h6>
-                                 <span> 총액 : ${c.totalPrice} 원 </span>
-                              </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                  </div>
-               </div>
-               <div class="latest-product__text">
-                  <h4>날짜별 판매량</h4>
-                  <div class="latest-product__slider owl-carousel">
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByDateList}" begin="0" end="2" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.updateDate}</h6>
-                              <h6>${c.sum} 개</h6>
-                              <span> 총액 : ${c.totalPrice} 원 </span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByDateList}" begin="3" end="5" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.updateDate}</h6>
-                              <h6>${c.sum} 개</h6>
-                              <span> 총액 : ${c.totalPrice} 원 </span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByDateList}" begin="6" end="8" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?productId=${c.productId}" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.updateDate}</h6>
-                              <h6>${c.sum} 개</h6>
-                              <span> 총액 : ${c.totalPrice} 원 </span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                  </div>
-               </div>
-               <div class="latest-product__text">
-                  <h4>카테고리별 판매량</h4>
-                  <div class="latest-product__slider owl-carousel">
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByCategoryList}" begin="0" end="2" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.categoryName}</h6>
-                              <h6>${c.sum} 개</h6>
-                              <span> 총액 : ${c.totalPrice} </span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByCategoryList}" begin="3" end="5" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.categoryName}</h6>
-                              <h6>${c.sum} 개</h6>
-                              <span> 총액 : ${c.totalPrice} </span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                  </div>
-               </div>
-               <div class="latest-product__text">
-                  <h4>브랜드별 판매량</h4>
-                  <div class="latest-product__slider owl-carousel">
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByBrandList}" begin="0" end="2" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.brandName}</h6>
-                              <h6>${c.sum} 개</h6>
-                              <span> 총액  : ${c.totalPrice} 원</span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByBrandList}" begin="3" end="5" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.brandName}</h6>
-                              <h6>${c.sum} 개</h6>
-                       <span> 총액  : ${c.totalPrice} 원</span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByBrandList}" begin="6" end="8" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.brandName}</h6>
-                              <h6>${c.sum} 개</h6>
-                       <span> 총액  : ${c.totalPrice} 원</span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                     <div class="latest-prdouct__slider__item">
-                        <c:forEach var="c" items="${chartListByBrandList}" begin="9" end="11" step="1">
-                           <a href="${pageContext.request.contextPath}/mainProductOneController?" class="latest-product__item">
-                           <div class="latest-product__item_text">
-                              <h6>${c.brandName}</h6>
-                              <h6>${c.sum} 개</h6>
-                       <span> 총액  : ${c.totalPrice} 원</span>
-                           </div>
-                           </a> 
-                        </c:forEach>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </section>
-   
-      
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   <!--  하단부 ccs 시작 -->
-   <!-- Footer Section Begin -->
-    <footer class="footer spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__about">
-                        <div class="footer__about__logo">
-                            <a href="./index.html"><img src="./Resources/img/logo.png" alt=""></a>
-                        </div>
-                        <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                    <div class="footer__widget">
-                        <h6>Useful Links</h6>
-                        <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">About Our Shop</a></li>
-                            <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery infomation</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Our Sitemap</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#">Who We Are</a></li>
-                            <li><a href="#">Our Services</a></li>
-                            <li><a href="#">Projects</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Innovation</a></li>
-                            <li><a href="#">Testimonials</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="footer__widget">
-                        <h6>Join Our Newsletter Now</h6>
-                        <p>Get E-mail updates about our latest shop and special offers.</p>
-                        <form action="#">
-                            <input type="text" placeholder="Enter your mail">
-                            <button type="submit" class="site-btn">Subscribe</button>
-                        </form>
-                        <div class="footer__widget__social">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-pinterest"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p>
-                           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;
-                            <script>document.write(new Date().getFullYear());</script>
-                            All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by 
-                            <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                       <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div>
-                        <div class="footer__copyright__payment"><img src="./Resources/img/payment-item.png" alt=""></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
-    <!-- 하단부 css 끝 -->
+  const config = {
+          type: 'bar',
+          data: dataOne,
+          options: {}
+        };
+  
+</script>
+<script>
+  const myChartOne = new Chart(
+    document.getElementById('myChartOne'),
+    config
+  );
+</script>
+<div class="container" style="height:500px; width:500px;">
+  <canvas id="myChartTwo"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labelsTwo = [
+    '${chartListByDateList[1].updateDate}',
+    '${chartListByDateList[2].updateDate}',
+    '${chartListByDateList[3].updateDate}',
+    '${chartListByDateList[4].updateDate}',
+    '${chartListByDateList[5].updateDate}'
+  ];
 
-    <!-- Js Plugins -->
-    <script src="./Resources/js/jquery-3.3.1.min.js"></script>
-    <script src="./Resources/js/bootstrap.min.js"></script>
-    <script src="./Resources/js/jquery.nice-select.min.js"></script>
-    <script src="./Resources/js/jquery-ui.min.js"></script>
-    <script src="./Resources/js/jquery.slicknav.js"></script>
-    <script src="./Resources/js/mixitup.min.js"></script>
-    <script src="./Resources/js/owl.carousel.min.js"></script>
-    <script src="./Resources/js/main.js"></script>
+  const dataTwo = {
+    labels: labelsTwo,
+    datasets: [{
+      label: '날짜별 판매 총액',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: [
+         '${chartListByDateList[1].totalPrice}',
+         '${chartListByDateList[2].totalPrice}',
+         '${chartListByDateList[3].totalPrice}',
+         '${chartListByDateList[4].totalPrice}',
+         '${chartListByDateList[5].totalPrice}'
+],
+    }]
+  };
 
+  const configTwo = {
+    type: 'bar',
+    data: dataTwo,
+    options: {}
+  };
+</script>
+<script>
+  const myChartTwo = new Chart(
+    document.getElementById('myChartTwo'),
+    configTwo
+  );
+</script>
+  
+        <footer class="pull-left footer">
+           <p class="col-md-8">
+              <hr class="divider">
+              Copyright &COPY; 2015 <a href="http://www.pingpong-labs.com">Gravitano</a>
+           </p>
+        </footer>
+     </div>
 </body>
 </html>
