@@ -89,7 +89,7 @@ public class PurchaseTotalListController extends HttpServlet {
 				// 페이지 끝 구하기 
 				int lastPage = 0; // 마지막 페이지 
 				
-				int totalCount = adminDao.selectPurchaseListTotalRow(memberId); // 전체 리스트 수
+				int totalCount = adminDao.selectSearchPurchaseTotalRow(memberId, status, aDate, bDate);// 전체 리스트 수
 				
 				lastPage = (int)Math.ceil((double)totalCount / (double)rowPerPage); // 마지막 페이지 구하기
 					

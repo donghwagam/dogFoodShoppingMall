@@ -24,6 +24,7 @@ public class MainProductDao {
                   + "         ,p.name productName" // 상품 이름 
                   + "         ,p.price price" // 가격 
                   + "         ,p.gram gram" //그램 
+                  + "         ,p.star star" //별점 
                   + "         ,pp.name photoName" // 사진이름 
                      + "    FROM product p "
                      + "    LEFT JOIN product_photo pp "
@@ -39,6 +40,7 @@ public class MainProductDao {
                map.put("productId",rs.getInt("productId"));
                map.put("productName", rs.getString("productName"));
                map.put("gram", rs.getInt("gram"));
+               map.put("star", rs.getInt("star"));
                map.put("price", rs.getInt("price"));
                map.put("photoName", rs.getString("photoName"));
                list.add(map);
@@ -97,8 +99,9 @@ public class MainProductDao {
             ResultSet rs = null;
             String sql = "SELECT p.product_id productId"
                   + "         ,p.name productName"
-                  + "         ,p.price"
-                  + "         ,p.gram"
+                  + "         ,p.price price"
+                  + "         ,p.gram gram"
+                  + "         ,p.star star"
                   + "         ,pp.name photoName"
                      + "    FROM product p "
                      + "   LEFT JOIN product_photo pp "
@@ -116,6 +119,7 @@ public class MainProductDao {
                    map.put("productId",rs.getInt("productId"));
                    map.put("productName", rs.getString("productName"));
                    map.put("gram" ,rs.getInt("gram"));
+                   map.put("star", rs.getInt("star"));
                    map.put("price", rs.getInt("price"));
                    map.put("photoName", rs.getString("photoName"));
                    list.add(map);
@@ -145,6 +149,7 @@ public class MainProductDao {
                   + "         ,p.name productName"
                   + "         ,p.gram gram"
                   + "         ,p.price price"
+                  + "         ,p.star star"
                   + "         ,pp.name photoName"
                   + "         ,SUM(pl.quantity) sum "
                   + "      FROM purchase_list pl"
@@ -166,6 +171,7 @@ public class MainProductDao {
                 map.put("productName",rs.getString("productName"));
                 map.put("gram",rs.getString("gram"));
                 map.put("price",rs.getInt("price"));
+                map.put("star", rs.getInt("star"));
                 map.put("photoName",rs.getString("photoName"));
                 list.add(map);
              }
@@ -190,7 +196,8 @@ public class MainProductDao {
             String sql = "SELECT p.product_id productId"
                   + "       ,p.name productName"
                   + "       ,p.price price"
-                  + "       ,pph.name photoName "
+                  + "       ,pph.name photoName"
+                  + "       ,p.star star"
                   + "      FROM product p"
                   + "    JOIN product_category pc"
                   + "     ON p.product_id = pc.product_id"
@@ -212,6 +219,7 @@ public class MainProductDao {
                    map.put("productName",rs.getString("productName"));
                    map.put("price",rs.getInt("price"));
                    map.put("photoName", rs.getString("photoName"));
+                   map.put("star", rs.getInt("star"));
                    list.add(map);
                 }
             } catch (Exception e) {
@@ -240,6 +248,7 @@ public class MainProductDao {
                   + "       ,p.origin origin " // 원산지 
                   + "       ,p.stock stock" // 재고 
                   + "       ,p.info info " // 정보 
+                  + "       ,p.star star "
                   + "       ,b.name brandName " //브랜드 이름 
                   + "       ,pp.name photoName "  //사진 
                   + "       ,GROUP_CONCAT(CONCAT(cp.name,' ') separator ', ') componentName  "  // CONCAT(cp.name, ', ')
@@ -270,6 +279,7 @@ public class MainProductDao {
                    map.put("origin", rs.getString("origin"));
                    map.put("stock" , rs.getInt("stock"));
                    map.put("info", rs.getString("info"));
+                   map.put("star",rs.getInt("star"));
                    map.put("brandName",rs.getString("brandName"));
                    map.put("photoName",rs.getString("photoName"));
                    map.put("componentName",rs.getString("componentName"));

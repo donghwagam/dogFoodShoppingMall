@@ -246,6 +246,7 @@ public class AdminDao {
 		   
 		   return totalCount;
 	   }
+	   //선택한 구매자의행 카운트 하는 메서드 
 	   public int selectPurchaseListTotalRow(String memberId) {
 		   int totalCount = 0;
 		   Connection conn = null;
@@ -275,6 +276,7 @@ public class AdminDao {
 		   }
 		   return totalCount;
 	   }
+	   
 	   public List<Map<String, Object>> selectMemberListByPage(int beginRow , int rowPerPage) {
 		   List<Map<String, Object>> list = new ArrayList<>();
 		   Connection conn = null;
@@ -320,6 +322,7 @@ public class AdminDao {
 		   
 		   return list;
 	   }
+	   //선택한 멤버아이디의 구매목록을 보여주는 메서드 
 	   public List<Map<String, Object>> selectPurchaseMemberTotalListByPage(int beginRow, int rowPerPage, String memberId) {
 		   List<Map<String, Object>> list = new ArrayList<>();
 		   Connection conn = null;
@@ -381,6 +384,7 @@ public class AdminDao {
 		   		+ "            ,p.name productName"
 		   		+ "            ,pu.member_id memberId"
 		   		+ "            ,pu.status status"
+		   		+ "            ,pu.payment payment"
 		   		+ "            ,pu.total_price totalPrice"
 		   		+ "            ,pu.create_date createDate"
 		   		+ "      FROM purchase pu"
@@ -399,8 +403,9 @@ public class AdminDao {
 		    	   Map<String ,Object> m = new HashMap<>();
 		    	   m.put("purchaseId",rs.getInt("purchaseId"));
 		    	   m.put("cnt", rs.getInt("cnt"));
-		    	   m.put("productName",rs.getInt("productName"));
+		    	   m.put("productName",rs.getString("productName"));
 		    	   m.put("memberId", rs.getString("memberId"));
+		    	   m.put("payment", rs.getString("payment"));
 		    	   m.put("status", rs.getString("status"));
 		    	   m.put("totalPrice", rs.getInt("totalPrice"));
 		    	   m.put("createDate",rs.getString("createDate"));
@@ -430,7 +435,7 @@ public class AdminDao {
 			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			   stmt = conn.prepareStatement(sql);
 			   stmt.setString(1,status);
-			   stmt.setInt(1, purchaseId);
+			   stmt.setInt(2, purchaseId);
 			   row = stmt.executeUpdate();
 			   if (row == 1) {
 				   System.out.println("AdminDao updatePurchaseList() 수정성공 ");
@@ -563,5 +568,77 @@ public class AdminDao {
 			   }
 		   }
 		   return list;
+	   }
+	   public int selectSearchPurchaseTotalRow(String memberId, String status ,String aDate, String bDate) {
+		   int totalCount = 0;
+		   Connection conn = null;
+		   PreparedStatement stmt = null;
+		   ResultSet rs = null;
+		   String sql = "SELECT COUNT(*) cnt"
+				   + "     FROM purchase_list pl"
+			  		+ "   JOIN product p"
+			  		+ "       ON pl.product_id = p.product_id"
+			  		+ "   JOIN purchase pu"
+			  		+ "       ON pl.purchase_id = pu.purchase_id";
+		   try {
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			  if (status.equals("") && aDate.equals("") && bDate.equals("")) { // 3개다 입력하지 않았을 때 
+		       sql +=  "   WHERE pu.member_id = ?";
+			   stmt = conn.prepareStatement(sql);
+		       stmt.setString(1, memberId);
+			  } else if (status.equals("") && aDate.equals("") && !bDate.equals("")) { // bDate 만 입력했을때
+				  sql +=  "   WHERE pu.member_id = ? AND pu.create_date BETWEEN '0000-01-01' AND ?";
+				  stmt = conn.prepareStatement(sql);
+				  stmt.setString(1, memberId);
+				  stmt.setString(2, bDate);
+			  } else if (status.equals("") && !aDate.equals("") && bDate.equals("")) { // aDate만 입력했을 때 
+				  sql +=  "   WHERE pu.member_id = ? AND pu.create_date BETWEEN ? AND NOW()";
+				  stmt = conn.prepareStatement(sql);
+				  stmt.setString(1, memberId);
+				  stmt.setString(2, aDate);
+			  } else if (status.equals("") && !aDate.equals("") && !bDate.equals("")) { // aDate와 bDate 를 둘다 입력했을 때 
+				  sql +=  "   WHERE pu.member_id = ? AND pu.create_date BETWEEN ? AND ?";
+				  stmt = conn.prepareStatement(sql);
+				  stmt.setString(1, memberId);
+				  stmt.setString(2, aDate);
+				  stmt.setString(3, bDate);
+			  } else if (!status.equals("") && aDate.equals("") && bDate.equals("")) { // 배송정보를 입력했을 때 
+				  sql +=  "   WHERE pu.member_id = ? AND pu.status = ?";
+				  stmt = conn.prepareStatement(sql);
+				  stmt.setString(1,memberId);
+				  stmt.setString(2,status);
+			  } else if (!status.equals("") && aDate.equals("") && !bDate.equals("")) { // 배송정보와 bDate를 입력했을떄 
+				  sql +=  "   WHERE pu.member_id = ? AND pu.status = ? AND pu.create_date '0000-01-01' BETWEEN ?";
+				  stmt = conn.prepareStatement(sql);
+				  stmt.setString(1,memberId);
+				  stmt.setString(2, status);
+				  stmt.setString(3, bDate);
+			  } else if (!status.equals("") && !aDate.equals("") && bDate.equals("")) {
+				  sql +=  "   WHERE pu.member_id = ? AND pu.status = ? AND pu.create_date ? BETWEEN NOW()";
+				  stmt.setString(1, memberId);
+				  stmt.setString(2, status);
+				  stmt.setString(3, aDate);
+			  } else if (!status.equals("") && !aDate.equals("") && !bDate.equals("")) {
+				  sql +=  "   WHERE pu.member_id = ? AND pu.status = ? AND pu.create_date ? BETWEEN ?";
+				  stmt = conn.prepareStatement(sql);
+				  stmt.setString(1,memberId);
+				  stmt.setString(2,status);
+				  stmt.setString(3, aDate);
+				  stmt.setString(4, bDate);
+			  } 
+			   rs = stmt.executeQuery();
+		       if(rs.next()) {
+		    	   totalCount = rs.getInt("cnt"); // totalCount 변수에 cnt 저장 
+		       }
+		   } catch (Exception e) {
+			   e.printStackTrace();
+		   } finally {
+			   try {
+				   conn.close();
+			   } catch (SQLException e) {
+				   e.printStackTrace();
+			   }
+		   }
+		   return totalCount;
 	   }
 }

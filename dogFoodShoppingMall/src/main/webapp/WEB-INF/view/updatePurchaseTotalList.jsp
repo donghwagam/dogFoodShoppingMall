@@ -469,20 +469,51 @@
                       <th>결제정보</th>
                       <th>총가격</th>
                       <th>구매일</th>
-                      <th>수정</th>                                  
+                      <th>배송정보수정</th>
+                      <th>수정</th> 
                   </tr>
               </thead>   
               <tbody>
-              <c:forEach var="m" items="${list}">
+              <c:forEach var="pu" items="${list}">
                 <tr>
-                    <td>${m.memberId}</td>
-                    <td>${m.name}</td>
-                    <td>${m.birth}</td>
-                    <td>${m.phone}</td>
-                    <td>${m.email}</td>
-                    <td>${m.gender}</td> 
-                    <td>${m.addr}</td>
-                    <td><a href="${pageContext.request.contextPath}/purchaseTotalListController?memberId=${m.memberId}"><span class="label label-success">구매내역</span></a></td>
+                    <td>${pu.purchaseId}</td>
+                    <td>
+                    <c:choose>
+	                    <c:when test="${pu.cnt >1}">
+	                    	${pu.productName} 외${pu.cnt-1}개
+	                 	</c:when>
+	                 	<c:otherwise>
+	                 		${pu.productName}
+	                 	</c:otherwise>
+                 	</c:choose>
+                    </td>
+                    <td>${pu.memberId}</td>
+                    <td>${pu.status}</td>
+                    <td>${pu.payment}</td>
+                    <td>${pu.totalPrice}</td> 
+                    <td>${pu.createDate}</td>
+                    <form method="post" action="${pageContext.request.contextPath}/updatePurchaseTotalListController" >
+                    <div>
+                    	<input type="hidden" name="purchaseId" value="${pu.purchaseId}" >
+                    	</div>
+                    	<div>
+                    	<input type="hidden" name="memberId" value="${pu.memberId}">
+                    	</div>
+                    	<div>
+                    	<td>
+	                    	<select name="status">
+	                    		<option value="결제전">결제전</option>
+	                    		<option value="결제완료">결제완료</option>
+	                    		<option value="배송완료">배송완료</option>
+	                    	</select>
+                    	</td>
+                    </div>
+                    <td>
+                    <button type="submit"><span class="label label-danger">배송정보수정</span></button>
+                    </td>
+                    </form>
+                  	
+                  
                 </tr>
                 </c:forEach>
               </tbody>
