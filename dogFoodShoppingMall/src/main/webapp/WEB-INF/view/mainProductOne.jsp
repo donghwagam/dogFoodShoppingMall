@@ -312,20 +312,21 @@
                      
                     </div>
                 </div>
+                
                 <div class="col-lg-12">
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                    aria-selected="true">Description</a>
+                                    aria-selected="true">상품정보</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                    aria-selected="false">Information</a>
+                                    aria-selected="false">리뷰</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">Reviews <span>(1)</span></a>
+                                    aria-selected="false">Q&A <span>(1)</span></a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -339,12 +340,34 @@
                                     <p>${list.feedSize}</p>
                                     <h6>그램</h6>
                                     <p>${list.gram }</p>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <div class="product__details__tab__desc">
                                     <h6>상품정보</h6>
                                     <p>${list.info}</p>
+                                </div>
+                            </div>
+                           </c:forEach> 
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>리뷰</h6>
+                                 <c:forEach var="r" items="${selectReviewList}">
+                                 	<table border="1">
+                                 		<tr>
+                                 			<th>사진</th>
+                                 			<th>아이디</th>
+                                 			<th>견종</th>
+                                 			<th>제목</th>
+                                 			<th>내용</th>
+                                 			<th>작성날짜</th>
+                                 		</tr>
+                                 		<tr>
+                                 			<td>${r.reviewPhotoName}</td>
+                                 			<td>${r.memberId}</td>
+                                 			<td>${r.spiece}</td>
+                                 			<td>${r.title}</td>
+                                 			<td>${r.reviewContent}</td>
+                                 			<td>${r.createDate}</td>
+                                 		</tr>
+                                 	</table>
+                                 </c:forEach> 
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
@@ -367,7 +390,6 @@
                     </div>
                 </div>
             </div>
-			 </c:forEach>
         </div>
     </section>
     <!-- Product Details Section End -->

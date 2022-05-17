@@ -18,29 +18,32 @@ public class ReviewDao {
 		
 		String sql = "SELECT"
 				+ " rp.name reviewPhotoName"
-				+ ", p.member_id memberId"
-				+ ", d.spiece spiece"
-				+ ", r.title title"
-				+ ", r.review_content reviewContent"
-				+ ", r.create_date createDate"
+				+ " , p.member_id memberId"
+				+ " , d.spiece spiece"
+				+ " , r.title title"
+				+ " , r.review_content reviewContent"
+				+ " , r.create_date createDate"
 				+ " FROM review r"
-				+ "	JOIN purchase p"
-				+ "	ON r.purchase_id = p.purchase_id"
-				+ "		JOIN member_dog md"
-				+ "		ON p.member_id = md.member_id"
-				+ "			JOIN dog d"
-				+ "			ON md.dog_id = d.dog_id"
-				+ "				JOIN review_photo rp"
-				+ "				ON r.review_id = rp.review_id"
-				+ "					JOIN purchase_list pl"
-				+ "					ON p.purchase_id = pl.purchase_id"
-				+ " WHERE pl.product_id=?";
+				+ " 	JOIN review_photo rp"
+				+ " 		ON r.review_id = rp.review_id"
+				+ " 	JOIN purchase p"
+				+ " 		ON p.purchase_id = r.purchase_id"
+				+ " 	JOIN member m "
+				+ " 		ON m.member_id = p.member_id"
+				+ " 	JOIN member_dog md"
+				+ " 		ON m.member_id = md.member_id"
+				+ " 	JOIN dog d"
+				+ " 		ON md.dog_id = d.dog_id"
+				+ " WHERE r.product_id = ?"
+				+ " ORDER BY r.create_date DESC";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			
 			stmt.setInt(1, productId);
+			
+			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
 				Map<String, Object> map = new HashMap<String, Object>();
