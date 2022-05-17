@@ -197,7 +197,7 @@
             <tr>
                <td>연령</td>
                <td>
-                  <input type="radio" name="age" value="" checked="checked">선택안함
+                  <input type="radio" name="age" value="${a.name}" checked="checked">선택안함
                   <c:forEach var="a" items="${ageList}">
                         <input type="radio" name="age" value="${a.categoryId}"> ${a.name}
                   </c:forEach>  
@@ -207,13 +207,13 @@
                </td>
             </tr>
             <tr>
-               <td>알러지</td>
+               <td>알러지</td> 
                <td>
-                  <select name="component">
+                  <select name="component" id="component">
                      <option value="">선택없음</option>
                      <c:forEach var="c" items="${componentList}">
                         <option value="${c.componentId}">${c.name}</option>
-                    </c:forEach>
+                     </c:forEach>
                   </select>
                </td>
             </tr>
@@ -382,6 +382,6 @@
     <script src="./Resources/js/mixitup.min.js"></script>
     <script src="./Resources/js/owl.carousel.min.js"></script>
     <script src="./Resources/js/main.js"></script>
-
+    
 </body>
 </html>

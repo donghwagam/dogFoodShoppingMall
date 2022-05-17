@@ -139,18 +139,19 @@ public class BasketDao {
 	}
 	
 	// 장바구니 수량 변경하기 위한 메서드
-	public void updateBasket(int productId, String memberId) {
+	public void updateBasket(int productId, String memberId, int quantity) {
 		//드라이버 자원 준비 
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
-		String sql ="UPDATE basket SET quantity = quantity+1 WHERE product_id = ? AND member_id= ?";
+		String sql ="UPDATE basket SET quantity = quantity+? WHERE product_id = ? AND member_id= ?";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, productId);
-			stmt.setString(2, memberId);
+			stmt.setInt(1, quantity);
+			stmt.setInt(2, productId);
+			stmt.setString(3, memberId);
 			
 			// 수정 성공, 실패 확인할 변수 
 			int row = stmt.executeUpdate();

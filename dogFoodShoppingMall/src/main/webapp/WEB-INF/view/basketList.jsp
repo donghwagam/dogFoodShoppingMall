@@ -24,11 +24,7 @@
 						${g.price}원
 					</td>
 					<td>
-					<select name="basketCount">
-						<c:forEach var="i" begin="1" end="10">
-							<option value="${i}" <c:if test="${i eq g.quantity}">selected</c:if>> ${i} </option>
-						</c:forEach>
-					</select>
+						<input type="text" name="basketCount"  value="${g.quantity}">
 					</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/removeGuestBasketController?productId=${g.productId}">삭제</a>
@@ -50,11 +46,7 @@
 					${m.price}원
 				</td>
 				<td>
-				<select name="basketCount">
-					<c:forEach var="i" begin="1" end="10">
-						<option value="${i}" <c:if test="${i eq m.quantity}">selected</c:if>> ${i} </option>
-					</c:forEach>
-				</select>
+					<input type="text" name="basketCount"  value="${m.quantity}">
 				</td>
 				<td>
 					<a href="${pageContext.request.contextPath}/removeMemberBasketController?productId=${m.productId}">삭제</a>

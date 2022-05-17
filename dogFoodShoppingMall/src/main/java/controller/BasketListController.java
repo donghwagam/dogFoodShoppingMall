@@ -29,9 +29,10 @@ public class BasketListController extends HttpServlet {
 	    String memberId = (String) session.getAttribute("sessionMemberId");
 	    // 세션에 있는 장바구니 목록을 쓰기 위해 basketList로 저장
 	    // List<GuestBasket> guestBasketList = (List<GuestBasket>)session.getAttribute("guestBasketList");
-	 		
+	 	
 	    List<MemberBasket> memberBasketList = basketDao.selectMemberBasketList(memberId);
 	    int productId = 0;
+	    int quantity = 1;  // 초기 수량을 1로 정해주기
 	    
 	    System.out.println("---------------------------------BasketListController BEGIN---------------------------");
 	    if(memberId != null) { // 로그인 된 상태로 컨트롤러 들어왔다면
@@ -47,14 +48,14 @@ public class BasketListController extends HttpServlet {
     					System.out.println("memberBasketList--------------" + memberBasketList.get(i).getProductId());
 	    				if(guestBasketList.get(j).getProductId() == memberBasketList.get(i).getProductId()) { // 같은 아이디가 있다면
 	    					productId = memberBasketList.get(i).getProductId();
-	    					basketDao.updateBasket(productId, memberId); // quantity수량 하나 올려주는 메서드 호출
+	    					quantity = guestBasketList.get(j).getQuantity();
+	    					basketDao.updateBasket(productId, memberId, quantity); // quantity수량 올려주는 메서드 호출
 	    					chk = true; // quantity값 바꿔줬으면 chk값 true로 변경
 	    				}
 	    			}
 	    			
 	    			System.out.println("chk  -------:"+chk);
 	    			if(!chk) { // 같은 상품이 없었다면
-	    				int quantity = 1;  // 초기 수량을 1로 정해주기
 	    				productId = guestBasketList.get(j).getProductId(); // 리스트 돌리면서 productId 들고와서 
 	    			    basketDao.insertBasket(productId, memberId, quantity); // db에 넣어주기
 	    			}

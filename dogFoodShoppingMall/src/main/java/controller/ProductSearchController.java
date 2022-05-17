@@ -115,6 +115,10 @@ public class ProductSearchController extends HttpServlet {
       List<Map<String, Object>> searchCategoryList = this.productDao.selectProductListBySearchCategory(age, component, feedType, size);
 
       request.setAttribute("searchCategoryList", searchCategoryList);
+      request.setAttribute("ageId", age);
+      request.setAttribute("componentId", component);
+      request.setAttribute("feedTypeId", feedType);
+      request.setAttribute("size", size);
       
       //디버깅
       for(Map<String, Object> m : searchCategoryList) {

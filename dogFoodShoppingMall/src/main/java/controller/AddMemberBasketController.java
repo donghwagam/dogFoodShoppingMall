@@ -29,6 +29,8 @@ public class AddMemberBasketController extends HttpServlet {
 	    
 	    Basket basket = new Basket();
 	    
+	    int quantity = 1;  // 초기 수량을 1로 정해주기
+	    
 	    //요청값 불러오기
 	    int productId = Integer.parseInt(request.getParameter("productId"));
 	    String memberId = (String) session.getAttribute("sessionMemberId");
@@ -43,14 +45,13 @@ public class AddMemberBasketController extends HttpServlet {
 	    boolean chk = false; // 원래 있던 상품인지 아닌지를 체크하기 위한 변수 
 	    for(int i=0; i<memberBasketList.size(); i=i+1) {
 	    	if(memberBasketList.get(i).getProductId() == productId) { // 현재 장바구니에 동일한 상품이 있을 때 
-	    		basketDao.updateBasket(productId, memberId); // quantity수량 하나 올려주는 메서드 호출
+	    		basketDao.updateBasket(productId, memberId, quantity); // quantity수량 하나 올려주는 메서드 호출
         		chk = true; // quantity값 바꿔줬으면 chk값 true로 변경
         		break; 
 	    	 }
 	     }
 	    
 	    if(!chk) { // 원래 있던 상품이 아니라면
-	    	int quantity = 1;  // 초기 수량을 1로 정해주기
 		    basketDao.insertBasket(productId, memberId, quantity);
 	    }
 	    
