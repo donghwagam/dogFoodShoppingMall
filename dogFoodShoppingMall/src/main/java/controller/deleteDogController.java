@@ -24,7 +24,7 @@ public class deleteDogController extends HttpServlet {
 		dogDao.deleteDog(memberDogId);
 		
 		//삭제 했으면 다시 회원 정보 보여주는 컨트롤러로 리다이렉트
-		response.sendRedirect(request.getContextPath()+"/memberOneController");
+		// response.sendRedirect(request.getContextPath()+"/memberOneController");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

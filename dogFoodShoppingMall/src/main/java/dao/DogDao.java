@@ -156,6 +156,49 @@ public class DogDao {
       }
    }
    
+   // 애견정보를 보여주는 메서드
+   public List<Map<String, Object>> selectDog(String memberId) {
+      List<Map<String, Object>> list = new ArrayList<>();
+      // DB연결을 위한 자원 준비
+      Connection conn = null;
+      PreparedStatement stmt = null;
+      ResultSet rs = null;
+      
+      // 쿼리작성
+      String sql = "SELECT md.dog_name dogName, d.spiece, md.birth, md.weight, GROUP_CONCAT(a.name) allergyName"
+            + "         FROM member_dog md "
+            + "         JOIN dog d"
+            + "            ON md.dog_id = d.dog_id"
+            + "         JOIN member_dog_allergy mda"
+            + "            ON md.member_dog_id = mda.member_dog_id"
+            + "         JOIN allergy a"
+            + "            ON. mda.allergy_id = a.allergy_id"
+            + "      GROUP BY md.dog_name;";
+      
+      try {
+      conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+      stmt = conn.prepareStatement(sql); // sql문 전송
+      stmt.setString(1, memberId );
+      rs = stmt.executeQuery();
+      
+      while(rs.next()) {
+         Map<String, Object> map = new HashMap<>();
+         
+         map.put("dogName", rs.getString("dogName"));
+         map.put("spiece", rs.getString("spiece"));
+         map.put("birth", rs.getString("birth"));
+         map.put("weight", rs.getInt("weight"));
+         map.put("allergyName", rs.getString("allergyName"));
+         
+         list.add(map);
+      }
+   } catch (Exception e) {
+      e.printStackTrace();
+   }
+      return list;
+   }
+
+   
    //강아지 삭제기능 구현 위한 메서드
    public void deleteDog(int memberDogId) {
 	   Connection conn = null;
@@ -209,47 +252,4 @@ public class DogDao {
 	   }
        
    }
-   
-   // 애견정보를 보여주는 메서드
-   public List<Map<String, Object>> selectDog(String memberId) {
-      List<Map<String, Object>> list = new ArrayList<>();
-      // DB연결을 위한 자원 준비
-      Connection conn = null;
-      PreparedStatement stmt = null;
-      ResultSet rs = null;
-      
-      // 쿼리작성
-      String sql = "SELECT md.dog_name dogName, d.spiece, md.birth, md.weight, GROUP_CONCAT(a.name) allergyName"
-            + "         FROM member_dog md "
-            + "         JOIN dog d"
-            + "            ON md.dog_id = d.dog_id"
-            + "         JOIN member_dog_allergy mda"
-            + "            ON md.member_dog_id = mda.member_dog_id"
-            + "         JOIN allergy a"
-            + "            ON. mda.allergy_id = a.allergy_id"
-            + "      GROUP BY md.dog_name;";
-      
-      try {
-      conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-      stmt = conn.prepareStatement(sql); // sql문 전송
-      stmt.setString(1, memberId );
-      rs = stmt.executeQuery();
-      
-      while(rs.next()) {
-         Map<String, Object> map = new HashMap<>();
-         
-         map.put("dogName", rs.getString("dogName"));
-         map.put("spiece", rs.getString("spiece"));
-         map.put("birth", rs.getString("birth"));
-         map.put("weight", rs.getInt("weight"));
-         map.put("allergyName", rs.getString("allergyName"));
-         
-         list.add(map);
-      }
-   } catch (Exception e) {
-      e.printStackTrace();
-   }
-      return list;
-   }
-   
 }   
