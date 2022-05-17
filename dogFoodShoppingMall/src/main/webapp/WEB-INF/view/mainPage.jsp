@@ -232,55 +232,52 @@
 		</div>
 	</section>
 	<!-- jstl의 if~else 사용 categoryName 이 null 일때 일반 상품 리스트 출력 null이 아닐때 카테고리 관련된 상품 출력  -->
+<div class="container">
 	<div class="row">
-		<div class="col-lg-4 col-md-6 col-sm-6">
-			<div class="product__item">
-			
-
 			<c:choose>
 				<c:when test="${categoryName == null}">
-				<c:forEach var="p" items="${productList}" begin="0" end="12" step="1">
-						<div class="product__item__pic set-bg"
-							data-setbg="${pageContext.request.contextPath}/images/${p.photoName}">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="${pageContext.request.contextPath}/mainProductOneController?productId=${p.productId}">><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
+				<c:forEach var="p" items="${productList}" begin="0" end="11" step="1">
+						<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="product__item">
+								<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${p.photoName}">
+								<ul class="product__item__pic__hover">
+									<li><a href="#"><i class="fa fa-heart"></i></a></li>
+									<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+									<li><a href="${pageContext.request.contextPath}/mainProductOneController?productId=${p.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+								</ul>
+							</div>
+							<div class="product__item__text">
+								<h6>${p.productName}</h6>
+								<h5>${p.price} 원</h5>
+							</div>
 						</div>
-						<div class="product__item__text">
-							<h6>${p.productName}</h6>
-							<h5>${p.price}</h5>
-						</div>
+					</div>
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
-				<c:forEach var="cl" items="${productCategoryList}"  begin="0" end="12" step="1">
-						<div class="product__item__pic set-bg"
-							data-setbg="${pageContext.request.contextPath}/images/${cl.photoName}">
+				<c:forEach var="cl" items="${productCategoryList}"  begin="0" end="11" step="1">
+				<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${cl.photoName}">
 							<ul class="product__item__pic__hover">
 								<li><a href="#"><i class="fa fa-heart"></i></a></li>
 								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="${pageContext.request.contextPath}/mainProductOneController?productId=${cl.productId}">><i class="fa fa-shopping-cart"></i></a></li>
+								<li><a href="${pageContext.request.contextPath}/mainProductOneController?productId=${cl.productId}"><i class="fa fa-shopping-cart"></i></a></li>
 							</ul>
 						</div>
 						<div class="product__item__text">
 							<h6>${cl.productName}</h6>
-							<h5>${cl.price}원 </h5>
-
+							<h5>${cl.price} 원</h5>
 						</div>
+				</div>
 				</c:forEach>
 				</c:otherwise>
 			</c:choose>
-				
-			</div>
 		</div>
-
+</div>
 		<div class="product__pagination">
 			<a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#"><i
 				class="fa fa-long-arrow-right"></i></a>
 		</div>
-	</div>
 	<!-- Featured Section Begin -->
 	<section class="featured spad">
 		<div class="container">
@@ -454,7 +451,7 @@
 	<section class="latest-product spad">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-4 col-md-6">
+				<div class="col-lg-6 col-lg-6">
 					<div class="latest-product__text">
 						<h4>Latest Products</h4>
 						<div class="latest-product__slider owl-carousel">
@@ -465,11 +462,11 @@
 										<div class="latest-product__item_pic">
 											<img src="${pageContext.request.contextPath}/images/${l.photoName}" width="200" height="200" alt="">
 										</div>
+								</a>
 									<div class="latest-product__item_text">
 										<h6>${l.productName}</h6>
 										<span>${l.price} 원</span>
 									</div>
-								</a>
 								</c:forEach> 
 							</div>
 							<div class="latest-prdouct__slider__item">
@@ -478,17 +475,17 @@
 										<div class="latest-product__item_pic">
 												<img src="${pageContext.request.contextPath}/images/${l.photoName}" width="200" height="200" alt="">
 										</div>
+								</a>
 									<div class="latest-product__item_text">
 										<h6>${l.productName}</h6>
 										<span>${l.price}원</span>
 									</div>
-									</a> 
 								</c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6">
+				<div class="col-lg-6 col-lg-6">
 					<div class="latest-product__text">
 						<h4>TopRate Products</h4>
 						<div class="latest-product__slider owl-carousel">
@@ -500,11 +497,12 @@
 										<div class="latest-product__item_pic">
 											<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="200" height="200" alt="">
 										</div>
+									</a>
 									<div class="latest-product__item_text">
 										<h6>${t.productName}</h6>
 										<span>${t.price}원</span>
 									</div>
-									</a> 
+									
 								</c:forEach>
 								
 							</div>
@@ -514,11 +512,11 @@
 										<div class="latest-product__item_pic">
 												<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="200" height="200" alt="">
 										</div>
+							</a>
 									<div class="latest-product__item_text">
 										<h6>${t.productName}</h6>
 										<span>${t.price} 원</span>
 									</div>
-								</a> 
 								</c:forEach>
 							</div>
 						</div>
