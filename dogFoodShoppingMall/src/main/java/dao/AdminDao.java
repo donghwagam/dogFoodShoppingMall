@@ -641,4 +641,110 @@ public class AdminDao {
 		   }
 		   return totalCount;
 	   }
+	   public List<Map<String ,Object>> selectProductListByAdmin() {
+		   List<Map<String, Object>> list = new ArrayList<>();
+		   Connection conn = null;
+		   PreparedStatement stmt = null;
+		   ResultSet rs = null;
+		   String sql ="   SELECT p.product_id productId"
+		   		+ "         ,p.name productName"
+		   		+ "         ,p.price price"
+		   		+ "         ,p.rate rate"
+		   		+ "         ,p.stock stock"
+		   		+ "         ,b.name brandName"
+		   		+ "         ,p.update_date updateDate"
+		   		+ "   FROM product p"
+		   		+ " JOIN brand b"
+		   		+ "     ON b.brand_id = p.brand_id"
+		   		+ "   ORDER BY productId asc";
+		   try {
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   stmt = conn.prepareStatement(sql);
+			   rs = stmt.executeQuery();
+			   while (rs.next()) {
+		    	   Map<String, Object> m = new HashMap<>();
+		    	   m.put("productId" , rs.getInt("productId"));
+		    	   m.put("productName",rs.getString("productName"));
+		    	   m.put("price", rs.getInt("price"));
+		    	   m.put("rate", rs.getString("rate"));
+		    	   m.put("stock", rs.getInt("stock"));
+		    	   m.put("brandName",rs.getString("brandName"));
+		    	   m.put("updateDate", rs.getString("updateDate"));
+		    	   list.add(m);
+			   }
+		   } catch (Exception e) {
+			   e.printStackTrace();
+		   } finally {
+			   try {
+				   conn.close();
+			   } catch (SQLException e) {
+				   e.printStackTrace();
+			   }
+		   }
+		   return list;
+	   }
+	   public List<Map<String ,Object>> selectProductManagementOne(int productId){
+		   List<Map<String,Object>> list = new ArrayList<>();
+		   Connection conn = null;
+		   PreparedStatement stmt = null;
+		   ResultSet rs = null;
+		   String sql =" SELECT p.product_id productId"
+		   		+ "            ,p.name productName"
+		   		+ "            ,p.price price"
+		   		+ "            ,p.rate rate"
+		   		+ "            ,p.origin origin"
+		   		+ "            ,p.feed_size feedSize"
+		   		+ "            ,p.info info"
+		   		+ "            ,pp.name photoName"
+		   		+ "            ,p.stock stock"
+		   		+ "            ,b.name brandName"
+		   		+ "            ,GROUP_CONCAT(CONCAT(co.name,' ')) componentName"
+		   		+ "            ,p.update_date updateDate"
+		   		+ "        FROM product p"
+		   		+ "   LEFT JOIN brand b"
+		   		+ "          ON p.brand_id = b.brand_id"
+		   		+ "   LEFT JOIN product_photo pp"
+		   		+ "	         ON pp.product_id = p.product_id"
+		   		+ "   LEFT JOIN product_category pc"
+		   		+ " 	     ON p.product_id = pc.product_id"
+		   		+ "   LEFT JOIN category c"
+		   		+ "	         ON c.category_id = pc.category_id"
+		   		+ "   LEFT JOIN product_component pco"
+		   		+ "	         ON pco.product_id = p.product_id"
+		   		+ "   LEFT JOIN component co"
+		   		+ "	         ON pco.component_id = co.component_id"
+		   		+ "       WHERE p.product_id = ?"
+		   		+ "    GROUP BY p.product_id";
+		   try {
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+               stmt = conn.prepareStatement(sql);
+               stmt.setInt(1, productId);
+               rs = stmt.executeQuery();
+               while (rs.next()) {
+            	   Map<String,Object> map = new HashMap<>();
+            	   map.put("productId",rs.getInt("productId"));
+            	   map.put("productName", rs.getString("productName"));
+            	   map.put("price", rs.getInt("price"));
+            	   map.put("rate", rs.getString("rate"));
+            	   map.put("origin", rs.getString("origin"));
+            	   map.put("feedSize", rs.getString("feedSize"));
+            	   map.put("info", rs.getString("info"));
+            	   map.put("photoName", rs.getString("photoName"));
+            	   map.put("stock", rs.getInt("stock"));
+            	   map.put("brandName", rs.getString("brandName"));
+            	   map.put("componentName",rs.getString("componentName"));
+            	   map.put("updateDate",rs.getString("updateDate"));
+            	   list.add(map);
+               }
+		   } catch (Exception e) {
+			   e.printStackTrace();
+		   } finally {
+			   try {
+				   conn.close();
+			   } catch (SQLException e) {
+				   e.printStackTrace();
+			   }
+		   }
+		   return list;
+	   }
 }

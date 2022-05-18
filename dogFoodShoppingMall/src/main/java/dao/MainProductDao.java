@@ -248,8 +248,8 @@ public class MainProductDao {
             PreparedStatement stmt = null;
             ResultSet rs = null;
             String sql = "SELECT p.name productName "  // 상품이름 
-                  + "          ,p.price price " // 가격 
-                  + "          ,p.gram gram " // 그램 
+                  + "       ,p.price price " // 가격 
+                  + "       ,p.gram gram " // 그램 
                   + "       ,p.rate rate " // 등급 
                   + "       ,p.feed_size feedSize " //알갱이 크기 
                   + "       ,p.origin origin " // 원산지 
@@ -258,7 +258,7 @@ public class MainProductDao {
                   + "       ,r.star star "
                   + "       ,b.name brandName " //브랜드 이름 
                   + "       ,pp.name photoName "  //사진 
-                  + "       ,GROUP_CONCAT(CONCAT(cp.name,' ') separator ', ') componentName  "  // CONCAT(cp.name, ', ')
+                  + "       ,GROUP_CONCAT(CONCAT(cp.name,' ')) componentName  "  // CONCAT(cp.name, ', ')
                   + "    FROM product p "
                   + "    JOIN brand b "
                   + "       ON b.brand_id = p.brand_id "
