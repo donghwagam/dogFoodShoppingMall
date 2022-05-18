@@ -9,10 +9,10 @@
 <body>
 <h1>이 사이트는 새로운 주소를 입력하는 페이지지롱~!</h1>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> 
-	<br><a href="${pageContext.request.contextPath}/loginCheck/purchaseController">기본배송정보</a> |
-	<a href="${pageContext.request.contextPath}/loginCheck/PurchaseChangeAddressController">배송정보변경</a>
+	<br><a href="${pageContext.request.contextPath}/loginCheck/purchaseController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본배송정보</a> |
+	<a href="${pageContext.request.contextPath}/loginCheck/PurchaseChangeAddressController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">배송정보변경</a>
 	<br><br>
-	<form method="post" action="${pageContext.request.contextPath}/searchAddressController?msg=purchaseChangeAddr">
+	<form method="post" action="${pageContext.request.contextPath}/searchAddressController?msg=purchaseChangeAddr&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">
 			주소 : <input class="form-control" name="searchAddress" placeholder="주소" type="text"/>
 			<button class="btn btn-sm btn-danger btn-block" type="submit">주소검색</button><br>
 	</form>
@@ -40,10 +40,10 @@
 				<th>가격</th>
 			</tr>
 			<tr>
-				<td>${photoName}</td>
-				<td>${productName}</td>
-				<td>${quantity}</td>
-				<td>${totalPriceByProduct}</td>
+				<td><input type="text" name="photoName" value="${photoName}" readonly="readonly"></td>
+				<td><input type="text" name="productName" value="${productName}" readonly="readonly"></td>
+				<td><input type="text" name="quantity" value="${quantity}" readonly="readonly"></td>
+				<td><input type="text" name="totalPriceByProduct" value="${totalPriceByProduct}" readonly="readonly"></td>
 			</tr>
 		</table>
 		

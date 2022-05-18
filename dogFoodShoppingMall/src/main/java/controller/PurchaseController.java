@@ -24,12 +24,14 @@ public class PurchaseController extends HttpServlet {
 		//}
 		// System.out.println("PurchaseController (doGet) count: "+ count);
 		
+		int productId = Integer.parseInt(request.getParameter("productId")); // 상품번호
 		String photoName = request.getParameter("photoName");
 		String productName = request.getParameter("productName");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct"));
 		
 		// 디버깅
+		System.out.println("PurchaseCompleteController.doGet() productId : " + productId);
 		System.out.println("PurchaseCompleteController.doGet() photoName : " + photoName);
 		System.out.println("PurchaseCompleteController.doGet() productName : " + productName);
 		System.out.println("PurchaseCompleteController.doGet() quantity : " + quantity);
@@ -42,9 +44,10 @@ public class PurchaseController extends HttpServlet {
 		
 		Map<String, Object> memberMap = memberDao.selectMemberInfo(sessionMemberId);
 		
-		session.setAttribute("name", memberMap.get("name"));
-		session.setAttribute("phone", memberMap.get("phone"));
-		session.setAttribute("address", memberMap.get("addr"));
+		request.setAttribute("productId", productId);
+		request.setAttribute("name", memberMap.get("name"));
+		request.setAttribute("phone", memberMap.get("phone"));
+		request.setAttribute("address", memberMap.get("addr"));
 		request.setAttribute("photoName", photoName);
 		request.setAttribute("productName", productName);
 		request.setAttribute("quantity", quantity);
@@ -74,7 +77,7 @@ public class PurchaseController extends HttpServlet {
 		System.out.println("PurchaseController.doPost() productName : " + productName);
 		System.out.println("PurchaseController.doPost() totalPriceByProduct : " + totalPriceByProduct);
 		
-		response.sendRedirect(request.getContextPath()+"/loginCheck/purchaseController?photoName="+photoName+"&productName="+productName+"&quantity="+quantity+"&totalPriceByProduct="+totalPriceByProduct);
+		response.sendRedirect(request.getContextPath()+"/loginCheck/purchaseController?productId="+productId+"&photoName="+photoName+"&productName="+productName+"&quantity="+quantity+"&totalPriceByProduct="+totalPriceByProduct);
 		
 	}
 
