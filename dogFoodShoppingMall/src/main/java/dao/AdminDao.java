@@ -698,7 +698,7 @@ public class AdminDao {
 		   		+ "            ,pp.name photoName"
 		   		+ "            ,p.stock stock"
 		   		+ "            ,b.name brandName"
-		   		+ "            ,GROUP_CONCAT(CONCAT(co.name,' ')) componentName"
+		   		+ "            ,GROUP_CONCAT(DISTINCT co.name,' ') componentName"
 		   		+ "            ,p.update_date updateDate"
 		   		+ "        FROM product p"
 		   		+ "   LEFT JOIN brand b"

@@ -258,7 +258,7 @@ public class MainProductDao {
                   + "       ,r.star star "
                   + "       ,b.name brandName " //브랜드 이름 
                   + "       ,pp.name photoName "  //사진 
-                  + "       ,GROUP_CONCAT(CONCAT(cp.name,' ')) componentName  "  // CONCAT(cp.name, ', ')
+                  + "       ,GROUP_CONCAT(DISTINCT cp.name,' ') componentName"  // CONCAT(cp.name, ', ')
                   + "    FROM product p "
                   + "    JOIN brand b "
                   + "       ON b.brand_id = p.brand_id "

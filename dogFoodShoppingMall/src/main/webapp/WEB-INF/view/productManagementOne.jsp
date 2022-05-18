@@ -469,27 +469,53 @@
                       <th>상품이름</th>
                       <td>${p.productName}</td>
                   </tr>
+                  <tr>
                       <th>가격</th>
-                      <th>등급</th>
-                      <th>재고</th>
-                      <th>브랜드</th>
-                      <th>수정일</th>
-                      <th>수정</th>
-                      <th>삭제</th>                                  
+                      <td>${p.price}</td>
                   </tr>
-                <tr>
-                    <td><a href="${pageContext.request.contextPath}/productManagementOneController?productId=${p.productId}">${p.productName}</a></td>
-                    <td>${p.price}</td>
-                    <td>${p.rate}</td>
-                    <td>${p.stock}</td>
-                    <td>${p.brandName}</td> 
-                    <td>${p.updateDate}</td>
-                    <td><a href="${pageContext.request.contextPath}/updateProductController?memberId=${p.productId}"><span class="label label-success">상품수정</span></a></td>
-                    <td><a href="${pageContext.request.contextPath}/deleteProductController?memberId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
-                </tr>
-                </c:forEach>
-            </table>
-            </div>
+                  <tr>
+                      <th>등급</th>
+                      <td>${p.rate}</td>
+                  </tr>
+                  <tr>
+                      <th>원산지</th>
+                      <td>${p.origin}</td>
+                  </tr>
+                  <tr>
+                      <th>알갱이크기</th>
+                      <td>${p.feedSize}</td>
+                  </tr>
+                  <tr>
+                      <th>정보</th>
+                      <td>${p.info}</td>
+                  </tr>
+                  <tr>
+                      <th>사진</th>
+                      <td>${p.photoName}</td>
+                  </tr>
+                  <tr>
+                      <th>재고</th>
+                      <td>${p.stock}</td>
+                  </tr>
+                  <tr>
+                      <th>브랜드</th>
+                      <td>${p.brandName}</td>
+                  </tr>
+                  <tr>
+                      <th>구성성분</th>
+                      <td>${p.componentName}</td>
+                  </tr>
+                  <tr>
+                      <th>수정일</th>
+                      <td>${p.updateDate}</td>
+                  </tr>
+                  <tr>
+                    <td><a href="${pageContext.request.contextPath}/updateProductController?memberId=${p.productId}"><span class="label label-success">상품수정</span></a>
+                    <a href="${pageContext.request.contextPath}/deleteProductController?memberId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
+                   </tr>
+               </c:forEach>
+			</table>
+		</div>
 	</div>
 </div>
   		<footer class="pull-left footer">
