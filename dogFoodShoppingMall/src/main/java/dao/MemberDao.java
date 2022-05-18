@@ -353,101 +353,101 @@ public class MemberDao {
 	}    
 	
 	// 회원정보 삭제 메서드
-	public void deleteMember(int memberDogId, String memberId, String checkPw) {
-		  // DB연결을 위한 자원 준비
-	      Connection conn = null;
-	      PreparedStatement memberDogAllergyStmt = null;
-	      PreparedStatement memberDogStmt = null;
-	      PreparedStatement memberStmt = null;
-	      
-	      String memberDogAllergySql = "DELETE FROM member_dog_allergy WHERE member_dog_id=?";
-	      String memberDogSql =  "DELETE FROM member_dog WHERE member_id=?";
-	      String memberSql = "DELETE FROM member WHERE member_id=? AND member_pw = PASSWORD(?)";
-	      
-	      try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			conn.setAutoCommit(false); // 자동커밋을 해제
-			
-			// memberDogAllergy 삭제
-			memberDogAllergyStmt = conn.prepareStatement(memberDogAllergySql);
-			memberDogAllergyStmt.setInt(1, memberDogId);
-			int memberDogAllergyRow = memberDogAllergyStmt.executeUpdate();
-			
-			if(memberDogAllergyRow != 1) {
-				System.out.println("memberDogAllergy 삭제 실패");
-			} else {
-				System.out.println("memberDogAllergy 삭제 성공");
-			}
-			
-			//memberDog 삭제
-			memberDogStmt = conn.prepareStatement(memberDogSql);
-			memberDogStmt.setString(1, memberId);
-			int memberDogRow = memberDogStmt.executeUpdate();
-			
-			if(memberDogRow != 1) {
-				System.out.println("memberDog 삭제 실패");
-			} else {
-				System.out.println("memberDog 삭제 성공");
-			}
-			
-			//member 삭제
-			memberStmt = conn.prepareStatement(memberSql);
-			memberStmt.setString(1, memberId);
-			memberStmt.setString(2, checkPw);
-			int memberRow = memberStmt.executeUpdate();
-			
-			if(memberRow != 1) {
-				System.out.println("member 삭제 실패");
-			} else {
-				System.out.println("member 삭제 성공");
-			}
-			
-			conn.commit();
+		public void deleteMember(int memberDogId, String memberId, String checkPw) {
+			  // DB연결을 위한 자원 준비
+		      Connection conn = null;
+		      PreparedStatement memberDogAllergyStmt = null;
+		      PreparedStatement memberDogStmt = null;
+		      PreparedStatement memberStmt = null;
+		      
+		      String memberDogAllergySql = "DELETE FROM member_dog_allergy WHERE member_dog_id=?";
+		      String memberDogSql =  "DELETE FROM member_dog WHERE member_id=?";
+		      String memberSql = "DELETE FROM member WHERE member_id=? AND member_pw = PASSWORD(?)";
+		      
+		      try {
+				conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+				conn.setAutoCommit(false); // 자동커밋을 해제
+				
+				// memberDogAllergy 삭제
+				memberDogAllergyStmt = conn.prepareStatement(memberDogAllergySql);
+				memberDogAllergyStmt.setInt(1, memberDogId);
+				int memberDogAllergyRow = memberDogAllergyStmt.executeUpdate();
+				
+				if(memberDogAllergyRow != 1) {
+					System.out.println("memberDogAllergy 삭제 실패");
+				} else {
+					System.out.println("memberDogAllergy 삭제 성공");
+				}
+				
+				//memberDog 삭제
+				memberDogStmt = conn.prepareStatement(memberDogSql);
+				memberDogStmt.setString(1, memberId);
+				int memberDogRow = memberDogStmt.executeUpdate();
+				
+				if(memberDogRow != 1) {
+					System.out.println("memberDog 삭제 실패");
+				} else {
+					System.out.println("memberDog 삭제 성공");
+				}
+				
+				//member 삭제
+				memberStmt = conn.prepareStatement(memberSql);
+				memberStmt.setString(1, memberId);
+				memberStmt.setString(2, checkPw);
+				int memberRow = memberStmt.executeUpdate();
+				
+				if(memberRow != 1) {
+					System.out.println("member 삭제 실패");
+				} else {
+					System.out.println("member 삭제 성공");
+				}
+				
+				conn.commit();
 
-		} catch (Exception e) { // 예외 처리
-		   try {
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+			} catch (Exception e) { // 예외 처리
+			   try {
+					conn.rollback();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				
+			   e.printStackTrace();
+			
+			} finally {
+				try {
+					   conn.close(); // 자원 반환
+				   } catch (SQLException e) {
+					   e.printStackTrace();
+				   }
 			}
-			
-		   e.printStackTrace();
-		
-		} finally {
-			try {
-				   conn.close(); // 자원 반환
-			   } catch (SQLException e) {
-				   e.printStackTrace();
-			   }
 		}
-	}
-	
-	// dogId
-	public int selectMemberDogIdAndCheckPw(String memberId) {
 		
-	    int memberDogId = -1;
-	    
-		Connection conn = null;
-	    PreparedStatement stmt = null;
-	    ResultSet rs = null;
-	    String sql = "SELECT member_dog_id memberDogId"
-	    		+ "	  FROM member_dog"
-	    		+ "	  WHERE member_id=?";
+		// dogId
+		public int selectMemberDogIdAndCheckPw(String memberId) {
+			
+		    int memberDogId = -1;
+		    
+			Connection conn = null;
+		    PreparedStatement stmt = null;
+		    ResultSet rs = null;
+		    String sql = "SELECT member_dog_id memberDogId"
+		    		+ "	  FROM member_dog"
+		    		+ "	  WHERE member_id=?";
 
-	    try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, memberId);
-			rs = stmt.executeQuery();
-			if(rs.next()) {
-		    	memberDogId = rs.getInt("memberDogId");
-		    }
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		    try {
+				conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, memberId);
+				rs = stmt.executeQuery();
+				if(rs.next()) {
+			    	memberDogId = rs.getInt("memberDogId");
+			    }
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		    return memberDogId;
 		}
-	    return memberDogId;
-	}
 }
 
 

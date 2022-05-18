@@ -21,16 +21,12 @@ public class MainPageController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		
 		HttpSession session = request.getSession(); // 세션 정보 불러오기
-		
 		
 		this.mainProductDao = new MainProductDao(); // dao 호출
 		//-------------------------------------------------------
 		String categoryName = request.getParameter("categoryName"); // 카테고리 받아오기 
 		System.out.println("MainPageController.doGet() categoryName : " + categoryName);
-		
 		
 		//----------------------------------------------------------
 		System.out.println("-----------------메서드---------------");
