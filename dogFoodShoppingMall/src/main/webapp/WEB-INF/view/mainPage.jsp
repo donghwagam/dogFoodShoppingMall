@@ -151,7 +151,7 @@
 									<c:otherwise>
 										<div>
 										${sessionMemberId} 님 반갑습니다 
-										<a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a>
+										<a href="${pageContext.request.contextPath}/memberOneController?memberId=${sessionMemberId}">| 마이페이지 </a>
 										<a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
 									</c:otherwise>
 								</c:choose>
