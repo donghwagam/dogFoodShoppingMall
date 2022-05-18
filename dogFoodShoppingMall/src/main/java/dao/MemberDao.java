@@ -353,7 +353,8 @@ public class MemberDao {
 	}    
 	
 	// 회원정보 삭제 메서드
-		public void deleteMember(int memberDogId, String memberId, String checkPw) {
+		public int deleteMember(int memberDogId, String memberId, String checkPw) {
+			  int memberRow = -1;
 			  // DB연결을 위한 자원 준비
 		      Connection conn = null;
 		      PreparedStatement memberDogAllergyStmt = null;
@@ -394,7 +395,8 @@ public class MemberDao {
 				memberStmt = conn.prepareStatement(memberSql);
 				memberStmt.setString(1, memberId);
 				memberStmt.setString(2, checkPw);
-				int memberRow = memberStmt.executeUpdate();
+				
+				memberRow = memberStmt.executeUpdate();
 				
 				if(memberRow != 1) {
 					System.out.println("member 삭제 실패");
@@ -420,6 +422,8 @@ public class MemberDao {
 					   e.printStackTrace();
 				   }
 			}
+		      
+		    return memberRow;
 		}
 		
 		// dogId

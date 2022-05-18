@@ -16,35 +16,40 @@ import dao.MemberDao;
 
 @WebServlet("/memberOneController")
 public class MemberOneController extends HttpServlet {
-	
-	private MemberDao memberDao;
-	private DogDao dogDao;
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.memberDao = new MemberDao(); // dao호출
-		this.dogDao = new DogDao();
-		
-		HttpSession session = request.getSession(); // 세션 정보 불러오기
-		
-		String memberId = (String) session.getAttribute("sessionMemberId");
-		
-		// 회원정보를 보여주는 리스트
-		Map<String, Object> memberMap = memberDao.selectMember(memberId);
-		 
-		request.setAttribute("memberMap", memberMap);
-		
-		// 애견정보를 보여주는 리스트
-		List<Map<String, Object>> memberDogList = dogDao.selectDog(memberId);
-		
-		request.setAttribute("memberDogList", memberDogList);
-		
-		// 마이페이지 뷰단으로 포워딩
-	    request.getRequestDispatcher("/WEB-INF/view/memberOne.jsp").forward(request, response); 
-	     
-	}
+   
+   private MemberDao memberDao;
+   private DogDao dogDao;
+   
+   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      this.memberDao = new MemberDao(); // dao호출
+      this.dogDao = new DogDao();
+      
+      // 세션 호출
+       HttpSession session = request.getSession();
+         
+       // 현재 로그인 된 멤버 아이디 받아오기
+       String memberId = (String) session.getAttribute("sessionMemberId");
+       
+      //디버깅
+      System.out.println("MemberOneController (doGet) :"+ memberId);
+      
+      // 회원정보를 보여주는 리스트
+      Map<String, Object> memberMap = memberDao.selectMember(memberId);
+       
+      request.setAttribute("memberMap", memberMap);
+      
+      // 애견정보를 보여주는 리스트
+      List<Map<String, Object>> memberDogList = dogDao.selectDog(memberId);
+      
+      request.setAttribute("memberDogList", memberDogList);
+      
+      // 마이페이지 뷰단으로 포워딩
+       request.getRequestDispatcher("/WEB-INF/view/memberOne.jsp").forward(request, response); 
+        
+   }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-	}
+   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+      
+   }
 
 }

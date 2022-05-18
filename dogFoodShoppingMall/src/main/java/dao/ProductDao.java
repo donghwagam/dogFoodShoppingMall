@@ -133,7 +133,6 @@ public class ProductDao {
 	         		+ "		, p.price"
 	         		+ "		, p.gram"
 	         		+ "		, pp.name photoName"
-	         		+ "		, p.star"
 	         		+ " FROM product p"
 	         		+ " LEFT JOIN product_photo pp"
 	         		+ " 	ON p.product_id = pp.product_id"
@@ -148,7 +147,6 @@ public class ProductDao {
 	            m.put("price", rs.getInt("price"));
 	            m.put("gram", rs.getInt("gram"));
 	            m.put("photoName", rs.getString("photoName"));
-	            m.put("star", rs.getInt("star"));
 	            list.add(m);
 	         }
 	      } catch (Exception e) {
@@ -178,7 +176,6 @@ public class ProductDao {
 	         		+ "			, p.price"
 	         		+ "			, p.gram"
 	         		+ "			, pp.name photoName"
-	         		+ "			, p.star"
 	         		+ " FROM product p"
 	         		+ " LEFT JOIN product_photo pp"
 	         		+ " 	ON p.product_id=pp.product_id"
@@ -189,95 +186,95 @@ public class ProductDao {
 	         try {
 	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 	            if(age==-1 && component ==-1 && feedType == -1 && "".equals(size)) {
-	               sql += " ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               
 	            } else if(age!=-1 && component ==-1 && feedType == -1 && "".equals(size)) {
-	               sql += " WHERE pca.category_id=? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id=? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, age);
 	               
 	            } else if(age==-1 && component !=-1 && feedType == -1 && "".equals(size)) {
-	               sql += " WHERE pco.component_id != ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pco.component_id != ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, component);
 	               
 	            } else if(age==-1 && component ==-1 && feedType != -1 && "".equals(size)) {
-	               sql += " WHERE pca.category_id=? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id=? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, feedType);
 	               
 	            } else if(age==-1 && component ==-1 && feedType == -1 && !"".equals(size)) {
-	               sql += " WHERE p.feed_size=? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE p.feed_size=? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setString(1, "size");
 	               
 	            } else if(age!=-1 && component !=-1 && feedType == -1 && "".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1,age);
 	               stmt.setInt(2, component);
 	               
 	            } else if(age!=-1 && component ==-1 && feedType != -1 && "".equals(size)) {
-	               sql += " WHERE pca.category_id=? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id=? AND pca.category_id = ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, age);
 	               stmt.setInt(2, feedType);
 	               
 	            } else if(age!=-1 && component ==-1 && feedType == -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id=? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id=? AND p.feed_size = ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, age);
 	               stmt.setString(2, "size");
 	               
 	            } else if(age==-1 && component !=-1 && feedType != -1 && "".equals(size)) {
-	               sql += " WHERE pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, component);
 	               stmt.setInt(2, feedType);
 	               
 	            } else if(age==-1 && component !=-1 && feedType == -1 && !"".equals(size)) {
-	               sql += " WHERE pco.component_id != ? AND p.feed_size = ?ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pco.component_id != ? AND p.feed_size = ?ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, component);
 	               stmt.setString(2, "size");
 	               
 	            } else if(age==-1 && component ==-1 && feedType != -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id=? AND p.feed_size = ?ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id=? AND p.feed_size = ?ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, feedType);
 	               stmt.setString(2, "size");
 	               
 	            } else if(age!=-1 && component !=-1 && feedType != -1 && "".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, age);
 	               stmt.setInt(2, component);
 	               stmt.setInt(3, feedType);
 	               
 	            } else if(age!=-1 && component !=-1 && feedType == -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, age);
 	               stmt.setInt(2, component);
 	               stmt.setString(3, "size");
 	               
 	            } else if(age!=-1 && component ==-1 && feedType != -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND pca.category_id=? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id = ? AND pca.category_id=? AND p.feed_size = ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, age);
 	               stmt.setInt(2, feedType);
 	               stmt.setString(3, "size");
 	               
 	            } else if(age==-1 && component !=-1 && feedType != -1 && !"".equals(size)) {
-	               sql += " WHERE pco.component_id != ? AND pca.category_id = ? AND p.feed_size =? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pco.component_id != ? AND pca.category_id = ? AND p.feed_size =? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, component);
 	               stmt.setInt(2, feedType);
 	               stmt.setString(3, "size");
 	               
 	            } else if(age!=-1 && component !=-1 && feedType != -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? AND p.feed_size = ? ORDER BY p.create_date LIMIT 0, 10";
+	               sql += " WHERE pca.category_id = ? AND pco.component_id != ? AND pca.category_id = ? AND p.feed_size = ? ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
 	               stmt.setInt(1, age);
 	               stmt.setInt(2, component);
@@ -292,7 +289,6 @@ public class ProductDao {
 	               m.put("price", rs.getInt("price"));
 	               m.put("gram", rs.getInt("gram"));
 	               m.put("photoName", rs.getString("photoName"));
-	               m.put("star", rs.getInt("star"));
 	               list.add(m);
 	            }
 	         } catch (Exception e) {

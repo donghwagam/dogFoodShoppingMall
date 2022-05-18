@@ -81,8 +81,42 @@ public class DogDao {
       return list;
    }
       
-   // 강아지 등록기능 구현 위한 메서드
-   public void insertDog(MemberDog memberDog, String[] allergy) {
+   // 강아지 등록기능 구현 위한 메서드 (알러지 없을때)
+   public void insertDog(MemberDog memberDog) {
+      // 자원 준비
+     Connection conn = null;
+     PreparedStatement stmt = null;
+     String sql = "INSERT INTO member_dog (member_id, dog_id, dog_name, birth, weight, create_date, update_date)"
+           + "      VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
+     try {
+        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+        stmt = conn.prepareStatement(sql); 
+        stmt.setString(1, memberDog.getMemberId());
+          stmt.setInt(2, memberDog.getDogId());
+          stmt.setString(3, memberDog.getDogName());
+          stmt.setString(4, memberDog.getBirth());
+          stmt.setInt(5, memberDog.getWeight());
+            
+          int row = stmt.executeUpdate();
+          if(row != 1) {
+             System.out.println("insertDog 입력 실패");
+          } else {
+             System.out.println("insertDog 입력 성공");
+          }
+        
+     } catch (Exception e) {
+        e.printStackTrace();
+     } finally {
+        try {
+         conn.close();
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
+     }
+   }
+   
+   // 강아지 등록기능 구현 위한 메서드 (알러지 있을때)
+   public void insertDogAndAllergy(MemberDog memberDog, String[] allergy) {
       // 자원 준비
       int memberDogRow = 0;
       Connection conn = null;
@@ -112,9 +146,9 @@ public class DogDao {
          rs = memberDogStmt.getGeneratedKeys(); // 방금입력한 select member_dog_id from member_dog;
          
          if(memberDogRow != 1) { // 입력한 행이 1개가 아니라면
-            System.out.println("memberDog 입력실패");
+            System.out.println("insertDogAndAllergy : memberDog 입력실패");
          } else {
-            System.out.println("memberDog 입력성공");
+            System.out.println("insertDogAndAllergy : memberDog 입력성공");
          }
       
          int memberDogId = 0; //초기값 0으로 세팅
@@ -132,9 +166,9 @@ public class DogDao {
             int memberDogAllergyRow = memberDogAllergyStmt.executeUpdate();
             
             if(memberDogAllergyRow != 1) { // 입력한 행이 1개가 아니라면
-               System.out.println("memberDogAllergy 입력실패");
+               System.out.println("insertDogAndAllergy : memberDogAllergy 입력실패");
             } else {
-               System.out.println("memberDogAllergy 입력성공");
+               System.out.println("insertDogAndAllergy : memberDogAllergy 입력성공");
             }
           
          }
@@ -165,15 +199,16 @@ public class DogDao {
       ResultSet rs = null;
       
       // 쿼리작성
-      String sql = "SELECT md.dog_name dogName, d.spiece, md.birth, md.weight, GROUP_CONCAT(a.name) allergyName"
+      String sql = "SELECT md.member_dog_id memberDogId, md.dog_name dogName, d.spiece, md.birth, md.weight, GROUP_CONCAT(a.name) allergyName"
             + "         FROM member_dog md "
-            + "         JOIN dog d"
+            + "         LEFT JOIN dog d"
             + "            ON md.dog_id = d.dog_id"
-            + "         JOIN member_dog_allergy mda"
+            + "         LEFT JOIN member_dog_allergy mda"
             + "            ON md.member_dog_id = mda.member_dog_id"
-            + "         JOIN allergy a"
-            + "            ON. mda.allergy_id = a.allergy_id"
-            + "      GROUP BY md.dog_name;";
+            + "         LEFT JOIN allergy a"
+            + "            ON mda.allergy_id = a.allergy_id"
+            + "         WHERE md.member_id = ?"
+            + "      GROUP BY memberDogId";
       
       try {
       conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -183,7 +218,7 @@ public class DogDao {
       
       while(rs.next()) {
          Map<String, Object> map = new HashMap<>();
-         
+         map.put("memberDogId", rs.getInt("memberDogId"));
          map.put("dogName", rs.getString("dogName"));
          map.put("spiece", rs.getString("spiece"));
          map.put("birth", rs.getString("birth"));
@@ -201,55 +236,55 @@ public class DogDao {
    
    //강아지 삭제기능 구현 위한 메서드
    public void deleteDog(int memberDogId) {
-	   Connection conn = null;
-	   PreparedStatement memberDogAllergyStmt = null;
-	   PreparedStatement memberDogStmt = null;
-	   String memberDogAllergySql = "DELETE FROM member_dog_allergy WHERE member_dog_id=?";
-	   String memberDogSql = "DELETE FROM member_dog WHERE member_dog_id=?";
-	   
-	   try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			conn.setAutoCommit(false); // 자동커밋을 해제
+      Connection conn = null;
+      PreparedStatement memberDogAllergyStmt = null;
+      PreparedStatement memberDogStmt = null;
+      String memberDogAllergySql = "DELETE FROM member_dog_allergy WHERE member_dog_id=?";
+      String memberDogSql = "DELETE FROM member_dog WHERE member_dog_id=?";
+      
+      try {
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+         conn.setAutoCommit(false); // 자동커밋을 해제
 
-			//memberDogAllergy 삭제
-			memberDogAllergyStmt = conn.prepareStatement(memberDogAllergySql);
-			memberDogAllergyStmt.setInt(1, memberDogId);
-			int memberDogAllergyRow = memberDogAllergyStmt.executeUpdate();
-			
-			if(memberDogAllergyRow != 1) {
-				System.out.println("memberDogAllergy 삭제 실패");
-			} else {
-				System.out.println("memberDogAllergy 삭제 성공");
-			}
-			
-			//memberDog 삭제
-			memberDogStmt = conn.prepareStatement(memberDogSql);
-			memberDogStmt.setInt(1, memberDogId);
-			int memberDogRow = memberDogStmt.executeUpdate();
-			
-			if(memberDogRow != 1) {
-				System.out.println("memberDog 삭제 실패");
-			} else {
-				System.out.println("memberDog 삭제 성공");
-			}
-			
-			conn.commit();
-	   } catch (Exception e) { //예외 처리
-		   try {
-			conn.rollback();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-		   
-		e.printStackTrace();
-		   
-	   } finally {
-		   try {
-			   conn.close(); // 자원 반환
-		   } catch (SQLException e) {
-			   e.printStackTrace();
-		   }
-	   }
+         //memberDogAllergy 삭제
+         memberDogAllergyStmt = conn.prepareStatement(memberDogAllergySql);
+         memberDogAllergyStmt.setInt(1, memberDogId);
+         int memberDogAllergyRow = memberDogAllergyStmt.executeUpdate();
+         
+         if(memberDogAllergyRow != 1) {
+            System.out.println("memberDogAllergy 삭제 실패");
+         } else {
+            System.out.println("memberDogAllergy 삭제 성공");
+         }
+         
+         //memberDog 삭제
+         memberDogStmt = conn.prepareStatement(memberDogSql);
+         memberDogStmt.setInt(1, memberDogId);
+         int memberDogRow = memberDogStmt.executeUpdate();
+         
+         if(memberDogRow != 1) {
+            System.out.println("memberDog 삭제 실패");
+         } else {
+            System.out.println("memberDog 삭제 성공");
+         }
+         
+         conn.commit();
+      } catch (Exception e) { //예외 처리
+         try {
+         conn.rollback();
+      } catch (SQLException e1) {
+         e1.printStackTrace();
+      }
+         
+      e.printStackTrace();
+         
+      } finally {
+         try {
+            conn.close(); // 자원 반환
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
        
    }
 }   

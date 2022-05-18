@@ -17,7 +17,7 @@ public class DeleteMemberController extends HttpServlet {
    
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       
-      request.getRequestDispatcher("/WEB-INF/view/deleteMember.jsp").forward(request, response); // 회원타 페이지 연결
+      request.getRequestDispatcher("/WEB-INF/view/deleteMember.jsp").forward(request, response); // 회원탈퇴 페이지 연결
    
    }
 
@@ -29,18 +29,19 @@ public class DeleteMemberController extends HttpServlet {
       String memberId = (String) session.getAttribute("sessionMemberId"); // memberId 받아오기   
       String checkPw = request.getParameter("checkPw"); // 내가 쓴 checkPw 받아오기 
       
-      int memberDogId = -1;
-      /*
+      int memberDogId = -1; // 등록한 강아지가 없을때는 -1로 넘어가게 함
       memberDogId = memberDao.selectMemberDogIdAndCheckPw(memberId); // memberDogId 받아오기
-      if(memberDogId == -1) { // 사용자가 등록한 애견이 없다면 
-         response.sendRedirect(request.getContextPath()+"/deleteMemberController");
-         return;
-      } else {
-         System.out.println("삭제성공 ------------------------");
+      
+      int memberRow = memberDao.deleteMember(memberDogId, memberId, checkPw); // 메서드 실행 후 반환값(현재 로그인 된 ID,PW) 저장
+      
+      if(memberRow == 1) {
+         System.out.println("회원 탈퇴 성공!");
+         request.getSession().invalidate(); // 기존 세션을 지우고 새로운 세션공간을 부여 //메인페이지로 갔을때 로그인해제 구현하기 위함
          response.sendRedirect(request.getContextPath()+"/mainPageController");
+      } else {
+         System.out.println("회원 탈퇴 실패!");
+         response.sendRedirect(request.getContextPath()+"/deleteMemberController?msg=wrongpassword");
       }
-      */
-      memberDao.deleteMember(memberDogId, memberId, checkPw); // 메서드 실행 후 반환값(현재 로그인 된 ID,PW) 저장
 
    }
 
