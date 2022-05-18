@@ -28,7 +28,7 @@ public class MemberDao {
 				+ "		, m.level"
 				+ "		, m.active"
 				+ "		, m.address_id addressId"
-				+ "		, CONCAT('(', a.zip_code, ') ', a.province, ' ', a.city, ' ', a.town, ' ', a.street, ' ', a.building1, '-', a.building2, ' ', m.detail_addr) addr"
+				+ "		, CONCAT('(', a.zip_code, ') ', a.province, ' ', a.city, ' ', a.town, ' ', a.street, m.detail_addr) addr"
 				+ "		, m.create_date createDate"
 				+ "		, m.update_date updateDate"
 				+ "   FROM member m JOIN address a"
