@@ -24,12 +24,13 @@ public class MainProductDao {
                   + "         ,p.name productName" // 상품 이름 
                   + "         ,p.price price" // 가격 
                   + "         ,p.gram gram" //그램 
-                  + "         ,p.star star" //별점 
+                  + "         ,r.star star" //별점 
                   + "         ,pp.name photoName" // 사진이름 
                      + "    FROM product p "
                      + "    LEFT JOIN product_photo pp "
                      + "      ON p.product_id=pp.product_id "
-                     + "    GROUP BY p.product_id ";
+                     + "    LEFT JOIN review r"
+                     + "      ON r.review_id = p.product_id";
                      
             try {
                conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -101,13 +102,15 @@ public class MainProductDao {
                   + "         ,p.name productName"
                   + "         ,p.price price"
                   + "         ,p.gram gram"
-                  + "         ,p.star star"
+                  + "         ,r.star star"
                   + "         ,pp.name photoName"
                      + "    FROM product p "
                      + "   LEFT JOIN product_photo pp "
                      + "      ON p.product_id=pp.product_id "
                      + "   LEFT JOIN purchase_list pl "
                      + "      ON p.product_id = pl.product_id "
+                     + "   LEFT JOIN review r"
+                     + "      ON r.product_id = p.product_id"
                   + "   ORDER BY p.create_date DESC"
                   + "   Limit 0,6" ;
             try {
@@ -149,7 +152,7 @@ public class MainProductDao {
                   + "         ,p.name productName"
                   + "         ,p.gram gram"
                   + "         ,p.price price"
-                  + "         ,p.star star"
+                  + "         ,r.star star"
                   + "         ,pp.name photoName"
                   + "         ,SUM(pl.quantity) sum "
                   + "      FROM purchase_list pl"
@@ -157,6 +160,8 @@ public class MainProductDao {
                   + "     ON pl.product_id = p.product_id"
                   + "    JOIN product_photo pp"
                   + "     ON pp.product_id = p.product_id"
+                  + "    JOIN review r"
+                  + "     ON r.product_id = p.product_id"
                   + "    GROUP BY pl.product_id"
                   + "    ORDER BY SUM desc"
                   + "      Limit 0,6"; 
@@ -197,7 +202,7 @@ public class MainProductDao {
                   + "       ,p.name productName"
                   + "       ,p.price price"
                   + "       ,pph.name photoName"
-                  + "       ,p.star star"
+                  + "       ,r.star star"
                   + "      FROM product p"
                   + "    JOIN product_category pc"
                   + "     ON p.product_id = pc.product_id"
@@ -205,6 +210,8 @@ public class MainProductDao {
                   + "     ON pc.category_id = c.category_id"
                   + "    JOIN product_photo pph"
                   + "     ON p.product_id = pph.product_id"
+                  + "    JOIN review r"
+                  + "     ON r.product_id = p.product_id"
                   + "    WHERE c.name = ? " ;
             try {
                conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -248,7 +255,7 @@ public class MainProductDao {
                   + "       ,p.origin origin " // 원산지 
                   + "       ,p.stock stock" // 재고 
                   + "       ,p.info info " // 정보 
-                  + "       ,p.star star "
+                  + "       ,r.star star "
                   + "       ,b.name brandName " //브랜드 이름 
                   + "       ,pp.name photoName "  //사진 
                   + "       ,GROUP_CONCAT(CONCAT(cp.name,' ') separator ', ') componentName  "  // CONCAT(cp.name, ', ')
@@ -260,7 +267,9 @@ public class MainProductDao {
                   + "    JOIN product_component pc "
                   + "      ON pc.product_id = p.product_id "
                   + "    JOIN component cp "
-                  + "     ON cp.component_id = pc.component_id "
+                  + "     ON cp.component_id = pc.component_id"
+                  + "    JOIN review r"
+                  + "     ON r.product_id = p.product_id "
                   + "      WHERE p.product_id = ?"
                   + "    GROUP BY p.product_id";
             System.out.println("selectProductOne() productId : " + productId);
