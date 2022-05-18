@@ -9,6 +9,78 @@ import java.util.*;
 
 public class ReviewDao {
 	
+	public int insertReview(Map<String, Object> map){
+		
+		int row = 0;
+		int reviewId = 0;
+		
+		Connection conn = null;
+		PreparedStatement reviewStmt = null;
+		PreparedStatement reviewPhotoStmt = null;
+		ResultSet rs = null;
+		
+		// 상품 구매 후 리뷰 등록
+		String reviewSql = "INSERT INTO review"
+				+ " (purchase_id"
+				+ " , product_id"
+				+ " , title"
+				+ " , review_content"
+				+ " , star"
+				+ " , create_date)"
+				+ " VALUES"
+				+ " (?, ?, ?, ?, ?, NOW())";
+		// 리뷰 사진 등록
+		String photoReviewSql = "INSERT INTO review_photo"
+				+ " (original_name"
+				+ " , name"
+				+ " , review_photo"
+				+ " , type"
+				+ " , volume"
+				+ " , review_id"
+				+ " VALUES(?, ?, ?, ?, ?, ?)";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn.setAutoCommit(false); // 오토커밋 off
+			reviewStmt = conn.prepareStatement(reviewSql, PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			reviewStmt.setInt(1, (int)map.get("purchaseId"));
+			reviewStmt.setInt(2, (int)map.get("productId"));
+			reviewStmt.setString(3, (String)map.get("title"));
+			reviewStmt.setString(4, (String)map.get("reviewContent"));
+			reviewStmt.setInt(5, (int)map.get("star"));
+			reviewStmt.executeUpdate();
+			
+			rs = reviewStmt.getGeneratedKeys();
+			
+			if(rs.next()) {
+				reviewId = rs.getInt(1);
+			}
+			
+			reviewPhotoStmt = conn.prepareStatement(photoReviewSql);
+			
+			reviewPhotoStmt.setInt(1, (int)map.get("originalName"));
+			reviewPhotoStmt.setString(2, (String)map.get("photoName"));
+			reviewPhotoStmt.setString(3, (String)map.get("reviewPhoto"));
+			reviewPhotoStmt.setString(4, (String)map.get("photoType"));
+			reviewPhotoStmt.setString(5, (String)map.get("photoVolume"));
+			reviewPhotoStmt.setInt(6, reviewId);
+			
+			conn.commit();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	
 	public double selectStarAverage(int productId) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
