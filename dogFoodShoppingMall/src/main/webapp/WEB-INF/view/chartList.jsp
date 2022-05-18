@@ -410,8 +410,8 @@
          <div class="side-menu-container">
             <ul class="nav navbar-nav">
                <li class="active"><a href="${pageContext.request.contextPath}/adminPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
-               <li><a href="${pageContext.request.contextPath}/MemberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
-               <li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
+               <li><a href="${pageContext.request.contextPath}/memberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
+               <li><a href="${pageContext.request.contextPath}/chartListController"><span class="glyphicon glyphicon-cloud"></span>차트리스트</a></li>
 
                <!-- Dropdown-->
                <li class="panel panel-default" id="dropdown">
@@ -456,7 +456,7 @@
    </div>
 </div>
 </div>
-<div class="container" style="height:500px; width:500px;">
+<div class="container" style="height:500px; width:800px;">
   <canvas id="myChartOne" ></canvas>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -466,7 +466,12 @@
     '${chartListByProductList[2].productName}',
     '${chartListByProductList[3].productName}',
     '${chartListByProductList[4].productName}',
-    '${chartListByProductList[5].productName}'
+    '${chartListByProductList[5].productName}',
+    '${chartListByProductList[6].productName}',
+    '${chartListByProductList[7].productName}',
+    '${chartListByProductList[8].productName}',
+    '${chartListByProductList[9].productName}',
+    '${chartListByProductList[10].productName}'
   ];
   const dataOne = {
     labels: labelsOne,
@@ -479,7 +484,12 @@
          '${chartListByProductList[2].totalPrice}',
          '${chartListByProductList[3].totalPrice}',
          '${chartListByProductList[4].totalPrice}',
-         '${chartListByProductList[5].totalPrice}'
+         '${chartListByProductList[5].totalPrice}',
+         '${chartListByProductList[6].totalPrice}',
+         '${chartListByProductList[7].totalPrice}',
+         '${chartListByProductList[8].totalPrice}',
+         '${chartListByProductList[9].totalPrice}',
+         '${chartListByProductList[10].totalPrice}',
 ],
     }]
   };
@@ -497,8 +507,9 @@
     config
   );
 </script>
-<div class="container" style="height:500px; width:500px;">
+<div class="container" style="height:500px; width:800px;">
   <canvas id="myChartTwo"></canvas>
+  </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   const labelsTwo = [
@@ -506,21 +517,31 @@
     '${chartListByDateList[2].updateDate}',
     '${chartListByDateList[3].updateDate}',
     '${chartListByDateList[4].updateDate}',
-    '${chartListByDateList[5].updateDate}'
+    '${chartListByDateList[5].updateDate}',
+    '${chartListByDateList[6].updateDate}',
+    '${chartListByDateList[7].updateDate}',
+    '${chartListByDateList[8].updateDate}',
+    '${chartListByDateList[9].updateDate}',
+    '${chartListByDateList[10].updateDate}',
   ];
 
   const dataTwo = {
     labels: labelsTwo,
     datasets: [{
       label: '날짜별 판매 총액',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgb(29, 219, 22)',
+      borderColor: 'rgb(29, 219, 22)',
       data: [
          '${chartListByDateList[1].totalPrice}',
          '${chartListByDateList[2].totalPrice}',
          '${chartListByDateList[3].totalPrice}',
          '${chartListByDateList[4].totalPrice}',
-         '${chartListByDateList[5].totalPrice}'
+         '${chartListByDateList[5].totalPrice}',
+         '${chartListByDateList[6].totalPrice}',
+         '${chartListByDateList[7].totalPrice}',
+         '${chartListByDateList[8].totalPrice}',
+         '${chartListByDateList[9].totalPrice}',
+         '${chartListByDateList[10].totalPrice}',
 ],
     }]
   };
@@ -537,7 +558,91 @@
     configTwo
   );
 </script>
-  
+<div class="container" style="height:500px; width:800px;">
+  <canvas id="myChartThree"></canvas>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labelsThree = [
+    '${chartListByCategoryList[1].categoryName}',
+    '${chartListByCategoryList[2].categoryName}',
+    '${chartListByCategoryList[3].categoryName}',
+    '${chartListByCategoryList[4].categoryName}',
+    '${chartListByCategoryList[5].categoryName}'
+  ];
+
+  const dataThree = {
+    labels: labelsThree,
+    datasets: [{
+      label: '카테고리 별 판매량',
+      backgroundColor: 'rgb(0, 84, 255)',
+      borderColor: 'rgb(0, 84, 255)',
+      data: [
+         '${chartListByCategoryList[1].totalPrice}',
+         '${chartListByCategoryList[2].totalPrice}',
+         '${chartListByCategoryList[3].totalPrice}',
+         '${chartListByCategoryList[4].totalPrice}',
+         '${chartListByCategoryList[5].totalPrice}'
+],
+    }]
+  };
+
+  const configThree = {
+    type: 'bar',
+    data: dataThree,
+    options: {}
+  };
+</script>
+<script>
+  const myChartThree = new Chart(
+    document.getElementById('myChartThree'),
+    configThree
+  );
+</script>
+<div class="container" style="height:500px; width:800px;">
+  <canvas id="myChartFour"></canvas>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const labelsFour = [
+    '${chartListByBrandList[1].brandName}',
+    '${chartListByBrandList[2].brandName}',
+    '${chartListByBrandList[3].brandName}',
+    '${chartListByBrandList[4].brandName}',
+    '${chartListByBrandList[5].brandName}',
+    '${chartListByBrandList[6].brandName}',
+  ];
+
+  const dataFour = {
+    labels: labelsFour,
+    datasets: [{
+      label: '브랜드 별 판매량',
+      backgroundColor: 'rgb(255, 0, 0)',
+      borderColor: 'rgb(255, 0, 0)',
+      data: [
+         '${chartListByBrandList[1].totalPrice}',
+         '${chartListByBrandList[2].totalPrice}',
+         '${chartListByBrandList[3].totalPrice}',
+         '${chartListByBrandList[4].totalPrice}',
+         '${chartListByBrandList[5].totalPrice}',
+         '${chartListByBrandList[6].totalPrice}',
+         
+],
+    }]
+  };
+
+  const configFour = {
+    type: 'bar',
+    data: dataFour,
+    options: {}
+  };
+</script>
+<script>
+  const myChartFour = new Chart(
+    document.getElementById('myChartFour'),
+    configFour
+  );
+</script>
         <footer class="pull-left footer">
            <p class="col-md-8">
               <hr class="divider">

@@ -59,7 +59,7 @@ public class AdminDao {
 	               + "       JOIN product p"
 	               + "          ON pl.product_id = p.product_id"
 	               + "    GROUP BY productName"                     // 상품 Id로 그룹핑
-	               + "    ORDER BY SUM DESC";                   
+	               + "    ORDER BY totalPrice DESC";
 	         
 	         
 	         /*
@@ -107,7 +107,7 @@ public class AdminDao {
 	               + "         JOIN product p"
 	               + "          ON p.product_id = pl.product_id"
 	               + "      GROUP BY updateDate"                              // 날짜별로 그룹핑
-	               + "      ORDER BY updateDate DESC";                        // 날짜 순으로 정렬
+	               + "      ORDER BY totalPrice DESC";                        // 날짜 순으로 정렬
 	      
 	         try {
 	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
