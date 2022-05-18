@@ -3,22 +3,31 @@ package vo;
 public class Review {
 	private int reviewId;
 	private int purchaseId;
+	private int productId;
 	private String title;
 	private String reviewContent;
 	private int star;
 	private String createDate;
 	
 	public Review() {}
+	
+	
+	
 
-	public Review(int reviewId, int purchaseId, String title, String reviewContent, int star, String createDate) {
+	public Review(int reviewId, int purchaseId, int productId, String title, String reviewContent, int star,
+			String createDate) {
 		super();
 		this.reviewId = reviewId;
 		this.purchaseId = purchaseId;
+		this.productId = productId;
 		this.title = title;
 		this.reviewContent = reviewContent;
 		this.star = star;
 		this.createDate = createDate;
 	}
+
+
+
 
 	public int getReviewId() {
 		return reviewId;
@@ -34,6 +43,14 @@ public class Review {
 
 	public void setPurchaseId(int purchaseId) {
 		this.purchaseId = purchaseId;
+	}
+
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public String getTitle() {
@@ -52,11 +69,11 @@ public class Review {
 		this.reviewContent = reviewContent;
 	}
 
-	public int getstar() {
+	public int getStar() {
 		return star;
 	}
 
-	public void setstar(int star) {
+	public void setStar(int star) {
 		this.star = star;
 	}
 
@@ -70,9 +87,11 @@ public class Review {
 
 	@Override
 	public String toString() {
-		return "Review [reviewId=" + reviewId + ", purchaseId=" + purchaseId + ", title=" + title + ", reviewContent="
-				+ reviewContent + ", star=" + star + ", createDate=" + createDate + "]";
+		return "Review [reviewId=" + reviewId + ", purchaseId=" + purchaseId + ", productId=" + productId + ", title="
+				+ title + ", reviewContent=" + reviewContent + ", star=" + star + ", createDate=" + createDate + "]";
 	}
+
+	
 	
 	
 }
