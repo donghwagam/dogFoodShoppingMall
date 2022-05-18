@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PurchaseDao {
@@ -199,5 +201,57 @@ public class PurchaseDao {
 		return map; 
 		
 	}
+	
+	// 구매내역을 위한 메서드
+	   public List<Map<String, Object>> selectPurchaseMemberListByPage(String memberId) {
+	      List<Map<String, Object>> list = new ArrayList<>();
+	      
+	      Connection conn = null;
+	      PreparedStatement stmt = null;
+	      ResultSet rs = null;
+	      
+	      String sql = "SELECT pr.product_id productId, p.purchase_id purchaseId, pp.original_name originalName, pr.name, pr.gram/1000 gram, pr.price, pl.quantity, p.status, pr.price*pl.quantity totalPrice"
+	            + "      FROM purchase p"
+	            + "      JOIN purchase_list pl"
+	            + "         ON p.purchase_id = pl.purchase_id"
+	            + "      JOIN product pr"
+	            + "         ON pl.product_id = pr.product_id"
+	            + "      JOIN product_photo pp"
+	            + "         ON pr.product_id = pp.product_id"
+	            + "      WHERE p.member_id =?";
+	      
+	      try {
+	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	         stmt = conn.prepareStatement(sql);
+	         stmt.setString(1, memberId);
+	         rs = stmt.executeQuery();
+	         
+	         while(rs.next()) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("productId", rs.getInt("productId"));
+	            map.put("purchaseId", rs.getInt("purchaseId"));
+	            map.put("originalName", rs.getString("originalName"));
+	            map.put("name", rs.getString("name"));
+	            map.put("gram", rs.getDouble("gram"));
+	            map.put("price", rs.getInt("price"));
+	            map.put("quantity", rs.getInt("quantity"));
+	            map.put("status", rs.getString("status"));
+	            map.put("totalPrice", rs.getInt("totalPrice"));
+	            list.add(map);
+	            
+	            
+	         }
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            conn.close();
+	         } catch (SQLException e) {
+	            e.printStackTrace();
+	         }
+	      }
+	      
+	      return list;
+	   }
 
 }
