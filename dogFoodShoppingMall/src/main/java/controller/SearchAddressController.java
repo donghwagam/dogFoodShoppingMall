@@ -23,7 +23,8 @@ public class SearchAddressController extends HttpServlet {
 		
 		
 		// 디버깅
-		System.out.println("insertLoginController.doPost() searchAddress : " + searchAddress);
+		System.out.println("SearchAddressController.doPost() searchAddress : " + searchAddress);
+		System.out.println("SearchAddressController.doPost() msg : " + msg);
 		
 		this.addressDao = new AddressDao(); // addressDao.searchAddress() 메서드 사용을 위한 객체 생성
 		List<Map<String, Object>> list = addressDao.searchAddress(searchAddress); // 주소 찾기 메서드 실행 후 찾아온 주소 list에 저장
@@ -34,23 +35,26 @@ public class SearchAddressController extends HttpServlet {
 		if(msg.equals("insertMemberAddr")) { // msg가 insert라면
 			request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 페이지로 이동
 		} else if (msg.equals("purchaseChangeAddr")) { // msg가 purchase라면
+			int productId = Integer.parseInt(request.getParameter("productId"));
 			String photoName = request.getParameter("photoName");
 			String productName = request.getParameter("productName");
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct"));
 			
 			// 디버깅
-			System.out.println("SearchAddressController.doGet() photoName : " + photoName);
-			System.out.println("SearchAddressController.doGet() productName : " + productName);
-			System.out.println("SearchAddressController.doGet() quantity : " + quantity);
-			System.out.println("SearchAddressController.doGet() totalPriceByProduct : " + totalPriceByProduct);
+			System.out.println("SearchAddressController.doPost() productId : " + productId);
+			System.out.println("SearchAddressController.doPost() photoName : " + photoName);
+			System.out.println("SearchAddressController.doPost() productName : " + productName);
+			System.out.println("SearchAddressController.doPost() quantity : " + quantity);
+			System.out.println("SearchAddressController.doPost() totalPriceByProduct : " + totalPriceByProduct);
 			
+			request.setAttribute("productId", productId);
 			request.setAttribute("photoName", photoName);
 			request.setAttribute("productName", productName);
 			request.setAttribute("quantity", quantity);
 			request.setAttribute("totalPriceByProduct", totalPriceByProduct);
 			
-			request.getRequestDispatcher("/WEB-INF/view/purchaseChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
+			request.getRequestDispatcher("/WEB-INF/view/purchaseByProductChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
 		} else if (msg.equals("updateMemberAddr")) { // msg가 updateMemberAddr 라면
 			request.getRequestDispatcher("/WEB-INF/view/updateMember.jsp").forward(request, response); // 회원정보수정 페이지로 이동
 		} 

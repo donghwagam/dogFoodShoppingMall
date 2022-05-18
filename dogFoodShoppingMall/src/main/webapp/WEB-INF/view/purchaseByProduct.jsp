@@ -8,11 +8,11 @@
 </head>
 <body>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> 
-	<br><a href="${pageContext.request.contextPath}/loginCheck/purchaseController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본배송정보</a> |
-	<a href="${pageContext.request.contextPath}/loginCheck/PurchaseChangeAddressController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">배송정보변경</a>
+	<br><a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본배송정보</a> |
+	<a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductChangeAddressController?productId=${productId}&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">배송정보변경</a>
 	
 	
-	<form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseCompleteController">
+	<form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseByProductCompleteController">
 		<input type="hidden" name="productId" value="${productId}">
 		<br><br> 이름 : <input type="text" class="name" name="name" id="name" readonly="readonly" value="${name}" >
 		<br><br> 휴대폰번호 : <input type="text" class="phone" name="phone" id="phone" readonly="readonly" value="${phone}" > 

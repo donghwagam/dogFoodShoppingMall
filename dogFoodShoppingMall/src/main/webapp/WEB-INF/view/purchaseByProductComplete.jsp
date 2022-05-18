@@ -10,7 +10,7 @@
 	<h2>배송정보</h2>
 	<div>
 		${name} ${phone}</br>
-		${address}
+		${address} ${detailAddr}
 	</div>
 	<table>
 		<tr>

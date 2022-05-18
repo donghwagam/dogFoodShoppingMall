@@ -7,30 +7,29 @@
 <title>purchase</title>
 </head>
 <body>
-<h1>이 사이트는 새로운 주소를 입력하는 페이지지롱~!</h1>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> 
-	<br><a href="${pageContext.request.contextPath}/loginCheck/purchaseController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본배송정보</a> |
-	<a href="${pageContext.request.contextPath}/loginCheck/PurchaseChangeAddressController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">배송정보변경</a>
+	<br><a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본배송정보</a> |
+	<a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductChangeAddressController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">배송정보변경</a>
 	<br><br>
-	<form method="post" action="${pageContext.request.contextPath}/searchAddressController?msg=purchaseChangeAddr&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">
+	<form method="post" action="${pageContext.request.contextPath}/searchAddressController?productId=${productId}&msg=purchaseChangeAddr&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">
 			주소 : <input class="form-control" name="searchAddress" placeholder="주소" type="text"/>
 			<button class="btn btn-sm btn-danger btn-block" type="submit">주소검색</button><br>
 	</form>
-	<form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseCompleteController">
+	<form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseByProductCompleteController">
 		<c:if test="${searchAddressList != null}">
-       		<select class="form-control" id="addressId" name="addressId">
+       		<select class="form-control" id="address" name="address">
    		    	<option value = "" style="text-align:center;">:: 주소 선택 ::</option>
 	            <c:forEach var="s" items="${searchAddressList}">
-	            	<option value="${s.addressId}" style="text-align:center;">${s.addr}</option>
+	            	<option value="${s.addr}" style="text-align:center;">${s.addr}</option>
 	            </c:forEach>
 	            <span id="addressHelper" class="helper"></span>
            	</select>
       	</c:if>
       	
-      	
+      	<input type="hidden" name="productId" value="${productId}">
       	<br><br> 상세주소 : <input class="form-control" id="detailAddr" name="detailAddr" placeholder="상세주소" type="text"/>
-		<br><br> 이름 : <input type="text" class="name" name="name" id="name" value="" >
-		<br><br> 휴대폰번호 : <input type="text" class="phone" name="phone" id="phone" value="" > 
+		<br><br> 이름 : <input type="text" class="name" name="name" id="name" placeholder="이름" value="" >
+		<br><br> 휴대폰번호 : <input type="text" class="phone" name="phone" id="phone" placeholder="핸드폰번호" value="" > 
 		
 		<table>
 			<tr>

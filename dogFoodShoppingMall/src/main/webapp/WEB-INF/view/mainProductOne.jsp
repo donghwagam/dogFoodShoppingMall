@@ -275,7 +275,7 @@
                         </div>
                         <div class="product__details__price">${list.price} 원</div>
                         <p>${list.info} </p>
-                        <form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseController">
+                        <form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseByProductController">
 	                        <div class="product__details__quantity">
 	                            <div class="quantity">
 	                                <div class="pro-qty">

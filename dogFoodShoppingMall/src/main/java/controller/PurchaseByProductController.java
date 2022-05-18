@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 import dao.MemberDao;
 import dao.PurchaseDao;
 
-@WebServlet("/loginCheck/purchaseController")
-public class PurchaseController extends HttpServlet {
+@WebServlet("/loginCheck/purchaseByProductController")
+public class PurchaseByProductController extends HttpServlet {
 	private MemberDao memberDao;
 	private PurchaseDao purchaseDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,11 +31,11 @@ public class PurchaseController extends HttpServlet {
 		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct"));
 		
 		// 디버깅
-		System.out.println("PurchaseCompleteController.doGet() productId : " + productId);
-		System.out.println("PurchaseCompleteController.doGet() photoName : " + photoName);
-		System.out.println("PurchaseCompleteController.doGet() productName : " + productName);
-		System.out.println("PurchaseCompleteController.doGet() quantity : " + quantity);
-		System.out.println("PurchaseCompleteController.doGet() totalPriceByProduct : " + totalPriceByProduct);
+		System.out.println("PurchaseController.doGet() productId : " + productId);
+		System.out.println("PurchaseController.doGet() photoName : " + photoName);
+		System.out.println("PurchaseController.doGet() productName : " + productName);
+		System.out.println("PurchaseController.doGet() quantity : " + quantity);
+		System.out.println("PurchaseController.doGet() totalPriceByProduct : " + totalPriceByProduct);
 		
 		HttpSession session = request.getSession();
 		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
@@ -53,7 +53,7 @@ public class PurchaseController extends HttpServlet {
 		request.setAttribute("quantity", quantity);
 		request.setAttribute("totalPriceByProduct", totalPriceByProduct);
 		
-		request.getRequestDispatcher("/WEB-INF/view/purchase.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/purchaseByProduct.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -77,7 +77,7 @@ public class PurchaseController extends HttpServlet {
 		System.out.println("PurchaseController.doPost() productName : " + productName);
 		System.out.println("PurchaseController.doPost() totalPriceByProduct : " + totalPriceByProduct);
 		
-		response.sendRedirect(request.getContextPath()+"/loginCheck/purchaseController?productId="+productId+"&photoName="+photoName+"&productName="+productName+"&quantity="+quantity+"&totalPriceByProduct="+totalPriceByProduct);
+		response.sendRedirect(request.getContextPath()+"/loginCheck/purchaseByProductController?productId="+productId+"&photoName="+photoName+"&productName="+productName+"&quantity="+quantity+"&totalPriceByProduct="+totalPriceByProduct);
 		
 	}
 

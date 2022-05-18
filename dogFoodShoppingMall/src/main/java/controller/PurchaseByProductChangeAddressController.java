@@ -8,27 +8,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/loginCheck/PurchaseChangeAddressController")
-public class PurchaseChangeAddressController extends HttpServlet {
+@WebServlet("/loginCheck/purchaseByProductChangeAddressController")
+public class PurchaseByProductChangeAddressController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int productId = Integer.parseInt(request.getParameter("productId")); // 상품번호
 		String photoName = request.getParameter("photoName");
 		String productName = request.getParameter("productName");
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct"));
 		
 		// 디버깅
-		System.out.println("PurchaseCompleteController.doGet() photoName : " + photoName);
-		System.out.println("PurchaseCompleteController.doGet() productName : " + productName);
-		System.out.println("PurchaseCompleteController.doGet() quantity : " + quantity);
-		System.out.println("PurchaseCompleteController.doGet() totalPriceByProduct : " + totalPriceByProduct);
+		System.out.println("PurchaseChangeAddressController.doGet() productId : " + productId);
+		System.out.println("PurchaseChangeAddressController.doGet() photoName : " + photoName);
+		System.out.println("PurchaseChangeAddressController.doGet() productName : " + productName);
+		System.out.println("PurchaseChangeAddressController.doGet() quantity : " + quantity);
+		System.out.println("PurchaseChangeAddressController.doGet() totalPriceByProduct : " + totalPriceByProduct);
 		
+		request.setAttribute("productId", productId);
 		request.setAttribute("photoName", photoName);
 		request.setAttribute("productName", productName);
 		request.setAttribute("quantity", quantity);
 		request.setAttribute("totalPriceByProduct", totalPriceByProduct);
 		
-		request.getRequestDispatcher("/WEB-INF/view/purchaseChangeAddress.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/purchaseByProductChangeAddress.jsp").forward(request, response);
 	}
 
 	

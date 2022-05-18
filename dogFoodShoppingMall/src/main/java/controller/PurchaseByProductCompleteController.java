@@ -13,14 +13,15 @@ import javax.servlet.http.HttpSession;
 
 import dao.PurchaseDao;
 
-@WebServlet("/loginCheck/purchaseCompleteController")
-public class PurchaseCompleteController extends HttpServlet {
+@WebServlet("/loginCheck/purchaseByProductCompleteController")
+public class PurchaseByProductCompleteController extends HttpServlet {
 	private PurchaseDao purchaseDao;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
 		int productId = Integer.parseInt(request.getParameter("productId"));
+		String detailAddr = request.getParameter("detailAddr");
 		String payment = request.getParameter("payment");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
@@ -34,6 +35,7 @@ public class PurchaseCompleteController extends HttpServlet {
 		// 디버깅
 		System.out.println("PurchaseCompleteController.doPost() sessionMemberId : " + sessionMemberId);
 		System.out.println("PurchaseCompleteController.doPost() productId : " + productId);
+		System.out.println("PurchaseCompleteController.doPost() detailAddr : " + detailAddr);
 		System.out.println("PurchaseCompleteController.doPost() payment : " + payment);
 		System.out.println("PurchaseCompleteController.doPost() name : " + name);
 		System.out.println("PurchaseCompleteController.doPost() phone : " + phone);
@@ -55,6 +57,7 @@ public class PurchaseCompleteController extends HttpServlet {
 		
 		
 		if(row == 1) {
+			request.setAttribute("detailAddr", detailAddr);
 			request.setAttribute("name", name);
 			request.setAttribute("phone", phone);
 			request.setAttribute("address", address);
@@ -62,7 +65,7 @@ public class PurchaseCompleteController extends HttpServlet {
 			request.setAttribute("productName", productName);
 			request.setAttribute("quantity", quantity);
 			request.setAttribute("totalPriceByProduct", totalPriceByProduct);
-			request.getRequestDispatcher("/WEB-INF/view/purchaseComplete.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/purchaseByProductComplete.jsp").forward(request, response);
 			System.out.println("결제 성공");
 		} else {
 			response.sendRedirect(request.getContextPath()+"/mainPageController");
