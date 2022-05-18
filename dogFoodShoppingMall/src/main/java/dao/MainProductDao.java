@@ -160,7 +160,7 @@ public class MainProductDao {
                   + "     ON pl.product_id = p.product_id"
                   + "    JOIN product_photo pp"
                   + "     ON pp.product_id = p.product_id"
-                  + "    JOIN review r"
+                  + "    LEFT JOIN review r"
                   + "     ON r.product_id = p.product_id"
                   + "    GROUP BY pl.product_id"
                   + "    ORDER BY SUM desc"
@@ -210,7 +210,7 @@ public class MainProductDao {
                   + "     ON pc.category_id = c.category_id"
                   + "    JOIN product_photo pph"
                   + "     ON p.product_id = pph.product_id"
-                  + "    JOIN review r"
+                  + "   LEFT JOIN review r"
                   + "     ON r.product_id = p.product_id"
                   + "    WHERE c.name = ? " ;
             try {
@@ -268,7 +268,7 @@ public class MainProductDao {
                   + "      ON pc.product_id = p.product_id "
                   + "    JOIN component cp "
                   + "     ON cp.component_id = pc.component_id"
-                  + "    JOIN review r"
+                  + "   LEFT JOIN review r"
                   + "     ON r.product_id = p.product_id "
                   + "      WHERE p.product_id = ?"
                   + "    GROUP BY p.product_id";
