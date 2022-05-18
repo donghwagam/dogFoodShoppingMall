@@ -41,9 +41,10 @@
                   <span id="weightHelper" class="helper"></span>
                   
                   <input class="form-control" placeholder="아래에서 알러지를 선택해주세요" readOnly="readOnly"/>
-                   <c:forEach var="a" items="${allergyList}">
-                     <input type="checkbox" name="allergy" value="${a.allergyId}">${a.name}
-               </c:forEach>
+                  <!-- <input type="checkbox" name="allergy" value="-1">알러지없음 -->
+                  <c:forEach var="a" items="${allergyList}">
+                  	<input type="checkbox" name="allergy" value="${a.allergyId}">${a.name}
+               	  </c:forEach>
                <span id="allergyHelper" class="helper"></span>
                   <br/>
                   <br/>

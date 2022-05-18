@@ -31,100 +31,51 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
-
-    <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
-    <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">
-            <a href="#"><img src="./Resources/img/logo.png" alt=""></a>
-        </div>
-        <div class="humberger__menu__cart">
-            <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-            </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
-        </div>
-        <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="./Resources/img/language.png" alt="">
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a href="#">Spanis</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
-            <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
-            </div>
-        </div>
-        <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </div>
-        <div class="humberger__menu__contact">
-            <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
-            </ul>
-        </div>
-    </div>
-    <!-- Humberger End -->
-
     <!-- Header Section Begin -->
     <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">>
-                        </div>
-          
-                    <div class="col-lg-6">
-                        <div class="header__top__left">
-                            <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
-                            </ul>
-                        </div>
-                    <div class="col-lg-6">
-                        <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
-                            <div class="header__top__right__language">
-                                <img src="./Resources/img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-                            </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
+		<div class="header__top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6">
+						<div class="header__top__left">
+							<ul>
+								<li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+								<li>Free Shipping for all Order of $99</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<div class="header__top__right">
+							<div class="header__top__right__social">
+								<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
+									class="fa fa-twitter"></i></a> <a href="#"><i
+									class="fa fa-linkedin"></i></a> <a href="#"><i
+									class="fa fa-pinterest-p"></i></a>
+							</div>
+							<div class="header__top__right__language">
+								<img src="./Resources/img/language.png" alt="">
+								<div>English</div>
+								<span class="arrow_carrot-down"></span>
+								<ul>
+									<li><a href="#">Spanis</a></li>
+									<li><a href="#">English</a></li>
+								</ul>
+							</div>
+                            <!-- 로그인/로그아웃/마이페이지 이동  -->
+							<div class="header__top__right__auth">
+							<!--sessionMemberId 값이 null이면 로그인 출력/ null이 아니면 마이페이지,로그아웃 버튼 출력  -->
+								<c:choose> 
+									<c:when test="${sessionMemberId == null}">
+										<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
+									</c:when>
+									<c:otherwise>
+										<div>
+										${sessionMemberId} 님 반갑습니다 
+										<a href="${pageContext.request.contextPath}/memberOneController?memberId=${sessionMemberId}">| 마이페이지 </a>
+										<a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
+									</c:otherwise>
+								</c:choose>
+							</div>
                         </div>
                     </div>
                 </div>
@@ -134,34 +85,24 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="./Resources/img/logo.png" alt=""></a>
+                        <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li class="active"><a href="./shop-grid.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
-                        </ul>
+							<li><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
+							<li><a href="./shop-grid.html">브랜드</a></li>
+							<li><a href="./blog.html">랭킹</a></li>
+							<li><a href="./contact.html">신상품</a></li>
+						</ul>
                     </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="${pageContext.request.contextPath}/basketListController"><i class="fa fa-shopping-bag"></i></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
                 </div>
             </div>
@@ -178,11 +119,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Organi Shop</h2>
-                        <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
-                        </div>
+                        <h2>상세 검색</h2>
                     </div>
                 </div>
             </div>
@@ -193,7 +130,7 @@
    <!-- Search Box Begin -->
    <div class="container">
       <form method="post" action="${pageContext.request.contextPath}/productSearchController">
-         <table border="1">
+         <table class="table table-bordered" style = "margin-top : 50px">
             <tr>
                <td>연령</td>
                <td>
@@ -201,9 +138,6 @@
                   <c:forEach var="a" items="${ageList}">
                         <input type="radio" name="age" value="${a.categoryId}"> ${a.name}
                   </c:forEach>  
-               </td>
-               <td rowspan="4">
-                  <button type="submit">Search</button>
                </td>
             </tr>
             <tr>
@@ -236,75 +170,68 @@
                </td>
             </tr>
          </table>
+         <button type="submit" class="btn btn-success form-control">검색</button>
       </form>
-   </div>
+ 	</div>
    <!-- Search Box End -->
    
    <!-- 검색을 안했다면 -->  
-   <!-- 최신순으로 리스트 출력 -->  
-   <c:set var="i" value="0"/>
-   <c:set var="j" value="4"/>
-   <table border="1">
-	   <c:forEach var="s" items="${searchList}"> 
-		   <c:if test="${i%j == 0}">
-		   		<tr> 
-		   </c:if>
-		   <td>
-			   <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${s.photoName}">
-			   <c:choose>
-				   <c:when test="${sessionMemberId== null}">
-			   			<a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
-				   </c:when>
-				   <c:otherwise>
-				   		<a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
-				   </c:otherwise>
-			   </c:choose>
-			   </div>
-			   <div class="product__item__text">
-			   		<h6>${s.productName} ${s.gram}g</h6>
-			   		<h5>$ ${s.price}</h5>
-			   		<div>${s.star}</div>
-			   </div>
-		   </td> 
-		   <c:if test="${i%j == j-1}"> 
-		  		</tr> 
-		   </c:if>
-		   <c:set var="i" value="${i+1}"/>
-	   </c:forEach>
-   </table>
-   
+   <!-- 최신순으로 리스트 출력 -->
+	<div class = "container">
+		<div class = "row">
+		   <c:forEach var="s" items="${searchList}">
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="product__item">
+						<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${s.photoName}">
+							<ul class="product__item__pic__hover">
+								<c:choose>
+									<c:when test="${sessionMemberId== null}">
+				   						<li><a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+					   				</c:when>
+					   				<c:otherwise>
+					   					<li><a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+					   				</c:otherwise>
+					   			</c:choose>
+							</ul>
+						</div>
+						<div class="product__item__text">
+							<h6>${s.productName} ${s.gram}g</h6>
+			  				<h5>$ ${s.price}</h5>
+						</div>
+					 </div>
+				</div>
+		  </c:forEach>
+	   </div>
+	</div>
+
    <!-- 사용자가 검색을 했다면 -->
-   <!--  검색조건에 맞는 리스트 출력 -->
-   <c:set var="i" value="0"/>
-   <c:set var="j" value="4"/>				
-   <table border="1">
-       <c:forEach var="sc" items="${searchCategoryList}">
-          <c:if test="${i%j == 0}">
-		   		<tr> 
-		   </c:if>
-           <td>
-           <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${sc.photoName}">
-           <c:choose>
-			   <c:when test="${sessionMemberId== null}">
-					<a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
-			   </c:when>
-			   <c:otherwise>
-			   		<a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${s.productId}">><i class="fa fa-shopping-cart"></i></a>
-			   </c:otherwise>
-		   </c:choose>
-		   </div>
-		   <div class="product__item__text">
-				<h6>${sc.productName} ${sc.gram}g</h6>
-			   	<h5>$ ${sc.price}</h5>
-			   	<div>${sc.star}</div>
-			</div>
-     		</td>
-     	<c:if test="${i%j == j-1}">
-     		</tr>
-     	</c:if>
-     	<c:set var="i" value="${i+1}"/>
-       </c:forEach>
-   </table>
+   <!--  검색조건에 맞는 리스트 출력 --> 
+   <div class = "container">
+		<div class = "row">
+		   <c:forEach var="sc" items="${searchCategoryList}">
+				<div class="col-lg-4 col-md-4 col-sm-4">
+					<div class="product__item">
+						<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${sc.photoName}">
+							<ul class="product__item__pic__hover">
+								<c:choose>
+									<c:when test="${sessionMemberId== null}">
+				   						<li><a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${sc.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+					   				</c:when>
+					   				<c:otherwise>
+					   					<li><a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${sc.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+					   				</c:otherwise>
+					   			</c:choose>
+							</ul>
+						</div>
+						<div class="product__item__text">
+							<h6>${sc.productName} ${sc.gram}g</h6>
+			  				<h5>$ ${sc.price}</h5>
+						</div>
+					 </div>
+				</div>
+		  </c:forEach>
+	   </div>
+	</div>
     <!-- Footer Section Begin -->
     <footer class="footer spad">
         <div class="container">

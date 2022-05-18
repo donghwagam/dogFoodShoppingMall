@@ -220,13 +220,10 @@
                         </table>
                         <button type="submit">탈퇴</button>
                      </form>
-                     
                </div>
             </div>
          </div>
-   
       </section>
-   
    
    <!-- Footer Section Begin -->
    <footer class="footer spad">

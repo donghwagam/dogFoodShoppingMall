@@ -245,34 +245,36 @@
 							<td>${memberMap.createDate}</td>
 						</tr>
 					</table>
-					<a href="${pageContext.request.contextPath}/updateMemberController">수정</a>
-					<a href="${pageContext.request.contextPath}/deleteMemberController">탈퇴</a>
+					<a href="${pageContext.request.contextPath}/updateMemberController?memberId=${memberMap.memberId}">수정</a>
+					<a href="${pageContext.request.contextPath}/deleteMemberController?memberId=${memberMap.memberId}">탈퇴</a>
 					<h3>애견정보</h3>
-					<table border="1">
-						<c:forEach var="m" items="${memberDogList}">
-						<tr>
-							<td>이름</td>
-							<td>${m.dogName}</td>
-						</tr>
-						<tr>
-							<td>견종</td>
-							<td>${m.spiece}</td>
-						</tr>
-						<tr>
-							<td>출생연도</td>
-							<td>${m.birth}</td>
-						</tr>
-						<tr>
-							<td>체중</td>
-							<td>${m.weight}</td>
-						</tr>
-						<tr>
-							<td>알러지</td>
-							<td>${m.allergyName}</td>
-						</tr>
-						</c:forEach>
-					</table>
-					<a href="${pageContext.request.contextPath}/deleteDogController">삭제</a>
+					<c:forEach var="m" items="${memberDogList}">
+						<table border="1">
+							<tr>
+								<td>이름</td>
+								<td>${m.dogName}</td>
+							</tr>
+							<tr>
+								<td>견종</td>
+								<td>${m.spiece}</td>
+							</tr>
+							<tr>
+								<td>출생연도</td>
+								<td>${m.birth}</td>
+							</tr>
+							<tr>
+								<td>체중</td>
+								<td>${m.weight}</td>
+							</tr>
+							<tr>
+								<td>알러지</td>
+								<td>${m.allergyName}</td>
+							</tr>
+						</table>
+						<a href="${pageContext.request.contextPath}/deleteDogController?memberDogId=${m.memberDogId}">삭제</a>
+					</c:forEach>
+					
+					<div><a href="${pageContext.request.contextPath}/insertDogController">새로운 강아지 등록</a></div>
 				</div>
 			</div>
 		</div>
