@@ -9,6 +9,66 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PurchaseDao {
+	public int updateStockByProduct(int stock, int quantity, int productId) {
+		int row = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		String sql = "UPDATE product"
+				+ "   SET stock = ? - ?"
+				+ "   WHERE product_id = ?";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, stock);
+			stmt.setInt(2, quantity);
+			stmt.setInt(3, productId);
+			row = stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;
+	}
+	
+	public int selectStockByProduct(int productId) {
+		int stock = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT stock"
+				+ "   FROM product"
+				+ "   WHERE product_id=?";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, productId);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				stock = rs.getInt("stock");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return stock;
+	}
+	
 	public int insertPurchaseByProduct(Map<String, Object> map) {
 		int row = 0;
 		int purchaseId = 0;

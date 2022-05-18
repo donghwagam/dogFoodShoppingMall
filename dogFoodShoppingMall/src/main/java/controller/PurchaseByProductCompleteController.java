@@ -54,9 +54,15 @@ public class PurchaseByProductCompleteController extends HttpServlet {
 		purchaseDao = new PurchaseDao();
 		int row = purchaseDao.insertPurchaseByProduct(map);
 		
-		
-		
 		if(row == 1) {
+			int stock = purchaseDao.selectStockByProduct(productId);
+			System.out.println("PurchaseCompleteController.doPost() stock : " + stock);
+			int row2 = purchaseDao.updateStockByProduct(stock, quantity, productId);
+			if(row2 == 1) {
+				System.out.println("재고 수정 완료");
+			} else { 
+				System.out.println("재고 수정 실패");
+			}
 			request.setAttribute("detailAddr", detailAddr);
 			request.setAttribute("name", name);
 			request.setAttribute("phone", phone);

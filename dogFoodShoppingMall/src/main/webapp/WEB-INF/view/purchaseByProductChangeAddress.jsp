@@ -8,7 +8,7 @@
 </head>
 <body>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> 
-	<br><a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본배송정보</a> |
+	<br><a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductController?productId=${productId}&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본배송정보</a> |
 	<a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductChangeAddressController?photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">배송정보변경</a>
 	<br><br>
 	<form method="post" action="${pageContext.request.contextPath}/searchAddressController?productId=${productId}&msg=purchaseChangeAddr&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">
