@@ -18,10 +18,10 @@ public class AddressDao {
 		ResultSet rs = null;
 		
 		// 주소를 찾는 쿼리 작성
-		String sql = "SELECT address_id addressId, CONCAT('(', zip_code, ') ', province, ' ', city, ' ', town, ' ', street, ' ', building1, '-', building2, ' ') addr"
-				+ " FROM address"
-				+ " WHERE CONCAT('(', zip_code, ') ', province, ' ', city, ' ', town, ' ', street, ' ', building1, '-', building2, ' ')"
-				+ " LIKE ?";
+		String sql = "SELECT address_id addressId, CONCAT('(', zip_code, ') ', province, ' ', city, ' ', town, ' ', street) addr"
+				+ "   FROM address"
+				+ "	  WHERE CONCAT('(', zip_code, ') ', province, ' ', city, ' ', town, ' ', street)"
+				+ "   LIKE ?";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
