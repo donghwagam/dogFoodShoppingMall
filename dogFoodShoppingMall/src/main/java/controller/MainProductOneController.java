@@ -39,6 +39,10 @@ public class MainProductOneController extends HttpServlet {
 		request.setAttribute("selectReviewList", selectReviewList);
 		System.out.println("MainProductController.doGet() selectReviewList size : " + selectReviewList.size());
 		
+		// 상품의 평점을 나타내는 메서드
+		double star = reviewDao.selectStarAverage(productId);
+		request.setAttribute("star", star);
+		
 		// 카테고리 정보 불러오는 리스트
 		List<Category> categoryList =  mainProductDao.selectCategoryList();
 		

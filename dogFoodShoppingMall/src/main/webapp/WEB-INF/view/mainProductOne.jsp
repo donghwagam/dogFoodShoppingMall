@@ -266,7 +266,7 @@
                     <div class="product__details__text">
                         <h3>${list.productName}</h3>
                         <div class="product__details__rating">
-                           <h6>★★★★★평점을 나타낼 자리~!★★★★★</h6>
+                           <h4>평점 : ${star}</h4>
                         </div>
                         <div class="product__details__price">${list.price} 원</div>
                         <p>${list.info} </p>
