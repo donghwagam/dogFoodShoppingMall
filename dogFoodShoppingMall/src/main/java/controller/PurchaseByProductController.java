@@ -18,32 +18,28 @@ public class PurchaseByProductController extends HttpServlet {
 	private MemberDao memberDao;
 	private PurchaseDao purchaseDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//int count = 0;
-		//if(request.getParameter("count") != null) {
-		//	count = Integer.parseInt(request.getParameter("basketCount"));
-		//}
-		// System.out.println("PurchaseController (doGet) count: "+ count);
-		
+		// 기본배송정보를 선택한 결제페이지
 		int productId = Integer.parseInt(request.getParameter("productId")); // 상품번호
-		String photoName = request.getParameter("photoName");
-		String productName = request.getParameter("productName");
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
-		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct"));
+		String photoName = request.getParameter("photoName"); // 사진이름
+		String productName = request.getParameter("productName"); // 상품이름
+		int quantity = Integer.parseInt(request.getParameter("quantity")); // 수량
+		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct")); // 상품 1개의 총 가격
 		
 		// 디버깅
-		System.out.println("PurchaseController.doGet() productId : " + productId);
-		System.out.println("PurchaseController.doGet() photoName : " + photoName);
-		System.out.println("PurchaseController.doGet() productName : " + productName);
-		System.out.println("PurchaseController.doGet() quantity : " + quantity);
-		System.out.println("PurchaseController.doGet() totalPriceByProduct : " + totalPriceByProduct);
+		System.out.println("PurchaseByProductController.doGet() productId : " + productId);
+		System.out.println("PurchaseByProductController.doGet() photoName : " + photoName);
+		System.out.println("PurchaseByProductController.doGet() productName : " + productName);
+		System.out.println("PurchaseByProductController.doGet() quantity : " + quantity);
+		System.out.println("PurchaseByProductController.doGet() totalPriceByProduct : " + totalPriceByProduct);
 		
-		HttpSession session = request.getSession();
-		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+		HttpSession session = request.getSession(); // 현재 세션 받아오기
+		String sessionMemberId = (String)session.getAttribute("sessionMemberId"); // 현제 로그인한 아이디 가져오기
 		
-		memberDao = new MemberDao();
+		memberDao = new MemberDao(); // 메서드 사용을 위한 객체 생성
 		
-		Map<String, Object> memberMap = memberDao.selectMemberInfo(sessionMemberId);
+		Map<String, Object> memberMap = memberDao.selectMemberInfo(sessionMemberId); // 사용자의 정보 가져오는 메서드 실행 후 저장
 		
+		// purchaseByProduct.jsp에 정보 보내주기 위해 저장
 		request.setAttribute("productId", productId);
 		request.setAttribute("name", memberMap.get("name"));
 		request.setAttribute("phone", memberMap.get("phone"));
@@ -53,6 +49,7 @@ public class PurchaseByProductController extends HttpServlet {
 		request.setAttribute("quantity", quantity);
 		request.setAttribute("totalPriceByProduct", totalPriceByProduct);
 		
+		// purchaseByProduct.jsp 연결
 		request.getRequestDispatcher("/WEB-INF/view/purchaseByProduct.jsp").forward(request, response);
 	}
 
@@ -62,21 +59,22 @@ public class PurchaseByProductController extends HttpServlet {
 		int quantity = Integer.parseInt(request.getParameter("quantity")); // 수량
 		
 		// 디버깅
-		System.out.println("PurchaseController.doPost() productId : " + productId);
-		System.out.println("PurchaseController.doPost() quantity : " + quantity);
+		System.out.println("PurchaseByProductController.doPost() productId : " + productId);
+		System.out.println("PurchaseByProductController.doPost() quantity : " + quantity);
 		
-		purchaseDao = new PurchaseDao();
-		Map<String, Object> map = purchaseDao.selectPurchaseByProductOne(productId, quantity);
+		purchaseDao = new PurchaseDao(); // 메서드 사용을 위한 객체 생성
+		Map<String, Object> map = purchaseDao.selectPurchaseByProduct(productId, quantity); // 구매한 상품정보 가져오는 메서드 실행 후 저장
 		
-		String photoName = (String)map.get("photoName");
-		String productName = (String)map.get("productName");
-		int totalPriceByProduct = (int)map.get("price")*quantity;
+		String photoName = (String)map.get("photoName"); // map에 저장된 photoName 변수에 저장
+		String productName = (String)map.get("productName"); // map에 저장된 productName 변수에 저장
+		int totalPriceByProduct = (int)map.get("price")*quantity; // map에 저장된 price*선택한 수량 계산 후 변수에 저장
 		
 		// 디버깅
-		System.out.println("PurchaseController.doPost() photoName : " + photoName);
-		System.out.println("PurchaseController.doPost() productName : " + productName);
-		System.out.println("PurchaseController.doPost() totalPriceByProduct : " + totalPriceByProduct);
+		System.out.println("PurchaseByProductController.doPost() photoName : " + photoName);
+		System.out.println("PurchaseByProductController.doPost() productName : " + productName);
+		System.out.println("PurchaseByProductController.doPost() totalPriceByProduct : " + totalPriceByProduct);
 		
+		// purchaseByProductController로 보내기
 		response.sendRedirect(request.getContextPath()+"/loginCheck/purchaseByProductController?productId="+productId+"&photoName="+photoName+"&productName="+productName+"&quantity="+quantity+"&totalPriceByProduct="+totalPriceByProduct);
 		
 	}

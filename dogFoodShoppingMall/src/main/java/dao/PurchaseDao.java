@@ -9,21 +9,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PurchaseDao {
+	
+	// 사용자가 구매한 상품 수량만큼 재고 수량 빼주는 메서드
 	public int updateStockByProduct(int stock, int quantity, int productId) {
-		int row = 0;
+		int row = 0; // executeUpdate() 반환값 담을 변수
+		// 자원 준비
 		Connection conn = null;
 		PreparedStatement stmt = null;
-		Map<String, Object> map = new HashMap<String, Object>();
+		
+		// 재고 업데이트 쿼리
 		String sql = "UPDATE product"
 				+ "   SET stock = ? - ?"
 				+ "   WHERE product_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			stmt = conn.prepareStatement(sql);
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			stmt = conn.prepareStatement(sql); // 쿼리 작성
+			// ?에 정보 작성
 			stmt.setInt(1, stock);
 			stmt.setInt(2, quantity);
 			stmt.setInt(3, productId);
+			// update 쿼리 실행 -> 성공 : 1 / 실패 : 2 반환
 			row = stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -38,23 +44,27 @@ public class PurchaseDao {
 		return row;
 	}
 	
+	// 사용자가 구매한 상품의 재고 출력하는 메서드
 	public int selectStockByProduct(int productId) {
-		int stock = 0;
+		int stock = 0; // 사용자가 구매한 상품의 재고량 받아줄 변수 선언
+		// 자원 준비
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		
+		// 사용자가 구매한 상품의 재고량 출력하는 쿼리
 		String sql = "SELECT stock"
 				+ "   FROM product"
 				+ "   WHERE product_id=?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, productId);
-			rs = stmt.executeQuery();
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			stmt = conn.prepareStatement(sql); // 쿼리 작성
+			stmt.setInt(1, productId); // ?에 정보 작성
+			rs = stmt.executeQuery(); // 쿼리 실행 후 나온 정보 rs에 담기
 			
-			if(rs.next()) {
-				stock = rs.getInt("stock");
+			if(rs.next()) { // rs에 정보가 있으면
+				stock = rs.getInt("stock"); // 재고량 저장
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -69,14 +79,17 @@ public class PurchaseDao {
 		return stock;
 	}
 	
+	// 구매목록 DB에 저장하는 메서드
 	public int insertPurchaseByProduct(Map<String, Object> map) {
-		int row = 0;
-		int purchaseId = 0;
+		int row = 0; // executeUpdate() 반환값 담을 변수
+		int purchaseId = 0; // 주문번호
+		// 자원 준비
 		Connection conn = null;
 		PreparedStatement purchaseStmt = null;
 		PreparedStatement purchaseListStmt = null;
 		ResultSet rs = null;
 		
+		// 구매 정보를 DB에 입력하는 쿼리
 		String purchaseSql = "INSERT INTO purchase("
 				+ " 			member_id"
 				+ "				, payment"
@@ -90,6 +103,7 @@ public class PurchaseDao {
 				+ "				, NOW()"
 				+ "				, NOW())";
 		
+		// 구매한 상품의 종류와 수량 DB에 입력하는 쿼리
 		String purchaseListSql = "INSERT INTO purchase_list("
 				+ "					purchase_id"
 				+ "					, product_id"
@@ -103,29 +117,31 @@ public class PurchaseDao {
 		
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			conn.setAutoCommit(false);
-			purchaseStmt = conn.prepareStatement(purchaseSql, PreparedStatement.RETURN_GENERATED_KEYS);
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn.setAutoCommit(false); // 오토커밋 off
+			purchaseStmt = conn.prepareStatement(purchaseSql, PreparedStatement.RETURN_GENERATED_KEYS); // 쿼리 작성, insert한 키값 가져오는거 셋팅
+			// ?에 정보 작성
 			purchaseStmt.setString(1, (String)map.get("memberId"));
 			purchaseStmt.setString(2, (String)map.get("payment"));
 			purchaseStmt.setInt(3, (int)map.get("totalPriceByProduct"));
-			purchaseStmt.executeUpdate();
-			rs = purchaseStmt.getGeneratedKeys();
+			purchaseStmt.executeUpdate(); // purchaseSql 쿼리 실행
+			rs = purchaseStmt.getGeneratedKeys(); // purchaseSql의 키값 가져와서 rs에 저장
 			
-			if(rs.next()) {
-				purchaseId = rs.getInt(1);
+			if(rs.next()) { // rs에 정보가 있으면
+				purchaseId = rs.getInt(1); // 키값 저장
 			}
 			
-			purchaseListStmt = conn.prepareStatement(purchaseListSql);
+			purchaseListStmt = conn.prepareStatement(purchaseListSql); // 쿼리 작성
+			// ?에 정보 작성
 			purchaseListStmt.setInt(1, purchaseId);
 			purchaseListStmt.setInt(2, (int)map.get("productId"));
 			purchaseListStmt.setInt(3, (int)map.get("quantity"));
-			row = purchaseListStmt.executeUpdate();
+			row = purchaseListStmt.executeUpdate(); // purchaseListSql 쿼리 실행 -> 성공 1 / 실패 : 0 반환
 			
-			conn.commit();
+			conn.commit(); // 커밋
 		} catch (SQLException e) {
 			try {
-				conn.rollback();
+				conn.rollback(); // 실패하면 rollback
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -141,26 +157,29 @@ public class PurchaseDao {
 		return row;
 	}
 	
-	public Map<String, Object> selectPurchaseByProductOne(int productId, int quantity) {
-		
+	// 구매한 상품의 정보 가져오는 메서드
+	public Map<String, Object> selectPurchaseByProduct(int productId, int quantity) {
+		// 자원 준비
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		
+		// 쿼리로 나오는 정보 받을 map 생성
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		// 구매한 상품의 정보가 나오는 쿼리
 		String sql = "SELECT pp.name photoName, p.name productName, p.price price"
 				+ " FROM product p JOIN product_photo pp"
 				+ " ON p.product_id = pp.product_id"
 				+ " WHERE p.product_id=?";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			stmt = conn.prepareStatement(sql);
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			stmt = conn.prepareStatement(sql); // 쿼리작성
+			stmt.setInt(1, productId); // ?에 정보 작성
+			rs = stmt.executeQuery(); // 쿼리 실행 후 나오는 정보 rs에 저장
 			
-			stmt.setInt(1, productId);
-			
-			rs = stmt.executeQuery();
-			
-			if(rs.next()) {
+			if(rs.next()) { // rs에 정보가 있으면
+				// map에 정보 저장
 				map.put("photoName", rs.getString("photoName"));
 				map.put("productName", rs.getString("productName"));
 				map.put("price", rs.getInt("price"));
