@@ -2,9 +2,9 @@ package vo;
 
 public class Qna {
 	private int qnaId;
+	private String qnaKind;
 	private String title;
 	private String memo;
-	private String qnaKind;
 	private String memberId;
 	private int productId;
 	private String createDate;

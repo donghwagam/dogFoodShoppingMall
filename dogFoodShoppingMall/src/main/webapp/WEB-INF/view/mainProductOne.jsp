@@ -266,12 +266,7 @@
                     <div class="product__details__text">
                         <h3>${list.productName}</h3>
                         <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <span>(18 reviews)</span>
+                           <h6>★★★★★평점을 나타낼 자리~!★★★★★</h6>
                         </div>
                         <div class="product__details__price">${list.price} 원</div>
                         <p>${list.info} </p>
@@ -356,6 +351,7 @@
                                  			<th>견종</th>
                                  			<th>제목</th>
                                  			<th>내용</th>
+                                 			<th>평점</th>
                                  			<th>작성날짜</th>
                                  		</tr>
                                  		<tr>
@@ -364,6 +360,7 @@
                                  			<td>${r.spiece}</td>
                                  			<td>${r.title}</td>
                                  			<td>${r.reviewContent}</td>
+                                 			<td>${r.star}</td>
                                  			<td>${r.createDate}</td>
                                  		</tr>
                                  	</table>
