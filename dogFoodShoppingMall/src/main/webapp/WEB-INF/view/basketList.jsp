@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -40,7 +39,7 @@
        color : #FF0000;
     }
    .bottom {margin-bottom:15px;}
-   .top {margin-top:70px;}
+   .top {margin-top:40px;}
 </style>
 
 <meta charset="UTF-8">
@@ -152,10 +151,20 @@
 									<li><a href="#">English</a></li>
 								</ul>
 							</div>
-							<!-- 로그인/로그아웃/마이페이지 이동  -->
+							 <!-- 로그인/로그아웃/마이페이지 이동  -->
 							<div class="header__top__right__auth">
 							<!--sessionMemberId 값이 null이면 로그인 출력/ null이 아니면 마이페이지,로그아웃 버튼 출력  -->
-								${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a>
+								<c:choose> 
+									<c:when test="${sessionMemberId == null}">
+										<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
+									</c:when>
+									<c:otherwise>
+										<div>
+										${sessionMemberId} 님 반갑습니다 
+										<a href="${pageContext.request.contextPath}/memberOneController?memberId=${sessionMemberId}">| 마이페이지 </a>
+										<a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
@@ -166,8 +175,7 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/fakeLogo.png"
-							alt=""></a>
+						<a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/fakeLogo.png" alt=""></a>
 					</div>
 				</div>
 				<!--  상단바  -->
@@ -289,25 +297,23 @@
 										<td class="shoping__cart__price">
                                       		 ${m.quantity*m.price}원
                                    		 </td>
-										<td>
-											<a href="${pageContext.request.contextPath}/removeMemberBasketController?productId=${m.productId}">삭제</a>
+										<td >
+											<a href="${pageContext.request.contextPath}/removeMemberBasketController?productId=${m.productId}" class="text-secondary">X</a>
 										</td>
 									</tr>
 								</c:forEach>
                            	 </tbody>
-                          	 <button type="submit">결제하기</button>
-                            </table>
-                          </form>
-                        <div class="shoping__continue">
-                        <div class="col-lg-12">
-                 	   		<div class="shoping__cart__btns">
-                      		  <a href="${pageContext.request.contextPath}/productSearchController" class="primary-btn cart-btn">쇼핑 계속하기</a>
-                   			 </div>
-               		 	</div>
-                    </div>  
-                   </div>
+                         </table>
+                         
+                         <button class="float-right site-btn top" type="submit">결제하기</button>
+                       </form>
+                  		
+              	   		<div >
+                   		  <a href="${pageContext.request.contextPath}/productSearchController" class="site-btn top">쇼핑 계속하기</a>
+                		</div>
                 </div>
-            </div>
+             </div>
+         </div>
 			 
 	
 	<!-- Footer Section Begin -->
