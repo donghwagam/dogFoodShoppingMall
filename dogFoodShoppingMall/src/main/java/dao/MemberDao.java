@@ -275,7 +275,7 @@ public class MemberDao {
 		ResultSet rs = null;
 		
 		// 쿼리작성
-		String sql = "SELECT m.member_id memberId, m.member_pw memberPw, m.name, m.birth, m.phone, m.email, m.gender, CONCAT(a.province,' ', a.city,' ', a.town,' ', a.street,' ', a.building1,' ', a.building2,' ', m.detail_addr) address,' ', m.create_date createDate"
+		String sql = "SELECT m.member_id memberId, m.member_pw memberPw, m.name, m.birth, m.phone, m.email, m.gender, CONCAT('(',a.zip_code,')',' ',a.province,' ', a.city,' ', a.town,' ', a.street,' ',m.detail_addr) address,' ', m.create_date createDate"
 				+ "		FROM member m "
 				+ "		JOIN address a"
 				+ "			ON m.address_id = a.address_id"
