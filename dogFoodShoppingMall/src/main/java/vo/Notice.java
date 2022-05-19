@@ -2,20 +2,17 @@ package vo;
 
 public class Notice {
 	private int noticeId;
-	private String memberId;
-	private String title;
+	private String noticeTitle;
 	private String noticeContent;
 	private String createDate;
 	private String updateDate;
 	
 	public Notice() {}
-	
-	public Notice(int noticeId, String memberId, String title, String noticeContent, String createDate,
-			String updateDate) {
+
+	public Notice(int noticeId, String noticeTitle, String noticeContent, String createDate, String updateDate) {
 		super();
 		this.noticeId = noticeId;
-		this.memberId = memberId;
-		this.title = title;
+		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
@@ -29,20 +26,12 @@ public class Notice {
 		this.noticeId = noticeId;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public String getNoticeTitle() {
+		return noticeTitle;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
 	}
 
 	public String getNoticeContent() {
@@ -71,9 +60,8 @@ public class Notice {
 
 	@Override
 	public String toString() {
-		return "Notice [noticeId=" + noticeId + ", memberId=" + memberId + ", title=" + title + ", noticeContent="
-				+ noticeContent + ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
+		return "Notice [noticeId=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
+				+ ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
 	}
-	
 	
 }
