@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vo.Brand;
+import vo.Component;
 import vo.Member;
 
 public class AdminDao {
@@ -288,7 +290,7 @@ public class AdminDao {
 		   		+ "             ,m.phone phone"
 		   		+ "             ,m.email email"
 		   		+ "             ,m.gender gender"
-		   		+ "             ,CONCAT('(', a.zip_code, ') ', a.province, ' ', a.city, ' ', a.town, ' ', a.street, ' ', a.building1, '-',a. building2, ' ', m.detail_addr) addr"
+		   		+ "             ,CONCAT('(', a.zip_code, ') ', a.province, ' ', a.city, ' ', a.town, ' ', a.street, ' ', m.detail_addr) addr"
 		   		+ "       FROM member m"
 		   		+ "		 INNER JOIN address a"
 		   		+ "         ON a.address_id = m.address_id"
@@ -747,4 +749,76 @@ public class AdminDao {
 		   }
 		   return list;
 	   }
+	   public List<Component> selectComponentList() {
+		   List<Component> list = new ArrayList<Component>();
+		   Connection conn = null;
+		   PreparedStatement stmt = null;
+		   ResultSet rs = null;
+		   String sql = "SELECT component_id componentId"
+		   		+ "            ,name componentName"
+		   		+ "        FROM component";
+		   try {
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+               stmt = conn.prepareStatement(sql);
+               rs = stmt.executeQuery();
+               while (rs.next()) {
+            	   Component c  = new Component();
+            	   c.setComponentId(rs.getInt("componentId"));
+            	   c.setName(rs.getString("componentName"));
+            	   list.add(c);
+               }
+		   } catch (Exception e) {
+			   e.printStackTrace();
+		   } finally {
+			   try {
+				   conn.close();
+			   } catch (SQLException e) {
+				   e.printStackTrace();
+			   }
+		   }
+		   return list;
+	   }
+	   public List<Brand> selectBrandList() {
+		   List<Brand> list = new ArrayList<Brand>();
+		   Connection conn = null;
+		   PreparedStatement stmt = null;
+		   ResultSet rs = null;
+		   String sql = "SELECT brand_id brandId"
+			   		+ "        ,name brandName"
+			   		+ "    FROM brand";
+			   try {
+				   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	               stmt = conn.prepareStatement(sql);
+	               rs = stmt.executeQuery();
+	               while (rs.next()) {
+	            	   Brand b = new Brand();
+	            	   b.setBrandId(rs.getInt("brandId"));
+	            	   b.setName(rs.getString("brandName"));
+	            	   list.add(b);
+	               }
+			   } catch (Exception e) {
+				   e.printStackTrace();
+			   } finally {
+				   try {
+					   conn.close();
+				   } catch (SQLException e) {
+					   e.printStackTrace();
+				   }
+			   }
+			return list;
+		   }
+	   
+	 public int insertProduct(Map<String , Object> map) {
+		 int row = 0;
+		 int productId = 0;
+		 
+		 Connection conn   = null;
+		 PreparedStatement productStmt = null;
+		 PreparedStatement categoryStmt = null;
+		 PreparedStatement componentStmt = null;
+		 PreparedStatement photoStmt = null;
+		 
+		 
+		 return row;
+	 }
 }
