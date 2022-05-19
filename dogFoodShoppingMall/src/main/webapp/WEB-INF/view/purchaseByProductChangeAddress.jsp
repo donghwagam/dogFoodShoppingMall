@@ -100,7 +100,7 @@
 	    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
 	    							<tr>
 	    								<td><input type="text" name="photoName" value="${photoName}" readonly="readonly" style="border:0 solid black"></td>
-	    								<td class="text-center"><input class="text-center" type="text" name="photoName" value="${productName}" readonly="readonly" style="border:0 solid black"></td>
+	    								<td class="text-center"><input class="text-center" type="text" name="productName" value="${productName}" readonly="readonly" style="border:0 solid black"></td>
 	    								<td class="text-center"><input class="text-center" type="text" name="quantity" value="${quantity}" readonly="readonly" style="border:0 solid black"></td>
 	    								<td class="text-right"><input class="text-right" type="text" name="totalPriceByProduct" value="${totalPriceByProduct}" readonly="readonly" style="border:0 solid black">원</td>
 	    							</tr>

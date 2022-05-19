@@ -2,8 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.PurchaseDao;
+import vo.PurchaseAddress;
 
 @WebServlet("/loginCheck/purchaseByProductCompleteController")
 public class PurchaseByProductCompleteController extends HttpServlet {
@@ -60,23 +63,24 @@ public class PurchaseByProductCompleteController extends HttpServlet {
 		map.put("address", totalAddress);
 		
 		purchaseDao = new PurchaseDao(); // 메서드 사용을 위한 객체 생성
-		int row = purchaseDao.insertPurchaseByProduct(map); // 구매목록 DB 저장 -> 성공하면 row에 1 저장
+		List<Integer> list = purchaseDao.insertPurchaseByProduct(map); // 구매목록 DB 저장 -> 성공하면 row에 1 저장
 		
-		if(row == 1) { // 결제 성공했을때(DB 저장)
+		if(list.get(1) == 1) { // 결제 성공했을때(DB 저장)
 			int stock = purchaseDao.selectStockByProduct(productId); // 구매한 상품의 재고 정보 받아온 후 저장
 			System.out.println("PurchaseCompleteController.doPost() stock : " + stock); // 디버깅
 			int row2 = purchaseDao.updateStockByProduct(stock, quantity, productId); // 구매한 상품 재고 업데이트 -> 성공하면 row2에 1 저장
-			
+			int purchaseId = list.get(0);
+			PurchaseAddress purchaseAddress = purchaseDao.selectPurchaseAddress(purchaseId);
 			if(row2 == 1) { // 재고 수정이 완료되면
 				System.out.println("재고 수정 완료");
 			} else { // 재고 수정 실패하면
 				System.out.println("재고 수정 실패");
 			}
 			// purchaseByProductComplete.jsp에 값을 넘겨주기 위해 저장
-			request.setAttribute("detailAddr", detailAddr);
+			request.setAttribute("purchaseAddress", purchaseAddress);
+			request.setAttribute("totalAddress", totalAddress);
 			request.setAttribute("name", name);
 			request.setAttribute("phone", phone);
-			request.setAttribute("address", address);
 			request.setAttribute("photoName", photoName);
 			request.setAttribute("productName", productName);
 			request.setAttribute("quantity", quantity);

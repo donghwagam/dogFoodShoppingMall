@@ -10,7 +10,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import vo.PurchaseAddress;
+
 public class PurchaseDao {
+	
+	// 배송정보 가져오는 메서드
+	public PurchaseAddress selectPurchaseAddress(int purchaseId) {
+		PurchaseAddress purchaseAddress = new PurchaseAddress(); // 정보를 담을 객체 생성
+		// 자원 준비
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		// 배송정보 가져오는 쿼리
+		String sql = "SELECT *"
+				+ "	  FROM purchase_address"
+				+ "	  WHERE purchase_id = ?";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, 0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return purchaseAddress;
+	}
 	
 	// 사용자가 구매한 상품 수량만큼 재고 수량 빼주는 메서드
 	public int updateStockByProduct(int stock, int quantity, int productId) {
@@ -82,9 +114,10 @@ public class PurchaseDao {
 	}
 	
 	// 구매목록 DB에 저장하는 메서드
-	public int insertPurchaseByProduct(Map<String, Object> map) {
+	public List<Integer> insertPurchaseByProduct(Map<String, Object> map) {
 		int row = 0; // executeUpdate() 반환값 담을 변수
 		int purchaseId = 0; // 주문번호
+		List<Integer> list = new ArrayList<>();
 		// 자원 준비
 		Connection conn = null;
 		PreparedStatement purchaseStmt = null;
@@ -140,6 +173,7 @@ public class PurchaseDao {
 			
 			if(rs.next()) { // rs에 정보가 있으면
 				purchaseId = rs.getInt(1); // 키값 저장
+				list.add(purchaseId);
 			}
 			
 			purchaseListStmt = conn.prepareStatement(purchaseListSql); // 쿼리 작성
@@ -148,6 +182,7 @@ public class PurchaseDao {
 			purchaseListStmt.setInt(2, (int)map.get("productId"));
 			purchaseListStmt.setInt(3, (int)map.get("quantity"));
 			row = purchaseListStmt.executeUpdate(); // purchaseListSql 쿼리 실행 -> 성공 1 / 실패 : 0 반환
+			list.add(row);
 			
 			purchaseAddressStmt = conn.prepareStatement(purchaseAddressSql);
 			purchaseAddressStmt.setInt(1, purchaseId);
@@ -172,7 +207,7 @@ public class PurchaseDao {
 			}
 		}
 		
-		return row;
+		return list;
 	}
 	
 	// 구매한 상품의 정보 가져오는 메서드
