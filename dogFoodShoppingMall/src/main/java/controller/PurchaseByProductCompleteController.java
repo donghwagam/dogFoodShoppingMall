@@ -32,6 +32,8 @@ public class PurchaseByProductCompleteController extends HttpServlet {
 		int quantity = Integer.parseInt(request.getParameter("quantity")); // 수량
 		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct")); // 상품 1개의 총 가격
 		
+		String totalAddress = address + " " + detailAddr;
+		
 		// 디버깅
 		System.out.println("PurchaseCompleteController.doPost() sessionMemberId : " + sessionMemberId);
 		System.out.println("PurchaseCompleteController.doPost() productId : " + productId);
@@ -44,6 +46,7 @@ public class PurchaseByProductCompleteController extends HttpServlet {
 		System.out.println("PurchaseCompleteController.doPost() productName : " + productName);
 		System.out.println("PurchaseCompleteController.doPost() quantity : " + quantity);
 		System.out.println("PurchaseCompleteController.doPost() totalPriceByProduct : " + totalPriceByProduct);
+		System.out.println("PurchaseCompleteController.doPost() totalAddress : " + totalAddress);
 		
 		Map<String, Object> map = new HashMap<>(); // insertPurchaseByProduct() 메서드의 매개변수로 사용할 map 생성
 		// map에 정보 저장
@@ -52,6 +55,9 @@ public class PurchaseByProductCompleteController extends HttpServlet {
 		map.put("payment", payment);
 		map.put("totalPriceByProduct", totalPriceByProduct);
 		map.put("quantity", quantity);
+		map.put("purchaseName", name);
+		map.put("purchasePhone", phone);
+		map.put("address", totalAddress);
 		
 		purchaseDao = new PurchaseDao(); // 메서드 사용을 위한 객체 생성
 		int row = purchaseDao.insertPurchaseByProduct(map); // 구매목록 DB 저장 -> 성공하면 row에 1 저장
@@ -60,6 +66,7 @@ public class PurchaseByProductCompleteController extends HttpServlet {
 			int stock = purchaseDao.selectStockByProduct(productId); // 구매한 상품의 재고 정보 받아온 후 저장
 			System.out.println("PurchaseCompleteController.doPost() stock : " + stock); // 디버깅
 			int row2 = purchaseDao.updateStockByProduct(stock, quantity, productId); // 구매한 상품 재고 업데이트 -> 성공하면 row2에 1 저장
+			
 			if(row2 == 1) { // 재고 수정이 완료되면
 				System.out.println("재고 수정 완료");
 			} else { // 재고 수정 실패하면

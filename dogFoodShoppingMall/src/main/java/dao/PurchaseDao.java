@@ -89,6 +89,7 @@ public class PurchaseDao {
 		Connection conn = null;
 		PreparedStatement purchaseStmt = null;
 		PreparedStatement purchaseListStmt = null;
+		PreparedStatement purchaseAddressStmt = null;
 		ResultSet rs = null;
 		
 		// 구매 정보를 DB에 입력하는 쿼리
@@ -117,7 +118,15 @@ public class PurchaseDao {
 				+ "					, ?"
 				+ "					, NOW())";
 		
-		
+		// 배송정보 DB에 입력하는 쿼리
+		String purchaseAddressSql = "INSERT INTO purchase_address"
+				+ "					 VALUES("
+				+ "						?"
+				+ "						, ?"
+				+ "						, ?"
+				+ "						, ?"
+				+ "						, NOW())";
+	
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
 			conn.setAutoCommit(false); // 오토커밋 off
@@ -139,6 +148,13 @@ public class PurchaseDao {
 			purchaseListStmt.setInt(2, (int)map.get("productId"));
 			purchaseListStmt.setInt(3, (int)map.get("quantity"));
 			row = purchaseListStmt.executeUpdate(); // purchaseListSql 쿼리 실행 -> 성공 1 / 실패 : 0 반환
+			
+			purchaseAddressStmt = conn.prepareStatement(purchaseAddressSql);
+			purchaseAddressStmt.setInt(1, purchaseId);
+			purchaseAddressStmt.setString(2, (String)map.get("purchaseName"));
+			purchaseAddressStmt.setString(3, (String)map.get("purchasePhone"));
+			purchaseAddressStmt.setString(4, (String)map.get("address"));
+			purchaseAddressStmt.executeUpdate();
 			
 			conn.commit(); // 커밋
 		} catch (SQLException e) {
