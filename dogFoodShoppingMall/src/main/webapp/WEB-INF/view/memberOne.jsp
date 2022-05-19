@@ -216,6 +216,10 @@
 							<td>${memberMap.memberId}</td>
 						</tr>
 						<tr>
+							<th>비밀번호</th>
+							<td>**** <a class="float-right" href="${pageContext.request.contextPath}/loginDenied/updateMemberPwController?memberId=${memberMap.memberId}&phone=${memberMap.phone}">수정</a></td>
+						</tr>
+						<tr>
 							<th>이름</th>
 							<td>${memberMap.name}</td>
 						</tr>
@@ -233,7 +237,7 @@
 						</tr>
 						<tr>
 							<th>주소</th>
-							<td>${memberMap.addr}</td>
+							<td>${memberMap.addr} <a class="float-right" href="${pageContext.request.contextPath}/updateAddressController">수정</a></td>
 						</tr>
 						<tr>
 							<th>이메일</th>

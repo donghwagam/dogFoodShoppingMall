@@ -54,6 +54,8 @@ public class MemberDao {
 				map.put("active", rs.getString("active"));
 				map.put("addressId", rs.getInt("addressId"));
 				map.put("addr", rs.getString("addr"));
+				map.put("createDate", rs.getString("createDate"));
+				map.put("updateDate", rs.getString("updateDate"));
 			}
 			
 		} catch (SQLException e) {
@@ -266,74 +268,36 @@ public class MemberDao {
 		return memberId; // 리턴값
 	}
 	
-	// 회원정보를 보여주는 메서드
-	public Map<String, Object> selectMember(String memberId) {
-		Map<String, Object> map = new HashMap<>();
-		// DB연결을 위한 자원 준비
-		Connection conn = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		
-		// 쿼리작성
-		String sql = "SELECT m.member_id memberId, m.member_pw memberPw, m.name, m.birth, m.phone, m.email, m.gender, CONCAT('(',a.zip_code,')',' ',a.province,' ', a.city,' ', a.town,' ', a.street,' ',m.detail_addr) address,' ', m.create_date createDate"
-				+ "		FROM member m "
-				+ "		JOIN address a"
-				+ "			ON m.address_id = a.address_id"
-				+ "		WHERE m.member_id=?";
-			
-		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-			stmt = conn.prepareStatement(sql); // sql문 전송
-			stmt.setString(1, memberId );
-			rs = stmt.executeQuery();
-			
-			while(rs.next()) {
-				map.put("memberId", rs.getString("memberId"));
-				map.put("memberPw", rs.getString("memberPw"));
-				map.put("name", rs.getString("name"));
-				map.put("birth", rs.getString("birth"));
-				map.put("phone", rs.getString("phone"));
-				map.put("email", rs.getString("email"));
-				map.put("gender", rs.getString("gender"));
-				map.put("address", rs.getString("address"));
-				map.put("createDate", rs.getString("createDate"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-           try {
-               conn.close();
-            } catch (SQLException e) {
-               e.printStackTrace();
-            }
-        } 
-		
-		return map;
-	}
+
 	
 	// 회원정보 수정 메서드
-	public void updateMember(Member member) {
+	public int updateMember(Member member) {
 	      
 	      // DB연결을 위한 자원 준비
 	      Connection conn = null;
 	      PreparedStatement stmt = null;
-	      
-	      String sql = "UPDATE SET member (member_pw,NAME,birth,phone,email,gender,address_id,detail_addr,update_date) = (?,?,?,?,?,?,?,?,NOW())";
+	      int row = -1;
+	      String sql = "UPDATE member "
+	      		+ "		SET name=?"
+	      		+ "			,birth=?"
+	      		+ "			,phone=?"
+	      		+ "			,email=?"
+	      		+ "			,gender=?"
+	      		+ "			,update_date=now()"
+	      		+ "		WHERE member_id=?";
 	      
 	      try {
 	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 	         
 	         stmt = conn.prepareStatement(sql);
-	         stmt.setString(1, member.getMemberPw());
-	         stmt.setString(2, member.getName());
-	         stmt.setString(3, member.getBirth());
-	         stmt.setString(4, member.getPhone());
-	         stmt.setString(5, member.getEmail());
-	         stmt.setString(6, member.getGender());
-	         stmt.setInt(7, member.getAddressId());
-	         stmt.setString(8, member.getDetailAddr());
+	         stmt.setString(1, member.getName());
+	         stmt.setString(2, member.getBirth());
+	         stmt.setString(3, member.getPhone());
+	         stmt.setString(4, member.getEmail());
+	         stmt.setString(5, member.getGender());
+	         stmt.setString(6, member.getMemberId());
 	         
-	         int row = stmt.executeUpdate();
+	         row = stmt.executeUpdate();
 	         
 	         if(row == 1) {
 	            System.out.println("updateMember 수정 실패");
@@ -350,6 +314,7 @@ public class MemberDao {
 	            e.printStackTrace();
 	         }
 	      }
+	      return row;
 	}    
 	
 	// 회원정보 삭제 메서드

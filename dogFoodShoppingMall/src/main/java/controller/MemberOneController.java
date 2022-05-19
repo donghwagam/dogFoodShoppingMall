@@ -34,7 +34,7 @@ public class MemberOneController extends HttpServlet {
       System.out.println("MemberOneController (doGet) :"+ memberId);
       
       // 회원정보를 보여주는 리스트
-      Map<String, Object> memberMap = memberDao.selectMember(memberId);
+      Map<String, Object> memberMap = memberDao.selectMemberInfo(memberId);
        
       request.setAttribute("memberMap", memberMap);
       
