@@ -33,6 +33,12 @@
 <link rel="stylesheet" href="./Resources/css/slicknav.min.css"
 	type="text/css">
 <link rel="stylesheet" href="./Resources/css/style.css" type="text/css">
+
+<style>
+   .bottom {margin-bottom:15px;}
+   .top {margin-top:70px;}
+</style>
+
 </head>
 
 <body>
@@ -140,15 +146,8 @@
 							</div>
 							<!-- 로그인/로그아웃/마이페이지 이동  -->
 							<div class="header__top__right__auth">
-							<!--sessionMemberId 값이 null이면 로그인 출력/ null이 아니면 마이페이지,로그아웃 버튼 출력  -->
-								<c:choose> 
-									<c:when test="${sessionMemberId == null}">
-										<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
-									</c:when>
-									<c:otherwise>
-										<div>${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
-									</c:otherwise>
-								</c:choose>
+								<!--sessionMemberId 값이 null이면 로그인 출력/ null이 아니면 마이페이지,로그아웃 버튼 출력  -->
+								${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a>
 							</div>
 						</div>
 					</div>
@@ -159,7 +158,7 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="./index.html"><img src="./Resources/img/fakeLogo.png"
+						<a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/fakeLogo.png"
 							alt=""></a>
 					</div>
 				</div>
@@ -176,14 +175,10 @@
 				</div>
 				<div class="col-lg-3">
 					<div class="header__cart">
-						<ul>
-							<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-							<li><a href="${pageConext.request.contextPath}/basketListController"><i class="fa fa-shoppintg-bag"></i> <span>3</span></a></li>
-						</ul>
-						<div class="header__cart__price">
-							item: <span>$150.00</span>
-						</div>
-					</div>
+                        <ul>
+                            <li><a href="${pageContext.request.contextPath}/basketListController"><i class="fa fa-shopping-bag"></i></a></li>
+                        </ul>
+                    </div>
 				</div>
 			</div>
 			<div class="humberger__open">
@@ -203,78 +198,92 @@
 							<i class="fa fa-bars"></i> <span>마이페이지 목록</span>
 						</div>
 						<!-- 마이페이지 목록출력  -->	
-						<ul>
+						<ul >
                             <li><a href="${pageContext.request.contextPath}/memberOneController">회원/애견 정보</a></li>
 							<li><a href="${pageContext.request.contextPath}/purchaseMemberListController">구매내역</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-9">
-					<h3>회원정보</h3>
-					<table border="1">
+					<h3 class="text-success bottom">회원정보</h3>
+					<table class="table">
+						<colgroup>
+							<col width="20%">
+							<col width="*">
+						</colgroup>
 						<tr>
-							<td>아이디</td>
+							<th>아이디</th>
 							<td>${memberMap.memberId}</td>
 						</tr>
 						<tr>
-							<td>이름</td>
+							<th>이름</th>
 							<td>${memberMap.name}</td>
 						</tr>
 						<tr>
-							<td>성별</td>
+							<th>성별</th>
 							<td>${memberMap.gender}</td>
 						</tr>
 						<tr>
-							<td>생년월일</td>
+							<th>생년월일</th>
 							<td>${memberMap.birth}</td>
 						</tr>
 						<tr>
-							<td>휴대전화</td>
+							<th>휴대전화</th>
 							<td>${memberMap.phone}</td>
 						</tr>
 						<tr>
-							<td>주소</td>
-							<td>${memberMap.address}</td>
+							<th>주소</th>
+							<td>${memberMap.addr}</td>
 						</tr>
 						<tr>
-							<td>이메일</td>
+							<th>이메일</th>
 							<td>${memberMap.email}</td>
 						</tr>
 						<tr>
-							<td>가입일</td>
+							<th>가입일</th>
 							<td>${memberMap.createDate}</td>
 						</tr>
 					</table>
-					<a href="${pageContext.request.contextPath}/updateMemberController?memberId=${memberMap.memberId}">수정</a>
-					<a href="${pageContext.request.contextPath}/deleteMemberController?memberId=${memberMap.memberId}">탈퇴</a>
-					<h3>애견정보</h3>
+					
+					<div class="float-right bottom">
+						<a href="${pageContext.request.contextPath}/updateMemberController" class="btn btn-success" role="button">수정</a>
+						<a href="${pageContext.request.contextPath}/deleteMemberController" class="btn btn-success" role="button">탈퇴</a>
+					</div>
+					
+					<h3 class="text-success top bottom">애견정보</h3>
 					<c:forEach var="m" items="${memberDogList}">
-						<table border="1">
+						<table class="table">
+							<colgroup>
+								<col width="20%">
+								<col width="*">
+							</colgroup>
 							<tr>
-								<td>이름</td>
+								<th>이름</th>
 								<td>${m.dogName}</td>
 							</tr>
 							<tr>
-								<td>견종</td>
+								<th>견종</th>
 								<td>${m.spiece}</td>
 							</tr>
 							<tr>
-								<td>출생연도</td>
+								<th>출생연도</th>
 								<td>${m.birth}</td>
 							</tr>
 							<tr>
-								<td>체중</td>
+								<th>체중</th>
 								<td>${m.weight}</td>
 							</tr>
 							<tr>
-								<td>알러지</td>
+								<th>알러지</th>
 								<td>${m.allergyName}</td>
 							</tr>
 						</table>
-						<a href="${pageContext.request.contextPath}/deleteDogController?memberDogId=${m.memberDogId}">삭제</a>
+						<div class="float-right bottom">
+						<a href="${pageContext.request.contextPath}/deleteDogController?memberDogId=${m.memberDogId}" class="btn btn-success" role="button">삭제</a>
+						</div>
 					</c:forEach>
 					
-					<div><a href="${pageContext.request.contextPath}/insertDogController">새로운 강아지 등록</a></div>
+					<a href="${pageContext.request.contextPath}/insertDogController" class="btn btn-success" role="button">새로운 강아지 등록</a>
 				</div>
 			</div>
 		</div>

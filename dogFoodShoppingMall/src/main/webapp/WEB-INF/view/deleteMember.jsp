@@ -33,6 +33,12 @@
 <link rel="stylesheet" href="./Resources/css/slicknav.min.css"
    type="text/css">
 <link rel="stylesheet" href="./Resources/css/style.css" type="text/css">
+
+<style>
+   .bottom {margin-bottom:15px;}
+   .top {margin-top:70px;}
+</style>
+
 </head>
 
 <body>
@@ -140,16 +146,9 @@
                      </div>
                      <!-- 로그인/로그아웃/마이페이지 이동  -->
                      <div class="header__top__right__auth">
-                     <!--sessionMemberId 값이 null이면 로그인 출력/ null이 아니면 마이페이지,로그아웃 버튼 출력  -->
-                        <c:choose> 
-                           <c:when test="${sessionMemberId == null}">
-                              <a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
-                           </c:when>
-                           <c:otherwise>
-                              <div>${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
-                           </c:otherwise>
-                        </c:choose>
-                     </div>
+						<!--sessionMemberId 값이 null이면 로그인 출력/ null이 아니면 마이페이지,로그아웃 버튼 출력  -->
+						${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a>
+					</div>
                   </div>
                </div>
             </div>
@@ -159,7 +158,7 @@
          <div class="row">
             <div class="col-lg-3">
                <div class="header__logo">
-                  <a href="./index.html"><img src="./Resources/img/fakeLogo.png"
+                  <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/fakeLogo.png"
                      alt=""></a>
                </div>
             </div>
@@ -209,16 +208,16 @@
                   </div>
                </div>
                <div class="col-9">
-                  <h3>회원탈퇴</h3>
+                  <h3 class="text-success bottom">회원탈퇴</h3>
                   <!-- 비밀번호확인 -->
                      <form method="post" action="${pageContext.request.contextPath}/deleteMemberController">
-                        <table border="1">
+                        <table class="table">
                            <tr>
-                              <td>비밀번호확인</td>
+                              <th>비밀번호확인</th>
                               <td><input name="checkPw" type="text"></td>
+                              <td><button type="submit" class="btn btn-dark btn-sm">탈퇴</button></td>
                            </tr>
                         </table>
-                        <button type="submit">탈퇴</button>
                      </form>
                </div>
             </div>
