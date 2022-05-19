@@ -35,9 +35,8 @@ public class ReviewDao {
 				+ " , name"
 				+ " , review_photo"
 				+ " , type"
-				+ " , volume"
 				+ " , review_id"
-				+ " VALUES(?, ?, ?, ?, ?, ?)";
+				+ " VALUES(?, ?, ?, ?, ?)";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -59,12 +58,12 @@ public class ReviewDao {
 			
 			reviewPhotoStmt = conn.prepareStatement(photoReviewSql);
 			
-			reviewPhotoStmt.setInt(1, (int)map.get("originalName"));
+			reviewPhotoStmt.setString(1, (String)map.get("originalName"));
 			reviewPhotoStmt.setString(2, (String)map.get("photoName"));
 			reviewPhotoStmt.setString(3, (String)map.get("reviewPhoto"));
 			reviewPhotoStmt.setString(4, (String)map.get("photoType"));
-			reviewPhotoStmt.setString(5, (String)map.get("photoVolume"));
-			reviewPhotoStmt.setInt(6, reviewId);
+			reviewPhotoStmt.setInt(5, reviewId);
+			reviewPhotoStmt.executeUpdate();
 			
 			conn.commit();
 			
