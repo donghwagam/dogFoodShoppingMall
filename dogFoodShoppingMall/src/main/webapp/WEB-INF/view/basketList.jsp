@@ -182,7 +182,7 @@
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
+							<li><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
 							<li><a href="./shop-grid.html">브랜드</a></li>
 							<li><a href="./blog.html">랭킹</a></li>
 							<li><a href="./contact.html">신상품</a></li>

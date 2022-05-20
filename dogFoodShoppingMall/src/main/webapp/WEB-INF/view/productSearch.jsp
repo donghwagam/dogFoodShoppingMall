@@ -170,7 +170,7 @@
                </td>
             </tr>
          </table>
-         <button type="submit" class="btn btn-success form-control">검색</button>
+         <button type="submit" class="btn site-btn form-control">상품 검색하기</button>
       </form>
  	</div>
    <!-- Search Box End -->

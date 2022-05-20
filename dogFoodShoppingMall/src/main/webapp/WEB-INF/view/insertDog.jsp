@@ -215,7 +215,7 @@
 					</div>
 				</div>
 				<div class="col-9">
-					<legend style="text-align:center;" class="text-success bottom">강아지 등록</legend>
+					<legend style="text-align:center;" class="bottom">강아지 등록</legend>
               	 <form id="dogInsertForm" action="${pageContext.request.contextPath}/insertDogController" method="post" class="form" role="form">
                   
                   <input class="form-control" id="dogName" name="dogName" placeholder="강아지 이름" type="text" />
@@ -242,7 +242,7 @@
                	  <span id="allergyHelper" class="helper"></span>
                   <br/>
                   <br/>
-                  <button id="dogInsert" class="btn btn-lg btn-success btn-block" type="button">강아지 등록</button>
+                  <button id="dogInsert" class="btn btn-lg site-btn btn-block" type="button">강아지 등록</button>
                </form>
 				</div>
 			</div>

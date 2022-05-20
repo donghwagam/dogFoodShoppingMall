@@ -166,7 +166,7 @@
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
+							<li><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
 							<li><a href="./shop-grid.html">브랜드</a></li>
 							<li><a href="./blog.html">랭킹</a></li>
 							<li><a href="./contact.html">신상품</a></li>
@@ -205,7 +205,7 @@
 					</div>
 				</div>
 				<div class="col-9">
-					<h3 class="text-success bottom">회원정보</h3>
+					<h3 class="bottom">회원정보</h3>
 					<table class="table">
 						<colgroup>
 							<col width="20%">
@@ -250,11 +250,11 @@
 					</table>
 					
 					<div class="float-right bottom">
-						<a href="${pageContext.request.contextPath}/updateMemberController" class="btn btn-success" role="button">수정</a>
-						<a href="${pageContext.request.contextPath}/deleteMemberController" class="btn btn-success" role="button">탈퇴</a>
+						<a href="${pageContext.request.contextPath}/updateMemberController" class="site-btn" role="button">수정</a>
+						<a href="${pageContext.request.contextPath}/deleteMemberController" class="site-btn" role="button">탈퇴</a>
 					</div>
 					
-					<h3 class="text-success top bottom">애견정보</h3>
+					<h3 class="top bottom">애견정보</h3>
 					<c:forEach var="m" items="${memberDogList}">
 						<table class="table">
 							<colgroup>
@@ -283,11 +283,11 @@
 							</tr>
 						</table>
 						<div class="float-right bottom">
-						<a href="${pageContext.request.contextPath}/deleteDogController?memberDogId=${m.memberDogId}" class="btn btn-success" role="button">삭제</a>
+						<a href="${pageContext.request.contextPath}/deleteDogController?memberDogId=${m.memberDogId}" class="site-btn" role="button">삭제</a>
 						</div>
 					</c:forEach>
 					
-					<a href="${pageContext.request.contextPath}/insertDogController" class="btn btn-success" role="button">새로운 강아지 등록</a>
+					<a href="${pageContext.request.contextPath}/insertDogController" class="site-btn" role="button">새로운 강아지 등록</a>
 				</div>
 			</div>
 		</div>

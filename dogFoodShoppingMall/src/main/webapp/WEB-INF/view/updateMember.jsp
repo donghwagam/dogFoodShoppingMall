@@ -33,6 +33,12 @@
 <link rel="stylesheet" href="./Resources/css/slicknav.min.css"
    type="text/css">
 <link rel="stylesheet" href="./Resources/css/style.css" type="text/css">
+
+<style>
+   .bottom {margin-bottom:15px;}
+   .top {margin-top:70px;}
+</style>
+
 </head>
 
 <body>
@@ -160,7 +166,7 @@
             <div class="col-lg-6">
                <nav class="header__menu">
                   <ul>
-                     <li class="active"><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
+                     <li><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
                      <li><a href="./shop-grid.html">브랜드</a></li>
                      <li><a href="./blog.html">랭킹</a></li>
                      <li><a href="./contact.html">신상품</a></li>
@@ -202,7 +208,7 @@
                   </div>
                </div>
                <div class="col-9">
-                  <h3>회원정보 수정</h3>
+                  <h3 class="bottom">회원정보 수정</h3>
                   <!-- 회원정보 수정 -->
                      <form method="post" action="${pageContext.request.contextPath}/updateMemberController">
                         <table class="table">
@@ -234,7 +240,7 @@
                               <td><input class="form-control" name="email" type="text" value="${MemberMap.email}"/></td>
                            </tr>
                         </table>
-                        <button type="submit">정보 수정</button>
+                        <button class="float-right site-btn" type="submit">정보 수정</button>
                      </form>
                </div>
             </div>
