@@ -174,7 +174,7 @@
 					<nav class="header__menu">
 						<ul>
 							<li class="active"><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
-							<li><a href="./shop-grid.html">공지사항</a></li>
+							<li><a href="${pageContext.request.contextPath}/noticeListController">공지사항</a></li>
 						</ul>
 					</nav>
 				</div>
