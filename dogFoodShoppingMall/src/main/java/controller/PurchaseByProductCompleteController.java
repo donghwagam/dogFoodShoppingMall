@@ -34,8 +34,13 @@ public class PurchaseByProductCompleteController extends HttpServlet {
 		String productName = request.getParameter("productName"); // 상품이름
 		int quantity = Integer.parseInt(request.getParameter("quantity")); // 수량
 		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct")); // 상품 1개의 총 가격
+		String totalAddress = null;
 		
-		String totalAddress = address + " " + detailAddr;
+		if(detailAddr != null) {
+			totalAddress = address + " " + detailAddr;
+		} else {
+			totalAddress = address;
+		}
 		
 		// 디버깅
 		System.out.println("PurchaseCompleteController.doPost() sessionMemberId : " + sessionMemberId);

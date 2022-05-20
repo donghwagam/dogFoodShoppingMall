@@ -8,7 +8,7 @@
 <meta name="keywords" content="Ogani, unica, creative, html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>basketList</title>
+<title>purchaseByBasket</title>
 <!-- Google Font -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap"
@@ -40,12 +40,29 @@
     }
    .bottom {margin-bottom:15px;}
    .top {margin-top:40px;}
+   .invoice-title h2, .invoice-title h3 {
+	    display: inline-block;
+	}
+	
+	.table > tbody > tr > .no-line {
+	    border-top: none;
+	}
+	
+	.table > thead > tr > .no-line {
+	    border-bottom: none;
+	}
+	
+	.table > tbody > tr > .thick-line {
+	    border-top: 2px solid;
+	}
 </style>
 
 <meta charset="UTF-8">
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -233,88 +250,91 @@
     </section>
     <!-- Breadcrumb Section End -->
     
-    <!-- Shoping Cart Section Begin -->
+    <!-- Shoping Cart Purchase Section Begin -->
     <section class="shoping-cart spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__table">
-                      <form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseByBasketController">
-                        <table>
-                            <thead>
-                                <tr >
-                                    <th class="shoping__product text-center">상품사진</th>
-                                    <th class="text-center">상품명</th>
-                                    <th class="text-center">가격</th>
-                                    <th class="text-center">수량</th>
-                                    <th class="text-center">합계</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            	
-                            	<!--  비회원으로 들어왔을때 -->
-								<c:if test="${sessionMemberId == null}">
-								<c:forEach var="g" items="${guestBasketList}">
-                                <tr>
-                                    <td class="shoping__cart__item"><img src="${pageContext.request.contextPath}/images/${g.photoName}" alt=""></td> 
-                                    <td>${g.productName} ${g.gram}g</td>
-                                    <td class="shoping__cart__price">
-                                       ${g.price}원
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" name="basketCount"  value="${g.quantity}">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                       ${g.quantity*g.price}원
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                              
-                                </c:forEach>
-                                </c:if>
-                                
-                                <!--  회원으로 들어왔을때 -->
-								<c:forEach var="m" items="${memberBasketList}">
-									<tr>
-										<td>
-											<img src = "${pageContext.request.contextPath}/images/${m.photoName}"  width="200" height="200"> 
-										</td>
-										<td>
-											${m.productName} ${m.gram}g
-										</td>
-										<td>
-											${m.price}원
-										</td>
-										<td>
-											<input type="text" name="basketCount"  value="${m.quantity}">
-										</td>
-										<td class="shoping__cart__price">
-                                      		 ${m.quantity*m.price}원
-                                   		 </td>
-										<td >
-											<a href="${pageContext.request.contextPath}/removeMemberBasketController?productId=${m.productId}" class="text-secondary">X</a>
-										</td>
-									</tr>
-								</c:forEach>
-                           	 </tbody>
-                         </table>
-                         
-                         <button class="float-right site-btn top" type="submit">결제하기</button>
-                       </form>
-                  		
-              	   		<div >
-                   		  <a href="${pageContext.request.contextPath}/productSearchController" class="site-btn top">쇼핑 계속하기</a>
-                		</div>
-                </div>
-             </div>
-         </div>
-			 
+		    <div class="row">
+		        <div class="col-xs-12">
+		    		<div class="invoice-title">
+		    			<h2>결제</h2>
+		    		</div>
+		    		<hr>
+		    		<div class="row">
+		    			<div class="col-xs-12">
+		    				<address>
+			    				<strong><a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductController?productId=${productId}&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본정보</a></strong> &nbsp;&nbsp;|&nbsp;
+			    				<strong><a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductChangeAddressController?productId=${productId}&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">배송정보변경</a></strong>
+			    				<br><br>
+		    					<form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseByBasketCompleteController">
+			    					<table>
+			    						<tr>
+			    							<input type="hidden" name="productId" value="${productId}">
+			    							<td>받는사람 &nbsp; |&nbsp;&nbsp;&nbsp;</td>
+			    							<td><input type="text" name="name" value="${name}" style="border:0 solid black" readonly="readonly"></td>
+			    						</tr>
+			    						<tr>
+			    							<td>전화번호 &nbsp; |</td>
+			    							<td><input type="text" name="phone" value="${phone}" style="border:0 solid black" readonly="readonly"></td>
+			    						</tr>
+			    						<tr>
+			    							<td>배송주소 &nbsp; |</td>
+			    							<td><input type="text" name="address" value="${address}" style="width: 500px; border:0 solid black" readonly="readonly"></td>
+			    						</tr>
+			    					</table>
+		    				</address>
+		    			</div>
+		    		</div>
+						<address>
+							<strong>결제방법</strong><br>
+							<input type="hidden" name="payment" value="무통장입금">무통장입금
+						</address>
+		    	</div>
+		    </div>
+		    
+		    	<div class="row">
+		    		<div class="col-md-12">
+		    			<div class="panel panel-default">
+		    				<div class="panel-heading">
+		    					<h3 class="panel-title"><strong>결제 정보</strong></h3>
+		    				</div>
+		    				<div class="panel-body">
+		    					<div class="table-responsive">
+		    						<table class="table table-condensed">
+			    						<thead>
+			                                <tr>
+			        							<td><strong>사진</strong></td>
+			        							<td class="text-center"><strong>상품</strong></td>
+			        							<td class="text-center"><strong>수량</strong></td>
+			        							<td class="text-right"><strong>총 가격</strong></td>
+			                                </tr>
+			    						</thead>
+		    							<tbody>
+		    								<c:forEach var="m" items="${memberBasketList}">
+		    									<tr>
+				    								<td><input type="text" name="photoName" value="${m.photoName}" readonly="readonly" style="border:0 solid black"></td>
+				    								<td class="text-center"><input class="text-center" type="text" name="photoName" value="${m.productName}" readonly="readonly" style="border:0 solid black"></td>
+				    								<td class="text-center"><input class="text-center" type="text" name="quantity" value="${m.quantity}" readonly="readonly" style="border:0 solid black"></td>
+				    								<td class="text-right"><input class="text-right" type="text" name="totalPriceByProduct" value="${m.price * m.quantity}" readonly="readonly" style="border:0 solid black">원</td>
+			    								</tr>
+		    								</c:forEach>
+			    								<tr>
+				    								<td class="thick-line"></td>
+				    								<td class="thick-line"></td>
+				    								<td class="thick-line text-center"><strong>총 가격</strong></td>
+				    								<td class="thick-line text-right">${totalPriceByBasket}원</td>
+			    								</tr>
+			    								<tr>
+			    									<td colspan="4" class="text-right"><button type="submit">결제하기</button></td>
+			    								</tr>
+		    							</tbody>
+		    						</table>
+		    					</form>
+		    				</div>
+		    			</div>
+		    		</div> 
+		    	</div>
+		    </div>
+		</div>
 	
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">
