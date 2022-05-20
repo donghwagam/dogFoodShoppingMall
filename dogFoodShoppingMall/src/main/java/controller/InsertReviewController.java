@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -30,10 +31,32 @@ public class InsertReviewController extends HttpServlet {
 		int purchaseId = Integer.parseInt(request.getParameter("purchaseId"));
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		
+		System.out.println("InsertReviewController.doGet() purchaseId : " + purchaseId);
+		System.out.println("InsertReviewController.doGet() productId : " + productId);
+		
 		request.setAttribute("purchaseId", purchaseId);
 		request.setAttribute("productId", productId);
 		
-		request.getRequestDispatcher("/WEB-INF/view/insertReview.jsp").forward(request, response);
+		this.reviewDao = new ReviewDao();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("purchaseId", purchaseId);
+		map.put("productId", productId);
+		
+		int cnt = reviewDao.checkInsertReview(map);
+		System.out.println("InsertReviewController.doGet() cnt : " + cnt);
+		
+		if (cnt == 0) {
+			
+			request.getRequestDispatcher("/WEB-INF/view/insertReview.jsp").forward(request, response);
+			
+		} else {
+			
+			request.getRequestDispatcher("/WEB-INF/view/checkInsertReview.jsp").forward(request, response);
+		}
+		
+		
+		
 		
 		
 	

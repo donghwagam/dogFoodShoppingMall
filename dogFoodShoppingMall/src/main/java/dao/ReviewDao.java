@@ -9,6 +9,45 @@ import java.util.*;
 
 public class ReviewDao {
 	
+	public int checkInsertReview(Map<String, Object> map) {
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int cnt = 0;
+		
+		String sql = "SELECT COUNT(*) FROM review"
+				+ " WHERE purchase_id = ? AND product_id = ?";
+				
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, (int)(map.get("purchaseId")));
+			stmt.setInt(2, (int)(map.get("productId")));
+			
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		return cnt;
+		
+	}
+	
 	public int insertReview(Map<String, Object> map){
 		
 		int row = 0;
@@ -20,7 +59,7 @@ public class ReviewDao {
 		ResultSet rs = null;
 		
 		// 상품 구매 후 리뷰 등록
-		String reviewSql = "INSERT INTO review"
+		String reviewSql = "INSERT INTO review" 
 				+ " (purchase_id"
 				+ " , product_id"
 				+ " , title"
