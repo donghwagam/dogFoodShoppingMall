@@ -223,6 +223,7 @@
 								<th>가격</th>
 								<th>배송상태</th>
 								<th>합계</th>
+								<th>리뷰</th>
 							</tr>
 						<c:forEach var="p" items="${purchaseMemberList}">	
 							
@@ -234,7 +235,8 @@
 								<td>${p.price}원</td>
 								<td>${p.quantity}개</td>
 								<td>${p.status}</td>
-								<td>${p.totalPrice}원</td>						
+								<td>${p.totalPrice}원</td>
+								<td><a href="${pageContext.request.contextPath}/loginCheck/insertReviewController?purchaseId=${p.purchaseId}&productId=${p.productId}">리뷰작성</a></td>					
 							</tr>
 						</c:forEach>	
 						</table>

@@ -11,7 +11,7 @@
 		<h2 align="center">리뷰 작성</h2>
 	</div>
 	<div class="container pt-3">
-	<form method="post" action="${pageContext.request.contextPath}/loginCheck//insertReviewController">
+	<form method="post" action="${pageContext.request.contextPath}/loginCheck/insertReviewController" enctype="multipart/form-data">
 		<table class="table table-bordered">
 				<input type="hidden" name="purchaseId" value="${purchaseId}">
 				<input type="hidden" name="productId" value="${productId}">

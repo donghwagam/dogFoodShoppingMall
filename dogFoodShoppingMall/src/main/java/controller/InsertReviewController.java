@@ -33,7 +33,7 @@ public class InsertReviewController extends HttpServlet {
 		request.setAttribute("purchaseId", purchaseId);
 		request.setAttribute("productId", productId);
 		
-		request.getRequestDispatcher("/WEB-INT/view/insertReview.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/insertReview.jsp").forward(request, response);
 		
 		
 	
@@ -42,9 +42,13 @@ public class InsertReviewController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 	String path = request.getSession().getServletContext().getRealPath("/insertReviewPhoto");
+	System.out.println("insertReviewController.doPost() 사진 경로 : " + path);
+	
 	MultipartRequest multiReq = new MultipartRequest(request, path, 1024*1024*100, "utf-8", new DefaultFileRenamePolicy());
 	
 	// 그 외 입력값 처리
+	int productId = Integer.parseInt(multiReq.getParameter("productId"));
+	int purchaseId = Integer.parseInt(multiReq.getParameter("purchaseId"));
 	String title = multiReq.getParameter("title");
 	String reviewContent = multiReq.getParameter("reviewContent");
 	int star= Integer.parseInt(multiReq.getParameter("star"));
@@ -62,10 +66,12 @@ public class InsertReviewController extends HttpServlet {
 	System.out.println("InsertReviewController.doPost() photoType : " + photoType);
 	
 	
-	if(photoType.equals("image/gif") || photoType.equals("image/png") || photoType.equals("ima-ge/jpeg")) {
+	if(photoType.equals("image/gif") || photoType.equals("image/png") || photoType.equals("image/jpeg")) {
 		System.out.println("DB에 사진이 들어갑니다!");
 		this.reviewDao = new ReviewDao();
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("purchaseId", purchaseId);
+		map.put("productId", productId);
 		map.put("title", title);
 		map.put("reviewContent", reviewContent);
 		map.put("star", star);
@@ -74,12 +80,12 @@ public class InsertReviewController extends HttpServlet {
 		map.put("photoType", photoType);
 		
 		reviewDao.insertReview(map);
-		response.sendRedirect(request.getContextPath()+"/WEB-INF/view/purchasePage.jsp");
+		response.sendRedirect(request.getContextPath()+"/purchaseMemberListController");
 	} else {
 		System.out.println("이미지파일만 업로드해주세요!");
 		File file = new File(path+"\\"+photoName);
 		file.delete();
-		response.sendRedirect(request.getContextPath()+"/WEB-INF/view/insertReview.jsp");
+		response.sendRedirect(request.getContextPath()+"/loginCheck/insertReviewController");
 	}
 	
 	}

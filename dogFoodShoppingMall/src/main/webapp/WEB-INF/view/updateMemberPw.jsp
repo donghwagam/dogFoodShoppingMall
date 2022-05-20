@@ -89,7 +89,7 @@ body {
          $('#pwCheckHelper').text('비밀번호를 입력해주세요.');
          $('#memberPwCheck').focus();
       } else {
-         $('#updateMemberPwForm').submit();
+         $('#updateMemberIdForm').submit();
       }
    });
 </script>

@@ -33,10 +33,9 @@ public class ReviewDao {
 		String photoReviewSql = "INSERT INTO review_photo"
 				+ " (original_name"
 				+ " , name"
-				+ " , review_photo"
 				+ " , type"
-				+ " , review_id"
-				+ " VALUES(?, ?, ?, ?, ?)";
+				+ " , review_id)"
+				+ " VALUES(?, ?, ?, ?)";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -60,9 +59,8 @@ public class ReviewDao {
 			
 			reviewPhotoStmt.setString(1, (String)map.get("originalName"));
 			reviewPhotoStmt.setString(2, (String)map.get("photoName"));
-			reviewPhotoStmt.setString(3, (String)map.get("reviewPhoto"));
-			reviewPhotoStmt.setString(4, (String)map.get("photoType"));
-			reviewPhotoStmt.setInt(5, reviewId);
+			reviewPhotoStmt.setString(3, (String)map.get("photoType"));
+			reviewPhotoStmt.setInt(4, reviewId);
 			reviewPhotoStmt.executeUpdate();
 			
 			conn.commit();

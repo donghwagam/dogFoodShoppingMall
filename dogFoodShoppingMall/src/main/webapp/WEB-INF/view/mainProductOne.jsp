@@ -343,7 +343,6 @@
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>리뷰</h6>
-                                 <c:forEach var="r" items="${selectReviewList}">
                                  	<table border="1">
                                  		<tr>
                                  			<th>사진</th>
@@ -354,8 +353,9 @@
                                  			<th>평점</th>
                                  			<th>작성날짜</th>
                                  		</tr>
+                             	    <c:forEach var="r" items="${selectReviewList}">
                                  		<tr>
-                                 			<td>${r.reviewPhotoName}</td>
+                                 			<td><img src="${pageContext.request.contextPath}/insertReviewPhoto/${r.reviewPhotoName}" width="70" height="70" alt=""></td>
                                  			<td>${r.memberId}</td>
                                  			<td>${r.spiece}</td>
                                  			<td>${r.title}</td>
@@ -363,8 +363,8 @@
                                  			<td>${r.star}</td>
                                  			<td>${r.createDate}</td>
                                  		</tr>
+                                	 </c:forEach> 
                                  	</table>
-                                 </c:forEach> 
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">

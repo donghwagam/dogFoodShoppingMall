@@ -14,6 +14,8 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script> 
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <title>search MemberPw</title>
 </head>
 <body>
@@ -40,11 +42,20 @@
    $('#memberId').blur(function(){
       if($('#memberId').val() == ''){
          $('#memberIdHelper').text('아이디를 입력해주세요.');
-         $('#memberId').focus();
+      } else if($('#memberId').val().length  > 0 && $('#memberId').val().length < 4) {
+    	 $('#memberIdHelper').text('');	
+    	 $('#idHelper').text('아이디는 4글자 이상으로 입력해주세요.');
+		 $('#memberId').focus();
+      } else if($('#memberId').val().length > 15) {
+		 $('#idHelper').text('아이디는 15글자 이내로 입력해주세요.');
+		 $('#memberId').val().substr(0, 15);
+		 $('#memberId').focus();
       } else {
-         $('#memberIdHelper').text('');
-      }
+			$('#idHelper').text('');
+	  }
+      
    });
+   
    $('#name').blur(function(){
       if($('#name').val() == ''){
          $('#nameHelper').text('이름을 입력해주세요.');
