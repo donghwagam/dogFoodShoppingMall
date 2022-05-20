@@ -951,12 +951,6 @@ public class AdminDao {
 	   productPhotoStmt.setInt(4, productId);
 	   productPhotoStmt.executeUpdate();
 	   
-	   infoPhotoStmt = conn.prepareStatement(productPhotoSql);
-	   infoPhotoStmt.setString(1, (String)map.get("infoPhotoOriginalName"));
-	   infoPhotoStmt.setString(2,(String)map.get("infoPhotoName"));
-	   infoPhotoStmt.setString(3, (String)map.get("infoPhotoType"));
-	   infoPhotoStmt.setInt(4, productId);
-	   row = productStmt.executeUpdate();
 	   
 	   
 	   conn.commit();

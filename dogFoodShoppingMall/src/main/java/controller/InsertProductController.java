@@ -66,9 +66,7 @@ public class InsertProductController extends HttpServlet {
 		String productPhotoName = multiReq.getFilesystemName("productPhoto");
 		String productPhotoType = multiReq.getContentType("productPhoto");
 		
-		String infoPhotoOriginalName = multiReq.getOriginalFileName("infoPhoto");
-		String infoPhotoName = multiReq.getFilesystemName("infoPhoto");
-		String infoPhotoType = multiReq.getContentType("infoPhoto");
+		
 		int[] componentId = null;
 		componentId = new int[component.length];
 		for(int i=0; i<component.length; i++) {
@@ -84,9 +82,6 @@ public class InsertProductController extends HttpServlet {
 		System.out.println("InsertProductController.doPost() productPhotoName :" + productPhotoName);
 		System.out.println("InsertProductController.doPost() productPhotoName :" + productPhotoName);
 		
-		System.out.println("InsertProductController.doPost() infoPhotoOrigianlName :" + infoPhotoOriginalName);
-		System.out.println("InsertProductController.doPost() infoPhotoName :" + infoPhotoName);
-		System.out.println("InsertProductController.doPost() infoPhotoType :" + infoPhotoType);
 		
 		System.out.println("insertProductController.doPost() productName :" + productName);
 		System.out.println("insertProductController.doPost() price :" +price);
@@ -107,7 +102,7 @@ public class InsertProductController extends HttpServlet {
 			 //사진타입이 png나 jpg이면 
 			 // map 에 변수값 저장 
 		int row = 0;
-		if(productPhotoType.equals("image/png") || productPhotoType.equals("image/jpeg") && infoPhotoType.equals("image/png") || infoPhotoType .equals("image/jpeg")) {
+		if(productPhotoType.equals("image/png") || productPhotoType.equals("image/jpeg")) {
 			Map<String, Object> m = new HashMap<>();
 			m.put("productName", productName);
 			m.put("price",price);
@@ -123,9 +118,6 @@ public class InsertProductController extends HttpServlet {
 			m.put("productPhotoOriginalName", productPhotoOriginalName);
 			m.put("productPhotoName", productPhotoName);
 			m.put("productPhotoType",productPhotoType);
-			m.put("infoPhotoOriginalName", infoPhotoOriginalName);
-			m.put("infoPhotoName", infoPhotoName);
-			m.put("infoPhotoType", infoPhotoType);
 			row = adminDao.insertProduct(m);
 			
 		} 

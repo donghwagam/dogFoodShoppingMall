@@ -521,12 +521,6 @@
                       	<input type="file" name="productPhoto">
                       </td>
                   </tr>
-                   <tr>
-                      <th>상품 정보 사진</th>
-                      <td>
-                      	<input type="file" name="infoPhoto">
-                      </td>
-                  </tr>
                   <tr>
                       <th>재고</th>
                       <td>
