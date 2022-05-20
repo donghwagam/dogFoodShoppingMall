@@ -455,12 +455,15 @@
 
 	</div>
 </div>
+
+ 
  </div>
   	<div class="container">
 	<div class="row">
 		<div class="span5">
             <table class="table table-striped table-condensed">
                   <thead>
+                  <td><a href = "${pageContext.request.contextPath}/insertProductController"><span class= "label label-info" style="float:right">상품 등록</span></a></td>
                   <tr>
                       <th>상품 ID</th>
                       <th>상품이름</th>
