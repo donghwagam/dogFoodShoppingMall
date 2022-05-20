@@ -177,33 +177,34 @@
    
    <!-- 검색을 안했다면 -->  
    <!-- 최신순으로 리스트 출력 -->
-	<div class = "container">
-		<div class = "row">
-		   <c:forEach var="s" items="${searchList}">
-				<div class="col-lg-4 col-md-4 col-sm-4">
-					<div class="product__item">
-						<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${s.photoName}">
-							<ul class="product__item__pic__hover">
-								<c:choose>
-									<c:when test="${sessionMemberId== null}">
-				   						<li><a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a></li>
-					   				</c:when>
-					   				<c:otherwise>
-					   					<li><a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a></li>
-					   				</c:otherwise>
-					   			</c:choose>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>${s.productName} ${s.gram}g</h6>
-			  				<h5>$ ${s.price}</h5>
-						</div>
-					 </div>
-				</div>
-		  </c:forEach>
-	   </div>
-	</div>
-
+		<div class = "container">
+			<div class = "row">
+			  <c:forEach var="s" items="${searchList}">
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="product__item">
+							<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${s.photoName}">
+								<ul class="product__item__pic__hover">
+									<c:choose>
+										<c:when test="${sessionMemberId== null}">
+					   						<li><a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+						   				</c:when>
+						   				<c:otherwise>
+						   					<li><a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+						   				</c:otherwise>
+						   			</c:choose>
+								</ul>
+							</div>
+							<div class="product__item__text">
+								<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${s.productId}">
+									<h6>${s.productName} ${s.gram}g</h6>
+				  					<h5>$ ${s.price}</h5>
+				  				</a>
+							</div>
+						 </div>
+					</div>
+			  </c:forEach>
+		   </div>
+		</div>
    <!-- 사용자가 검색을 했다면 -->
    <!--  검색조건에 맞는 리스트 출력 --> 
    <div class = "container">
@@ -224,8 +225,10 @@
 							</ul>
 						</div>
 						<div class="product__item__text">
-							<h6>${sc.productName} ${sc.gram}g</h6>
-			  				<h5>$ ${sc.price}</h5>
+							<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${sc.productId}">
+								<h6>${sc.productName} ${sc.gram}g</h6>
+			  					<h5>$ ${sc.price}</h5>
+			  				</a>
 						</div>
 					 </div>
 				</div>

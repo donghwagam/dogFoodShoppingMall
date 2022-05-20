@@ -1,9 +1,7 @@
 package dao;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import vo.Member;
@@ -71,12 +69,49 @@ public class MemberDao {
 		return map; // 업데이트가 성공했으면 1을 반환 실패했으면 0을 반환 
 	}
 	
+	// 주소 변경 메서드
+	public int updateAddress(Member member) {
+		int row = 0; //반환값으로 사욜할 row 선언
+		
+		// 자원 준비
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "UPDATE member SET address_id=?, detail_addr=? WHERE member_id=?";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, member.getAddressId());
+			stmt.setString(2, member.getDetailAddr());
+			stmt.setString(3, member.getMemberId());
+			
+			row = stmt.executeUpdate();
+			
+			if(row == 1) {
+				System.out.println("updateAddress 성공");
+			} else {
+				System.out.println("updateAddress 실패");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;
+	}
 	
 	// 비밀번호 변경 메서드
 	public int updateMemberPw(Member member) {
 		// 자원 준비
 		Connection conn = null;
 		PreparedStatement stmt = null;
+		
 		int row = 0; // 반환값으로 이용할 row 선언
 		
 		// 비밀번호를 업데이트 하는 쿼리 저장
@@ -106,7 +141,6 @@ public class MemberDao {
 		
 		return row; // 업데이트가 성공했으면 1을 반환 실패했으면 0을 반환 
 	}
-	
 	// DB에 저장된 비밀번호 찾기
 	public String searchMemberPw(Member member) {
 		// 자원 준비
@@ -276,7 +310,7 @@ public class MemberDao {
 	      // DB연결을 위한 자원 준비
 	      Connection conn = null;
 	      PreparedStatement stmt = null;
-	      int row = -1;
+	      int row = 0;
 	      String sql = "UPDATE member "
 	      		+ "		SET name=?"
 	      		+ "			,birth=?"
@@ -300,7 +334,7 @@ public class MemberDao {
 	         row = stmt.executeUpdate();
 	         
 	         if(row == 1) {
-	            System.out.println("updateMember 수정 실패");
+	            System.out.println("updateMember 수정 성공");
 	         } else {
 	            System.out.println("updateMember 수정 실패");
 	         }

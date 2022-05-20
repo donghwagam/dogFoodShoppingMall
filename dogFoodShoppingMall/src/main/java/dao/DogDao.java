@@ -199,7 +199,7 @@ public class DogDao {
       ResultSet rs = null;
       
       // 쿼리작성
-      String sql = "SELECT md.member_dog_id memberDogId, md.dog_name dogName, d.spiece, md.birth, md.weight, GROUP_CONCAT(a.name) allergyName"
+      String sql = "SELECT md.member_dog_id memberDogId, md.dog_name dogName, d.spiece, md.birth, md.weight, IFNULL(GROUP_CONCAT(a.name),'알러지 없음') allergyName"
             + "         FROM member_dog md "
             + "         LEFT JOIN dog d"
             + "            ON md.dog_id = d.dog_id"
@@ -208,7 +208,7 @@ public class DogDao {
             + "         LEFT JOIN allergy a"
             + "            ON mda.allergy_id = a.allergy_id"
             + "         WHERE md.member_id = ?"
-            + "      GROUP BY memberDogId";
+            + "      	GROUP BY md.member_dog_id";
       
       try {
       conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");

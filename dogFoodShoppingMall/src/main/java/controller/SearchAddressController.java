@@ -9,15 +9,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.AddressDao;
+import dao.MemberDao;
 
 @WebServlet("/searchAddressController")
 public class SearchAddressController extends HttpServlet {
 	
 	private AddressDao addressDao; // 멤버변수 AddressDao 선언
+	private MemberDao memberDao;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.memberDao = new MemberDao();
+		
 		String searchAddress = request.getParameter("searchAddress"); // 검색한 주소값 받아오기
 		String msg = request.getParameter("msg");
 		
@@ -56,7 +61,18 @@ public class SearchAddressController extends HttpServlet {
 			
 			request.getRequestDispatcher("/WEB-INF/view/purchaseByProductChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
 		} else if (msg.equals("updateMemberAddr")) { // msg가 updateMemberAddr 라면
-			request.getRequestDispatcher("/WEB-INF/view/updateMember.jsp").forward(request, response); // 회원정보수정 페이지로 이동
+			// 세션 호출
+			HttpSession session = request.getSession();
+					     
+			// 현재 로그인 된 멤버 아이디 받아오기
+			String memberId = (String) session.getAttribute("sessionMemberId");
+			
+			// 회원정보를 보여주는 리스트 (현재 주소정보 구하기 위함)
+		    Map<String, Object> memberMap = memberDao.selectMemberInfo(memberId);
+		    
+		    request.setAttribute("memberMap", memberMap);
+			
+			request.getRequestDispatcher("/WEB-INF/view/updateAddress.jsp").forward(request, response); // 회원주소수정 페이지로 이동
 		} 
 		
 	}

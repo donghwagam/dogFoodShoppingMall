@@ -224,7 +224,7 @@
                   <select class="form-control" name="spiece" id="spiece">
                      <option value="">견종</option>
                         <c:forEach var="s" items="${spieceList}">
-                     <option value="${s.dogId}">${s.spiece}
+                     		<option value="${s.dogId}">${s.spiece}
                         </c:forEach>
                   </select>
                   <span id="spieceHelper" class="helper"></span>

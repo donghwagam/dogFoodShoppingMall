@@ -24,11 +24,11 @@ public class MemberOneController extends HttpServlet {
       this.memberDao = new MemberDao(); // dao호출
       this.dogDao = new DogDao();
       
-      // 세션 호출
-       HttpSession session = request.getSession();
-         
-       // 현재 로그인 된 멤버 아이디 받아오기
-       String memberId = (String) session.getAttribute("sessionMemberId");
+	  // 세션 호출
+	  HttpSession session = request.getSession();
+	     
+	  // 현재 로그인 된 멤버 아이디 받아오기
+	  String memberId = (String) session.getAttribute("sessionMemberId");
        
       //디버깅
       System.out.println("MemberOneController (doGet) :"+ memberId);
