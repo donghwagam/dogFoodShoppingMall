@@ -14,12 +14,13 @@ public class Member {
 	private String detailAddr;
 	private String createDate;
 	private String updateDate;
+	private String pwUpdateDate;
 	
 	public Member() {}
 
 	public Member(String memberId, String memberPw, String name, String birth, String phone, String email,
 			String gender, String level, String active, int addressId, String detailAddr, String createDate,
-			String updateDate) {
+			String updateDate, String pwUpdateDate) {
 		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
@@ -34,6 +35,7 @@ public class Member {
 		this.detailAddr = detailAddr;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
+		this.pwUpdateDate = pwUpdateDate;
 	}
 
 	public String getMemberId() {
@@ -140,13 +142,20 @@ public class Member {
 		this.updateDate = updateDate;
 	}
 
+	public String getPwUpdateDate() {
+		return pwUpdateDate;
+	}
+
+	public void setPwUpdateDate(String pwUpdateDate) {
+		this.pwUpdateDate = pwUpdateDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", name=" + name + ", birth=" + birth
 				+ ", phone=" + phone + ", email=" + email + ", gender=" + gender + ", level=" + level + ", active="
 				+ active + ", addressId=" + addressId + ", detailAddr=" + detailAddr + ", createDate=" + createDate
-				+ ", updateDate=" + updateDate + "]";
+				+ ", updateDate=" + updateDate + ", pwUpdateDate=" + pwUpdateDate + "]";
 	}
-	
-	
+
 }
