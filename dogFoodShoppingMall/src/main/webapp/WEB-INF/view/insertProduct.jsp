@@ -459,62 +459,114 @@
   	<div class="container">
 	<div class="row">
 		<div class="span5">
+		<form method="post" action="${pageContext.request.contextPath}/insertProductController" enctype="multipart/form-data">
             <table class="table table-striped table-condensed">
-             <c:forEach var="p" items="${list}">
                   <tr>
-                      <th>상품 ID</th>
-                      <td>${p.productId}</td>
-                  </tr>
-                  <tr>
-                      <th>상품이름</th>
-                      <td>${p.productName}</td>
+                      <th>상품 이름</th>
+                      <td><input type="text" name="productName"></td>
+                      
                   </tr>
                   <tr>
                       <th>가격</th>
-                      <td>${p.price}</td>
+                      <td>
+                      <input type="number" name="price">원
+                      </td>
                   </tr>
                   <tr>
-                      <th>등급</th>
-                      <td>${p.rate}</td>
+                      <th>그램</th>
+                      <td>
+                      	<input type="text" name="gram">g
+                      </td>
                   </tr>
                   <tr>
-                      <th>원산지</th>
-                      <td>${p.origin}</td>
+                  	<th>등급</th>
+                  	<td>
+                  		<select name="rate">
+	                    		<option value="로가닉">로가닉</option>
+	                    		<option value="오가닉">오가닉</option>
+	                    		<option value="홀리스틱">홀리스틱</option>
+	                    		<option value="슈퍼프리미엄">슈퍼프리미엄</option>
+	                    		<option value="프리미엄">프리미엄</option>
+	                    		<option value="일반" selected="selected">일반</option>
+	                    </select>
+                  	</td>
                   </tr>
                   <tr>
                       <th>알갱이크기</th>
-                      <td>${p.feedSize}</td>
+                      <td>
+                      	<select name="feedSize">
+	                    		<option value="소">소</option>
+	                    		<option value="중" selected="selected">중</option>
+	                    		<option value="대">대</option>
+	                    </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>원산지</th>
+                      <td>
+                      	<input type="text" name="origin">
+                      </td>
                   </tr>
                   <tr>
                       <th>정보</th>
-                      <td>${p.info}</td>
+                      <td>
+                      <textarea name="info"></textarea>
+                      </td>
                   </tr>
                   <tr>
-                      <th>사진</th>
-                      <td><img src="${pageContext.request.contextPath}/images/${p.photoName}"></td>
+                      <th>상품 사진</th>
+                      <td>
+                      	<input type="file" name="productPhoto">
+                      </td>
                   </tr>
+                  	<tr>
+                  		<th>상품정보사진</th>
+						<td>
+							<input type="file" name="infoPhoto">
+						</td>
+                  	</tr>
                   <tr>
                       <th>재고</th>
-                      <td>${p.stock}</td>
+                      <td>
+                      	<input type="number" name="stock">
+                      </td>
                   </tr>
                   <tr>
                       <th>브랜드</th>
-                      <td>${p.brandName}</td>
+                      <td>
+                      	<select name="brandId">
+                      		<c:forEach var="b" items="${brandList}">
+	                    		<option value="${b.brandId}">${b.name}</option>
+	                    	</c:forEach>
+	                    </select>
+                      </td>
                   </tr>
                   <tr>
-                      <th>구성성분</th>
-                      <td>${p.componentName}</td>
+                  	<th>구성 성분</th>
+                  	<td>
+                  	<c:forEach var="co" items="${componentList}">
+	                  	<input type="checkbox" name="component" value="${co.componentId}">${co.name} 
+	                 </c:forEach>
+                  	</td>
                   </tr>
                   <tr>
-                      <th>수정일</th>
-                      <td>${p.updateDate}</td>
+                      <th>카테고리</th>
+                      <td>
+                      	<input type="radio" value="0" name="dogSize">선택안함 
+                     	<input type="radio" value="1" name="dogSize">퍼피
+                     	<input type="radio" value="2" name="dogSize">시니어 
+                     	<input type="radio" value="3" name="dogSize">어덜트
+                      </td>
+                      <td>
+                      	<input type="radio" value="0" name="feed">선택안함  
+                      	<input type="radio" value="4" name="feed">건식사료 
+                     	<input type="radio" value="5" name="feed">소프트사료 
+                     	<input type="radio" value="6" name="feed">습식사료 
+                      </td>
                   </tr>
-                  <tr>
-                    <td><a href="${pageContext.request.contextPath}/updateProductController?productId=${p.productId}"><span class="label label-success">상품수정</span></a>
-                    <a href="${pageContext.request.contextPath}/deleteProductController?productId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
-                   </tr>
-               </c:forEach>
 			</table>
+			 <button type="submit" class="btn btn-success form-control">제품 추가</button>
+			</form>
 		</div>
 	</div>
 </div>

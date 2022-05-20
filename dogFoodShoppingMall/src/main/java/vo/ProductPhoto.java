@@ -6,7 +6,6 @@ public class ProductPhoto {
 	private int photoId;
 	private String originalName;
 	private String name;
-	private String photo;
 	private String type;
 	private int volume;
 	private int productId;
@@ -15,13 +14,12 @@ public class ProductPhoto {
 	
 	public ProductPhoto() {}
 	
-	public ProductPhoto(int photoId, String originalName, String name, String photo, String type, int volume,
+	public ProductPhoto(int photoId, String originalName, String name, String type, int volume,
 			int productId, String createDate, String updateDate) {
 		super();
 		this.photoId = photoId;
 		this.originalName = originalName;
 		this.name = name;
-		this.photo = photo;
 		this.type = type;
 		this.volume = volume;
 		this.productId = productId;
@@ -46,12 +44,6 @@ public class ProductPhoto {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getPhoto() {
-		return photo;
-	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
 	}
 	public String getType() {
 		return type;
@@ -86,8 +78,7 @@ public class ProductPhoto {
 	
 	@Override
 	public String toString() {
-		return "productPhoto [photoId=" + photoId + ", originalName=" + originalName + ", name=" + name + ", photo="
-				+ photo + ", type=" + type + ", volume=" + volume + ", productId=" + productId + ", createDate="
+		return "productPhoto [photoId=" + photoId + ", originalName=" + originalName + ", name=" + name + ", type=" + type + ", volume=" + volume + ", productId=" + productId + ", createDate="
 				+ createDate + ", updateDate=" + updateDate + "]";
 	}
 	
