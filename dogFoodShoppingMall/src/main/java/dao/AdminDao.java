@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import vo.Brand;
+import vo.Category;
 import vo.Component;
 import vo.Member;
 
@@ -807,18 +808,173 @@ public class AdminDao {
 			   }
 			return list;
 		   }
+	   public List<Category> selectCategoryList() {
+		   List<Category> list = new ArrayList<Category>();
+		   Connection conn =  null;
+		   PreparedStatement stmt = null;
+		   ResultSet rs = null;
+		   String sql = " SELECT category_id categoryId"
+		   		+ "             ,name categoryName"
+		   		+ "        FROM  category";
+		   try {
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+               stmt = conn.prepareStatement(sql);
+               rs = stmt.executeQuery();
+               while (rs.next()) {
+            	   Category c = new Category();
+            	   c.setCategoryId(rs.getInt("categoryId"));
+            	   c.setName(rs.getString("categoryName"));
+            	   list.add(c);
+               }
+		   } catch (Exception e) {
+			   e.printStackTrace();
+		   } finally {
+			   try {
+				   conn.close();
+			   } catch (SQLException e) {
+				   e.printStackTrace();
+			   }
+		   }
+		   return list;
+	   }
 	   
 	 public int insertProduct(Map<String , Object> map) {
 		 int row = 0;
 		 int productId = 0;
-		 
 		 Connection conn   = null;
 		 PreparedStatement productStmt = null;
 		 PreparedStatement categoryStmt = null;
 		 PreparedStatement componentStmt = null;
-		 PreparedStatement photoStmt = null;
+		 PreparedStatement productPhotoStmt = null;
+		 PreparedStatement infoPhotoStmt = null; 
+		 ResultSet rs = null;
 		 
+		 // 상품정보 등록하는 쿼리 
+		 String productSql ="INSERT INTO product ("
+		 		+ "		                 name"
+		 		+ "		                ,price"
+		 		+ "		                ,gram"
+		 		+ "		                ,rate"
+		 		+ "		                ,feed_size"
+		 		+ "		                ,origin"
+		 		+ "                     ,info"
+		 		+ "                     ,stock"
+		 		+ "                     ,brand_id"
+		 		+ "                     ,create_date"
+		 		+ "                     ,update_date)"
+		 		+ "             VALUES ("
+		 		+ "     	             ?"
+		 		+ "                     ,?"
+		 		+ "                     ,?"
+		 		+ "                     ,?"
+		 		+ "                     ,?"
+		 		+ "                     ,?"
+		 		+ "                     ,?"
+		 		+ "                     ,?"
+		 		+ "                     ,?"
+		 		+ "                     ,NOW()"
+		 		+ "                     ,NOW()"
+		 		+ "     ) ";
+		 //카테고리 정보 담는 쿼리 
+		 String categorySql = " INSERT INTO product_category ("
+		 		+ "     	                product_id"
+		 		+ "                        ,category_id"
+		 		+ "                        ,update_date)"
+		 		+ "                 VALUES ("
+		 		+ "         	            ?"
+		 		+ "                        ,?"
+		 		+ "                        ,NOW()"
+		 		+ "     )";
+		 String componentSql = "INSERT INTO product_component ("
+		 		+ "				            product_id"
+		 		+ "				           ,component_id"
+		 		+ "				           ,update_date)"
+		 		+ "                 VALUES ("
+		 		+ "                         ?"
+		 		+ "                        ,?"
+		 		+ "                        ,NOW()"
+		 		+ "    )";
 		 
-		 return row;
-	 }
+		 String productPhotoSql = "INSERT INTO product_photo ("
+		 		+ "                            original_name"
+		 		+ "                           ,name"
+		 		+ "                           ,type"
+		 		+ "                           ,product_id"
+		 		+ "                           ,create_date"
+		 		+ "                           ,update_date)"
+		 		+ "                   VALUES  ("
+		 		+ "                            ?"
+		 		+ "                           ,?"
+		 		+ "                           ,?"
+		 		+ "                           ,?"
+		 		+ "                           ,NOW()"
+		 		+ "                           ,NOW()"
+		 		+ "      ) ";
+		 try {
+			 conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			 conn.setAutoCommit(false); //오토커밋 해제 
+			 productStmt = conn.prepareStatement(productSql, PreparedStatement.RETURN_GENERATED_KEYS);
+			 productStmt.setString(1,(String)map.get("productName"));
+			 productStmt.setInt(2,(int)map.get("price"));
+			 productStmt.setDouble(3,(Double)map.get("gram"));
+			 productStmt.setString(4,(String)map.get("rate"));
+			 productStmt.setString(5,(String)map.get("feedSize"));
+			 productStmt.setString(6,(String)map.get("origin"));
+			 productStmt.setString(7,(String)map.get("info"));
+			 productStmt.setInt(8,(int)map.get("stock"));
+			 productStmt.setInt(9,(int)map.get("brandId"));
+			 productStmt.executeUpdate(); // productSql 실행 
+			 rs = productStmt.getGeneratedKeys(); // productSql 실행 후 키값 가져와서 rs에 저장 
+			if (rs.next()) { // rs에 정보가 있으면 
+				productId = rs.getInt(1); // productId 값 저장 
+			}
+	int[] categoryId = (int[])map.get("categoryId");
+	for(int i=0; i<categoryId.length; i++) {
+		categoryStmt = conn.prepareStatement(categorySql);
+		categoryStmt.setInt(1,productId);
+		categoryStmt.setInt(2, categoryId[i]);
+		row = categoryStmt.executeUpdate();
+	}
+	   
+	   int[] componentId = (int[])map.get("componentId");
+	   for (int i=0; i<componentId.length; i++) {
+		   componentStmt =  conn.prepareStatement(componentSql);
+		   componentStmt.setInt(1, productId);
+		   componentStmt.setInt(2,componentId[i]);
+		   row = componentStmt.executeUpdate();
+	   	}
+	   
+	   productPhotoStmt = conn.prepareStatement(productPhotoSql);
+	   productPhotoStmt.setString(1,(String)map.get("productPhotoOriginalName"));
+	   productPhotoStmt.setString(2,(String)map.get("productPhotoName"));
+	   productPhotoStmt.setString(3, (String)map.get("productPhotoType"));
+	   productPhotoStmt.setInt(4, productId);
+	   productPhotoStmt.executeUpdate();
+	   
+	   infoPhotoStmt = conn.prepareStatement(productPhotoSql);
+	   infoPhotoStmt.setString(1, (String)map.get("infoPhotoOriginalName"));
+	   infoPhotoStmt.setString(2,(String)map.get("infoPhotoName"));
+	   infoPhotoStmt.setString(3, (String)map.get("infoPhotoType"));
+	   infoPhotoStmt.setInt(4, productId);
+	   row = productStmt.executeUpdate();
+	   
+	   
+	   conn.commit();
+		 } catch (SQLException e) {
+				try {
+					conn.rollback(); 
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return row;
+		}
 }

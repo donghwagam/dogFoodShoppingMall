@@ -483,8 +483,8 @@
                     <td>${p.stock}</td>
                     <td>${p.brandName}</td> 
                     <td>${p.updateDate}</td>
-                    <td><a href="${pageContext.request.contextPath}/updateProductController?memberId=${p.productId}"><span class="label label-success">상품수정</span></a></td>
-                    <td><a href="${pageContext.request.contextPath}/deleteProductController?memberId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
+                    <td><a href="${pageContext.request.contextPath}/updateProductController?productId=${p.productId}"><span class="label label-success">상품수정</span></a></td>
+                    <td><a href="${pageContext.request.contextPath}/deleteProductController?productId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
                 </tr>
                 </c:forEach>
               </tbody>

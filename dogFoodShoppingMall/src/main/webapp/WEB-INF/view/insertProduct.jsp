@@ -459,17 +459,19 @@
   	<div class="container">
 	<div class="row">
 		<div class="span5">
-		<form method="post" action="${pageContext.request.contextPath}/insertProductController" enctype="multipart/form-data">
+		<form method="post" action="${pageContext.request.contextPath}/insertProductController"  enctype="multipart/form-data">
             <table class="table table-striped table-condensed">
                   <tr>
                       <th>상품 이름</th>
-                      <td><input type="text" name="productName"></td>
+                      <td>
+                     	 <input type="text" name="productName">
+                      </td>
                       
                   </tr>
                   <tr>
                       <th>가격</th>
                       <td>
-                      <input type="number" name="price">원
+                     	 <input type="number" name="price" >원
                       </td>
                   </tr>
                   <tr>
@@ -519,12 +521,12 @@
                       	<input type="file" name="productPhoto">
                       </td>
                   </tr>
-                  	<tr>
-                  		<th>상품정보사진</th>
-						<td>
-							<input type="file" name="infoPhoto">
-						</td>
-                  	</tr>
+                   <tr>
+                      <th>상품 정보 사진</th>
+                      <td>
+                      	<input type="file" name="infoPhoto">
+                      </td>
+                  </tr>
                   <tr>
                       <th>재고</th>
                       <td>
@@ -552,16 +554,9 @@
                   <tr>
                       <th>카테고리</th>
                       <td>
-                      	<input type="radio" value="0" name="dogSize">선택안함 
-                     	<input type="radio" value="1" name="dogSize">퍼피
-                     	<input type="radio" value="2" name="dogSize">시니어 
-                     	<input type="radio" value="3" name="dogSize">어덜트
-                      </td>
-                      <td>
-                      	<input type="radio" value="0" name="feed">선택안함  
-                      	<input type="radio" value="4" name="feed">건식사료 
-                     	<input type="radio" value="5" name="feed">소프트사료 
-                     	<input type="radio" value="6" name="feed">습식사료 
+                      	<c:forEach var="c" items="${categoryList}">
+                      		<input type="checkbox" name="category" value="${c.categoryId}">${c.name}
+                       	</c:forEach>
                       </td>
                   </tr>
 			</table>
