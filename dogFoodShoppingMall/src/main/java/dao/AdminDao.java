@@ -846,7 +846,6 @@ public class AdminDao {
 		 PreparedStatement categoryStmt = null;
 		 PreparedStatement componentStmt = null;
 		 PreparedStatement productPhotoStmt = null;
-		 PreparedStatement infoPhotoStmt = null; 
 		 ResultSet rs = null;
 		 
 		 // 상품정보 등록하는 쿼리 
@@ -928,14 +927,15 @@ public class AdminDao {
 			if (rs.next()) { // rs에 정보가 있으면 
 				productId = rs.getInt(1); // productId 값 저장 
 			}
-	int[] categoryId = (int[])map.get("categoryId");
-	for(int i=0; i<categoryId.length; i++) {
+		//카테고리 추가 쿼리문 
+	int[] categoryId = (int[])map.get("categoryId"); //카테고리 값을 배열에 저장 
+	for(int i=0; i<categoryId.length; i++) { 
 		categoryStmt = conn.prepareStatement(categorySql);
 		categoryStmt.setInt(1,productId);
 		categoryStmt.setInt(2, categoryId[i]);
 		row = categoryStmt.executeUpdate();
 	}
-	   
+	   // 원재료추가 쿼리문 
 	   int[] componentId = (int[])map.get("componentId");
 	   for (int i=0; i<componentId.length; i++) {
 		   componentStmt =  conn.prepareStatement(componentSql);
@@ -971,4 +971,43 @@ public class AdminDao {
 			
 			return row;
 		}
+	public int deleteProduct(int productId) {
+		int row = 0;
+		Connection conn = null;
+	 	PreparedStatement stmt = null;
+	 	 String sql = "		DELETE p"
+	 	 		+ "		          ,pc"
+	 	 		+ "		          ,pco "
+	 	 		+ " 		      ,pp"
+	 	 		+ "           FROM product p"
+	 	 		+ "		 LEFT JOIN product_category pc"
+	 	 		+ "             ON pc.product_id = p.product_id"
+	 	 		+ "      LEFT JOIN product_component pco"
+	 	 		+ "             ON pco.product_id = p.product_id"
+	 	 		+ "      LEFT JOIN product_photo pp"
+	 	 		+ "             ON pp.product_id = p.product_id"
+	 	 		+ "          WHERE p.product_id = ?";
+	 			 
+	 	 try {
+	 		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	 		stmt = conn.prepareStatement(sql);
+	 		stmt.setInt(1, productId);
+	 		row = stmt.executeUpdate();
+	 		if (row == 1) {
+	 			System.out.println("AdminDao.deleteProduct() 삭제완료 ");
+	 		} else {
+	 			System.out.println("AdminDao.deleteProduct() 삭제 실패 ");
+	 		}
+	 		
+	 	 } catch (Exception e) {
+	 		 e.printStackTrace();
+	 	 } finally {
+	 		 try {
+	 			 conn.close();
+	 		 } catch (SQLException e) {
+	 			 e.printStackTrace();
+	 		 }
+	 	 }
+	 	 return row; 
+	}
 }
