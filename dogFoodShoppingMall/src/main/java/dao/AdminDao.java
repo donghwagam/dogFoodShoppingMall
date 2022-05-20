@@ -979,14 +979,10 @@ public class AdminDao {
 	 	PreparedStatement photoStmt = null;
 	 	PreparedStatement productStmt = null;
 	 	
-	 	String categorySql = " DELETE FROM product_category"
-	 						+ 	    "WHERE product_id = ?";
-	 	String componentSql = " DELETE FROM product_component"
-	 			            + "       WHERE product_id = ?";
-	 	String photoSql = " DELETE FROM product_photo"
-	 			        + "       WHERE product_id =?";
-	 	String productSql = " DELETE FROM product"
-	 			          + "       WHERE product_id = ? ";
+	 	String categorySql = " DELETE FROM product_category WHERE product_id = ?";
+	 	String componentSql = " DELETE FROM product_component WHERE product_id = ?";
+	 	String photoSql = " DELETE FROM product_photo  WHERE product_id =?";
+	 	String productSql = " DELETE FROM product WHERE product_id = ? ";
 	 	 try {
 	 		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 	 		 conn.setAutoCommit(false); //오토커밋 해제 

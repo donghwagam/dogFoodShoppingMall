@@ -57,7 +57,8 @@ public class DeleteProductController extends HttpServlet {
 			System.out.println("삭제 성공 ");
 			String path = request.getSession().getServletContext().getRealPath("/images"); //사진을 담을 경로설정 
 			System.out.println("InsertProductController.doPost() 사진 경로 : " + path);
-			File file = new File(path + "\\"+ photoName); // 잘못된 파일 불러오기. 
+			File file = new File(path + "//"+ photoName); // 잘못된 파일 불러오기. 
+			System.out.println("deleteProductController.doPost() 사진 :" + file);
 			file.delete();
 			response.sendRedirect(request.getContextPath() + "/productManagementController");
 		} else {
