@@ -202,7 +202,7 @@
                      </div>
                      <!-- 마이페이지 목록출력  -->   
                      <ul>
-                               <li><a href="${pageContext.request.contextPath}/memberOneController">회원/애견 정보</a></li>
+                        <li><a href="${pageContext.request.contextPath}/memberOneController">회원/애견 정보</a></li>
                         <li><a href="${pageContext.request.contextPath}/purchaseMemberListController">구매내역</a></li>
                      </ul>
                   </div>
@@ -210,15 +210,36 @@
                <div class="col-9">
                   <h3 class="text-success bottom">회원탈퇴</h3>
                   <!-- 비밀번호확인 -->
-                     <form method="post" action="${pageContext.request.contextPath}/deleteMemberController">
+                     <form id="deleteMemberForm" method="post" action="${pageContext.request.contextPath}/deleteMemberController">
                         <table class="table">
                            <tr>
                               <th>비밀번호확인</th>
                               <td><input name="checkPw" type="text"></td>
-                              <td><button type="submit" class="btn btn-dark btn-sm">탈퇴</button></td>
+                              <td><button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#deleteMemberModal">탈퇴</button></td>
                            </tr>
                         </table>
                      </form>
+                      <!-- Modal BEGIN -->
+						<div class="modal fade" id="deleteMemberModal" tabindex="-1" role="dialog" aria-labelledby="deleteMemberModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="deleteMemberModalLabel">회원 탈퇴</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						       	 정말 탈퇴하시겠습니까? 
+						      </div>
+						      <div class="modal-footer">
+							      <button type="button" class="btn btn-primary" id = "deleteMember">탈퇴하기</button>
+							      <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>	
+					<!-- Modal END -->
                </div>
             </div>
          </div>
@@ -315,7 +336,11 @@
    <script src="./Resources/js/mixitup.min.js"></script>
    <script src="./Resources/js/owl.carousel.min.js"></script>
    <script src="./Resources/js/main.js"></script>
-
+   <script>
+		$('#deleteMember').click(function() {
+			$('#deleteMemberForm').submit();
+		})
+   </script>
 
 
 </body>

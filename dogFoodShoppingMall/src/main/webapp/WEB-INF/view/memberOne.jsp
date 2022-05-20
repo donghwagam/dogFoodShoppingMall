@@ -283,17 +283,38 @@
 							</tr>
 						</table>
 						<div class="float-right bottom">
-						<a href="${pageContext.request.contextPath}/deleteDogController?memberDogId=${m.memberDogId}" class="site-btn" role="button">삭제</a>
+						<button type="button" class="site-btn" data-toggle="modal" data-target="#deleteDogModal">삭제</button>
 						</div>
+				
+						<!-- Modal -->
+						<div class="modal fade" id="deleteDogModal" tabindex="-1" role="dialog" aria-labelledby="deleteDogModalLabel" aria-hidden="true">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="deleteDogModalLabel">강아지 삭제</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true">&times;</span>
+						        </button>
+						      </div>
+						      <div class="modal-body">
+						       	 사용자의 강아지를 삭제하시겠습니까?
+						      </div>
+						      <div class="modal-footer">
+							      <a href="${pageContext.request.contextPath}/deleteDogController?memberDogId=${m.memberDogId}" class="btn btn-success" role="button">삭제하기</a>
+							      <button type="button" class="btn btn-secondary" data-dismiss="modal">취소하기</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>	
+						
 					</c:forEach>
 					
 					<a href="${pageContext.request.contextPath}/insertDogController" class="site-btn" role="button">새로운 강아지 등록</a>
 				</div>
 			</div>
 		</div>
-
 	</section>
-	
+	`
 	
 	<!-- Footer Section Begin -->
 	<footer class="footer spad">

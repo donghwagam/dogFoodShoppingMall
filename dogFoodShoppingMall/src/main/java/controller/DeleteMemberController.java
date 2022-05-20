@@ -30,7 +30,7 @@ public class DeleteMemberController extends HttpServlet {
       String checkPw = request.getParameter("checkPw"); // 내가 쓴 checkPw 받아오기 
       
       int memberDogId = -1; // 등록한 강아지가 없을때는 -1로 넘어가게 함
-      memberDogId = memberDao.selectMemberDogIdAndCheckPw(memberId); // memberDogId 받아오기
+      memberDogId = memberDao.selectMemberDogId(memberId); // memberDogId 받아오기
       
       int memberRow = memberDao.deleteMember(memberDogId, memberId, checkPw); // 메서드 실행 후 반환값(현재 로그인 된 ID,PW) 저장
       

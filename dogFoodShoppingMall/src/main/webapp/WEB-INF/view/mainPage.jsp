@@ -150,9 +150,10 @@
 									</c:when>
 									<c:otherwise>
 										<div>
-										${sessionMemberId} 님 반갑습니다 
-										<a href="${pageContext.request.contextPath}/memberOneController?memberId=${sessionMemberId}">| 마이페이지 </a>
-										<a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
+											${sessionMemberId} 님 반갑습니다 
+											<a href="${pageContext.request.contextPath}/memberOneController?memberId=${sessionMemberId}">| 마이페이지 </a>
+											<a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a>
+										</div>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -236,57 +237,67 @@
 		</div>
 	</section>
 	<!-- jstl의 if~else 사용 categoryName 이 null 일때 일반 상품 리스트 출력 null이 아닐때 카테고리 관련된 상품 출력  -->
-<div class="container">
-	<div class="row">
-			<c:choose>
-				<c:when test="${categoryName == null}">
-				<c:forEach var="p" items="${productList}" begin="0" end="11" step="1">
-						<div class="col-lg-4 col-md-4 col-sm-4">
-							<div class="product__item">
-								<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${p.photoName}">
+	<div class="container">
+		<div class="row">
+				<c:choose>
+					<c:when test="${categoryName == null}">
+					<c:forEach var="p" items="${productList}" begin="0" end="11" step="1">
+							<div class="col-lg-4 col-md-4 col-sm-4">
+								<div class="product__item">
+									<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${p.photoName}">
+									<ul class="product__item__pic__hover">
+										<c:choose>
+	                           				<c:when test="${sessionMemberId== null}">
+	                                 			<li><a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${p.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+	                              			</c:when>
+	                              			<c:otherwise>
+	                                 			<li><a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${p.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+	                              			</c:otherwise>
+	                           			</c:choose>
+									</ul>
+								</div>
+								<div class="product__item__text">
+									<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${p.productId}">
+										<h6>${p.productName}</h6>
+										<h5>${p.price} 원</h5>
+									</a>
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+					</c:when>
+					<c:otherwise>
+					<c:forEach var="cl" items="${productCategoryList}"  begin="0" end="11" step="1">
+					<div class="col-lg-4 col-md-4 col-sm-4">
+							<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${cl.photoName}">
 								<ul class="product__item__pic__hover">
 									<c:choose>
-                           <c:when test="${sessionMemberId== null}">
-                                 <li><a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${p.productId}"><i class="fa fa-shopping-cart"></i></a></li>
-                              </c:when>
-                              <c:otherwise>
-                                 <li><a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${p.productId}"><i class="fa fa-shopping-cart"></i></a></li>
-                              </c:otherwise>
-                           </c:choose>
+	                       				<c:when test="${sessionMemberId== null}">
+	                             			<li><a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${cl.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+	                          			</c:when>
+	                          			<c:otherwise>
+	                             			<li><a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${cl.productId}"><i class="fa fa-shopping-cart"></i></a></li>
+	                          			</c:otherwise>
+	                           		</c:choose>
 								</ul>
 							</div>
 							<div class="product__item__text">
-								<h6>${p.productName}</h6>
-								<h5>${p.price} 원</h5>
+								<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${cl.productId}">
+									<h6>${cl.productName}</h6>
+									<h5>${cl.price} 원</h5>
+								</a>
 							</div>
-						</div>
 					</div>
-				</c:forEach>
-				</c:when>
-				<c:otherwise>
-				<c:forEach var="cl" items="${productCategoryList}"  begin="0" end="11" step="1">
-				<div class="col-lg-4 col-md-4 col-sm-4">
-						<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${cl.photoName}">
-							<ul class="product__item__pic__hover">
-								<li><a href="#"><i class="fa fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa fa-retweet"></i></a></li>
-								<li><a href="${pageContext.request.contextPath}/mainProductOneController?productId=${cl.productId}"><i class="fa fa-shopping-cart"></i></a></li>
-							</ul>
-						</div>
-						<div class="product__item__text">
-							<h6>${cl.productName}</h6>
-							<h5>${cl.price} 원</h5>
-						</div>
-				</div>
-				</c:forEach>
-				</c:otherwise>
-			</c:choose>
-		</div>
-</div>
-		<div class="product__pagination">
-			<a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#"><i
-				class="fa fa-long-arrow-right"></i></a>
-		</div>
+					</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</div>
+	</div>
+	<!-- 페이징 -->
+	<div class="product__pagination">
+		<a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#"><i
+			class="fa fa-long-arrow-right"></i></a>
+	</div>
 
 	<!-- Latest Product Section Begin -->
 	<section class="latest-product spad">

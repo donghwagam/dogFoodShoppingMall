@@ -225,6 +225,36 @@ public class MemberDao {
 		return memberId; // 아이디값 반환
 	}
 	
+	//비밀번호 이력테이블에 비밀번호 추가 
+	public void insertPwRecord(Member member) {
+		// 자원 준비
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "INSERT INTO member_pw_record (member_id, pw_record, update_date) VALUES (?,PASSWORD(?),now())";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, member.getMemberId());
+			stmt.setString(2, member.getMemberPw());
+			int row = stmt.executeUpdate(); // 쿼리 실행
+			if(row == 1) {
+				System.out.println("insertPwRecord 입력 성공");
+			} else {
+				System.out.println("insertPwRecord 입력 실패");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	// 회원가입 메서드
 	public void insertMember(Member member) {
 		// 자원 준비
@@ -232,9 +262,9 @@ public class MemberDao {
 		PreparedStatement stmt = null;
 		
 		// 회원가입을 해줄 쿼리문 작성
-		String sql = "INSERT INTO member (member_id, member_pw, name, birth, phone, email, gender, address_id, detail_addr, create_date, update_date)"
+		String sql = "INSERT INTO member (member_id, member_pw, name, birth, phone, email, gender, address_id, detail_addr, create_date, update_date,pw_update_date)"
 				+ " VALUES"
-				+ " (?, PASSWORD(?), ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+				+ " (?, PASSWORD(?), ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(),NOW())";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
@@ -353,20 +383,35 @@ public class MemberDao {
 	
 	// 회원정보 삭제 메서드
 		public int deleteMember(int memberDogId, String memberId, String checkPw) {
-			  int memberRow = -1;
+			  int memberRow = 0;
 			  // DB연결을 위한 자원 준비
 		      Connection conn = null;
+		      PreparedStatement basketStmt = null;
 		      PreparedStatement memberDogAllergyStmt = null;
 		      PreparedStatement memberDogStmt = null;
+		      PreparedStatement pwRecordStmt = null;
 		      PreparedStatement memberStmt = null;
 		      
+		      String basketSql = "DELETE FROM basket WHERE member_id=?";
 		      String memberDogAllergySql = "DELETE FROM member_dog_allergy WHERE member_dog_id=?";
 		      String memberDogSql =  "DELETE FROM member_dog WHERE member_id=?";
+		      String pwRecordSql = "DELETE FROM member_pw_record WHERE member_id=?";
 		      String memberSql = "DELETE FROM member WHERE member_id=? AND member_pw = PASSWORD(?)";
 		      
 		      try {
 				conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 				conn.setAutoCommit(false); // 자동커밋을 해제
+				
+				// 장바구니 삭제 
+				basketStmt = conn.prepareStatement(basketSql);
+				basketStmt.setString(1, memberId);
+				int basketRow = basketStmt.executeUpdate();
+				
+				if(basketRow != 1) {
+					System.out.println("basket 삭제 실패");
+				} else {
+					System.out.println("basket 삭제 성공");
+				}
 				
 				// memberDogAllergy 삭제
 				memberDogAllergyStmt = conn.prepareStatement(memberDogAllergySql);
@@ -388,6 +433,18 @@ public class MemberDao {
 					System.out.println("memberDog 삭제 실패");
 				} else {
 					System.out.println("memberDog 삭제 성공");
+				}
+				
+				//비밀번호 이력 삭제
+				pwRecordStmt = conn.prepareStatement(pwRecordSql);
+				pwRecordStmt.setString(1, memberId);
+				
+				int pwRecordRow = pwRecordStmt.executeUpdate();
+				
+				if(pwRecordRow != 1) {
+					System.out.println("pwRecord 삭제 실패");
+				} else {
+					System.out.println("pwRecord 삭제 성공");
 				}
 				
 				//member 삭제
@@ -425,8 +482,8 @@ public class MemberDao {
 		    return memberRow;
 		}
 		
-		// dogId
-		public int selectMemberDogIdAndCheckPw(String memberId) {
+		// dogId 들고오기 위한 메서드
+		public int selectMemberDogId(String memberId) {
 			
 		    int memberDogId = -1;
 		    
