@@ -974,40 +974,60 @@ public class AdminDao {
 	public int deleteProduct(int productId) {
 		int row = 0;
 		Connection conn = null;
-	 	PreparedStatement stmt = null;
-	 	 String sql = "		DELETE p"
-	 	 		+ "		          ,pc"
-	 	 		+ "		          ,pco "
-	 	 		+ " 		      ,pp"
-	 	 		+ "           FROM product p"
-	 	 		+ "		 LEFT JOIN product_category pc"
-	 	 		+ "             ON pc.product_id = p.product_id"
-	 	 		+ "      LEFT JOIN product_component pco"
-	 	 		+ "             ON pco.product_id = p.product_id"
-	 	 		+ "      LEFT JOIN product_photo pp"
-	 	 		+ "             ON pp.product_id = p.product_id"
-	 	 		+ "          WHERE p.product_id = ?";
-	 			 
+	 	PreparedStatement categoryStmt = null;
+	 	PreparedStatement componentStmt = null;
+	 	PreparedStatement photoStmt = null;
+	 	PreparedStatement productStmt = null;
+	 	
+	 	String categorySql = " DELETE FROM product_category"
+	 						+ 	    "WHERE product_id = ?";
+	 	String componentSql = " DELETE FROM product_component"
+	 			            + "       WHERE product_id = ?";
+	 	String photoSql = " DELETE FROM product_photo"
+	 			        + "       WHERE product_id =?";
+	 	String productSql = " DELETE FROM product"
+	 			          + "       WHERE product_id = ? ";
 	 	 try {
 	 		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-	 		stmt = conn.prepareStatement(sql);
-	 		stmt.setInt(1, productId);
-	 		row = stmt.executeUpdate();
+	 		 conn.setAutoCommit(false); //오토커밋 해제 
+	 		 categoryStmt = conn.prepareStatement(categorySql);
+	 		 categoryStmt.setInt(1, productId);
+	 		 categoryStmt.executeUpdate();
+	 		 
+	 		 componentStmt = conn.prepareStatement(componentSql);
+	 		 componentStmt.setInt(1, productId);
+	 		 componentStmt.executeUpdate();
+	 		 
+	 		 photoStmt = conn.prepareStatement(photoSql);
+	 		 photoStmt.setInt(1, productId);
+	 		 photoStmt.executeUpdate();
+	 		 
+	 		 productStmt = conn.prepareStatement(productSql);
+	 		 productStmt.setInt(1, productId);
+	 		row = productStmt.executeUpdate();
+	 		 
 	 		if (row == 1) {
 	 			System.out.println("AdminDao.deleteProduct() 삭제완료 ");
 	 		} else {
 	 			System.out.println("AdminDao.deleteProduct() 삭제 실패 ");
 	 		}
 	 		
-	 	 } catch (Exception e) {
-	 		 e.printStackTrace();
-	 	 } finally {
-	 		 try {
-	 			 conn.close();
-	 		 } catch (SQLException e) {
-	 			 e.printStackTrace();
-	 		 }
-	 	 }
-	 	 return row; 
-	}
+	 		 conn.commit();
+		 } catch (SQLException e) {
+				try {
+					conn.rollback(); 
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return row;
+		}
 }
