@@ -39,55 +39,53 @@
    </div>
 </body>
 <script>
-   $('#memberId').blur(function(){
-      if($('#memberId').val() == ''){
-         $('#memberIdHelper').text('아이디를 입력해주세요.');
-      } else if($('#memberId').val().length  > 0 && $('#memberId').val().length < 4) {
-    	 $('#memberIdHelper').text('');	
-    	 $('#idHelper').text('아이디는 4글자 이상으로 입력해주세요.');
-		 $('#memberId').focus();
-      } else if($('#memberId').val().length > 15) {
-		 $('#idHelper').text('아이디는 15글자 이내로 입력해주세요.');
-		 $('#memberId').val().substr(0, 15);
-		 $('#memberId').focus();
-      } else {
-			$('#idHelper').text('');
-	  }
-      
-   });
-   
-   $('#name').blur(function(){
-      if($('#name').val() == ''){
-         $('#nameHelper').text('이름을 입력해주세요.');
-         $('#name').focus();
-      } else {
-         $('#nameHelper').text('');
-      }
-   });
-   $('#phone').blur(function(){
-      if($('#phone').val().indexOf('-') != -1){
-         $('#phoneHelper').text('-을 제외해서 입력해주세요.');
-         $('#phone').focus();
-      } else {
-         $('#phoneHelper').text('');
-      }
-   });
-   
-   $('#searchMemberPw').click(function(){
-      if($('#memberId').val() == ''){
-         $('#memberIdHelper').text('아이디를 입력해주세요.')
-         $('#memberId').focus();
-      } else if ($('#name').val() == '') {
-         $('#memberIdHelper').text('')
-         $('#nameHelper').text('이름을 입력해주세요.')
-         $('#name').focus();
-      } else if ($('#phone').val() == '') {
-         $('#nameHelper').text('')
-         $('#phoneHelper').text('핸드폰번호를 입력해주세요.')
-         $('#phone').focus();
-      } else {
-         $('#searchMemberPwForm').submit();
-      }   
-   });
+  
+
+	$('#memberId').blur(function() {
+		if ($('#memberId').val().length > 0 && $('#memberId').val().length < 4) {
+			$('#memberIdHelper').text('아이디는 4글자 이상으로 입력해주세요.');
+			$('#memberId').focus();
+		} else if ($('#memberId').val().length > 15) {
+			$('#memberIdHelper').text('아이디는 15글자 이내로 입력해주세요.');
+			$('#memberId').val().substr(0, 15);
+			$('#memberId').focus();
+		} else {
+			$('#memberIdHelper').text('');
+		}
+	});
+
+	$('#name').blur(function() {
+		if ($('#name').val() == '') {
+			$('#nameHelper').text('이름을 입력해주세요.');
+			$('#name').focus();
+		} else {
+			$('#nameHelper').text('');
+		}
+	});
+	$('#phone').blur(function() {
+		if ($('#phone').val().indexOf('-') != -1) {
+			$('#phoneHelper').text('-을 제외해서 입력해주세요.');
+			$('#phone').focus();
+		} else {
+			$('#phoneHelper').text('');
+		}
+	});
+
+	$('#searchMemberPw').click(function() {
+		if ($('#memberId').val() == '') {
+			$('#memberIdHelper').text('아이디를 입력해주세요.')
+			$('#memberId').focus();
+		} else if ($('#name').val() == '') {
+			$('#memberIdHelper').text('')
+			$('#nameHelper').text('이름을 입력해주세요.')
+			$('#name').focus();
+		} else if ($('#phone').val() == '') {
+			$('#nameHelper').text('')
+			$('#phoneHelper').text('핸드폰번호를 입력해주세요.')
+			$('#phone').focus();
+		} else {
+			$('#searchMemberPwForm').submit();
+		}
+	});
 </script>
 </html>
