@@ -54,6 +54,7 @@ public class UpdateMemberPwController extends HttpServlet {
 		member.setPhone(phone);
 		
 		memberDao.updateMemberPw(member); // 비밀번호 변경 메서드 실행
+		memberDao.insertPwRecordByUpdate(member); // 비밀번호 변경 후 이력테이블에도 변경한 비밀번호 추가
 		
 		System.out.println("비밀번호 수정 완료"); // 디버깅 
 		

@@ -106,7 +106,7 @@ public class MemberDao {
 		return row;
 	}
 	
-	// 비밀번호 변경 메서드
+	// 비밀번호 변경 메서드(비밀번호 찾기시)
 	public int updateMemberPw(Member member) {
 		// 자원 준비
 		Connection conn = null;
@@ -115,7 +115,7 @@ public class MemberDao {
 		int row = 0; // 반환값으로 이용할 row 선언
 		
 		// 비밀번호를 업데이트 하는 쿼리 저장
-		String sql = "UPDATE member SET member_pw=PASSWORD(?)"
+		String sql = "UPDATE member SET member_pw=PASSWORD(?), pw_update_date = now()"
 				+ " WHERE member_id=? AND phone=?";
 		
 		try {
@@ -141,6 +141,70 @@ public class MemberDao {
 		
 		return row; // 업데이트가 성공했으면 1을 반환 실패했으면 0을 반환 
 	}
+	
+	// 비밀번호 변경 메서드(마이페이지 통한 비밀번호변경시)
+	public int updateMemberPwByMyPage(String nowPw, Member member) {
+		
+		int row = 0; // 행 개수 반환할 변수 생성
+		// 자원 준비
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String sql = "UPDATE member SET member_pw=PASSWORD(?), pw_update_date = now()"
+				+ "   WHERE member_id=? AND member_pw=PASSWORD(?)";
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			stmt = conn.prepareStatement(sql); // 쿼리 작성
+			stmt.setString(1, member.getMemberPw());
+			stmt.setString(2, member.getMemberId());
+			stmt.setString(3, nowPw);
+			row = stmt.executeUpdate();
+			
+			if(row != 1) {
+				System.out.println("updateMemberPwByMyPage 입력 실패");
+			} else {
+				System.out.println("updateMemberPwByMyPage 입력 성공");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		return row;
+	}
+	//비밀번호 변경 후 비밀번호 이력테이블에 추가하는 메서드
+	public void insertPwRecordByUpdate(Member member) {
+		// 자원 준비
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String sql = "INSERT INTO member_pw_record VALUES(?,PASSWORD(?),NOW())";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			stmt = conn.prepareStatement(sql); // 쿼리 작성
+			stmt.setString(1, member.getMemberId());
+			stmt.setString(2, member.getMemberPw());
+			
+			int row = stmt.executeUpdate();
+			
+			if(row != 1) {
+				System.out.println("insertPwRecordByUpdate 추가 실패");
+			} else {
+				System.out.println("insertPwRecordByUpdate 추가 성공");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	// DB에 저장된 비밀번호 찾기
 	public String searchMemberPw(Member member) {
 		// 자원 준비

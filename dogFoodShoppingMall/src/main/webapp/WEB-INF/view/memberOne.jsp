@@ -217,7 +217,7 @@
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td>**** <a class="float-right" href="${pageContext.request.contextPath}/loginDenied/updateMemberPwController?memberId=${memberMap.memberId}&phone=${memberMap.phone}">수정</a></td>
+							<td>**** <a class="float-right" href="${pageContext.request.contextPath}/updateMemberPwByMyPageController">수정</a></td>
 						</tr>
 						<tr>
 							<th>이름</th>
