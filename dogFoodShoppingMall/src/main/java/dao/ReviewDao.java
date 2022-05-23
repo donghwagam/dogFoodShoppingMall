@@ -166,7 +166,7 @@ public class ReviewDao {
 		
 		String sql = "SELECT"
 				+ " rp.name reviewPhotoName"
-				+ " , p.member_id memberId\r\n"
+				+ " , p.member_id memberId"
 				+ " , IFNULL(d.spiece, '미등록') spiece"
 				+ " , r.title title\r\n"
 				+ " , r.review_content reviewContent"
