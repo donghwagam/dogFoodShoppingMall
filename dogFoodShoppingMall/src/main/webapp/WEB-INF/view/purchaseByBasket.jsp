@@ -314,7 +314,7 @@
 				    								<td><input type="text" name="photoName" value="${m.photoName}" readonly="readonly" style="border:0 solid black"></td>
 				    								<td class="text-center"><input class="text-center" type="text" name="photoName" value="${m.productName}" readonly="readonly" style="border:0 solid black"></td>
 				    								<td class="text-center"><input class="text-center" type="text" name="quantity" value="${m.quantity}" readonly="readonly" style="border:0 solid black"></td>
-				    								<td class="text-right"><input class="text-right" type="text" name="totalPriceByProduct" value="${m.price * m.quantity}" readonly="readonly" style="border:0 solid black">원</td>
+				    								<td class="text-right"><input class="text-right" type="text" name="totalPriceByBasket" value="${m.price * m.quantity}" readonly="readonly" style="border:0 solid black">원</td>
 			    								</tr>
 		    								</c:forEach>
 			    								<tr>

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,15 +40,15 @@
 	    					<table>
 	    						<tr>
 	    							<td>받는사람 &nbsp; |&nbsp;&nbsp;&nbsp;</td>
-	    							<td><input type="text" name="name" value="${name}" style="border:0 solid black" readonly="readonly"></td>
+	    							<td><input type="text" name="name" value="${purchaseAddress.purchaseName}" style="border:0 solid black" readonly="readonly"></td>
 	    						</tr>
 	    						<tr>
 	    							<td>전화번호 &nbsp; |</td>
-	    							<td><input type="text" name="phone" value="${phone}" style="border:0 solid black" readonly="readonly"></td>
+	    							<td><input type="text" name="phone" value="${purchaseAddress.purchasePhone}" style="border:0 solid black" readonly="readonly"></td>
 	    						</tr>
 	    						<tr>
 	    							<td>배송주소 &nbsp; |</td>
-	    							<td><input type="text" name="address" value="${totalAddress}" style="width: 500px; border:0 solid black" readonly="readonly"></td>
+	    							<td><input type="text" name="address" value="${purchaseAddress.address}" style="width: 500px; border:0 solid black" readonly="readonly"></td>
 	    						</tr>
 	    					</table>
 	    				</address>
@@ -82,7 +83,7 @@
 		    								<td><input type="text" name="photoName" value="${m.photoName}" readonly="readonly" style="border:0 solid black"></td>
 		    								<td class="text-center"><input class="text-center" type="text" name="photoName" value="${m.productName}" readonly="readonly" style="border:0 solid black"></td>
 		    								<td class="text-center"><input class="text-center" type="text" name="quantity" value="${m.quantity}" readonly="readonly" style="border:0 solid black"></td>
-		    								<td class="text-right"><input class="text-right" type="text" name="totalPriceByProduct" value="${m.price * m.quantity}" readonly="readonly" style="border:0 solid black">원</td>
+		    								<td class="text-right"><input class="text-right" type="text" name="totalPriceByBasket" value="${m.price * m.quantity}" readonly="readonly" style="border:0 solid black">원</td>
 	    								</tr>
     								</c:forEach>
 	    								<tr>
@@ -90,9 +91,6 @@
 		    								<td class="thick-line"></td>
 		    								<td class="thick-line text-center"><strong>총 가격</strong></td>
 		    								<td class="thick-line text-right">${totalPriceByBasket}원</td>
-	    								</tr>
-	    								<tr>
-	    									<td colspan="4" class="text-right"><button type="submit">결제하기</button></td>
 	    								</tr>
     							</tbody>
     						</table>

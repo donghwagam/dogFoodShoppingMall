@@ -43,10 +43,11 @@ public class PurchaseDao {
 	}
 	
 	// 구매목록 DB에 저장하는 메서드
-	public List<Integer> insertPurchaseByBasket(Map<String, Object> map, List<Integer> basketPurchaseId) {
+	public List<Integer> insertPurchaseByBasket(Map<String, Object> map, List<MemberBasket> memberBasketList) {
 		int row = 0; // executeUpdate() 반환값 담을 변수
 		int purchaseId = 0; // 주문번호
 		List<Integer> list = new ArrayList<>();
+		MemberBasket memberBasket = new MemberBasket();
 		// 자원 준비
 		Connection conn = null;
 		PreparedStatement purchaseStmt = null;
@@ -105,12 +106,12 @@ public class PurchaseDao {
 				list.add(purchaseId);
 			}
 			
-			for(int i=0; i<basketPurchaseId.size()/2; i=i+2) {
+			for(MemberBasket m : memberBasketList) {
 				purchaseListStmt = conn.prepareStatement(purchaseListSql); // 쿼리 작성
 				// ?에 정보 작성
 				purchaseListStmt.setInt(1, purchaseId);
-				purchaseListStmt.setInt(2, basketPurchaseId.get(i));
-				purchaseListStmt.setInt(3, basketPurchaseId.get(i+1)); 
+				purchaseListStmt.setInt(2, m.getProductId());
+				purchaseListStmt.setInt(3, m.getQuantity()); 
 				row = purchaseListStmt.executeUpdate(); // purchaseListSql 쿼리 실행 -> 성공 1 / 실패 : 0 반환
 			}
 			list.add(row);
@@ -158,12 +159,12 @@ public class PurchaseDao {
 				// ?에 정보 작성
 				stmt.setInt(1, (int)m.get("stock"));
 				stmt.setInt(2, (int)m.get("quantity"));
-				stmt.setInt(3, (int)m.get("productId "));
+				stmt.setInt(3, (int)m.get("productId"));
 				row = stmt.executeUpdate();
 			}
-			stmt = conn.prepareStatement(sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			
 		} finally {
 			try {
 				conn.close();
@@ -175,7 +176,7 @@ public class PurchaseDao {
 		return row;
 	}
 	
-	public List<Map<String, Object>> selectStockByBasket() {
+	public List<Map<String, Object>> selectStockByBasket(String memberId) {
 		List<Map<String, Object>> basketStockList = new ArrayList<Map<String,Object>>();
 		// 자원 준비
 		Connection conn = null;
@@ -185,14 +186,17 @@ public class PurchaseDao {
 		// 사용자가 구매한 상품의 재고량 출력하는 쿼리
 		String sql = "SELECT"
 				+ "		b.product_id productId"
-				+ "	  	, b.quantity quantity"
-				+ "	  	, p.stock stock"
-				+ "	  FROM product p JOIN basket b"
-				+ "	  ON p.product_id = b.product_id";
+				+ "		, b.quantity quantity"
+				+ "		, p.stock stock"
+				+ "	  FROM basket b JOIN product p"
+				+ "	  ON b.product_id = p.product_id"
+				+ "	  WHERE b.member_id = ?";
+
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
 			rs = stmt.executeQuery();
 			
 			while(rs.next()) {
@@ -225,7 +229,7 @@ public class PurchaseDao {
 		ResultSet rs = null;
 		
 		// 배송정보 가져오는 쿼리
-		String sql = "SELECT *"
+		String sql = "SELECT purchase_name purchaseName, purchase_phone purchasePhone, address"
 				+ "	  FROM purchase_address"
 				+ "	  WHERE purchase_id = ?";
 		
@@ -233,6 +237,13 @@ public class PurchaseDao {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, purchaseId);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				purchaseAddress.setPurchaseName(rs.getString("purchaseName"));
+				purchaseAddress.setPurchasePhone(rs.getString("purchasePhone"));
+				purchaseAddress.setAddress(rs.getString("address"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
