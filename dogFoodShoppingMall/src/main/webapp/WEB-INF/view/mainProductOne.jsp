@@ -369,18 +369,22 @@
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <h6>Products Infomation</h6>
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus.
-                                        Vivamus suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam
-                                        sit amet quam vehicula elementum sed sit amet dui. Donec rutrum congue leo
-                                        eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat.
-                                        Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Praesent
-                                        sapien massa, convallis a pellentesque nec, egestas non nisi. Vestibulum ac
-                                        diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante
-                                        ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-                                        Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.
-                                        Proin eget tortor risus.</p>
+                                    <h6>Q & A</h6>
+                                    <a href="${pageContext.request.contextPath}/adminCheck/insertQnaController?productId=${productId}">등록하기</a>
+                                    <table border="1">
+                                    <tr>
+                                 		<th>종류</th>
+                                 		<th>질문내용</th>
+                                 		<th>작성자</th>
+                                 		<th>작성일</th>
+                                 	</tr>
+                                 	<tr>
+                                 		<td>질문</td>
+                                 		<td>언제 입고되나요?</td>
+                                 		<td>baki_1004</td>
+                                 		<td>2022-05-23 09:30:17</td>
+                                 	</tr>
+                                   </table>
                                 </div>
                             </div>
                         </div>
