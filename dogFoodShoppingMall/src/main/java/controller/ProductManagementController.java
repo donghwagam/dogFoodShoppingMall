@@ -18,9 +18,20 @@ public class ProductManagementController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.adminDao = new AdminDao(); // AdminDao 호출
+		int currentPage = 1;  // 현재 페이지 
+		if (request.getParameter("currentPage") != null ) { // 현재패이지값이 null 이 아니면 
+			currentPage = Integer.parseInt(request.getParameter("currentPage")); // 현재 페이지 값 불러
+		}
 		
-		List<Map<String ,Object>> list = adminDao.selectProductListByAdmin();
+		int rowPerPage = 10; // 한패이지당 회원정보 10개씩 출력 
+		int beginRow = (currentPage - 1)*rowPerPage;
+		List<Map<String ,Object>> list = adminDao.selectProductListByAdmin(beginRow, rowPerPage);
 		System.out.println("ProductManagementController list.size() :" + list.size());
+		int lastPage = 0; // 마지막 페이지 
+		int totalCount = list.size(); // 전체 리스트 수
+		lastPage = (int)Math.ceil((double)totalCount / (double)rowPerPage); // 마지막 페이지 구하기
+		//디버깅 
+		
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("WEB-INF/view/productManagement.jsp").forward(request, response);

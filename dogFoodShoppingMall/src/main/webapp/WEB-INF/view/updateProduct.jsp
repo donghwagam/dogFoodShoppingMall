@@ -459,6 +459,7 @@
   	<div class="container">
 	<div class="row">
 		<div class="span5">
+		<form method="post" action="${pageContext.request.contextPath}/updateProductController">
             <table class="table table-striped table-condensed">
              <c:forEach var="p" items="${list}">
                   <tr>
@@ -470,7 +471,13 @@
                   <tr>
                       <th>가격</th>
                       <td>
-                      <input type="text" name="price" value="${p.price}">
+                     	 <input type="text" name="price" value="${p.price}">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>그램</th>
+                      <td>
+                      	<input type="text" name="gram" value="${p.gram}">
                       </td>
                   </tr>
                   <tr>
@@ -505,12 +512,8 @@
                   <tr>
                       <th>정보</th>
                       <td>
-                        <input type="text" name="origin"  value="${p.info}">
+                        <input type="text" name="info"  value="${p.info}">
                       </td>
-                  </tr>
-                  <tr>
-                      <th>사진</th>
-                      <td><img src="${pageContext.request.contextPath}/images/${p.photoName}"></td>
                   </tr>
                   <tr>
                       <th>재고</th>
@@ -532,24 +535,25 @@
                       <th>구성성분</th>
                       	<td>
 	                      	<c:forEach var="co" items="${componentList}">
-	                      		<input type="checkbox" name="component" value="${co.componentId}">${co.name} 
+	                      			<input type="checkbox" name="component" value="${co.componentId}"<c:forEach var="pc" items="${pcList}"><c:if test="${ co.componentId == pc.componentId}">checked</c:if> </c:forEach>>${co.name}
 	                      	</c:forEach>
                       	</td>
                   </tr>
                   <tr>
                         <th>카테고리</th>
                       <td>
-                      	<c:forEach var="c" items="${categoryList}">
-                      		<input type="checkbox" name="category" value="${c.categoryId}">${c.name}
-                       	</c:forEach>
+                      		<c:forEach var="c" items="${categoryList}">
+	                      			<input type="checkbox" name="category" value="${c.categoryId}"<c:forEach var="pca" items="${pcaList}"><c:if test="${c.categoryId == pca.categoryId}">checked</c:if></c:forEach>>${c.name}
+                       		</c:forEach>
                       </td>
                   </tr>
+                  <input type="number" name="productId" value="${p.productId}" hidden="hidden">
                   <tr>
-                    <td><a href="${pageContext.request.contextPath}/updateProductController?productId=${p.productId}"><span class="label label-success">상품수정</span></a>
-                    <a href="${pageContext.request.contextPath}/deleteProductController?productId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
+                    <td><button type="submit"><span class="label label-success">상품수정</span></button></td>
                    </tr>
                </c:forEach>
 			</table>
+			 </form>
 		</div>
 	</div>
 </div>

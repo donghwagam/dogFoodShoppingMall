@@ -11,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AdminDao;
@@ -34,16 +35,17 @@ public class AdminCheckFilter implements Filter {
 			System.out.println("AdminCheckFilter memberId : " + memberId); 
 			
 			
-			level = adminDao.selectAdminFilterList(memberId); 
+			 level =  adminDao.selectAdminFilterList(memberId); 
 			
 		
 		System.out.println("AdminCheckFilter level : " + level);
 		
 		
-		request.setAttribute("level", level);
-		
 		if (level == 1) {
+			if(response instanceof HttpServletResponse) {
 			System.out.println("AdminCheckFilter : 사용자");
+				((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/mainPageController");
+			}
 		} else if(level == 0) {
 			System.out.println("AdminCheckFilter : 관리자");
 		} else {

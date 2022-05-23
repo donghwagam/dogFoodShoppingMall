@@ -15,6 +15,7 @@ import vo.Category;
 import vo.Component;
 import vo.Member;
 import vo.ProductCategory;
+import vo.ProductComponent;
 
 public class AdminDao {
 	// 필터에 사용할 관리자, 사용자 구분하는 메서드 
@@ -645,7 +646,7 @@ public class AdminDao {
 		   }
 		   return totalCount;
 	   }
-	   public List<Map<String ,Object>> selectProductListByAdmin() {
+	   public List<Map<String ,Object>> selectProductListByAdmin(int beginRow, int RowPerPage) {
 		   List<Map<String, Object>> list = new ArrayList<>();
 		   Connection conn = null;
 		   PreparedStatement stmt = null;
@@ -660,10 +661,13 @@ public class AdminDao {
 		   		+ "   FROM product p"
 		   		+ " JOIN brand b"
 		   		+ "     ON b.brand_id = p.brand_id"
-		   		+ "   ORDER BY productId asc";
+		   		+ "   ORDER BY productId asc"
+		   		+ "      LIMIT ?,?";
 		   try {
 			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			   stmt = conn.prepareStatement(sql);
+			   stmt.setInt(1, beginRow);
+			   stmt.setInt(2, RowPerPage);
 			   rs = stmt.executeQuery();
 			   while (rs.next()) {
 		    	   Map<String, Object> m = new HashMap<>();
@@ -696,6 +700,7 @@ public class AdminDao {
 		   String sql =" SELECT p.product_id productId"
 		   		+ "            ,p.name productName"
 		   		+ "            ,p.price price"
+		   		+ "            ,p.gram gram"
 		   		+ "            ,p.rate rate"
 		   		+ "            ,p.origin origin"
 		   		+ "            ,p.feed_size feedSize"
@@ -730,6 +735,7 @@ public class AdminDao {
             	   map.put("productId",rs.getInt("productId"));
             	   map.put("productName", rs.getString("productName"));
             	   map.put("price", rs.getInt("price"));
+            	   map.put("gram", rs.getDouble("gram"));
             	   map.put("rate", rs.getString("rate"));
             	   map.put("origin", rs.getString("origin"));
             	   map.put("feedSize", rs.getString("feedSize"));
@@ -1075,8 +1081,171 @@ public class AdminDao {
 			}
 		}
 		
-		
 		return row;
 	}
-	
+	public List<ProductComponent> selectProductComponentByProductId(int productId) {
+		List<ProductComponent> list = new ArrayList<ProductComponent>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT product_id productId"
+				+ "         ,component_id componentId"
+				+ "     FROM product_component"
+				+ "    WHERE product_id = ?";
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, productId);
+			  rs = stmt.executeQuery();
+              while (rs.next()) {
+           	   ProductComponent pc = new ProductComponent();
+           	   pc.setProductId(rs.getInt("productId"));
+           	   pc.setComponentId(rs.getInt("componentId"));
+           	   list.add(pc);
+              }
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	public List<ProductCategory> selectProductCategoryByProductId(int productId) {
+		List<ProductCategory> list = new ArrayList<ProductCategory>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = " SELECT product_id productId"
+				+ "          ,category_id categoryId"
+				+ "      FROM product_category"
+				+ "     WHERE product_id = ?";
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, productId);
+			  rs = stmt.executeQuery();
+              while (rs.next()) {
+           	   ProductCategory pca = new ProductCategory();
+           	   pca.setProductId(rs.getInt("productId"));
+           	   pca.setCategoryId(rs.getInt("categoryId"));
+           	   list.add(pca);
+              }
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	public int updateProduct(Map<String , Object> map,int productId) {
+		int row = 0;
+		Connection conn = null;
+		PreparedStatement productStmt = null;
+		PreparedStatement deleteCategoryStmt = null;
+		PreparedStatement categoryStmt = null;
+		PreparedStatement deleteComponentStmt = null;
+		PreparedStatement componentStmt = null;
+		
+		String productSql = "UPDATE product"
+				+ "             SET name = ?"
+				+ "                ,price = ?"
+				+ "                ,gram = ?"
+				+ "                ,rate = ?"
+				+ "                ,feed_size = ?"
+				+ "                ,origin = ?"
+				+ "                ,info = ?"
+				+ "                ,stock = ?"
+				+ "                ,brand_id = ?"
+				+ "                ,update_date = NOW()"
+				+ "           WHERE product_id = ? ";
+		String deleteCategorySql = "DELETE FROM product_category WHERE product_id = ? ";
+		String categorySql = " INSERT INTO product_category ("
+		 		+ "     	                product_id"
+		 		+ "                        ,category_id"
+		 		+ "                        ,update_date)"
+		 		+ "                 VALUES ("
+		 		+ "         	            ?"
+		 		+ "                        ,?"
+		 		+ "                        ,NOW()"
+		 		+ "     )";
+		String deleteComponentSql = " DELETE FROM product_component WHERE product_id = ?";
+		 String componentSql = "INSERT INTO product_component ("
+			 		+ "				            product_id"
+			 		+ "				           ,component_id"
+			 		+ "				           ,update_date)"
+			 		+ "                 VALUES ("
+			 		+ "                         ?"
+			 		+ "                        ,?"
+			 		+ "                        ,NOW()"
+			 		+ "    )";
+		 try {
+			 conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			 conn.setAutoCommit(false); //오토커밋 해제 
+			 productStmt = conn.prepareStatement(productSql);
+			 productStmt.setString(1, (String)map.get("productName"));
+			 productStmt.setInt(2,(int)map.get("price"));
+			 productStmt.setDouble(3,(Double)map.get("gram"));
+			 productStmt.setString(4, (String)map.get("rate"));
+			 productStmt.setString(5, (String)map.get("feedSize"));
+			 productStmt.setString(6,(String)map.get("origin"));
+			 productStmt.setString(7, (String)map.get("info"));
+			 productStmt.setInt(8, (int)map.get("stock"));
+			 productStmt.setInt(9,(int)map.get("brandId"));
+			 productStmt.setInt(10, productId);
+			 productStmt.executeUpdate();
+			 
+			 deleteCategoryStmt = conn.prepareStatement(deleteCategorySql);
+			 deleteCategoryStmt.setInt(1, productId);
+			 deleteCategoryStmt.executeUpdate();
+			 
+			 int[] categoryId = (int[])map.get("categoryId");
+			 for(int i=0; i<categoryId.length; i++) {
+				 categoryStmt = conn.prepareStatement(categorySql);
+				 categoryStmt.setInt(1, productId);
+				 categoryStmt.setInt(2, categoryId[i]);
+				 categoryStmt.executeUpdate();
+			 }
+			 
+			 deleteComponentStmt = conn.prepareStatement(deleteComponentSql);
+			 deleteComponentStmt.setInt(1, productId);
+			 deleteComponentStmt.executeUpdate();
+			 
+			int[] componentId = (int[])map.get("componentId");
+			for(int i=0; i<componentId.length; i++) {
+				componentStmt =conn.prepareStatement(componentSql);
+				componentStmt.setInt(1, productId);
+				componentStmt.setInt(2, componentId[i]);
+				row = componentStmt.executeUpdate();
+			}
+			if(row==1) {
+				System.out.println("AdminDao.updateProduct() 수정 성공 ");
+			} else {
+				System.out.println("AdminDao.updateProduct() 수정 실패 ");
+			 }
+			conn.commit();
+		 } catch (SQLException e) {
+				try {
+					conn.rollback(); 
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return row;
+		}
 }
