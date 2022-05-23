@@ -455,46 +455,37 @@
 
 	</div>
 </div>
-
- 
  </div>
   	<div class="container">
 	<div class="row">
 		<div class="span5">
+		 <form method="post" action="insertInfoPhotoController" enctype="multipart/form-data">
             <table class="table table-striped table-condensed">
-                  <thead>
-                  <td><a href = "${pageContext.request.contextPath}/insertProductController"><span class= "label label-info" style="float:right">상품 등록</span></a></td>
+             <c:forEach var="p" items="${list}">
                   <tr>
-                      <th>상품 ID</th>
                       <th>상품이름</th>
-                      <th>가격</th>
-                      <th>등급</th>
-                      <th>재고</th>
-                      <th>브랜드</th>
-                      <th>수정일</th>
-                      <th>사진추가</th>
-                      <th>수정</th>
-                      <th>삭제</th>                                  
+                      <td>${p.productName}</td>
                   </tr>
-              </thead>   
-              <tbody>
-              <c:forEach var="p" items="${list}">
-                <tr>
-                    <td>${p.productId}</td>
-                    <td><a href="${pageContext.request.contextPath}/productManagementOneController?productId=${p.productId}">${p.productName}</a></td>
-                    <td>${p.price}</td>
-                    <td>${p.rate}</td>
-                    <td>${p.stock}</td>
-                    <td>${p.brandName}</td> 
-                    <td>${p.updateDate}</td>
-                    <td><a href="${pageContext.request.contextPath}/insertInfoPhotoController?productId=${p.productId}"><span class="label label-primary">상품 정보 사진 추가 </span></a></td>
-                    <td><a href="${pageContext.request.contextPath}/updateProductController?productId=${p.productId}"><span class="label label-success">상품수정</span></a></td>
-                    <td><a href="${pageContext.request.contextPath}/deleteProductController?productId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
-                </tr>
-                </c:forEach>
-              </tbody>
-            </table>
-            </div>
+                  <tr>
+                      <th>브랜드</th>
+                      <td>${p.brandName}</td>
+                  </tr>
+                  <tr>
+                      <th>수정일</th>
+                      <td>${p.updateDate}</td>
+                  </tr>
+                  <tr>
+                      <th>정보 사진 추가 </th>
+                      <td>
+						<input type="file" name="InfoPhoto">
+						<input type="number" name="productId" value="${p.productId}" hidden="hidden">
+                      </td>
+                  </tr>
+               </c:forEach>
+			</table>
+			<button type="submit">사진 수정</button>
+			</form>
+		</div>
 	</div>
 </div>
   		<footer class="pull-left footer">

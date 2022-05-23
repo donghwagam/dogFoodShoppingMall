@@ -14,6 +14,7 @@ import vo.Brand;
 import vo.Category;
 import vo.Component;
 import vo.Member;
+import vo.ProductCategory;
 
 public class AdminDao {
 	// 필터에 사용할 관리자, 사용자 구분하는 메서드 
@@ -279,7 +280,7 @@ public class AdminDao {
 		   }
 		   return totalCount;
 	   }
-	   
+	   // 멤버 리스트 보여주는 메서드 
 	   public List<Map<String, Object>> selectMemberListByPage(int beginRow , int rowPerPage) {
 		   List<Map<String, Object>> list = new ArrayList<>();
 		   Connection conn = null;
@@ -686,6 +687,7 @@ public class AdminDao {
 		   }
 		   return list;
 	   }
+	   // 선택한 상품 상세 정보 보여주는 메서드 
 	   public List<Map<String ,Object>> selectProductManagementOne(int productId){
 		   List<Map<String,Object>> list = new ArrayList<>();
 		   Connection conn = null;
@@ -750,6 +752,7 @@ public class AdminDao {
 		   }
 		   return list;
 	   }
+	   // 제품 원재료 리스트 
 	   public List<Component> selectComponentList() {
 		   List<Component> list = new ArrayList<Component>();
 		   Connection conn = null;
@@ -779,6 +782,7 @@ public class AdminDao {
 		   }
 		   return list;
 	   }
+	  // 브랜드 리스트 
 	   public List<Brand> selectBrandList() {
 		   List<Brand> list = new ArrayList<Brand>();
 		   Connection conn = null;
@@ -808,6 +812,7 @@ public class AdminDao {
 			   }
 			return list;
 		   }
+	   // 카테고리 리스트 
 	   public List<Category> selectCategoryList() {
 		   List<Category> list = new ArrayList<Category>();
 		   Connection conn =  null;
@@ -1026,4 +1031,52 @@ public class AdminDao {
 			
 			return row;
 		}
+	
+	public int insertInfoPhotoByProduct (int productId, String InfoPhotoOriginalName, String InfoPhotoName, String InfoPhotoType) {
+		int row = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "Insert INTO product_photo ("
+				   + "			  original_name"
+				   + "		     ,name"
+				   + "		     ,type"
+				   + "           ,product_id"
+				   + "		     ,create_date"
+				   + "		     ,update_date"
+				   + "	 ) VALUES ("
+				   + "			  ?"
+				+ "		         ,?"
+				+ "		         ,?"
+				+ "              ,?"
+				+ "		         ,NOW()"
+				+ "		         ,NOW()"
+				+ "	    )";
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, InfoPhotoOriginalName);
+			stmt.setString(2, InfoPhotoName);
+			stmt.setString(3, InfoPhotoType);
+			stmt.setInt(4, productId);
+			row = stmt.executeUpdate();
+			if(row == 1) {
+				System.out.println("AdminDao.inserInfoPhotoByProduct 정보 사진 추가 완료 ");
+			} else {
+				System.out.println("AdminDao.insertInfoPhotoByProduct 정보 사진 추가 실패 ");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return row;
+	}
+	
 }

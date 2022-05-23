@@ -455,46 +455,102 @@
 
 	</div>
 </div>
-
- 
  </div>
   	<div class="container">
 	<div class="row">
 		<div class="span5">
             <table class="table table-striped table-condensed">
-                  <thead>
-                  <td><a href = "${pageContext.request.contextPath}/insertProductController"><span class= "label label-info" style="float:right">상품 등록</span></a></td>
+             <c:forEach var="p" items="${list}">
                   <tr>
-                      <th>상품 ID</th>
                       <th>상품이름</th>
-                      <th>가격</th>
-                      <th>등급</th>
-                      <th>재고</th>
-                      <th>브랜드</th>
-                      <th>수정일</th>
-                      <th>사진추가</th>
-                      <th>수정</th>
-                      <th>삭제</th>                                  
+                      <td>
+                      	<input type="text" name="productName" value="${p.productName}">
+                      </td>
                   </tr>
-              </thead>   
-              <tbody>
-              <c:forEach var="p" items="${list}">
-                <tr>
-                    <td>${p.productId}</td>
-                    <td><a href="${pageContext.request.contextPath}/productManagementOneController?productId=${p.productId}">${p.productName}</a></td>
-                    <td>${p.price}</td>
-                    <td>${p.rate}</td>
-                    <td>${p.stock}</td>
-                    <td>${p.brandName}</td> 
-                    <td>${p.updateDate}</td>
-                    <td><a href="${pageContext.request.contextPath}/insertInfoPhotoController?productId=${p.productId}"><span class="label label-primary">상품 정보 사진 추가 </span></a></td>
-                    <td><a href="${pageContext.request.contextPath}/updateProductController?productId=${p.productId}"><span class="label label-success">상품수정</span></a></td>
-                    <td><a href="${pageContext.request.contextPath}/deleteProductController?productId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
-                </tr>
-                </c:forEach>
-              </tbody>
-            </table>
-            </div>
+                  <tr>
+                      <th>가격</th>
+                      <td>
+                      <input type="text" name="price" value="${p.price}">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>등급</th>
+                      <td>
+                      	<select name="rate">
+	                    		<option value="로가닉" <c:if test="${p.rate eq '로가닉'}">selected</c:if>>로가닉</option>
+	                    		<option value="오가닉" <c:if test="${p.rate eq '오가닉'}">selected</c:if>>오가닉</option>
+	                    		<option value="홀리스틱" <c:if test="${p.rate eq '홀리스틱'}">selected</c:if>>홀리스틱</option>
+	                    		<option value="슈퍼프리미엄" <c:if test="${p.rate eq '슈퍼프리미엄'}">selected</c:if>>슈퍼프리미엄</option>
+	                    		<option value="프리미엄"<c:if test="${p.rate eq '프리미엄'}">selected</c:if>>프리미엄</option>
+	                    		<option value="일반" <c:if test="${p.rate eq '일반'}">selected</c:if>>일반</option>
+	                    </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>원산지</th>
+                      <td>
+                      	<input type="text" name="origin" value="${p.origin}">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>알갱이크기</th>
+                      <td>
+                      	<select name="feedSize">
+	                    		<option value="소" <c:if test="${p.feedSize eq '소'}">selected</c:if>>소</option>
+	                    		<option value="중" <c:if test="${p.feedSize eq '중'}">selected</c:if>>중</option>
+	                    		<option value="대" <c:if test="${p.feedSize eq '대'}">selected</c:if>>대</option>
+	                    </select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>정보</th>
+                      <td>
+                        <input type="text" name="origin"  value="${p.info}">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>사진</th>
+                      <td><img src="${pageContext.request.contextPath}/images/${p.photoName}"></td>
+                  </tr>
+                  <tr>
+                      <th>재고</th>
+                      <td>
+                      	<input type="number" name="stock" value="${p.stock}">
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>브랜드</th>
+                      <td>
+                      <select name ="brandId">
+	                     	 <c:forEach var="b" items="${brandList}">
+	 	                     	<option value="${b.brandId}"<c:if test="${p.brandName eq b.name}">selected</c:if> >${b.name}</option>
+	 	                  	</c:forEach>
+ 	                  	</select>
+                      </td>
+                  </tr>
+                  <tr>
+                      <th>구성성분</th>
+                      	<td>
+	                      	<c:forEach var="co" items="${componentList}">
+	                      		<input type="checkbox" name="component" value="${co.componentId}">${co.name} 
+	                      	</c:forEach>
+                      	</td>
+                  </tr>
+                  <tr>
+                        <th>카테고리</th>
+                      <td>
+                      	<c:forEach var="c" items="${categoryList}">
+                      		<input type="checkbox" name="category" value="${c.categoryId}">${c.name}
+                       	</c:forEach>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td><a href="${pageContext.request.contextPath}/updateProductController?productId=${p.productId}"><span class="label label-success">상품수정</span></a>
+                    <a href="${pageContext.request.contextPath}/deleteProductController?productId=${p.productId}"><span class="label label-danger">상품삭제</span></a></td>
+                   </tr>
+               </c:forEach>
+			</table>
+		</div>
 	</div>
 </div>
   		<footer class="pull-left footer">

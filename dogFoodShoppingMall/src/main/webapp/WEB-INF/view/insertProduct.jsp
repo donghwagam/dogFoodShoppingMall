@@ -471,7 +471,7 @@
                   <tr>
                       <th>가격</th>
                       <td>
-                     	 <input type="number" name="price" >원
+                     	 <input type="number" name="price">원
                       </td>
                   </tr>
                   <tr>
