@@ -12,13 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AddressDao;
+import dao.BasketDao;
 import dao.MemberDao;
+import vo.MemberBasket;
 
 @WebServlet("/searchAddressController")
 public class SearchAddressController extends HttpServlet {
 	
 	private AddressDao addressDao; // 멤버변수 AddressDao 선언
 	private MemberDao memberDao;
+	private BasketDao basketDao;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.memberDao = new MemberDao();
@@ -39,7 +42,7 @@ public class SearchAddressController extends HttpServlet {
 		
 		if(msg.equals("insertMemberAddr")) { // msg가 insert라면
 			request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 페이지로 이동
-		} else if (msg.equals("purchaseChangeAddr")) { // msg가 purchase라면
+		} else if (msg.equals("purchaseByProductChangeAddr")) { // msg가 purchase라면
 			int productId = Integer.parseInt(request.getParameter("productId"));
 			String photoName = request.getParameter("photoName");
 			String productName = request.getParameter("productName");
@@ -60,6 +63,21 @@ public class SearchAddressController extends HttpServlet {
 			request.setAttribute("totalPriceByProduct", totalPriceByProduct);
 			
 			request.getRequestDispatcher("/WEB-INF/view/purchaseByProductChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
+		} else if(msg.equals("purchaseByBasketChangeAddr")) {
+			HttpSession session = request.getSession();
+			String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+			basketDao = new BasketDao();
+			List<MemberBasket> memberBasketList = basketDao.selectMemberBasketList(sessionMemberId);
+			int totalPriceByBasket = 0;
+			
+			for(MemberBasket m : memberBasketList) {
+				totalPriceByBasket += m.getPrice() * m.getQuantity();
+			}
+			
+			request.setAttribute("memberBasketList", memberBasketList);
+			request.setAttribute("totalPriceByBasket", totalPriceByBasket);
+			
+			request.getRequestDispatcher("/WEB-INF/view/purchaseByBasketChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
 		} else if (msg.equals("updateMemberAddr")) { // msg가 updateMemberAddr 라면
 			// 세션 호출
 			HttpSession session = request.getSession();

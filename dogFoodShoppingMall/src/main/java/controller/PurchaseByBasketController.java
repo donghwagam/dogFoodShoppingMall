@@ -21,7 +21,29 @@ public class PurchaseByBasketController extends HttpServlet {
 	private MemberDao memberDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int totalPriceByBasket = 0;
 		
+		HttpSession session = request.getSession();
+		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+		
+		basketDao = new BasketDao();
+		List<MemberBasket> memberBasketList = basketDao.selectMemberBasketList(sessionMemberId);
+		memberDao = new MemberDao(); // 메서드 사용을 위한 객체 생성
+		Map<String, Object> memberMap = memberDao.selectMemberInfo(sessionMemberId); // 사용자의 정보 가져오는 메서드 실행 후 저장
+		
+		
+		for(MemberBasket m : memberBasketList) {
+			totalPriceByBasket += m.getPrice() * m.getQuantity();
+		}
+		
+		System.out.println("PurchaseByBasketController.doPost() totalPriceByBasket : " + totalPriceByBasket);
+		
+		request.setAttribute("memberBasketList", memberBasketList);
+		request.setAttribute("totalPriceByBasket", totalPriceByBasket);
+		request.setAttribute("name", memberMap.get("name"));
+		request.setAttribute("phone", memberMap.get("phone"));
+		request.setAttribute("address", memberMap.get("addr"));
+		request.getRequestDispatcher("/WEB-INF/view/purchaseByBasket.jsp").forward(request, response);
 	}
 
 	

@@ -15,21 +15,21 @@
 	rel="stylesheet">
 
 <!-- Css Styles -->
-<link rel="stylesheet" href="./Resources/css/bootstrap.min.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/bootstrap.min.css"
 	type="text/css">
-<link rel="stylesheet" href="./Resources/css/font-awesome.min.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/font-awesome.min.css"
 	type="text/css">
-<link rel="stylesheet" href="./Resources/css/elegant-icons.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/elegant-icons.css"
 	type="text/css">
-<link rel="stylesheet" href="./Resources/css/nice-select.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/nice-select.css"
 	type="text/css">
-<link rel="stylesheet" href="./Resources/css/jquery-ui.min.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/jquery-ui.min.css"
 	type="text/css">
-<link rel="stylesheet" href="./Resources/css/owl.carousel.min.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/owl.carousel.min.css"
 	type="text/css">
-<link rel="stylesheet" href="./Resources/css/slicknav.min.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/slicknav.min.css"
 	type="text/css">
-<link rel="stylesheet" href="./Resources/css/style.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/Resources/css/style.css" type="text/css">
 
 
 <style type="text/css">
@@ -75,7 +75,7 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="./Resources/img/logo.png" alt=""></a>
+			<a href="#"><img src="${pageContext.request.contextPath}/Resources/img/logo.png" alt=""></a>
 		</div>
 		<div class="humberger__menu__cart">
 			<ul>
@@ -88,7 +88,7 @@
 		</div>
 		<div class="humberger__menu__widget">
 			<div class="header__top__right__language">
-				<img src="./Resources/img/language.png" alt="">
+				<img src="${pageContext.request.contextPath}/Resources/img/language.png" alt="">
 				<div>English</div>
 				<span class="arrow_carrot-down"></span>
 				<ul>
@@ -114,7 +114,7 @@
 				<li><a href="./shop-grid.html">Shop</a></li>
 				<li><a href="#">Pages</a>
 					<ul class="header__menu__dropdown">
-						<li><a href="./shop-details.html">Shop Details</a></li>
+						<li><a href="/shop-details.html">Shop Details</a></li>
 						<li><a href="./shoping-cart.html">Shoping Cart</a></li>
 						<li><a href="./checkout.html">Check Out</a></li>
 						<li><a href="./blog-details.html">Blog Details</a></li>
@@ -160,7 +160,7 @@
 									class="fa fa-pinterest-p"></i></a>
 							</div>
 							<div class="header__top__right__language">
-								<img src="./Resources/img/language.png" alt="">
+								<img src="${pageContext.request.contextPath}/Resources/img/language.png" alt="">
 								<div>English</div>
 								<span class="arrow_carrot-down"></span>
 								<ul>
@@ -192,7 +192,7 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/fakeLogo.png" alt=""></a>
+						<a href="${pageContext.request.contextPath}/mainPageController"><img src="${pageContext.request.contextPath}/Resources/img/fakeLogo.png" alt=""></a>
 					</div>
 				</div>
 				<!--  상단바  -->
@@ -233,16 +233,12 @@
 	<!-- Hero Section End -->
 	
 	<!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="./Resources/img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/Resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Shopping Cart</h2>
-                        <div class="breadcrumb__option">
-                            <a href="${pageContext.request.contextPath}/mainPageController">Home</a>
-                            <span>Shopping Cart</span>
-                        </div>
+                        <h2>결제</h2>
                     </div>
                 </div>
             </div>
@@ -262,8 +258,8 @@
 		    		<div class="row">
 		    			<div class="col-xs-12">
 		    				<address>
-			    				<strong><a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductController?productId=${productId}&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">기본정보</a></strong> &nbsp;&nbsp;|&nbsp;
-			    				<strong><a href="${pageContext.request.contextPath}/loginCheck/purchaseByProductChangeAddressController?productId=${productId}&photoName=${photoName}&productName=${productName}&quantity=${quantity}&totalPriceByProduct=${totalPriceByProduct}">배송정보변경</a></strong>
+			    				<strong><a href="${pageContext.request.contextPath}/loginCheck/purchaseByBasketController">기본정보</a></strong> &nbsp;&nbsp;|&nbsp;
+			    				<strong><a href="${pageContext.request.contextPath}/loginCheck/purchaseByBasketChangeAddressController">배송정보변경</a></strong>
 			    				<br><br>
 		    					<form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseByBasketCompleteController">
 			    					<table>
@@ -343,7 +339,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="footer__about">
 						<div class="footer__about__logo">
-							<a href="./index.html"><img src="./Resources/img/logo.png"
+							<a href="./index.html"><img src="${pageContext.request.contextPath}/Resources/img/logo.png"
 								alt=""></a>
 						</div>
 						<ul>
@@ -409,7 +405,7 @@
 							</p>
 						</div>
 						<div class="footer__copyright__payment">
-							<img src="./Resources/img/payment-item.png" alt="">
+							<img src="${pageContext.request.contextPath}/Resources/img/payment-item.png" alt="">
 						</div>
 					</div>
 				</div>
@@ -419,14 +415,14 @@
 	<!-- Footer Section End -->
 
 	<!-- Js Plugins -->
-	<script src="./Resources/js/jquery-3.3.1.min.js"></script>
-	<script src="./Resources/js/bootstrap.min.js"></script>
-	<script src="./Resources/js/jquery.nice-select.min.js"></script>
-	<script src="./Resources/js/jquery-ui.min.js"></script>
-	<script src="./Resources/js/jquery.slicknav.js"></script>
-	<script src="./Resources/js/mixitup.min.js"></script>
-	<script src="./Resources/js/owl.carousel.min.js"></script>
-	<script src="./Resources/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/Resources/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/Resources/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/Resources/js/jquery.nice-select.min.js"></script>
+	<script src="${pageContext.request.contextPath}/Resources/js/jquery-ui.min.js"></script>
+	<script src="${pageContext.request.contextPath}/Resources/js/jquery.slicknav.js"></script>
+	<script src="${pageContext.request.contextPath}/Resources/js/mixitup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/Resources/js/owl.carousel.min.js"></script>
+	<script src="${pageContext.request.contextPath}/Resources/js/main.js"></script>
 
 
 
