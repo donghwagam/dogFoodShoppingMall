@@ -199,7 +199,7 @@
 						<!-- 고객센터 목록출력  -->	
 						<ul >
                             <li><a href="${pageContext.request.contextPath}/noticeController">공지사항</a></li>
-							<li><a href="${pageContext.request.contextPath}/faqController">자주묻는질문</a></li>
+							<li><a href="${pageContext.request.contextPath}/faqController?service=memberService">자주묻는질문</a></li>
 							<li><a href="${pageContext.request.contextPath}/#">1:1 문의</a></li>
 						</ul>
 					</div>

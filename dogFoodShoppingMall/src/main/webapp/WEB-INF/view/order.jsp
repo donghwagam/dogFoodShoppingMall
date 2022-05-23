@@ -36,7 +36,8 @@
 
 <style>
    .bottom {margin-bottom:15px;}
-   .top {margin-top:70px;}
+   .top {margin-top:15px;}
+   .fs {font-size: 27px; font-weight: bold;}
 </style>
 
 </head>
@@ -204,45 +205,106 @@
 					</div>
 				</div>
 				<div class="col-9">
-			
-						<table class="table text-align:center">
-							<colgroup>
-								<col width="20%">
-								<col width="*%">
-							</colgroup>
-							<tr>
-								<th>번호</th>
-								<td>${content.noticeId}</td>
-								
-							</tr>
-							<tr>
-								<th>제목</th>
-								<td>${content.noticeTitle}</td>
-							</tr>
-							<tr>
-								<th>내용</th>
-								<td>${content.noticeContent}</td>
-							</tr>
-							<tr>
-								<th>작성날짜</th>
-								<td>${content.createDate}</td>
-							</tr>
-							<tr>
-								<th>수정날짜</th>
-								<td>${content.updateDate}</td>
-							</tr>
-							
-							
-						</table>
-						<c:if test="${level==0}">
-						<div class="float-right">
-						<a href="${pageContext.request.contextPath}/updateNoticeController?noticeId=${content.noticeId}" class="site-btn ">수정</a>
-						<a href="${pageContext.request.contextPath}/deleteNoticeController?noticeId=${content.noticeId}" class="site-btn ">삭제</a>
-						</div>
-						</c:if>
-				</div>
+				<h3 class="bottom">자주묻는 질문</h3>
+				
+				<a href="${pageContext.request.contextPath}/faqController?service=memberService" class="site-btn">회원서비스</a>
+				<a href="${pageContext.request.contextPath}/faqController?service=order" class="site-btn">주문/결제</a>
+				<a href="${pageContext.request.contextPath}/faqController?service=delivery" class="site-btn">배송</a>
+				
+	
+					<div id="accordion" class="top">
+					
+					<!-- 1번 -->
+					<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseOne">
+				        주문한 상품을 변경할 수 있나요?
+				      </a>
+				    </div>
+				    <div id="collapseOne" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        결제를 완료한 후에는 주문 상품 변경이 불가능합니다.<br>
+						다만, 주문의 진행상태가 "입금확인"이라면 주문을 취소하고 상품을 다시 구매하실 수 있습니다.
+				      </div>
+				    </div>
+				  	</div>	
+					
+					<!-- 2번 -->
+					<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+				        주문 후에 결제방법을 변경할 수 있나요?
+				      </a>
+				    </div>
+				    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        결제를 완료한 후에는 결제방법 변경이 불가능합니다.<br>
+						다만, 주문의 진행상태가 "입금확인"이라면 주문을 취소하고 다시 주문하면서 다른 결제 수단을 이용하실 수 있습니다.
+				      </div>
+				    </div>
+					</div>	
+					
+					<!-- 3번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+				        주문내역은 어디에서 확인하나요?
+				      </a>
+				    </div>
+				    <div id="collapseThree" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        주문내역은 [MY페이지 > 주문 · 배송]에서 확인 가능합니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 4번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+				        주문은 어떻게 하나요?
+				      </a>
+				    </div>
+				    <div id="collapseFour" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        구매하시려는 상품페이지에서 "바로구매" 하시거나, "장바구니 담기" 후 "구매하기"를 해주시면 됩니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 5번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
+				        전화주문이 가능한가요?
+				      </a>
+				    </div>
+				    <div id="collapseFive" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        인터넷 주문만 가능합니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 6번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">
+				        회원만 주문할 수 있나요?
+				      </a>
+				    </div>
+				    <div id="collapseSix" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        상품 주문은 회원만 가능합니다. 회원가입 후 이용해 주시기 바랍니다.
+				      </div>
+			  		</div>
+				 	</div>
+					  
+					</div>
+
 			</div>
 		</div>
+	</div>
 
 	</section>
 	
@@ -342,5 +404,12 @@
 
 
 </body>
+<script>
+$(function(){
+	$('#service').click(function(){
+		if($)
+	})
+})
+</script>
 
 </html>

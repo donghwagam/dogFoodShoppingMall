@@ -11,10 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 public class FaqController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/faq.jsp").forward(request, response);
+		
+		String service = request.getParameter("service");
+		System.out.print("----------------service:"+service);
+		if(service.equals("memberService")) {
+			request.getRequestDispatcher("/WEB-INF/view/faq.jsp").forward(request, response);
+		} else if(service.equals("order")) {
+			request.getRequestDispatcher("/WEB-INF/view/order.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("/WEB-INF/view/delivery.jsp").forward(request, response);
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 	}
 
 }

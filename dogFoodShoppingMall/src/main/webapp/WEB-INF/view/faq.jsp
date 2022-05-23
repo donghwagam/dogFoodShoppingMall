@@ -36,7 +36,7 @@
 
 <style>
    .bottom {margin-bottom:15px;}
-   .top {margin-top:70px;}
+   .top {margin-top:15px;}
    .fs {font-size: 27px; font-weight: bold;}
 </style>
 
@@ -199,16 +199,132 @@
 						<!-- 고객센터 목록출력  -->	
 						<ul >
                             <li><a href="${pageContext.request.contextPath}/noticeController">공지사항</a></li>
-							<li><a href="${pageContext.request.contextPath}/faqController">자주묻는질문</a></li>
+							<li><a href="${pageContext.request.contextPath}/faqController?service=memberService">자주묻는질문</a></li>
 							<li><a href="${pageContext.request.contextPath}/#">1:1 문의</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-9">
-					
-				</div>
+				<h3 class="bottom">자주묻는 질문</h3>
+				
+				<a href="${pageContext.request.contextPath}/faqController?service=memberService" class="site-btn">회원서비스</a>
+				<a href="${pageContext.request.contextPath}/faqController?service=order" class="site-btn">주문/결제</a>
+				<a href="${pageContext.request.contextPath}/faqController?service=delivery" class="site-btn">배송</a>
+				
+				
+					<div id="accordion" class="top">
+				 	
+				 	<!-- 1번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseOne">
+				        탈퇴했던 아이디로 다시 가입할 수 있나요?
+				      </a>
+				    </div>
+				    <div id="collapseOne" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        탈퇴한 아이디는 재가입이 불가능합니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 2번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+				        회원탈퇴하면 이전정보는 어떻게 되나요?
+				      </a>
+				    </div>
+				    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        회원탈퇴 시 개인정보는 모두 삭제됩니다.
+						개인정보 중 아래와 같이 상법 및 전자상거래 관련 법령의 규정에 의하여 거래 관련 권리 의무 관계의 확인 등을 이유로 보유할 필요가 있을 경우에는 정해진 기간동안 보유한 후 파기합니다.<br>
+						 ① 계약 또는 청약철회 등에 관한 기록 : 5년<br>    
+						 ② 대금결제 및 재화 등의 공급에 관한 기록 : 5년<br>    
+						 ③ 소비자의 불만 또는 분쟁처리에 관한 기록 : 3년<br>    
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 3번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+				        회원탈퇴는 어떻게 하나요?
+				      </a>
+				    </div>
+				    <div id="collapseThree" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        [MY페이지 > 아이디 >  비밀번호 입력 > 나의 정보 > 회원탈퇴] 에서 탈퇴 가능합니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 4번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+				        비밀번호변경은 어떻게 하나요?
+				      </a>
+				    </div>
+				    <div id="collapseFour" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        [MY페이지 > 아이디 >  비밀번호 입력 > 나의 정보 > 비밀번호 수정] 에서 변경 가능합니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 5번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
+				        아이디, 비밀번호를 잊어버렸어요. 어떻게 해야 하나요?
+				      </a>
+				    </div>
+				    <div id="collapseFive" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        아이디를 잊으신 경우 [로그인 > 아이디 찾기]에서 이름, 이메일주소 또는 휴대폰 번호를 입력하시면 확인이 가능합니다.<br><br>
+				        비밀번호를 잊으시 경우 [로그인 > 비밀번호 찾기]에서 가입 시 이메일 주소를 입력하시면 비밀번호를 새로 설정할 수 있도록 메일을 전송해 드립니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 6번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseSix">
+				        회원 정보는 어떻게 변경하나요?
+				      </a>
+				    </div>
+				    <div id="collapseSix" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        회원정보 중 비밀번호와 휴대폰 번호만 변경이 가능하며,<br>
+						[MY페이지 > 아이디 >  비밀번호 입력 > 나의 정보]에서 변경 가능합니다.<br>
+						그 외에 회원명, 이메일 주소 변경은 고객센터 1:1 또는 채팅으로 문의 바랍니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+				 	<!-- 7번 --> 
+				  	<div class="card">
+				    <div class="card-header">
+				      <a class="collapsed card-link" data-toggle="collapse" href="#collapseSeven">
+				        아이디 변경이 가능한가요?
+				      </a>
+				    </div>
+				    <div id="collapseSeven" class="collapse" data-parent="#accordion">
+				      <div class="card-body">
+				        아이디 변경은 불가능합니다. 아이디 변경을 원하실 경우 새로운 아이디로 가입해 주시기 바랍니다.
+				      </div>
+			  		</div>
+				 	</div>
+				 	
+					</div>
+				
+			
 			</div>
 		</div>
+	</div>
 
 	</section>
 	
@@ -308,5 +424,12 @@
 
 
 </body>
+<script>
+$(function(){
+	$('#service').click(function(){
+		if($)
+	})
+})
+</script>
 
 </html>
