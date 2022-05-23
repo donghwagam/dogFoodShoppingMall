@@ -205,33 +205,7 @@
 					</div>
 				</div>
 				<div class="col-9">
-					<div class="bottom fs">공지사항
-					<c:if test="${level == 0}">
-					<a href="${pageContext.request.contextPath}/insertNoticeController" class="site-btn float-right bottom" role="button">공지사항 등록</a>
-					</c:if>
-					</div>
-					<form>
-						<table class="table text-align:center">
-							<colgroup>
-								<col width="10%">
-								<col width="50%">
-								<col width="30%">
-							</colgroup>
-							<tr>
-								<th>번호</th>
-								<th>제목</th>
-								<th>작성날짜</th>
-							</tr>
-								<c:forEach var="n" items="${noticeList}">
-									<tr>
-										<td>${n.noticeId }</td>
-										<td><a href="${pageContext.request.contextPath}/noticeContentController?noticeId=${n.noticeId}" class="text-body">${n.noticeTitle}</a></td>
-										<td>${n.createDate}</td>
-									</tr>
-								</c:forEach>
-						</table>
-						
-					</form>
+					
 				</div>
 			</div>
 		</div>

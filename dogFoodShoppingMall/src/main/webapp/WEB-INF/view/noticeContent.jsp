@@ -234,10 +234,12 @@
 							
 							
 						</table>
+						<c:if test="${level==0}">
 						<div class="float-right">
 						<a href="${pageContext.request.contextPath}/updateNoticeController?noticeId=${content.noticeId}" class="site-btn ">수정</a>
 						<a href="${pageContext.request.contextPath}/deleteNoticeController?noticeId=${content.noticeId}" class="site-btn ">삭제</a>
 						</div>
+						</c:if>
 				</div>
 			</div>
 		</div>
