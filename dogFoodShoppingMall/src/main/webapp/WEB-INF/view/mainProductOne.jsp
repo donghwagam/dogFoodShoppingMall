@@ -363,14 +363,14 @@
                                  			<td>${r.star}</td>
                                  			<td>${r.createDate}</td>
                                  		</tr>
-                                	 </c:forEach> 
+                                	</c:forEach> 
                                  	</table>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>Q & A</h6>
-                                    <a href="${pageContext.request.contextPath}/adminCheck/insertQnaController?productId=${productId}">등록하기</a>
+                                    <a href="${pageContext.request.contextPath}/insertQnaController?productId=${productId}&memberId=${memberId}">등록하기</a>
                                     <table border="1">
                                     <tr>
                                  		<th>종류</th>
@@ -378,12 +378,14 @@
                                  		<th>작성자</th>
                                  		<th>작성일</th>
                                  	</tr>
+                                 <c:forEach var="q" items="${selectQnaList}">
                                  	<tr>
-                                 		<td>질문</td>
-                                 		<td>언제 입고되나요?</td>
-                                 		<td>baki_1004</td>
-                                 		<td>2022-05-23 09:30:17</td>
+                                 		<td>${q.qnaKind}</td>
+                                 		<td>${q.memo}</td>
+                                 		<td>${q.memberId}</td>
+                                 		<td>${q.createDate}</td>
                                  	</tr>
+                                 </c:forEach>
                                    </table>
                                 </div>
                             </div>

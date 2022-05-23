@@ -11,13 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.MainProductDao;
+import dao.QnaDao;
 import dao.ReviewDao;
 import vo.Category;
+import vo.Qna;
 
 @WebServlet("/mainProductOneController")
 public class MainProductOneController extends HttpServlet {
 	private MainProductDao mainProductDao; //맴버 변수 MainProductDao 선언
 	private ReviewDao reviewDao;
+	private QnaDao qnaDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -38,6 +41,11 @@ public class MainProductOneController extends HttpServlet {
 		List<Map<String, Object>> selectReviewList = reviewDao.selectReview(productId);
 		request.setAttribute("selectReviewList", selectReviewList);
 		System.out.println("MainProductController.doGet() selectReviewList size : " + selectReviewList.size());
+		
+		this.qnaDao = new QnaDao();
+		List<Qna> selectQnaList = qnaDao.selectQna(productId);
+		request.setAttribute("selectQnaList", selectQnaList);
+		System.out.println("MainProductController.doGet() selectQnaList size : " + selectQnaList.size());
 		
 		// 상품의 평점을 나타내는 메서드
 		double star = reviewDao.selectStarAverage(productId);
