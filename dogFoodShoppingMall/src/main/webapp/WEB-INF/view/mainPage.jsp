@@ -75,7 +75,7 @@
 						<div>
 							${sessionMemberId}님 반갑습니다 
 							<a href="${pageContext.request.contextPath}/memberOneController">|마이페이지 </a>
-							<a href="${pageContext.request.contextPath}/logoutController">| 로그아웃 </a>
+							<a href="${pageContext.request.contextPath}/loginCheck/logoutController">| 로그아웃 </a>
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -241,7 +241,7 @@
 		<div class="row">
 				<c:choose>
 					<c:when test="${categoryName == null}">
-					<c:forEach var="p" items="${productList}">
+					<c:forEach var="p" items="${productList}" begin="0" end="11" step="1">
 							<div class="col-lg-4 col-md-4 col-sm-4">
 								<div class="product__item">
 									<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${p.photoName}">
@@ -267,7 +267,7 @@
 					</c:forEach>
 					</c:when>
 					<c:otherwise>
-					<c:forEach var="cl" items="${productCategoryList}">
+					<c:forEach var="cl" items="${productCategoryList}"  begin="0" end="11" step="1">
 					<div class="col-lg-4 col-md-4 col-sm-4">
 							<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${cl.photoName}">
 								<ul class="product__item__pic__hover">
@@ -292,28 +292,13 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-				<div>
-				<c:choose>
-				<c:when test="${categoryName == null}">
- 				<c:if test="${currentPage > 1}">
-                     <a href="${pageContext.request.contextPath}/mainPageController?currentPage=${currentPage-1}">이전</a>
-                </c:if>
-                <c:if test="${currentPage  < lastPage}">
-                     <a  href="${pageContext.request.contextPath}/mainPageController?currentPage=${currentPage+1}">다음</a>
-                </c:if>
-                </c:when>
-                <c:otherwise>
-                	<c:if test="${currentPage > 1}">
-                     <a href="${pageContext.request.contextPath}/mainPageController?currentPage=${currentPage-1}&categortName=${categoryName}">이전</a>
-                </c:if>
-                <c:if test="${currentPage  < categoryLastPage}">
-                     <a  href="${pageContext.request.contextPath}/mainPageController?currentPage=${currentPage+1}&categoryName=${categoryName}">다음</a>
-                </c:if>
-                </c:otherwise>
-                </c:choose>
-           </div> 
 	</div>
 	<!-- 페이징 -->
+	<div class="product__pagination">
+		<a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#"><i
+			class="fa fa-long-arrow-right"></i></a>
+	</div>
+
 	<!-- Latest Product Section Begin -->
 	<section class="latest-product spad">
 		<div class="container">

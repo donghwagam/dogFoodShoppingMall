@@ -123,12 +123,12 @@ public class InsertProductController extends HttpServlet {
 		} 
 		if (row == 1) {
 			System.out.println("상품 등록 성공 ");
-			response.sendRedirect(request.getContextPath()+"/productManagementController");
+			response.sendRedirect(request.getContextPath()+"/adminCheck/productManagementController");
 		} else {
 			System.out.println("상품 등록 실패 ");
 			File file = new File(path + "//"+productPhotoName); // 잘못된 파일 불러오기. 
 			file.delete();
-			response.sendRedirect(request.getContextPath() + "/insertProductController");
+			response.sendRedirect(request.getContextPath() + "/adminCheck/insertProductController");
 		}
 
 	}
