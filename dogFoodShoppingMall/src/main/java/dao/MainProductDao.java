@@ -32,6 +32,7 @@ public class MainProductDao {
                      + "      ON p.product_id=pp.product_id "
                      + "    LEFT JOIN review r"
                      + "      ON r.review_id = p.product_id"
+                     + " GROUP BY productId"
                      + "    LIMIT ?,?";
                      
             try {
@@ -172,6 +173,7 @@ public class MainProductDao {
                      + "      ON p.product_id = pl.product_id "
                      + "   LEFT JOIN review r"
                      + "      ON r.product_id = p.product_id"
+                    + " GROUP BY productId"
                   + "   ORDER BY p.create_date DESC"
                   + "   Limit 0,6" ;
             try {
@@ -274,6 +276,7 @@ public class MainProductDao {
                   + "   LEFT JOIN review r"
                   + "     ON r.product_id = p.product_id"
                   + "    WHERE c.name = ? "
+                  + " GROUP BY productId"
                   + "     LIMIT ?, ?" ;
             try {
                conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
