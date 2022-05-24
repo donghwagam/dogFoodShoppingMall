@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.AdminDao;
 import dao.DogDao;
 import dao.MemberDao;
 
@@ -19,10 +20,12 @@ public class MemberOneController extends HttpServlet {
    
    private MemberDao memberDao;
    private DogDao dogDao;
+   private AdminDao adminDao;
    
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       this.memberDao = new MemberDao(); // dao호출
       this.dogDao = new DogDao();
+      this.adminDao = new AdminDao();
       
 	  // 세션 호출
 	  HttpSession session = request.getSession();
@@ -32,6 +35,9 @@ public class MemberOneController extends HttpServlet {
        
       //디버깅
       System.out.println("MemberOneController (doGet) :"+ memberId);
+      
+      int level = adminDao.selectAdminFilterList(memberId);
+      request.setAttribute("level", level);
       
       // 회원정보를 보여주는 리스트
       Map<String, Object> memberMap = memberDao.selectMemberInfo(memberId);
@@ -46,10 +52,6 @@ public class MemberOneController extends HttpServlet {
       // 마이페이지 뷰단으로 포워딩
        request.getRequestDispatcher("/WEB-INF/view/memberOne.jsp").forward(request, response); 
         
-   }
-
-   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      
    }
 
 }
