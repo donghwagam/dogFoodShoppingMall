@@ -15,7 +15,7 @@ import vo.Category;
 
 public class MainProductDao {
    //상품리스트 출력하는 메서드 
-         public List<Map<String, Object>> selectProductList() { 
+         public List<Map<String, Object>> selectProductList(int beginRow , int rowPerPage) { 
             List<Map<String, Object>> list = new ArrayList<>();
             Connection conn = null;
             PreparedStatement stmt = null;
@@ -30,11 +30,14 @@ public class MainProductDao {
                      + "    LEFT JOIN product_photo pp "
                      + "      ON p.product_id=pp.product_id "
                      + "    LEFT JOIN review r"
-                     + "      ON r.review_id = p.product_id";
+                     + "      ON r.review_id = p.product_id"
+                     + "    LIMIT ?,?";
                      
             try {
                conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
                stmt = conn.prepareStatement(sql);
+               stmt.setInt(1, beginRow);
+               stmt.setInt(2, rowPerPage);
                rs = stmt.executeQuery();
                while(rs.next()) {
                Map<String, Object> map = new HashMap<>();
@@ -59,6 +62,63 @@ public class MainProductDao {
             }
             return list;
           }
+        public int selectProductTotalRow() {
+        	int totalCount = 0;
+        	Connection conn = null;
+        	PreparedStatement stmt = null;
+        	ResultSet rs = null;
+        	String sql = "SELECT COUNT(*) cnt"
+        			+ "     FROM product";
+        
+        	try {
+        		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+        		 stmt = conn.prepareStatement(sql);
+        		 rs = stmt.executeQuery();
+  		       if(rs.next()) {
+  		    	   totalCount = rs.getInt("cnt"); // totalCount 변수에 cnt 저장 
+  		       }
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	} finally {
+        		try {
+        			conn.close();
+        		} catch (SQLException e) {
+        			e.printStackTrace();
+        		}
+        	}
+        	return totalCount;
+        }
+        public int selectProductTotalRowByCategory(String categoryName) {
+        	int totalCount = 0;
+        	Connection conn = null;
+        	PreparedStatement stmt = null;
+        	ResultSet rs = null;
+        	String sql = "SELECT COUNT(*) cnt"
+        			+ "	    FROM product p"
+        			+ "     JOIN product_category pc"
+        			+ "       ON p.product_id = pc.product_id"
+        			+ "     JOIN category c"
+        			+ "       ON c.category_id = pc.category_id"
+        			+ "    WHERE c.name = ?";
+        try {
+        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+   		 stmt = conn.prepareStatement(sql);
+   		 stmt.setString(1, categoryName);
+   		 rs = stmt.executeQuery();
+	       if(rs.next()) {
+	    	   totalCount = rs.getInt("cnt"); // totalCount 변수에 cnt 저장 
+	       }
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	} finally {
+        		try {
+        			conn.close();
+        		} catch(SQLException e) {
+        			e.printStackTrace();
+        		}
+        	}
+        return totalCount;
+        }
          // 카테고리 정보 보여주는 메서드 
          public List<Category> selectCategoryList() {
             List<Category> list = new ArrayList<Category>();
@@ -193,7 +253,7 @@ public class MainProductDao {
             }
             return list;
           }
-         public List<Map<String, Object>> selectProductListByCategory(String categoryName) {
+         public List<Map<String, Object>> selectProductListByCategory(String categoryName,int beginRow, int rowPerPage) {
             List<Map<String, Object>> list = new ArrayList<>();
             Connection conn = null;
             PreparedStatement stmt = null;
@@ -212,13 +272,15 @@ public class MainProductDao {
                   + "     ON p.product_id = pph.product_id"
                   + "   LEFT JOIN review r"
                   + "     ON r.product_id = p.product_id"
-                  + "    WHERE c.name = ? " ;
+                  + "    WHERE c.name = ? "
+                  + "     LIMIT ?, ?" ;
             try {
                conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
             
                stmt = conn.prepareStatement(sql);
                stmt.setString(1,categoryName);
-            
+               stmt.setInt(2, beginRow);
+               stmt.setInt(3, rowPerPage);
                 rs = stmt.executeQuery();
                 while(rs.next()) {
                    Map<String ,Object> map = new HashMap<>();
