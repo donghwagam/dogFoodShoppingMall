@@ -9,6 +9,45 @@ import java.util.*;
 
 public class ReviewDao {
 	
+	public String selectStatus(int purchaseId) {
+		
+		String status = null;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT status"
+				+ " FROM purchase"
+				+ " WHERE purchase_id = ?";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, purchaseId);
+			
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				status = rs.getString("status");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		return status;
+	}
+	
+	
 	public int checkInsertReview(Map<String, Object> map) {
 		
 		Connection conn = null;

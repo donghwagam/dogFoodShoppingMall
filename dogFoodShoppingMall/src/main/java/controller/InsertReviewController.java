@@ -44,9 +44,13 @@ public class InsertReviewController extends HttpServlet {
 		map.put("productId", productId);
 		
 		int cnt = reviewDao.checkInsertReview(map);
-		System.out.println("InsertReviewController.doGet() cnt : " + cnt);
+		String status = reviewDao.selectStatus(purchaseId);
 		
-		if (cnt == 0) {
+		System.out.println("InsertReviewController.doGet() cnt : " + cnt);
+		System.out.println("InsertReviewController.doGet() status : " + status);
+		
+		
+		if (cnt == 0 && status.equals("배송완료")) {
 			
 			request.getRequestDispatcher("/WEB-INF/view/insertReview.jsp").forward(request, response);
 			

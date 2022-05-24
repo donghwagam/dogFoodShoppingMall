@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>리뷰 작성했을경우 들어오는 페이지!</h1>
+	<h1>리뷰를 작성했거나 아직 배송완료 전입니다!</h1>
 </body>
 </html>
