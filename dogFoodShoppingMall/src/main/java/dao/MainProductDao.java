@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import vo.Component;
+import vo.ProductPhoto;
 import vo.Category;
 
 public class MainProductDao {
@@ -369,6 +370,37 @@ public class MainProductDao {
                System.out.println("Exception 예외발생 <— MainProductDao.selectProductOne()");
             }
             return list;
+         }
+         public List<ProductPhoto> selectPhotoList(int ProductId) {
+        	 List<ProductPhoto> list = new ArrayList<ProductPhoto>();
+        	 Connection conn = null;
+        	 PreparedStatement stmt = null;
+        	 ResultSet rs = null;
+        	String sql = "select name photoName "
+        			+ "     FROM product_photo"
+        			+ "    WHERE product_id = ? AND name LIKE '%info%'" ;
+        	try {
+        		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, ProductId);
+                rs = stmt.executeQuery();
+                if(rs.next()) {
+                	 ProductPhoto p = new ProductPhoto();
+                	 p.setName(rs.getString("photoName"));
+                	 list.add(p);
+                }
+        	} catch(Exception e) {
+        		e.printStackTrace();
+        	} finally {
+        		try {
+        			conn.close();
+        		} catch (SQLException e) {
+        			e.printStackTrace();
+        		}
+        	}
+        	
+        			 
+        	 return list;
          }
    }
 
