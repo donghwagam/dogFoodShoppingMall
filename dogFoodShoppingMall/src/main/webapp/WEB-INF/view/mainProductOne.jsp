@@ -337,6 +337,10 @@
                                     <p>${list.gram }</p>
                                     <h6>상품정보</h6>
                                     <p>${list.info}</p>
+                                    <p><c:forEach var="p" items="${photoList}">
+                                   	<img src="${pageContext.request.contextPath}/images/${p.name}">
+                                    </c:forEach></p>
+                                    
                                 </div>
                             </div>
                            </c:forEach> 

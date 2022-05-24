@@ -458,6 +458,14 @@
                       <td><img src="${pageContext.request.contextPath}/images/${p.photoName}"></td>
                   </tr>
                   <tr>
+                   <th>정보사진</th>
+                  	  <td>
+                  	  	<c:forEach var="po" items="${photoList}">
+                  	  		<img src="${pageContext.request.contextPath}/images/${po.photoName}">
+                  	  	</c:forEach>
+                  	  </td>
+                  </tr>
+                  <tr>
                       <th>재고</th>
                       <td>${p.stock}</td>
                   </tr>

@@ -15,7 +15,7 @@ import dao.QnaDao;
 import dao.ReviewDao;
 import vo.Category;
 import vo.Qna;
-
+import vo.ProductPhoto;
 @WebServlet("/mainProductOneController")
 public class MainProductOneController extends HttpServlet {
 	private MainProductDao mainProductDao; //맴버 변수 MainProductDao 선언
@@ -59,9 +59,14 @@ public class MainProductOneController extends HttpServlet {
 		// 카테고리 정보 불러오는 리스트
 		List<Category> categoryList =  mainProductDao.selectCategoryList();
 		
+		//정보제공용 사진 불러오는 리스트 
+		List<ProductPhoto> photoList = mainProductDao.selectPhotoList(productId);
+		
+
+		
 		System.out.println("MainProductController.doGet() categoryList size :" + categoryList.size());
 		request.setAttribute("categoryList", categoryList);
-		
+		request.setAttribute("photoList", photoList);
 		request.setAttribute("list", list);
 	
 		request.getRequestDispatcher("/WEB-INF/view/mainProductOne.jsp").forward(request, response);
