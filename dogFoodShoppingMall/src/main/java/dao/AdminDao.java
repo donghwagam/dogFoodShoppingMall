@@ -251,6 +251,32 @@ public class AdminDao {
 		   
 		   return totalCount;
 	   }
+	   public int selectProductTotalRow() {
+		   int totalCount = 0;
+		   Connection conn = null;
+		   PreparedStatement stmt = null;
+		   ResultSet rs = null;
+		   String sql = "SELECT COUNT(*) cnt"
+		   		+ "        FROM product";
+		   try {
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+		       stmt = conn.prepareStatement(sql);
+		       rs = stmt.executeQuery();
+		       if(rs.next()) {
+		    	   totalCount = rs.getInt("cnt"); // totalCount 변수에 cnt 저장 
+		       }
+		   } catch (Exception e) {
+			   e.printStackTrace();
+		   } finally {
+			   try {
+				   conn.close();
+			   } catch (SQLException e) {
+				   e.printStackTrace();
+			   }
+		   }
+		   
+		   return totalCount;
+	   }
 	   //선택한 구매자의행 카운트 하는 메서드 
 	   public int selectPurchaseListTotalRow(String memberId) {
 		   int totalCount = 0;

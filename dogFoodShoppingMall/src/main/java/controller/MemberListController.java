@@ -33,7 +33,7 @@ public class MemberListController extends HttpServlet {
 		
 		// 페이지 끝 구하기 
 		int lastPage = 0; // 마지막 페이지 
-		int totalCount = list.size(); // 전체 리스트 수
+		int totalCount = adminDao.selectMemberTotalRow(); // 전체 리스트 수
 		lastPage = (int)Math.ceil((double)totalCount / (double)rowPerPage); // 마지막 페이지 구하기
 		//디버깅 
 		System.out.println("MemberListController currentPage :" + currentPage);
@@ -42,6 +42,7 @@ public class MemberListController extends HttpServlet {
 		System.out.println("MemberListController totalCount : " + totalCount);
 		// 값 넘기기 
 		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("WEB-INF/view/memberList.jsp").forward(request, response);
 	}

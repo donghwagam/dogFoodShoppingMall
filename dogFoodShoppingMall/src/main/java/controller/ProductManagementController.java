@@ -28,10 +28,16 @@ public class ProductManagementController extends HttpServlet {
 		List<Map<String ,Object>> list = adminDao.selectProductListByAdmin(beginRow, rowPerPage);
 		System.out.println("ProductManagementController list.size() :" + list.size());
 		int lastPage = 0; // 마지막 페이지 
-		int totalCount = list.size(); // 전체 리스트 수
+		int totalCount = adminDao.selectProductTotalRow(); // 전체 리스트 수
 		lastPage = (int)Math.ceil((double)totalCount / (double)rowPerPage); // 마지막 페이지 구하기
 		//디버깅 
-		
+		System.out.println("productManagementController currentPage :" + currentPage);
+		System.out.println("productManagementController beginRow : " + beginRow);
+		System.out.println("productManagementController rowPerPage : " + rowPerPage);
+		System.out.println("productManagementController totalCount : " + totalCount);
+		System.out.println("productManagementController lastPage : " + lastPage);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("lastPage", lastPage);
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("WEB-INF/view/productManagement.jsp").forward(request, response);

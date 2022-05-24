@@ -496,6 +496,14 @@
             </table>
             </div>
 	</div>
+			<div>
+ 				<c:if test="${currentPage > 1}">
+                     <a href="${pageContext.request.contextPath}/productManagementController?currentPage=${currentPage-1}">이전</a>
+                </c:if>
+                <c:if test="${currentPage  < lastPage}">
+                     <a  href="${pageContext.request.contextPath}/productManagementController?currentPage=${currentPage+1}">다음</a>
+                </c:if>
+           </div>         
 </div>
   		<footer class="pull-left footer">
   			<p class="col-md-12">

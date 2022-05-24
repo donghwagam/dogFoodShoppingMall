@@ -411,7 +411,7 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="${pageContext.request.contextPath}/adminPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
 					<li><a href="${pageContext.request.contextPath}/memberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
+					<li><a href="${pageContext.request.contextPath}/productManagementController"><span class="glyphicon glyphicon-cloud"></span>상품정보</a></li>
 
 					<!-- Dropdown-->
 					<li class="panel panel-default" id="dropdown">
@@ -489,6 +489,14 @@
             </table>
             </div>
 	</div>
+	<div>
+ 		<c:if test="${currentPage > 1}">
+               <a href="${pageContext.request.contextPath}/productManagementController?currentPage=${currentPage-1}">이전</a>
+        </c:if>
+        <c:if test="${currentPage  < lastPage}">
+               <a  href="${pageContext.request.contextPath}/productManagementController?currentPage=${currentPage+1}">다음</a>
+        </c:if>
+    </div>    
 </div>
   		<footer class="pull-left footer">
   			<p class="col-md-12">
