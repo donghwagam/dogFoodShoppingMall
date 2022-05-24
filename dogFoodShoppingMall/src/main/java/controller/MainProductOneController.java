@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.MainProductDao;
 import dao.QnaDao;
@@ -24,12 +25,13 @@ public class MainProductOneController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession(); // 세션 정보 불러오기
 		// 선택한 상품의 productId값을 받아옴
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		System.out.println("MainProductOneController.doGet() productId : " + productId);
 		
 		// 로그인한 memberId를 받아옴
-		String memberId = request.getParameter("memberId");
+		String memberId = (String)session.getAttribute("sessionMemberId");
 		System.out.println("MainProductOneController.doGet() memberId : " + memberId);
 		
 		request.setAttribute("productId", productId);

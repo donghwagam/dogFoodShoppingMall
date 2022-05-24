@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.AdminDao;
+import vo.Member;
 
 
 
@@ -51,6 +52,7 @@ public class DeleteProductController extends HttpServlet {
 		
 		String photoName = request.getParameter("photoName");
 		System.out.println("deleteProductController.doPost() photoName : " + photoName);
+		
 		
 		int row = adminDao.deleteProduct(productId);
 		if (row == 1) {
