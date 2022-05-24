@@ -28,8 +28,13 @@ public class PurchaseMemberListController extends HttpServlet {
 		
 		List<Map<String, Object>> purchaseMemberList = purchaseDao.selectPurchaseMemberListByPage(memberId);
 		
-		request.setAttribute("purchaseMemberList", purchaseMemberList);
+		String msg = null;
+		if(request.getParameter("msg")!=null) {
+			msg = request.getParameter("msg");
+		}
 		
+		request.setAttribute("msg", msg);
+		request.setAttribute("purchaseMemberList", purchaseMemberList);
 		// 구매내역 뷰단으로 포워딩
 		request.getRequestDispatcher("/WEB-INF/view/purchaseMemberList.jsp").forward(request, response);
 

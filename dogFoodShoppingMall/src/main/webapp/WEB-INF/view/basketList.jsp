@@ -255,7 +255,9 @@
 								<c:if test="${sessionMemberId == null}">
 									<c:forEach var="g" items="${guestBasketList}">
 		                                <tr>
-		                                    <td class="shoping__cart__item"><img src="${pageContext.request.contextPath}/images/${g.photoName}" width="200" height="200"></td> 
+		                                    <td>
+		                                    	<img src="${pageContext.request.contextPath}/images/${g.photoName}" width="200" height="200">
+		                                    </td> 
 		                                    <td>${g.productName} ${g.gram}g</td>
 		                                    <td class="shoping__cart__price">
 		                                       ${g.price}원
@@ -286,12 +288,16 @@
 										<td>
 											${m.productName} ${m.gram}g
 										</td>
-										<td>
+										<td class="shoping__cart__price">
 											${m.price}원
 										</td>
-										<td>
-											<input type="text" name="basketCount"  value="${m.quantity}">
-										</td>
+										<td class="shoping__cart__quantity">
+	                                        <div class="quantity">
+	                                            <div class="pro-qty">
+	                                                <input type="text" name="basketCount"  value="${m.quantity}">
+	                                            </div>
+	                                  	     </div>
+		                                </td>
 										<td class="shoping__cart__price">
                                       		 ${m.quantity*m.price}원
                                    		 </td>

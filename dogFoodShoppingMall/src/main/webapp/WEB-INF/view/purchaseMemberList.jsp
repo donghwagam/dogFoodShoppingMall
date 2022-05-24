@@ -37,6 +37,19 @@
 <style>
    .bottom {margin-bottom:15px;}
    .top {margin-top:70px;}
+    .msgbox{
+	   position: fixed;
+	   top:10px;
+	   left: 35%;
+	   background-color: #ffffff;
+	   padding-top: 100px;
+	   padding-bottom: 100px;
+	   padding-left: 50px;
+	   padding-right: 50px;
+	   width: 500px;
+	   height: 300px;
+	   display: block;
+   }
 </style>
 
 </head>
@@ -241,7 +254,16 @@
 				</div>
 			</div>
 		</div>
-		
+		<c:if test="${msg!=null}">
+			<!-- Modal -->
+			<div class="msgbox">
+                 배송완료 전이면 리뷰작성을 할 수 없습니다
+                 <br>
+                 <div class="text-center">
+                 	<button type="button" class="btn btn-secondary float-right" id="chk">확인</button>
+                 </div>
+            </div>    
+		</c:if>
 	</section>
 	
 	
@@ -338,7 +360,10 @@
 	<script src="./Resources/js/main.js"></script>
 
 
-
 </body>
-
+<script>
+	$('#chk').click(function () {
+		$('.msgbox').css('display','none');
+	})
+</script>
 </html>

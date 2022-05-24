@@ -56,13 +56,8 @@ public class InsertReviewController extends HttpServlet {
 			
 		} else {
 			
-			request.getRequestDispatcher("/WEB-INF/view/checkInsertReview.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/purchaseMemberListController?msg=beforeDelivery");
 		}
-		
-		
-		
-		
-		
 	
 	}
 
