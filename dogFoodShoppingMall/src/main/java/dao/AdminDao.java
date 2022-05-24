@@ -1014,29 +1014,36 @@ public class AdminDao {
 	 	PreparedStatement categoryStmt = null;
 	 	PreparedStatement componentStmt = null;
 	 	PreparedStatement photoStmt = null;
+	 	PreparedStatement basketStmt = null;
 	 	PreparedStatement productStmt = null;
 	 	
 	 	String categorySql = " DELETE FROM product_category WHERE product_id = ?";
 	 	String componentSql = " DELETE FROM product_component WHERE product_id = ?";
 	 	String photoSql = " DELETE FROM product_photo  WHERE product_id =?";
+	 	String basketSql = " DELETE FROM basket WHERE product_id = ? ";
 	 	String productSql = " DELETE FROM product WHERE product_id = ? ";
+	 	
 	 	 try {
 	 		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-	 		 conn.setAutoCommit(false); //오토커밋 해제 
-	 		 categoryStmt = conn.prepareStatement(categorySql);
-	 		 categoryStmt.setInt(1, productId);
-	 		 categoryStmt.executeUpdate();
+	 	    conn.setAutoCommit(false); //오토커밋 해제 
+	 		categoryStmt = conn.prepareStatement(categorySql);
+	 		categoryStmt.setInt(1, productId);
+	 		categoryStmt.executeUpdate();
 	 		 
-	 		 componentStmt = conn.prepareStatement(componentSql);
-	 		 componentStmt.setInt(1, productId);
-	 		 componentStmt.executeUpdate();
+	 		componentStmt = conn.prepareStatement(componentSql);
+	 		componentStmt.setInt(1, productId);
+	 		componentStmt.executeUpdate();
 	 		 
-	 		 photoStmt = conn.prepareStatement(photoSql);
-	 		 photoStmt.setInt(1, productId);
-	 		 photoStmt.executeUpdate();
+	 		photoStmt = conn.prepareStatement(photoSql);
+	 		photoStmt.setInt(1, productId);
+	 		photoStmt.executeUpdate();
+
+	 		basketStmt = conn.prepareStatement(basketSql);
+	 		basketStmt.setInt(1, productId);
+	 		basketStmt.executeUpdate();
 	 		 
-	 		 productStmt = conn.prepareStatement(productSql);
-	 		 productStmt.setInt(1, productId);
+	 		productStmt = conn.prepareStatement(productSql);
+	 		productStmt.setInt(1, productId);
 	 		row = productStmt.executeUpdate();
 	 		 
 	 		if (row == 1) {
