@@ -23,6 +23,11 @@ public class MainPageController extends HttpServlet {
 		this.mainProductDao = new MainProductDao();
 		HttpSession session = request.getSession(); // 세션 정보 불러오기
 		
+		String memberId = (String)session.getAttribute("sessionMemberId");
+		
+		request.setAttribute("memberId", memberId);
+		System.out.println("MainPageController.doGet() memberId :" + memberId);
+		
 		String categoryName = request.getParameter("categoryName"); // 카테고리 받아오기 
 		System.out.println("MainPageController.doGet() categoryName : " + categoryName);
 		int currentPage = 1;  // 현재 페이지 

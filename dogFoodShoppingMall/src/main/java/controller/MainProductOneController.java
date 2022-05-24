@@ -28,7 +28,12 @@ public class MainProductOneController extends HttpServlet {
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		System.out.println("MainProductOneController.doGet() productId : " + productId);
 		
+		// 로그인한 memberId를 받아옴
+		String memberId = request.getParameter("memberId");
+		System.out.println("MainProductOneController.doGet() memberId : " + memberId);
+		
 		request.setAttribute("productId", productId);
+		request.setAttribute("memberId", memberId);
 		
 		this.mainProductDao = new MainProductDao(); // dao 호출
 		

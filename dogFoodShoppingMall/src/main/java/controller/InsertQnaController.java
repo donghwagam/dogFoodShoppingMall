@@ -28,7 +28,15 @@ public class InsertQnaController extends HttpServlet {
 		request.setAttribute("memberId", memberId);
 		request.setAttribute("productId", productId);
 		
-		request.getRequestDispatcher("/WEB-INF/view/insertQna.jsp").forward(request, response);
+		
+		if (memberId.equals("admin")) {
+			request.getRequestDispatcher("/WEB-INF/view/insertQnaAnswer.jsp").forward(request, response);
+		} else {
+			request.getRequestDispatcher("/WEB-INF/view/insertQnaQuestion.jsp").forward(request, response);
+		}
+		
+		
+		
 		
 	}
 

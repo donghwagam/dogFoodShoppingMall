@@ -257,7 +257,7 @@
 									</ul>
 								</div>
 								<div class="product__item__text">
-									<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${p.productId}">
+									<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${p.productId}&memberId=${memberId}">
 										<h6>${p.productName}</h6>
 										<h5>${p.price} 원</h5>
 									</a>

@@ -370,7 +370,14 @@
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>Q & A</h6>
-                                    <a href="${pageContext.request.contextPath}/insertQnaController?productId=${productId}&memberId=${memberId}">등록하기</a>
+                                    <c:choose>
+                                    <c:when test = "${memberId eq 'admin'}">
+                                    	<a href="${pageContext.request.contextPath}/insertQnaController?productId=${productId}&memberId=${memberId}">답변하기</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                    	<a href="${pageContext.request.contextPath}/insertQnaController?productId=${productId}&memberId=${memberId}">질문하기</a>
+                                    </c:otherwise>
+                                     </c:choose>
                                     <table border="1">
                                     <tr>
                                  		<th>종류</th>

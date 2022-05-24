@@ -8,7 +8,7 @@
 </head>
 <body class = "container">
 	<div class="container p-3 my-3 bg-success text-white">
-		<h2 align="center">질문 작성</h2>
+		<h2 align="center">질문 하기</h2>
 	</div>
 	<div class="container pt-3">
 	<form method="post" action="${pageContext.request.contextPath}/insertQnaController">
@@ -17,16 +17,10 @@
 			<table class="table table-bordered">
 				<tr>
 					<td>종류</td>
-					<td>
-					<select name="qnaKind">
-						<option value="">:: 유형을 선택해 주세요. ::</option>
-						<option value="질문">질문</option>
-						<option value="답변">답변</option>
-					</select>
-					</td>
+					<td><input type="text" name="qnaKind" value="질문" readonly="readonly"></td>
 				</tr>		
 				<tr>
-					<td>질문내용</td>
+					<td>질문 내용</td>
 					<td><input type="text" name="memo"></td>
 				</tr>	
 			</table>
