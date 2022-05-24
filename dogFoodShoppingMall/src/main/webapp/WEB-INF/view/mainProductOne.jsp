@@ -64,7 +64,7 @@
             <div class="header__top__right__auth">
                <c:choose>
 					<c:when test="${sessionMemberId == null}">
-						<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
+						<a href="${pageContext.request.contextPath}/loginController"><i class="fa fa-user"></i> Login</a>
 					</c:when>
 					<c:otherwise>
 						<div>${sessionMemberId}님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">|마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController">| 로그아웃 </a>
@@ -138,7 +138,7 @@
                             <div class="header__top__right__auth">
                                 <c:choose>
 									<c:when test="${sessionMemberId == null}">
-										<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
+										<a href="${pageContext.request.contextPath}/loginController"><i class="fa fa-user"></i> Login</a>
 									</c:when>
 									<c:otherwise>
 										<div>${sessionMemberId}님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">|마이페이지 </a><a href="${pageContext.request.contextPath}/logoutController">| 로그아웃 </a>
