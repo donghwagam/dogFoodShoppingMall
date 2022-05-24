@@ -54,28 +54,17 @@
 				<div class="row">
 					<div class="col-lg-6 col-md-6">
 						<div class="header__top__left">
-							<ul>
-								<li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-								<li>Free Shipping for all Order of $99</li>
+								<ul>
+								<li><i class="fa fa-envelope"></i> donghwagam@gmail.com</li>
+								<li>Express Delivery with all Fresh Dog Foods</li>
 							</ul>
 						</div>
 					</div>
 					<div class="col-lg-6 col-md-6">
 						<div class="header__top__right">
 							<div class="header__top__right__social">
-								<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-									class="fa fa-twitter"></i></a> <a href="#"><i
-									class="fa fa-linkedin"></i></a> <a href="#"><i
-									class="fa fa-pinterest-p"></i></a>
-							</div>
-							<div class="header__top__right__language">
-								<img src="./Resources/img/language.png" alt="">
-								<div>English</div>
-								<span class="arrow_carrot-down"></span>
-								<ul>
-									<li><a href="#">Spanis</a></li>
-									<li><a href="#">English</a></li>
-								</ul>
+								<a href="https://www.instagram.com/gaebobheaven/"><i class="fa fa-linkedin"></i></a> 
+							 	<a href="https://open.kakao.com/o/gPlN8Ahe"><i class="fa fa-pinterest-p"></i></a>
 							</div>
 							<!-- 로그인/로그아웃/마이페이지 이동  -->
 							<div class="header__top__right__auth">
