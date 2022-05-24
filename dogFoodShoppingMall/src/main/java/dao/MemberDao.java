@@ -436,6 +436,76 @@ public class MemberDao {
       
    }
    
+   // 비밀번호 남은 일수 반환
+   public int selectDiffDay(String memberId) {
+	   int diffDay = 0;
+      
+      // DB연결을 위한 자원 준비
+      Connection conn = null;
+      PreparedStatement stmt = null;
+      ResultSet rs = null;
+      
+      // 쿼리 작성
+      String sql = "SELECT TIMESTAMPDIFF(DAY,m.pw_update_date, curdate()) AS diffDay"
+      		+ "		FROM member m"
+      		+ "		WHERE member_id = ?";
+      
+      try {
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+         stmt = conn.prepareStatement(sql); // sql문 전송
+         stmt.setString(1, memberId); 
+         
+         rs = stmt.executeQuery(); // select한 값 rs에 저장
+         
+         if(rs.next()) { // rs에 정보가 있을때, diffDay에 정보 저장
+            diffDay = rs.getInt("diffDay"); // 반환해줄 변수에 값 저장
+         }
+      }
+      // 예외 처리
+      catch (Exception e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            conn.close(); // 자원 반환
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
+      }
+      return diffDay; // 리턴값
+   }
+   // 비밀번호 변경 3개월 연장시 현재날짜에서 3개월 더해줘서 날짜 뽑기
+	public void updatePlusMonth(String memberId) {
+	       
+	    // DB연결을 위한 자원 준비
+	    Connection conn = null;
+	    PreparedStatement stmt = null;
+	    String sql = "UPDATE member SET pw_update_date = date_add(NOW(), INTERVAL 3 MONTH) WHERE member_id=?";
+	    
+	       
+	    try {
+	       conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	       
+	       stmt = conn.prepareStatement(sql);
+	       stmt.setString(1, memberId);
+	
+	       int row = stmt.executeUpdate();
+	        
+	       if(row == 1) {
+	          System.out.println("updatePlusMonth 수정 성공");
+	       } else {
+	          System.out.println("updatePlusMonth 수정 실패");
+	       }
+	          
+	    } catch (SQLException e) {
+	       e.printStackTrace();
+	    } finally {
+	       try {
+	          conn.close();
+	       } catch (SQLException e) {
+	          e.printStackTrace();
+	       }
+	    }
+	}    
    // 로그인 유효성 검사 메서드
    public String selectMemberByIdPw(Member member) {
       String memberId = null; // 변수 memberId 생성
