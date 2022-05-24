@@ -368,7 +368,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">
+			<a href="${pageContext.request.contextPath}/adminCheck/adminPageController" class="navbar-brand"  >
 				Administrator
 			</a>
 		</div>
@@ -409,7 +409,7 @@
 			<!-- Main Menu -->
 			<div class="side-menu-container">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="${pageContext.request.contextPath}/adminCheck/adminPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
+					<li class="active"><a href="${pageContext.request.contextPath}/mainPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
 					<li><a href="${pageContext.request.contextPath}/memberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
 					<li><a href="${pageContext.request.contextPath}/productManagementController"><span class="glyphicon glyphicon-cloud"></span> 상품 정보</a></li>
 					<li><a href="${pageContext.request.contextPath}/chartListController"><span class="glyphicon glyphicon-signal"></span> 통계</a></li>

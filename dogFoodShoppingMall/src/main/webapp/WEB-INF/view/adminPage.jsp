@@ -367,7 +367,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">
+			<a href="${pageContext.request.contextPath}/adminCheck/adminPageController" class="navbar-brand"  >
 				Administrator
 			</a>
 		</div>
@@ -382,16 +382,11 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown ">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 						${sessionMemberId} 님 반갑습니다
 						<span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu">
-							<li class="dropdown-header">SETTINGS</li>
-							<li class=""><a href="#">Other Link</a></li>
-							<li class=""><a href="#">Other Link</a></li>
-							<li class=""><a href="#">Other Link</a></li>
-							<li class="divider"></li>
-							<li><a href="${pageContext.request.contextPath}/loginCheck/logoutController">Logout</a></li>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" role="menu">
+							<li class="dropdown-item"><a href="${pageContext.request.contextPath}/loginCheck/logoutController">Logout</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -408,7 +403,7 @@
 			<!-- Main Menu -->
 			<div class="side-menu-container">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="${pageContext.request.contextPath}/adminCheck/adminPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
+					<li class="active"><a href="${pageContext.request.contextPath}/mainPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
 					<li><a href="${pageContext.request.contextPath}/memberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
 					<li><a href="${pageContext.request.contextPath}/productManagementController"><span class="glyphicon glyphicon-cloud"></span> 상품 정보</a></li>
 					<li><a href="${pageContext.request.contextPath}/chartListController"><span class="glyphicon glyphicon-signal"></span> 통계</a></li>
@@ -421,7 +416,8 @@
   		<div class="col-md-10 content">
   			  <div class="panel panel-default">
 	<div class="panel-heading">
-		Dashboard
+		<h3>Dashboard</h3>
+		<h4>개밥천국 관리자 페이지</h4>
 	</div>
 	<div class="panel-body">
 		${level}
