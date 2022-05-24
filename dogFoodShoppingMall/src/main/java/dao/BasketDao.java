@@ -110,8 +110,8 @@ public class BasketDao {
 				+ "	LEFT JOIN basket b"
 				+ "		ON p.product_id = b.product_id"
 				+ " WHERE member_id = ?"
-				+ "	ORDER BY b.create_date DESC"
-				+ " GROUP BY p.product_id";
+				+ " GROUP BY productId"
+				+ "	ORDER BY b.create_date DESC";
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
