@@ -411,44 +411,8 @@
             <ul class="nav navbar-nav">
                <li class="active"><a href="${pageContext.request.contextPath}/adminPageController"><span class="glyphicon glyphicon-dashboard"></span>홈</a></li>
                <li><a href="${pageContext.request.contextPath}/memberListController"><span class="glyphicon glyphicon-plane"></span>회원정보</a></li>
-               <li><a href="${pageContext.request.contextPath}/chartListController"><span class="glyphicon glyphicon-cloud"></span>차트리스트</a></li>
-
-               <!-- Dropdown-->
-               <li class="panel panel-default" id="dropdown">
-                  <a data-toggle="collapse" href="#dropdown-lvl1">
-                     <span class="glyphicon glyphicon-user"></span> Sub Level <span class="caret"></span>
-                  </a>
-
-                  <!-- Dropdown level 1 -->
-                  <div id="dropdown-lvl1" class="panel-collapse collapse">
-                     <div class="panel-body">
-                        <ul class="nav navbar-nav">
-                           <li><a href="#">Link</a></li>
-                           <li><a href="#">Link</a></li>
-                           <li><a href="#">Link</a></li>
-
-                           <!-- Dropdown level 2 -->
-                           <li class="panel panel-default" id="dropdown">
-                              <a data-toggle="collapse" href="#dropdown-lvl2">
-                                 <span class="glyphicon glyphicon-off"></span> Sub Level <span class="caret"></span>
-                              </a>
-                              <div id="dropdown-lvl2" class="panel-collapse collapse">
-                                 <div class="panel-body">
-                                    <ul class="nav navbar-nav">
-                                       <li><a href="#">Link</a></li>
-                                       <li><a href="#">Link</a></li>
-                                       <li><a href="#">Link</a></li>
-                                    </ul>
-                                 </div>
-                              </div>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </li>
-
-               <li><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
-
+					<li><a href="${pageContext.request.contextPath}/productManagementController"><span class="glyphicon glyphicon-cloud"></span> 상품 정보</a></li>
+					<li><a href="${pageContext.request.contextPath}/chartListController"><span class="glyphicon glyphicon-signal"></span> 통계</a></li>
             </ul>
          </div><!-- /.navbar-collapse -->
       </nav>
