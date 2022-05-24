@@ -48,10 +48,8 @@ public class AdminCheckFilter implements Filter {
 			}
 		} else if(level == 0) {
 			System.out.println("AdminCheckFilter : 관리자");
-		} else {
-			return;
 		}
-		chain.doFilter(request, response);
+			chain.doFilter(request, response);
 	}
 
 
