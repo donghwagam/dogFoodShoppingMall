@@ -25,6 +25,7 @@ public class LoginCheckFilter implements Filter { // 로그인 안되어있으�
 			if(memberId == null) { // 로그인이 안돼있으면
 				if(response instanceof HttpServletResponse) {
 					((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/loginDenied/loginController"); // 로그인 페이지로 이동
+					
 				} 
 			}
 	     }

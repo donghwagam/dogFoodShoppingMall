@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,13 +15,17 @@ import javax.servlet.http.HttpSession;
 import dao.MemberDao;
 import vo.Member;
 
-@WebServlet("/loginDenied/loginController")
+@WebServlet("/loginController")
 public class LoginController extends HttpServlet {
 
 	private MemberDao memberDao; // 멤버변수 MemberDao 선언
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	int productId = 0;
+	if (request.getParameter("productId") != null) {
+		productId = Integer.parseInt(request.getParameter("productId"));
+	}
+	System.out.println("LoginController productId : " + productId);
 		Cookie[] cookies = request.getCookies(); // 쿠키 받아오기
 		
 		for(Cookie c : cookies) { // 받아온 쿠키들 중에서 이름이 cookieId인 쿠키 정보 저장
@@ -27,6 +33,8 @@ public class LoginController extends HttpServlet {
 				request.setAttribute("cookieId", c.getValue());
 			}
 		} 
+		
+		request.setAttribute("productId", productId);
 		
 		request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response); // 로그인 페이지 연결
 	}
@@ -40,6 +48,11 @@ public class LoginController extends HttpServlet {
 		
 		if(request.getParameter("idSave") != null) { // id저장을 체크했으면 idSave를 true로 변경
 			idSave = true;
+		}
+		
+		int productId = 0;
+		if (request.getParameter("productId") != null) {
+			productId = Integer.parseInt(request.getParameter("productId"));
 		}
 		
 		Member member = new Member(); // member 객체 생성 
@@ -63,20 +76,25 @@ public class LoginController extends HttpServlet {
 		}
 		
 		//pw_update_date 불러오기
-		int diffDay = memberDao.selectDiffDay(memberId);
-        
+		Map<String, Object> map = this.memberDao.selectMemberInfo(memberId);
+		String pwUpdateDate = (String) map.get("pwUpdateDate");
+		
+		// 현재 날짜 구하기 (시스템 시계기준)
+		LocalDate now = LocalDate.now();
+		System.out.println("now : "+now);
+		
 		// 디버깅(memberId, memberPw, pwUpdateDate)
 		System.out.println("LoginController.doPost() memberId : " + memberId);
 		System.out.println("LoginController.doPost() memberPw : " + memberPw);
-		System.out.println("LoginController.doPost() diffDay : " + diffDay);		
+		System.out.println("LoginController.doPost() pwUpdateDate : " + pwUpdateDate);		
 		
-		if(diffDay > 90) { // 비밀번호 안바꾼지 3달이 넘었다면
-			String msg = "changePw";
-			request.setAttribute("msg", msg);
-			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response); // 로그인 페이지 연결
-		} else {
+		if (productId == 0) {
 			response.sendRedirect(request.getContextPath()+"/mainPageController"); // 로그인 성공 후 메인페이지로 이동
+		} else {
+			response.sendRedirect(request.getContextPath()+"/mainProductOneController?productId=" + productId);
 		}
+		
+	
 	}
 
 }

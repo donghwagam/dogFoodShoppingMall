@@ -33,7 +33,6 @@ public class MainProductOneController extends HttpServlet {
 		System.out.println("MainProductOneController.doGet() memberId : " + memberId);
 		
 		request.setAttribute("productId", productId);
-		request.setAttribute("memberId", memberId);
 		
 		this.mainProductDao = new MainProductDao(); // dao 호출
 		
@@ -68,7 +67,8 @@ public class MainProductOneController extends HttpServlet {
 		request.setAttribute("categoryList", categoryList);
 		request.setAttribute("photoList", photoList);
 		request.setAttribute("list", list);
-	
+		request.setAttribute("memberId", memberId);
+		
 		request.getRequestDispatcher("/WEB-INF/view/mainProductOne.jsp").forward(request, response);
 	}
 

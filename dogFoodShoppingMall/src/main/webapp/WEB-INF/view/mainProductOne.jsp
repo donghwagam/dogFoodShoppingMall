@@ -269,6 +269,11 @@
                         </div>
                         <div class="product__details__price">${list.price} 원</div>
                         <p>${list.info} </p>
+                        <c:choose>
+                        <c:when test="${memberId == null}">
+                        <a href="${pageContext.request.contextPath}/loginController?productId=${productId}" class="primary-btn">구매하기</a>
+                        </c:when>
+                        <c:otherwise>	
                         <form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseByProductController">
 	                        <div class="product__details__quantity">
 	                            <div class="quantity">
@@ -280,6 +285,9 @@
 	                        <input type="hidden" name="productId" value="${productId}">
 	                        <button class="primary-btn" type="submit">구매하기</button>
                         </form>
+                        </c:otherwise>
+                        
+                        </c:choose>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>수량 </b> <span>
