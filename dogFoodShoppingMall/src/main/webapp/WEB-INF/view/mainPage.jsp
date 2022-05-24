@@ -174,7 +174,7 @@
 				<div class="col-lg-6">
 					<nav class="header__menu">
 						<ul>
-							<li class="active"><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
+							<li><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
 							<li><a href="${pageContext.request.contextPath}/noticeController">고객센터</a></li>
 						</ul>
 					</nav>
