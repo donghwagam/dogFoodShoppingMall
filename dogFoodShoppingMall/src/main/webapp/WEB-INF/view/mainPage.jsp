@@ -323,7 +323,7 @@
 								<c:forEach var="l" items="${latestProductList}" begin="0" end="2" step="1"> 
 								<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${l.productId}" class="latest-product__item">
 										<div class="latest-product__item_pic">
-											<img src="${pageContext.request.contextPath}/images/${l.photoName}" width="200" height="200" alt="">
+											<img src="${pageContext.request.contextPath}/images/${l.photoName}" width="100" height="400" alt="">
 										</div>
 								</a>
 									<div class="latest-product__item_text">
@@ -336,7 +336,7 @@
 							<c:forEach var="l" items="${latestProductList}" begin="3" end="5" step="1">
 								<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${l.productId}" class="latest-product__item">
 										<div class="latest-product__item_pic">
-												<img src="${pageContext.request.contextPath}/images/${l.photoName}" width="200" height="200" alt="">
+												<img src="${pageContext.request.contextPath}/images/${l.photoName}" width="100" height="400" alt="">
 										</div>
 								</a>
 									<div class="latest-product__item_text">
@@ -358,7 +358,7 @@
 									<c:forEach var="t" items="${topRateList}" begin="0" end="2" step="1">
 									<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${t.productId}" class="latest-product__item">
 										<div class="latest-product__item_pic">
-											<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="200" height="200" alt="">
+											<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="100" height="400" alt="">
 										</div>
 									</a>
 									<div class="latest-product__item_text">
@@ -373,7 +373,7 @@
 							<c:forEach var="t" items="${topRateList}" begin="3" end="5" step="1">
 							<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${t.productId}" class="latest-product__item">
 										<div class="latest-product__item_pic">
-												<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="200" height="200" alt="">
+												<img src="${pageContext.request.contextPath}/images/${t.photoName}" width="100" height="400" alt="">
 										</div>
 							</a>
 									<div class="latest-product__item_text">
