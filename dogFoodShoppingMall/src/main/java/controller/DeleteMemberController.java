@@ -36,6 +36,12 @@ public class DeleteMemberController extends HttpServlet {
       
       if(memberRow == 1) {
          System.out.println("회원 탈퇴 성공!");
+         int acitveRow = memberDao.updateMemberActive(memberId);
+         if(acitveRow == 1) {
+        	 System.out.println("아이디 비활성화 성공");
+         } else {
+        	 System.out.println("아이디 비활성화 실패");
+         }
          request.getSession().invalidate(); // 기존 세션을 지우고 새로운 세션공간을 부여 //메인페이지로 갔을때 로그인해제 구현하기 위함
          response.sendRedirect(request.getContextPath()+"/mainPageController");
       } else {

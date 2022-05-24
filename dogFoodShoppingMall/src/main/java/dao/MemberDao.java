@@ -8,6 +8,35 @@ import vo.Member;
 
 public class MemberDao {
 	
+	public int updateMemberActive(String memberId) {
+		int row = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		
+		String sql = "UPDATE member"
+				+ "	  SET active='0'"
+				+ "	  WHERE member_id = ?";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			row = stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return row;
+	}
+	
 	public Map<String, Object> selectMemberInfo(String memberId) {
 		
 		Connection conn = null;
