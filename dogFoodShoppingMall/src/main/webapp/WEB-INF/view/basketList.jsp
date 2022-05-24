@@ -253,36 +253,35 @@
                             	
                             	<!--  비회원으로 들어왔을때 -->
 								<c:if test="${sessionMemberId == null}">
-								<c:forEach var="g" items="${guestBasketList}">
-                                <tr>
-                                    <td class="shoping__cart__item"><img src="${pageContext.request.contextPath}/images/${g.photoName}" alt=""></td> 
-                                    <td>${g.productName} ${g.gram}g</td>
-                                    <td class="shoping__cart__price">
-                                       ${g.price}원
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" name="basketCount"  value="${g.quantity}">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                       ${g.quantity*g.price}원
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                              
-                                </c:forEach>
+									<c:forEach var="g" items="${guestBasketList}">
+		                                <tr>
+		                                    <td class="shoping__cart__item"><img src="${pageContext.request.contextPath}/images/${g.photoName}" width="200" height="200"></td> 
+		                                    <td>${g.productName} ${g.gram}g</td>
+		                                    <td class="shoping__cart__price">
+		                                       ${g.price}원
+		                                    </td>
+		                                    <td class="shoping__cart__quantity">
+		                                        <div class="quantity">
+		                                            <div class="pro-qty">
+		                                                <input type="text" name="basketCount"  value="${g.quantity}">
+		                                            </div>
+		                                        </div>
+		                                    </td>
+		                                    <td class="shoping__cart__price">
+		                                       ${g.quantity*g.price}원
+		                                    </td>
+		                                    <td>
+												<a href="${pageContext.request.contextPath}/removeGuestBasketController?productId=${g.productId}" class="text-secondary">X</a>
+											</td>
+		                                </tr>
+	                                </c:forEach>
                                 </c:if>
                                 
                                 <!--  회원으로 들어왔을때 -->
 								<c:forEach var="m" items="${memberBasketList}">
 									<tr>
 										<td>
-											<img src = "${pageContext.request.contextPath}/images/${m.photoName}"  width="200" height="200"> 
+											<img src="${pageContext.request.contextPath}/images/${m.photoName}" width="200" height="200"> 
 										</td>
 										<td>
 											${m.productName} ${m.gram}g
@@ -296,7 +295,7 @@
 										<td class="shoping__cart__price">
                                       		 ${m.quantity*m.price}원
                                    		 </td>
-										<td >
+										<td>
 											<a href="${pageContext.request.contextPath}/removeMemberBasketController?productId=${m.productId}" class="text-secondary">X</a>
 										</td>
 									</tr>

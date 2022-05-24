@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,21 +63,20 @@ public class LoginController extends HttpServlet {
 		}
 		
 		//pw_update_date 불러오기
-		Map<String, Object> map = this.memberDao.selectMemberInfo(memberId);
-		String pwUpdateDate = (String) map.get("pwUpdateDate");
-		
-		// 현재 날짜 구하기 (시스템 시계기준)
-		LocalDate now = LocalDate.now();
-		System.out.println("now : "+now);
-		
+		int diffDay = memberDao.selectDiffDay(memberId);
+        
 		// 디버깅(memberId, memberPw, pwUpdateDate)
 		System.out.println("LoginController.doPost() memberId : " + memberId);
 		System.out.println("LoginController.doPost() memberPw : " + memberPw);
-		System.out.println("LoginController.doPost() pwUpdateDate : " + pwUpdateDate);		
+		System.out.println("LoginController.doPost() diffDay : " + diffDay);		
 		
-		response.sendRedirect(request.getContextPath()+"/mainPageController"); // 로그인 성공 후 메인페이지로 이동
-		
-	
+		if(diffDay > 90) { // 비밀번호 안바꾼지 3달이 넘었다면
+			String msg = "changePw";
+			request.setAttribute("msg", msg);
+			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response); // 로그인 페이지 연결
+		} else {
+			response.sendRedirect(request.getContextPath()+"/mainPageController"); // 로그인 성공 후 메인페이지로 이동
+		}
 	}
 
 }
