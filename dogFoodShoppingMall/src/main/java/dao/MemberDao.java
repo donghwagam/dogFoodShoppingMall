@@ -9,6 +9,43 @@ import vo.Member;
 public class MemberDao {
 	
 	
+	public String selectMemberActive(String memberId) {
+		
+		String active = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT active"
+				+ " FROM member"
+				+ " WHERE member_id = ?";
+	
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				active = rs.getString("active");
+				System.out.println("selectMemberActive() active : " + active);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return active;
+	}
+	
+	
    //회원정보 모두 들고오는 메서드
    public Map<String, Object> selectMemberInfo(String memberId) {
       
