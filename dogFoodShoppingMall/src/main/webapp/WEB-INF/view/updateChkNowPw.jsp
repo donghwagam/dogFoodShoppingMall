@@ -207,8 +207,8 @@
                   </div>
                </div>
                <div class="col-9">
-                  <h3 class="text-success bottom">비밀번호 수정</h3>
-                     <form id="deleteMemberForm" method="post" action="${pageContext.request.contextPath}/updateMemberPwByMyPageController">
+                  <h3 class="text-success bottom">비밀번호 확인</h3>
+                     <form id="updateChkNowPwForm" method="post" action="${pageContext.request.contextPath}/updateChkNowPwController">
                         <table class="table">
                            <tr>
                               <th>아이디</th>
@@ -216,17 +216,13 @@
                            </tr>
                            <tr>
                               <th>현재 비밀번호</th>
-                              <td><input name="nowPw" type="text" class="form-control"></td>
+                              <td>
+                              	<input name="nowPw" id="nowPw" type="password" class="form-control">
+                              	<span id="nowPwHelper" class="helper"></span>
+                              </td>
                            </tr>
-                           <tr>
-                              <th>변경할 비밀번호</th>
-                              <td><input name="changePw" type="text" class="form-control"></td>
-                           <tr>
-                              <th>비밀번호 확인</th>
-                              <td><input name="changePwChk" type="text" class="form-control"></td>
-                           </tr>
-                        </table>
-                        <button type="submit" class="btn btn-dark btn-sm">수정하기</button>
+                          </table>
+                        <button type="button" id="updateMemberPw" class="site-btn float-right">수정하기</button>
                      </form>
                </div>
             </div>
@@ -325,9 +321,16 @@
    <script src="./Resources/js/owl.carousel.min.js"></script>
    <script src="./Resources/js/main.js"></script>
    <script>
-		$('#deleteMember').click(function() {
-			$('#deleteMemberForm').submit();
+		$('#nowPw').blur(function() {
+			if($('#nowPw').val() == '') {
+				$('#nowPwHelper').text('비밀번호를 입력해주세요.');
+				$('#nowPw').focus();
+			} else {
+				$('#nowPwHelper').text('');
+				$('#updateChkNowPwForm').submit();
+			}
 		})
+ 
    </script>
 
 

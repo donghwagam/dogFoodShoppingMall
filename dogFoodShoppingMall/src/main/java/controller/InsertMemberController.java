@@ -72,8 +72,7 @@ public class InsertMemberController extends HttpServlet {
 
 		
 		this.memberDao = new MemberDao(); // 메서드 사용을 위한 MemberDao 객체생성
-		this.memberDao.insertMember(member); // 회원가입 메서드 실행
-		this.memberDao.insertPwRecord(member); // 회원가입 후 비밀번호 이력테이블에 비밀번호 추가 
+		this.memberDao.insertMember(member); // 회원가입 메서드 실행 
 		
 		System.out.println("회원가입 성공"); // 디버깅
 		response.sendRedirect(request.getContextPath()+"/loginDenied/loginController"); // 회원가입 성공 후 로그인 페이지로 이동

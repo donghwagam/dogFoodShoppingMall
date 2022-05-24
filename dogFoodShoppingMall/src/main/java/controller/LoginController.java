@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -61,9 +64,18 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 		
-		// 디버깅(memberId, memberPw)
+		//pw_update_date 불러오기
+		Map<String, Object> map = this.memberDao.selectMemberInfo(memberId);
+		String pwUpdateDate = (String) map.get("pwUpdateDate");
+		
+		// 현재 날짜 구하기 (시스템 시계기준)
+		LocalDate now = LocalDate.now();
+		System.out.println("now : "+now);
+		
+		// 디버깅(memberId, memberPw, pwUpdateDate)
 		System.out.println("LoginController.doPost() memberId : " + memberId);
 		System.out.println("LoginController.doPost() memberPw : " + memberPw);
+		System.out.println("LoginController.doPost() pwUpdateDate : " + pwUpdateDate);		
 		
 		response.sendRedirect(request.getContextPath()+"/mainPageController"); // 로그인 성공 후 메인페이지로 이동
 		

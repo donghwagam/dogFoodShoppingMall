@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.MemberDao;
 import vo.Member;
@@ -17,6 +18,11 @@ public class UpdateMemberPwController extends HttpServlet {
 	private MemberDao memberDao; // 멤버변수 MemberDao 선언
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String msg = null;
+		if(request.getParameter("msg")!= null) {
+			msg = request.getParameter("msg");
+		}
 		// 비밀번호 찾기(SearchMemberPwController) 에서 넘어온 정보 저장
 		String memberId = request.getParameter("memberId"); // 아이디
 		String phone = request.getParameter("phone"); // 핸드폰번호
@@ -26,6 +32,7 @@ public class UpdateMemberPwController extends HttpServlet {
 		System.out.println("updateMemberPwController.doGet() phone : " + phone);
 		
 		// request에 정보저장
+		request.setAttribute("msg", msg);
 		request.setAttribute("memberId", memberId); 
 		request.setAttribute("phone", phone);
 		
@@ -53,14 +60,14 @@ public class UpdateMemberPwController extends HttpServlet {
 		member.setMemberId(memberId);
 		member.setPhone(phone);
 		
-		memberDao.updateMemberPw(member); // 비밀번호 변경 메서드 실행
-		memberDao.insertPwRecordByUpdate(member); // 비밀번호 변경 후 이력테이블에도 변경한 비밀번호 추가
-		
-		System.out.println("비밀번호 수정 완료"); // 디버깅 
-		
-		response.sendRedirect(request.getContextPath()+"/loginDenied/loginController"); // 비밀번호 변경 완료 후 로그인 페이지로 이동
-		
-		
+		int row = memberDao.updateMemberPw(member); // 비밀번호 변경 메서드 실행
+		if(row != 1) {
+			response.sendRedirect(request.getContextPath()+"/loginDenied/updateMemberPwController?msg=incorrectPw&memberId="+memberId+"&phone="+phone); // 비밀번호 변경 실패했으면 다시 updateMemberPwController로 보내기
+		} else {
+			System.out.println("비밀번호 수정 완료"); // 디버깅 
+			response.sendRedirect(request.getContextPath()+"/loginDenied/loginController"); // 비밀번호 변경 완료 후 로그인 페이지로 이동
+		}
+	
 	}
 
 }

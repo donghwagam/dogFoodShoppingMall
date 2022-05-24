@@ -201,7 +201,7 @@
 						<ul >
                             <li><a href="${pageContext.request.contextPath}/memberOneController">회원/애견 정보</a></li>
 							<li><a href="${pageContext.request.contextPath}/purchaseMemberListController">구매내역</a></li>
-							<li><a href="${pageContext.request.contextPath}/adminCheck/adminPageController?level=${level}">관리자페이지</a></li>
+							<li><a href="${pageContext.request.contextPath}/adminCheck/adminPageController">관리자페이지</a></li>
 						</ul>
 					</div>
 				</div>
@@ -218,7 +218,7 @@
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td>**** <a class="float-right" href="${pageContext.request.contextPath}/updateMemberPwByMyPageController">수정</a></td>
+							<td>**** <a class="float-right" href="${pageContext.request.contextPath}/updateChkNowPwController">수정</a></td>
 						</tr>
 						<tr>
 							<th>이름</th>

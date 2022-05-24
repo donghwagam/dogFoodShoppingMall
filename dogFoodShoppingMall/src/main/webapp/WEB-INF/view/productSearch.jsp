@@ -129,14 +129,16 @@
     
    <!-- Search Box Begin -->
    <div class="container">
-      <form method="post" action="${pageContext.request.contextPath}/productSearchController">
+      <form method="get" action="${pageContext.request.contextPath}/productSearchController">
          <table class="table table-bordered" style = "margin-top : 50px">
             <tr>
                <td>연령</td>
                <td>
                   <input type="radio" name="age" value="${a.name}" checked="checked">선택안함
                   <c:forEach var="a" items="${ageList}">
-                        <input type="radio" name="age" value="${a.categoryId}"> ${a.name}
+                        <input type="radio" name="age" value="${a.categoryId}"
+                        	<c:if test="${a.categoryId eq ageId}">checked</c:if>
+                        /> ${a.name}
                   </c:forEach>  
                </td>
             </tr>
@@ -146,7 +148,9 @@
                   <select name="component" id="component">
                      <option value="">선택없음</option>
                      <c:forEach var="c" items="${componentList}">
-                        <option value="${c.componentId}">${c.name}</option>
+                        <option value="${c.componentId}"
+                        	<c:if test="${c.componentId eq componentId}">selected</c:if>
+                        />${c.name}</option>
                      </c:forEach>
                   </select>
                </td>
@@ -156,7 +160,9 @@
                <td>
                   <input type="radio" name="feedType" value="" checked="checked">선택안함
                      <c:forEach var="t" items="${feedTypeList}">
-                        <input type="radio" name="feedType" value="${t.categoryId}">${t.name}
+                        <input type="radio" name="feedType" value="${t.categoryId}"
+                        	<c:if test="${t.categoryId eq feedTypeId}">checked</c:if>
+                        />${t.name}
                      </c:forEach>
                </td>
             </tr>
@@ -164,9 +170,9 @@
                <td>알갱이 크기</td>
                <td>
                   <input type="radio" name="size" value="" checked="checked">선택안함
-                  <input type="radio" name="size" value="소">소
-                  <input type="radio" name="size" value="중">중
-                  <input type="radio" name="size" value="대">대
+                  <input type="radio" name="size" value="소" <c:if test="${'소' eq size}">checked</c:if> />소
+                  <input type="radio" name="size" value="중" <c:if test="${'중' eq size}">checked</c:if> />중
+                  <input type="radio" name="size" value="대" <c:if test="${'대' eq size}">checked</c:if> />대
                </td>
             </tr>
          </table>
@@ -174,39 +180,8 @@
       </form>
  	</div>
    <!-- Search Box End -->
-   
-   <!-- 검색을 안했다면 -->  
-   <!-- 최신순으로 리스트 출력 -->
-		<div class = "container">
-			<div class = "row">
-			  <c:forEach var="s" items="${searchList}">
-					<div class="col-lg-4 col-md-4 col-sm-4">
-						<div class="product__item">
-							<div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath}/images/${s.photoName}">
-								<ul class="product__item__pic__hover">
-									<c:choose>
-										<c:when test="${sessionMemberId== null}">
-					   						<li><a href="${pageContext.request.contextPath}/addGuestBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a></li>
-						   				</c:when>
-						   				<c:otherwise>
-						   					<li><a href="${pageContext.request.contextPath}/addMemberBasketController?productId=${s.productId}"><i class="fa fa-shopping-cart"></i></a></li>
-						   				</c:otherwise>
-						   			</c:choose>
-								</ul>
-							</div>
-							<div class="product__item__text">
-								<a href="${pageContext.request.contextPath}/mainProductOneController?productId=${s.productId}">
-									<h6>${s.productName} ${s.gram}g</h6>
-				  					<h5>$ ${s.price}</h5>
-				  				</a>
-							</div>
-						 </div>
-					</div>
-			  </c:forEach>
-		   </div>
-		</div>
-   <!-- 사용자가 검색을 했다면 -->
-   <!--  검색조건에 맞는 리스트 출력 --> 
+
+   <!-- 사용자가 검색을 했다면 검색 조건 맞춰서 출력 검색 안했을시는 최신순 출력-->
    <div class = "container">
 		<div class = "row">
 		   <c:forEach var="sc" items="${searchCategoryList}">
