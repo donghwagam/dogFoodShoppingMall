@@ -304,7 +304,9 @@
                            	 </tbody>
                          </table>
                          
-                         <button class="float-right site-btn top" type="submit">결제하기</button>
+                        <c:if test="${null eq logoutBasketEmpty || null eq loginBasketEmpty}">
+                           <button class="float-right site-btn top" type="submit">결제하기</button>
+                        </c:if>
                        </form>
                   		
               	   		<div >
