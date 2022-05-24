@@ -12,7 +12,7 @@ import dao.MemberDao;
 import vo.Member;
 
 
-@WebServlet("/loginDenied/updateMemberPwController")
+@WebServlet("/updateMemberPwController")
 public class UpdateMemberPwController extends HttpServlet {
 	
 	private MemberDao memberDao; // 멤버변수 MemberDao 선언
@@ -62,10 +62,10 @@ public class UpdateMemberPwController extends HttpServlet {
 		
 		int row = memberDao.updateMemberPw(member); // 비밀번호 변경 메서드 실행
 		if(row != 1) {
-			response.sendRedirect(request.getContextPath()+"/loginDenied/updateMemberPwController?msg=incorrectPw&memberId="+memberId+"&phone="+phone); // 비밀번호 변경 실패했으면 다시 updateMemberPwController로 보내기
+			response.sendRedirect(request.getContextPath()+"/updateMemberPwController?msg=incorrectPw&memberId="+memberId+"&phone="+phone); // 비밀번호 변경 실패했으면 다시 updateMemberPwController로 보내기
 		} else {
 			System.out.println("비밀번호 수정 완료"); // 디버깅 
-			response.sendRedirect(request.getContextPath()+"/loginDenied/loginController"); // 비밀번호 변경 완료 후 로그인 페이지로 이동
+			response.sendRedirect(request.getContextPath()+"/loginController"); // 비밀번호 변경 완료 후 로그인 페이지로 이동
 		}
 	
 	}

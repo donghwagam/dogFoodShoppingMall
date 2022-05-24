@@ -23,7 +23,7 @@
        <div class="row">
            <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
                <legend style="text-align:center;">비밀번호 찾기</legend>
-               <form id="searchMemberPwForm" action="${pageContext.request.contextPath}/loginDenied/searchMemberPwController" method="post" class="form" role="form">
+               <form id="searchMemberPwForm" action="${pageContext.request.contextPath}/searchMemberPwController" method="post" class="form" role="form">
                   <input class="form-control" id="memberId" name="memberId" placeholder="아이디" type="text" required/>
                   <span id="memberIdHelper" class="helper"></span>
                   <input class="form-control" id="name" name="name" placeholder="이름" type="text" required/>

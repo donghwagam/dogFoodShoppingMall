@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.MemberDao;
 import vo.Member;
 
-@WebServlet("/loginDenied/searchMemberIdController")
+@WebServlet("/searchMemberIdController")
 public class SearchMemberIdController extends HttpServlet {
 	private MemberDao memberDao; // 멤버변수 MemberDao 선언
 	

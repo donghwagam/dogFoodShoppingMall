@@ -124,7 +124,7 @@
             <div class="panel">
                <h2>로그인</h2><br>
             </div>
-            <form method="post" action="${pageContext.request.contextPath}/loginDenied/loginController" id="Login">
+            <form method="post" action="${pageContext.request.contextPath}/loginController" id="Login">
                <div class="form-group">
                   <input type="text" class="form-control" name="memberId" id="memberId" value="${cookieId}" placeholder="아이디">
                </div>
@@ -133,9 +133,9 @@
                </div>
                <div class="forgot" style="text-align:right;">
                   <input type="checkbox" name="idSave"> 아이디 저장<br>
-                  <a href="${pageContext.request.contextPath}/loginDenied/insertMemberController" >회원가입</a> /
-                  <a href="${pageContext.request.contextPath}/loginDenied/searchMemberIdController" >아이디 찾기</a> /
-                  <a href="${pageContext.request.contextPath}/loginDenied/searchMemberPwController" >비밀번호 찾기</a>  
+                  <a href="${pageContext.request.contextPath}/insertMemberController" >회원가입</a> /
+                  <a href="${pageContext.request.contextPath}/searchMemberIdController" >아이디 찾기</a> /
+                  <a href="${pageContext.request.contextPath}/searchMemberPwController" >비밀번호 찾기</a>  
                </div>
                <button type="submit" class="btn btn-primary">로그인</button>
             </form>

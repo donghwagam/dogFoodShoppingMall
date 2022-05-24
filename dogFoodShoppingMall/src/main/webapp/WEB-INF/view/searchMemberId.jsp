@@ -21,7 +21,7 @@
        <div class="row">
            <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
                <legend style="text-align:center;">아이디 찾기</legend>
-               <form id="searchMemberIdForm" action="${pageContext.request.contextPath}/loginDenied/searchMemberIdController" method="post" class="form" role="form">
+               <form id="searchMemberIdForm" action="${pageContext.request.contextPath}/searchMemberIdController" method="post" class="form" role="form">
                   <input class="form-control" id="name" name="name" placeholder="이름" type="text" required/>
                   <span id="nameHelper" class="helper"></span>
                   <input class="form-control" id="phone" name="phone" placeholder="전화번호" type="text"/>
@@ -33,7 +33,7 @@
                       <br>
                       <br>
                       <input class="form-control" type = "text" value="${memberId}" readonly="readonly">
-                      <a href="${pageContext.request.contextPath}/loginDenied/loginController" class="btn btn-lg btn-primary btn-block">로그인 하러가기</a>
+                      <a href="${pageContext.request.contextPath}/loginController" class="btn btn-lg btn-primary btn-block">로그인 하러가기</a>
                   </c:if>
                </form>
            </div>

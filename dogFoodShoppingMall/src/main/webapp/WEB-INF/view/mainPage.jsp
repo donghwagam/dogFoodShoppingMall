@@ -69,7 +69,7 @@
 			<div class="header__top__right__auth">
 				<c:choose>
 					<c:when test="${sessionMemberId == null}">
-						<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
+						<a href="${pageContext.request.contextPath}/loginController"><i class="fa fa-user"></i> Login</a>
 					</c:when>
 					<c:otherwise>
 						<div>
@@ -146,7 +146,7 @@
 							<!--sessionMemberId 값이 null이면 로그인 출력/ null이 아니면 마이페이지,로그아웃 버튼 출력  -->
 								<c:choose> 
 									<c:when test="${sessionMemberId == null}">
-										<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
+										<a href="${pageContext.request.contextPath}/loginController"><i class="fa fa-user"></i> Login</a>
 									</c:when>
 									<c:otherwise>
 										<div>

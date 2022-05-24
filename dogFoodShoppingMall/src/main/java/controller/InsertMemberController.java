@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import dao.MemberDao;
 import vo.Member;
 
-@WebServlet("/loginDenied/insertMemberController")
+@WebServlet("/insertMemberController")
 public class InsertMemberController extends HttpServlet {
 	
 	private MemberDao memberDao; // 멤버변수 MemberDao 선언
@@ -75,7 +75,7 @@ public class InsertMemberController extends HttpServlet {
 		this.memberDao.insertMember(member); // 회원가입 메서드 실행 
 		
 		System.out.println("회원가입 성공"); // 디버깅
-		response.sendRedirect(request.getContextPath()+"/loginDenied/loginController"); // 회원가입 성공 후 로그인 페이지로 이동
+		response.sendRedirect(request.getContextPath()+"/loginController"); // 회원가입 성공 후 로그인 페이지로 이동
 	}
 
 }

@@ -31,7 +31,7 @@ body {
       <div class="row">
          <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
             <legend style="text-align: center;">비밀번호 변경하기</legend>
-            <form id="updateMemberIdForm" action="${pageContext.request.contextPath}/loginDenied/updateMemberPwController" method="post" class="form" role="form">
+            <form id="updateMemberIdForm" action="${pageContext.request.contextPath}/updateMemberPwController" method="post" class="form" role="form">
                <input type="hidden" name="memberId" value="${memberId}">
                <input type="hidden" name="phone" value="${phone}">
                

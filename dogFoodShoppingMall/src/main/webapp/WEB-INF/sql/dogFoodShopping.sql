@@ -20,15 +20,13 @@ USE `shopping`;
 -- 테이블 shopping.address 구조 내보내기
 CREATE TABLE IF NOT EXISTS `address` (
   `address_id` int(11) NOT NULL AUTO_INCREMENT,
-  `zip_code` char(5) NOT NULL DEFAULT '' COMMENT '우편번호',
-  `province` varchar(30) NOT NULL DEFAULT '' COMMENT '시도',
-  `city` varchar(30) NOT NULL DEFAULT '' COMMENT '시군구',
-  `town` varchar(30) NOT NULL DEFAULT '' COMMENT '읍면',
-  `street` varchar(50) NOT NULL DEFAULT '' COMMENT '도로명',
-  `building1` varchar(5) NOT NULL DEFAULT '' COMMENT '건물번호본번',
-  `building2` varchar(5) NOT NULL DEFAULT '' COMMENT '건물번호부번',
+  `zip_code` char(5) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '우편번호',
+  `province` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '시도',
+  `city` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '시군구',
+  `town` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '읍면',
+  `street` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '도로명',
   PRIMARY KEY (`address_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6337163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6337150 DEFAULT CHARSET=utf8mb4;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -40,6 +38,21 @@ CREATE TABLE IF NOT EXISTS `allergy` (
   `update_date` datetime NOT NULL,
   PRIMARY KEY (`allergy_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 shopping.basket 구조 내보내기
+CREATE TABLE IF NOT EXISTS `basket` (
+  `product_id` int(11) NOT NULL,
+  `member_id` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `create_date` datetime NOT NULL,
+  `update_date` datetime NOT NULL,
+  PRIMARY KEY (`product_id`,`member_id`),
+  KEY `FK_basket_member_id` (`member_id`),
+  CONSTRAINT `FK_basket_member_id` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_basket_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -102,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `detail_addr` varchar(100) NOT NULL,
   `create_date` datetime NOT NULL,
   `update_date` datetime NOT NULL,
+  `pw_update_date` datetime NOT NULL,
   PRIMARY KEY (`member_id`),
   KEY `FK_member_address` (`address_id`),
   CONSTRAINT `FK_member_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`address_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -114,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `member_dog` (
   `member_dog_id` int(11) NOT NULL AUTO_INCREMENT,
   `member_id` varchar(100) NOT NULL,
   `dog_id` int(11) NOT NULL,
+  `dog_name` varchar(50) NOT NULL,
   `birth` varchar(50) NOT NULL,
   `weight` int(11) NOT NULL,
   `create_date` datetime NOT NULL,
@@ -140,17 +155,25 @@ CREATE TABLE IF NOT EXISTS `member_dog_allergy` (
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
+-- 테이블 shopping.member_pw_record 구조 내보내기
+CREATE TABLE IF NOT EXISTS `member_pw_record` (
+  `member_id` varchar(50) NOT NULL,
+  `pw_record` varchar(50) NOT NULL,
+  `update_date` datetime NOT NULL,
+  PRIMARY KEY (`member_id`,`pw_record`),
+  CONSTRAINT `FK_member_pw_record_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
 -- 테이블 shopping.notice 구조 내보내기
 CREATE TABLE IF NOT EXISTS `notice` (
   `notice_id` int(11) NOT NULL AUTO_INCREMENT,
-  `member_id` varchar(100) NOT NULL,
-  `title` varchar(100) NOT NULL,
+  `notice_title` varchar(100) NOT NULL,
   `notice_content` text NOT NULL,
   `create_date` datetime NOT NULL,
   `update_date` datetime NOT NULL,
-  PRIMARY KEY (`notice_id`),
-  KEY `FK_notice_member` (`member_id`),
-  CONSTRAINT `FK_notice_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`notice_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
@@ -162,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `price` int(11) NOT NULL,
   `gram` double NOT NULL,
   `rate` enum('로가닉','오가닉','홀리스틱','슈퍼프리미엄','프리미엄','일반') NOT NULL,
-  `feed_size` int(11) NOT NULL,
+  `feed_size` enum('소','중','대') NOT NULL,
   `origin` varchar(50) NOT NULL,
   `info` text NOT NULL,
   `stock` int(11) NOT NULL,
@@ -172,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`product_id`),
   KEY `FK__brand` (`brand_id`),
   CONSTRAINT `FK__brand` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`brand_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -207,16 +230,14 @@ CREATE TABLE IF NOT EXISTS `product_photo` (
   `photo_id` int(11) NOT NULL AUTO_INCREMENT,
   `original_name` varchar(200) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `photo` varchar(50) NOT NULL,
   `type` varchar(50) NOT NULL,
-  `volume` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `create_date` datetime NOT NULL,
   `update_date` datetime NOT NULL,
   PRIMARY KEY (`photo_id`),
   KEY `FK_photo_product` (`product_id`),
   CONSTRAINT `FK_photo_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -232,7 +253,20 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   PRIMARY KEY (`purchase_id`),
   KEY `FK_purchase_member` (`member_id`),
   CONSTRAINT `FK_purchase_member` FOREIGN KEY (`member_id`) REFERENCES `member` (`member_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+-- 내보낼 데이터가 선택되어 있지 않습니다.
+
+-- 테이블 shopping.purchase_address 구조 내보내기
+CREATE TABLE IF NOT EXISTS `purchase_address` (
+  `purchase_id` int(11) NOT NULL,
+  `purchase_name` varchar(50) NOT NULL,
+  `purchase_phone` varchar(50) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `update_date` datetime NOT NULL,
+  PRIMARY KEY (`purchase_id`),
+  CONSTRAINT `FK_purchase_address_purchase` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`purchase_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -254,7 +288,6 @@ CREATE TABLE IF NOT EXISTS `purchase_list` (
 CREATE TABLE IF NOT EXISTS `qna` (
   `qna_id` int(11) NOT NULL AUTO_INCREMENT,
   `qna_kind` enum('질문','답변') NOT NULL,
-  `title` varchar(100) NOT NULL,
   `memo` text NOT NULL,
   `member_id` varchar(100) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -272,14 +305,17 @@ CREATE TABLE IF NOT EXISTS `qna` (
 CREATE TABLE IF NOT EXISTS `review` (
   `review_id` int(11) NOT NULL AUTO_INCREMENT,
   `purchase_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `review_content` text NOT NULL,
-  `rate` int(11) NOT NULL,
+  `star` double NOT NULL,
   `create_date` datetime NOT NULL,
   PRIMARY KEY (`review_id`),
   KEY `FK_review_purchase` (`purchase_id`),
+  KEY `FK_review_product` (`product_id`),
+  CONSTRAINT `FK_review_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_review_purchase` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`purchase_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- 내보낼 데이터가 선택되어 있지 않습니다.
 
@@ -288,7 +324,6 @@ CREATE TABLE IF NOT EXISTS `review_photo` (
   `review_photo_id` int(11) NOT NULL AUTO_INCREMENT,
   `original_name` varchar(200) NOT NULL,
   `name` varchar(200) NOT NULL,
-  `review_photo` varchar(50) NOT NULL,
   `type` varchar(50) NOT NULL,
   `volume` int(11) NOT NULL,
   `review_id` int(11) NOT NULL,

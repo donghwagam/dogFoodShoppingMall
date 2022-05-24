@@ -11,7 +11,7 @@ import dao.MemberDao;
 import vo.Member;
 
 
-@WebServlet("/loginDenied/searchMemberPwController")
+@WebServlet("/searchMemberPwController")
 public class SearchMemberPwController extends HttpServlet {
 
 	private MemberDao memberDao; // 멤버변수 MemberDao 선언
@@ -44,11 +44,11 @@ public class SearchMemberPwController extends HttpServlet {
 		
 		
 		if(memberPw != null) { // 찾아온 비밀번호가 있으면 
-			response.sendRedirect(request.getContextPath()+"/loginDenied/updateMemberPwController?memberId="+memberId+"&phone="+phone); // 비밀번호 변경 페이지로 이동
+			response.sendRedirect(request.getContextPath()+"/updateMemberPwController?memberId="+memberId+"&phone="+phone); // 비밀번호 변경 페이지로 이동
 			return;
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/loginDenied/searchMemberPwController"); // 찾아온 비밀번호가 없으면 비밀번호 찾기 페이지로 이동
+		response.sendRedirect(request.getContextPath()+"/searchMemberPwController"); // 찾아온 비밀번호가 없으면 비밀번호 찾기 페이지로 이동
 	}
 
 }
