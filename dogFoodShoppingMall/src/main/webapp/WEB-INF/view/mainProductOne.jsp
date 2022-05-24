@@ -23,6 +23,13 @@
     <link rel="stylesheet" href="./Resources/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="./Resources/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="./Resources/css/style.css" type="text/css">
+    
+    <style>
+   .bottom {margin-bottom:15px;}
+   .top {margin-top:70px;}
+   .fs {font-size: 27px; font-weight: bold;}
+	</style>
+
 </head>
 
 <body>
@@ -154,18 +161,9 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="${pageContext.request.contextPath}/mainPageController">Home</a></li>
-                            <li class="active"><a href="./Resources/shop-grid.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./Resources/shop-details.html">Shop Details</a></li>
-                                    <li><a href="./Resources/shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./Resources/checkout.html">Check Out</a></li>
-                                    <li><a href="./Resources/blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./Resources/blog.html">Blog</a></li>
-                            <li><a href="./Resources/contact.html">Contact</a></li>
+                            <li><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
+                            <li><a href="${pageContext.request.contextPath}/noticeController">고객센터</a></li>
+                            
                         </ul>
                     </nav>
                 </div>
@@ -174,7 +172,6 @@
                         <ul>
                             <li>장바구니<a href="${pageContext.request.contextPath}/basketListController"><i class="fa fa-shopping-bag"></i> </a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
                 </div>
             </div>
@@ -207,38 +204,18 @@
 						
                     </div>
                 </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
-                                <span>support 24/7 time</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="./Resources/img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="./Resources/img/dogLayer.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Vegetable’s Package</h2>
-                        <div class="breadcrumb__option">
-                            <a href="${pageContext.request.contextPath}/MainPageController">Home</a>
-                            <a href="./Resources/index.html">Vegetables</a>
-                            <span>Vegetable’s Package</span>
-                        </div>
+                        <h2>상품정보</h2>
                     </div>
                 </div>
             </div>
@@ -332,8 +309,8 @@
                                     <p>${list.rate}</p>
                                     <h6>알갱이크기 </h6>
                                     <p>${list.feedSize}</p>
-                                    <h6>그램</h6>
-                                    <p>${list.gram }</p>
+                                    <h6>무게</h6>
+                                    <p>${list.gram*0.001}kg</p>
                                     <h6>상품정보</h6>
                                     <p>${list.info}</p>
                                     <p><c:forEach var="p" items="${photoList}">
@@ -345,8 +322,8 @@
                            </c:forEach> 
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <h6>리뷰</h6>
-                                 	<table border="1">
+                                    <h3 class="bottom">리뷰</h3>
+                                 	<table class="table">
                                  		<tr>
                                  			<th>사진</th>
                                  			<th>아이디</th>
@@ -372,16 +349,17 @@
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <h6>Q & A</h6>
+                                    <div class="fs bottom"> Q & A
                                     <c:choose>
                                     <c:when test = "${memberId eq 'admin'}">
-                                    	<a href="${pageContext.request.contextPath}/insertQnaController?productId=${productId}&memberId=${memberId}">답변하기</a>
+                                    	<a href="${pageContext.request.contextPath}/insertQnaController?productId=${productId}&memberId=${memberId}" class="site-btn float-right">답변하기</a>
                                     </c:when>
                                     <c:otherwise>
-                                    	<a href="${pageContext.request.contextPath}/insertQnaController?productId=${productId}&memberId=${memberId}">질문하기</a>
+                                    	<a href="${pageContext.request.contextPath}/insertQnaController?productId=${productId}&memberId=${memberId}" class="site-btn float-right">질문하기</a>
                                     </c:otherwise>
                                      </c:choose>
-                                    <table border="1">
+                                     </div>
+                                    <table class="table">
                                     <tr>
                                  		<th>종류</th>
                                  		<th>질문내용</th>
@@ -406,82 +384,6 @@
         </div>
     </section>
     <!-- Product Details Section End -->
-
-    <!-- Related Product Section Begin -->
-    <section class="related-product">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title related__product__title">
-                        <h2>Related Product</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="./Resources/img/product/product-1.jpg">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="./Resources/img/product/product-2.jpg">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="./Resources/img/product/product-3.jpg">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="./Resources/img/product/product-7.jpg">
-                            <ul class="product__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="product__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Related Product Section End -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
