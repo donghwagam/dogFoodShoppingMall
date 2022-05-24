@@ -8,34 +8,6 @@ import vo.Member;
 
 public class MemberDao {
 	
-	public int updateMemberActive(String memberId) {
-	      int row = 0;
-	      
-	      Connection conn = null;
-	      PreparedStatement stmt = null;
-	      
-	      String sql = "UPDATE member"
-	            + "     SET active='0'"
-	            + "     WHERE member_id = ?";
-	      
-	      try {
-	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
-	         stmt = conn.prepareStatement(sql);
-	         stmt.setString(1, memberId);
-	         row = stmt.executeUpdate();
-	         
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      } finally {
-	         try {
-	            conn.close();
-	         } catch (SQLException e) {
-	            e.printStackTrace();
-	         }
-	      }
-	      
-	      return row;
-	   }
 	
    //회원정보 모두 들고오는 메서드
    public Map<String, Object> selectMemberInfo(String memberId) {
@@ -435,8 +407,8 @@ public class MemberDao {
       }
       
    }
-   
-   // 비밀번호 남은 일수 반환
+
+// 비밀번호 남은 일수 반환
    public int selectDiffDay(String memberId) {
 	   int diffDay = 0;
       
@@ -594,20 +566,18 @@ public class MemberDao {
    
    // 회원정보 삭제 메서드
       public int deleteMember(int memberDogId, String memberId, String checkPw) {
-           int memberRow = 0;
            // DB연결을 위한 자원 준비
+    	  	int row = 0;
+    	  	
             Connection conn = null;
             PreparedStatement basketStmt = null;
-            PreparedStatement memberDogAllergyStmt = null;
-            PreparedStatement memberDogStmt = null;
-            PreparedStatement pwRecordStmt = null;
-            PreparedStatement memberStmt = null;
+            PreparedStatement stmt = null;
+            
+            String sql = "UPDATE member"
+    	            + "     SET active='0'"
+    	            + "     WHERE member_id = ?"; 
             
             String basketSql = "DELETE FROM basket WHERE member_id=?";
-            String memberDogAllergySql = "DELETE FROM member_dog_allergy WHERE member_dog_id=?";
-            String memberDogSql =  "DELETE FROM member_dog WHERE member_id=?";
-            String pwRecordSql = "DELETE FROM member_pw_record WHERE member_id=?";
-            String memberSql = "DELETE FROM member WHERE member_id=? AND member_pw = PASSWORD(?)";
             
             try {
             conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
@@ -624,51 +594,17 @@ public class MemberDao {
                System.out.println("basket 삭제 성공");
             }
             
-            // memberDogAllergy 삭제
-            memberDogAllergyStmt = conn.prepareStatement(memberDogAllergySql);
-            memberDogAllergyStmt.setInt(1, memberDogId);
-            int memberDogAllergyRow = memberDogAllergyStmt.executeUpdate();
-            
-            if(memberDogAllergyRow != 1) {
-               System.out.println("memberDogAllergy 삭제 실패");
-            } else {
-               System.out.println("memberDogAllergy 삭제 성공");
-            }
-            
-            //memberDog 삭제
-            memberDogStmt = conn.prepareStatement(memberDogSql);
-            memberDogStmt.setString(1, memberId);
-            int memberDogRow = memberDogStmt.executeUpdate();
-            
-            if(memberDogRow != 1) {
-               System.out.println("memberDog 삭제 실패");
-            } else {
-               System.out.println("memberDog 삭제 성공");
-            }
-            
-            //비밀번호 이력 삭제
-            pwRecordStmt = conn.prepareStatement(pwRecordSql);
-            pwRecordStmt.setString(1, memberId);
-            
-            int pwRecordRow = pwRecordStmt.executeUpdate();
-            
-            if(pwRecordRow != 1) {
-               System.out.println("pwRecord 삭제 실패");
-            } else {
-               System.out.println("pwRecord 삭제 성공");
-            }
             
             //member 삭제
-            memberStmt = conn.prepareStatement(memberSql);
-            memberStmt.setString(1, memberId);
-            memberStmt.setString(2, checkPw);
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, memberId);
             
-            memberRow = memberStmt.executeUpdate();
+            row = stmt.executeUpdate();
             
-            if(memberRow != 1) {
-               System.out.println("member 삭제 실패");
+            if(row != 1) {
+               System.out.println("member 비활성화 실패");
             } else {
-               System.out.println("member 삭제 성공");
+               System.out.println("member 비활성화 성공");
             }
             
             conn.commit();
@@ -690,7 +626,7 @@ public class MemberDao {
                }
          }
             
-          return memberRow;
+          return row;
       }
       
       // dogId 들고오기 위한 메서드
