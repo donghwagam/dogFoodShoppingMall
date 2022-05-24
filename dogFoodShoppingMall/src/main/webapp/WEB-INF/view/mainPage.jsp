@@ -182,12 +182,8 @@
 				<div class="col-lg-3">
 					<div class="header__cart">
 						<ul>
-							<li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-							<li><a href="${pageContext.request.contextPath}/basketListController"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+							<li>장바구니<a href="${pageContext.request.contextPath}/basketListController"><i class="fa fa-shopping-bag"></i> </a></li>
 						</ul>
-						<div class="header__cart__price">
-							item: <span>$150.00</span>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -222,14 +218,14 @@
 				</div>
 				<div class="col-lg-9">
 					<div class="hero__item set-bg"
-						data-setbg="./Resources/img/hero/banner.jpg">
+						data-setbg="./Resources/img/hero/dog.png">
 						<div class="hero__text">
-							<span>FRUIT FRESH</span>
+							<span>DOG FOOD FRESH</span>
 							<h2>
-								Vegetable <br/>100% Organic
+								Allergy <br/>Customized
 							</h2>
 							<p>Free Pickup and Delivery Available</p>
-							<a href="#" class="primary-btn">SHOP NOW</a>
+							<a href="${pageContext.request.contextPath}/productSearchController" class="primary-btn">바로 구매</a>
 						</div>
 					</div>
 				</div>

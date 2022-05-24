@@ -181,7 +181,7 @@
 				<div class="col-lg-3">
 					<div class="header__cart">
                         <ul>
-                            <li><a href="${pageContext.request.contextPath}/basketListController"><i class="fa fa-shopping-bag"></i></a></li>
+                            <li>장바구니<a href="${pageContext.request.contextPath}/basketListController"><i class="fa fa-shopping-bag"></i></a></li>
                         </ul>
                     </div>
 				</div>
