@@ -368,7 +368,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="${pageContext.request.contextPath}/adminCheck/adminPageController" class="navbar-brand"  >
+			<a href="${pageContext.request.contextPath}/adminPageController" class="navbar-brand"  >
 				Administrator
 			</a>
 		</div>
@@ -423,7 +423,7 @@
   	<div class="container">
 	<div class="row">
 		<div class="span5">
-		<form method="post" action="${pageContext.request.contextPath}/insertProductController"  enctype="multipart/form-data">
+		<form method="post" action="${pageContext.request.contextPath}/insertProductController" enctype="multipart/form-data">
             <table class="table table-striped table-condensed">
                   <tr>
                       <th>상품 이름</th>
