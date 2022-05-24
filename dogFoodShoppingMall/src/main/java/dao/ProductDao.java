@@ -182,7 +182,8 @@ public class ProductDao {
 	         		+ "	LEFT JOIN product_category pca"
 	         		+ " 	ON p.product_id=pca.product_id"
 	         		+ " LEFT JOIN product_component pco"
-	         		+ " ON p.product_id = pco.product_id";
+	         		+ " ON p.product_id = pco.product_id"
+	         		+ "          GROUP BY productId";
 	         try {
 	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 	            if(age==-1 && component ==-1 && feedType == -1 && "".equals(size)) {
