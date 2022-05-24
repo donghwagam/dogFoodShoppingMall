@@ -51,11 +51,10 @@
    <div class="humberger__menu__overlay"></div>
    <div class="humberger__menu__wrapper">
       <div class="humberger__menu__logo">
-         <a href="#"><img src="./Resources/img/logo.png" alt=""></a>
+         <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/dogFood.png" alt=""></a>
       </div>
       <div class="humberger__menu__cart">
          <ul>
-            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
             <li><a href="${pageContext.request.contextPath}/basketListController"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
          </ul>
          <div class="header__cart__price">
@@ -158,7 +157,7 @@
          <div class="row">
             <div class="col-lg-3">
                <div class="header__logo">
-                  <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/fakeLogo.png"
+                  <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/dogFood.png"
                      alt=""></a>
                </div>
             </div>
@@ -166,10 +165,8 @@
             <div class="col-lg-6">
                <nav class="header__menu">
                   <ul>
-                     <li class="active"><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
-                     <li><a href="./shop-grid.html">브랜드</a></li>
-                     <li><a href="./blog.html">랭킹</a></li>
-                     <li><a href="./contact.html">신상품</a></li>
+                     <li><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
+                     <li><a href="${pageContext.request.contextPath}/noticeController">고객센터</a></li>
                   </ul>
                </nav>
             </div>
@@ -252,7 +249,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                <div class="footer__about">
                   <div class="footer__about__logo">
-                     <a href="./index.html"><img src="./Resources/img/logo.png"
+                     <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/dogFoot.png"
                         alt=""></a>
                   </div>
                   <ul>

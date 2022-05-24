@@ -85,16 +85,14 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/logo.png" alt=""></a>
+                        <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/dogFood.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
 							<li><a href="${pageContext.request.contextPath}/productSearchController">상세검색</a></li>
-							<li><a href="./shop-grid.html">브랜드</a></li>
-							<li><a href="./blog.html">랭킹</a></li>
-							<li><a href="./contact.html">신상품</a></li>
+							<li><a href="${pageContext.request.contextPath}/noticeController">고객센터</a></li>
 						</ul>
                     </nav>
                 </div>
@@ -217,7 +215,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="./Resources/img/logo.png" alt=""></a>
+                            <a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/dogFoot.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
