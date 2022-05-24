@@ -368,7 +368,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a href="${pageContext.request.contextPath}/adminCheck/adminPageController" class="navbar-brand"  >
+			<a href="${pageContext.request.contextPath}/adminPageController" class="navbar-brand"  >
 				Administrator
 			</a>
 		</div>
