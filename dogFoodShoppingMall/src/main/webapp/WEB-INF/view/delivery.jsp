@@ -52,7 +52,7 @@
 	<div class="humberger__menu__overlay"></div>
 	<div class="humberger__menu__wrapper">
 		<div class="humberger__menu__logo">
-			<a href="#"><img src="./Resources/img/logo.png" alt=""></a>
+			<a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/dogFood.png" alt=""></a>
 		</div>
 		<div class="humberger__menu__cart">
 			<ul>
@@ -159,7 +159,7 @@
 			<div class="row">
 				<div class="col-lg-3">
 					<div class="header__logo">
-						<a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/fakeLogo.png"
+						<a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/dogFood.png"
 							alt=""></a>
 					</div>
 				</div>
@@ -367,7 +367,7 @@
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="footer__about">
 						<div class="footer__about__logo">
-							<a href="./index.html"><img src="./Resources/img/logo.png"
+							<a href="${pageContext.request.contextPath}/mainPageController"><img src="./Resources/img/dogFoot.png"
 								alt=""></a>
 						</div>
 						<ul>
