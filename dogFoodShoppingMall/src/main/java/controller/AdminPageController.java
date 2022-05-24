@@ -12,11 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminPageController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int level = Integer.parseInt(request.getParameter("level"));
 		
-		System.out.println(level);
 		
-		request.setAttribute("level", level);
 		request.getRequestDispatcher("/WEB-INF/view/adminPage.jsp").forward(request, response);
 	}
 
