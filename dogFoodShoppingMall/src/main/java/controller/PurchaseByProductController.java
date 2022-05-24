@@ -54,6 +54,8 @@ public class PurchaseByProductController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession(); // 현재 세션 받아오기
+		String sessionMemberId = (String)session.getAttribute("sessionMemberId"); // 현제 로그인한 아이디 가져오기
 		// 구매하기 버튼을 눌렀을때 넘어오는 값 받아오기
 		int productId = Integer.parseInt(request.getParameter("productId")); // 상품번호
 		int quantity = Integer.parseInt(request.getParameter("quantity")); // 수량
@@ -74,8 +76,20 @@ public class PurchaseByProductController extends HttpServlet {
 		System.out.println("PurchaseByProductController.doPost() productName : " + productName);
 		System.out.println("PurchaseByProductController.doPost() totalPriceByProduct : " + totalPriceByProduct);
 		
-		// purchaseByProductController로 보내기
-		response.sendRedirect(request.getContextPath()+"/loginCheck/purchaseByProductController?productId="+productId+"&photoName="+photoName+"&productName="+productName+"&quantity="+quantity+"&totalPriceByProduct="+totalPriceByProduct);
+		memberDao = new MemberDao();
+		Map<String, Object> memberMap = memberDao.selectMemberInfo(sessionMemberId); // 사용자의 정보 가져오는 메서드 실행 후 저장
+		
+		request.setAttribute("productId", productId);
+		request.setAttribute("name", memberMap.get("name"));
+		request.setAttribute("phone", memberMap.get("phone"));
+		request.setAttribute("address", memberMap.get("addr"));
+		request.setAttribute("photoName", photoName);
+		request.setAttribute("productName", productName);
+		request.setAttribute("quantity", quantity);
+		request.setAttribute("totalPriceByProduct", totalPriceByProduct);
+		
+		// purchaseByProduct.jsp 연결
+		request.getRequestDispatcher("/WEB-INF/view/purchaseByProduct.jsp").forward(request, response);
 		
 	}
 
