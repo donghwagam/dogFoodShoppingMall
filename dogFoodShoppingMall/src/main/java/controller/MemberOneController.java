@@ -48,6 +48,7 @@ public class MemberOneController extends HttpServlet {
       List<Map<String, Object>> memberDogList = dogDao.selectDog(memberId);
       
       request.setAttribute("memberDogList", memberDogList);
+      request.setAttribute("memberId", memberId);
       
       // 마이페이지 뷰단으로 포워딩
        request.getRequestDispatcher("/WEB-INF/view/memberOne.jsp").forward(request, response); 
