@@ -87,7 +87,11 @@
 										<a href="${pageContext.request.contextPath}/loginDenied/loginController"><i class="fa fa-user"></i> Login</a>
 									</c:when>
 									<c:otherwise>
-										<div>${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
+										<div>
+											<span style="font-size: 14px">${sessionMemberId} 님 반갑습니다</span> 
+											<a href="${pageContext.request.contextPath}/memberOneController" style="display: inline">| 마이페이지 </a>
+											<a href="${pageContext.request.contextPath}/loginCheck/logoutController" style="display: inline"> | 로그아웃 </a>
+										</div>
 									</c:otherwise>
 								</c:choose>
 							</div>

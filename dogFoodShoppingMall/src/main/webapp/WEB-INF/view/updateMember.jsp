@@ -68,8 +68,11 @@
 							</div>
                      <!-- 로그인/로그아웃/마이페이지 이동  -->
                      <div class="header__top__right__auth">
-	                      <!-- null이 아니면 마이페이지,로그아웃 버튼 출력  -->
-	                      <div>${sessionMemberId} 님 반갑습니다 <a href="${pageContext.request.contextPath}/memberOneController">| 마이페이지 </a><a href="${pageContext.request.contextPath}/loginCheck/logoutController"> | 로그아웃 </a></div>
+                      	<div>
+							<span style="font-size: 14px">${sessionMemberId} 님 반갑습니다</span> 
+							<a href="${pageContext.request.contextPath}/memberOneController" style="display: inline">| 마이페이지 </a>
+							<a href="${pageContext.request.contextPath}/loginCheck/logoutController" style="display: inline"> | 로그아웃 </a>
+						</div>
                      </div>
                   </div>
                </div>
