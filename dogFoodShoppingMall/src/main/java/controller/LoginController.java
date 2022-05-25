@@ -71,7 +71,7 @@ public class LoginController extends HttpServlet {
 		}
 
 		if(returnMemberId == null) { // returnMemberId값이 null이어서 로그인에 실패했을때 로그인 페이지로 이동
-			response.sendRedirect(request.getContextPath()+"/loginDenied/loginController");
+			response.sendRedirect(request.getContextPath()+"/loginController");
 			System.out.println("로그인 실패"); // 디버깅
 			return;
 		}
