@@ -1,6 +1,6 @@
 package dao;
 
-import java.sql.Connection;
+import java.sql.Connection; 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +13,6 @@ import java.util.Map;
 import vo.Brand;
 import vo.Category;
 import vo.Component;
-import vo.Member;
 import vo.ProductCategory;
 import vo.ProductComponent;
 

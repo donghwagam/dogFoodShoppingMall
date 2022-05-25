@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.IOException;
+import java.io.IOException; 
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +17,7 @@ public class DeleteNoticeController extends HttpServlet {
 	private NoticeDao noticeDao; // 멤버변수 생성
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		noticeDao = new NoticeDao(); // deleteNotice 메서드 호출을 위한 객체생성
 		
 		// noticeId값 들고오기

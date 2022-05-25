@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.AdminDao;
 
-
 @WebServlet("/updatePurchaseTotalListController")
 public class UpdatePurchaseTotalListController extends HttpServlet {
 	private AdminDao adminDao; // 지역변수 AdminDao 선언
