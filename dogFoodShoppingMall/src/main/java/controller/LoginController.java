@@ -89,12 +89,6 @@ public class LoginController extends HttpServlet {
 		System.out.println("LoginController.doGet() active : " + active);
 
 		if(active.equals("1")){
-			if(productId == 0) {
-				response.sendRedirect(request.getContextPath()+"/mainPageController");
-				
-			} else {
-				response.sendRedirect(request.getContextPath()+"/mainProductOneController?productId=" + productId);
-			}
 			if(diffDay > 90) { // 비밀번호 안바꾼지 3달이 넘었다면
 				String msg = "changePw";
 				request.setAttribute("msg", msg);
