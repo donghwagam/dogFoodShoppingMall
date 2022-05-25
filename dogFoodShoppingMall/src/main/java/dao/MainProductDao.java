@@ -35,7 +35,7 @@ public class MainProductDao {
                      + "    LIMIT ?,?";
                      
             try {
-               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
                stmt = conn.prepareStatement(sql);
                stmt.setInt(1, beginRow);
                stmt.setInt(2, rowPerPage);
@@ -72,7 +72,7 @@ public class MainProductDao {
         			+ "     FROM product";
         
         	try {
-        		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+        		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
         		 stmt = conn.prepareStatement(sql);
         		 rs = stmt.executeQuery();
   		       if(rs.next()) {
@@ -102,7 +102,7 @@ public class MainProductDao {
         			+ "       ON c.category_id = pc.category_id"
         			+ "    WHERE c.name = ?";
         try {
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
    		 stmt = conn.prepareStatement(sql);
    		 stmt.setString(1, categoryName);
    		 rs = stmt.executeQuery();
@@ -129,7 +129,7 @@ public class MainProductDao {
             String sql = " SELECT category_id categoryId" // 카테고리 id와 카테고리 이름 출력하는 쿼리문 
                   + " , name FROM category";
             try {
-               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
                stmt = conn.prepareStatement(sql);
                rs = stmt.executeQuery();
                while(rs.next()) {
@@ -176,7 +176,7 @@ public class MainProductDao {
                   + "   ORDER BY p.create_date DESC"
                   + "   Limit 0,6" ;
             try {
-               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
                stmt = conn.prepareStatement(sql);
                rs = stmt.executeQuery();
                while(rs.next()) {
@@ -229,7 +229,7 @@ public class MainProductDao {
                   + "      Limit 0,6"; 
             
             try {
-            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
              stmt = conn.prepareStatement(sql);
              rs = stmt.executeQuery();
              while(rs.next()) {
@@ -278,7 +278,7 @@ public class MainProductDao {
                   + " GROUP BY productId"
                   + "     LIMIT ?, ?" ;
             try {
-               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
             
                stmt = conn.prepareStatement(sql);
                stmt.setString(1,categoryName);
@@ -339,7 +339,7 @@ public class MainProductDao {
                   + "    GROUP BY p.product_id";
             System.out.println("selectProductOne() productId : " + productId);
             try {
-               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+               conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
                stmt = conn.prepareStatement(sql);
                stmt.setInt(1, productId);
                rs = stmt.executeQuery();
@@ -382,7 +382,7 @@ public class MainProductDao {
         			+ "     FROM product_photo"
         			+ "    WHERE product_id = ? AND name LIKE '%info%'" ;
         	try {
-        		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+        		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, ProductId);
                 rs = stmt.executeQuery();

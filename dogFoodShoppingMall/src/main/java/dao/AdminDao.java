@@ -28,7 +28,7 @@ public class AdminDao {
 				+ "     FROM member "
 				+ "  WHERE member_id = ?";
 		try {
-			 conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			 conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
              stmt = conn.prepareStatement(sql);
              stmt.setString(1,memberId);
              rs = stmt.executeQuery();
@@ -72,7 +72,7 @@ public class AdminDao {
 	          */
 	         
 	         try {
-	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	            stmt = conn.prepareStatement(sql);
 	            rs = stmt.executeQuery();
 	            while(rs.next()) {
@@ -115,7 +115,7 @@ public class AdminDao {
 	               + "      ORDER BY totalPrice DESC";                        // 날짜 순으로 정렬
 	      
 	         try {
-	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	            stmt = conn.prepareStatement(sql);
 	            rs = stmt.executeQuery();
 	            
@@ -159,7 +159,7 @@ public class AdminDao {
 	               + "     ORDER BY totalPrice DESC";                  // 카테고리별 판매 총액 순으로 정렬
 	      
 	         try {
-	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	            stmt = conn.prepareStatement(sql);
 	            rs = stmt.executeQuery();
 	            while(rs.next()) {
@@ -201,7 +201,7 @@ public class AdminDao {
 	              + "     ORDER BY totalPrice DESC";                  // 판매 총액 순으로 정렬
 	      
 	         try {
-	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	            stmt = conn.prepareStatement(sql);
 	            rs = stmt.executeQuery();
 	            
@@ -233,7 +233,7 @@ public class AdminDao {
 		   		+ "      FROM member "
 		   		+ "      where active = 1";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 		       stmt = conn.prepareStatement(sql);
 		       rs = stmt.executeQuery();
 		       if(rs.next()) {
@@ -259,7 +259,7 @@ public class AdminDao {
 		   String sql = "SELECT COUNT(*) cnt"
 		   		+ "        FROM product";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 		       stmt = conn.prepareStatement(sql);
 		       rs = stmt.executeQuery();
 		       if(rs.next()) {
@@ -289,7 +289,7 @@ public class AdminDao {
 		   		+ "        ON m.member_id = p.member_id"
 		   		+ "       WHERE active =1 AND p.member_id = ?";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 		       stmt = conn.prepareStatement(sql);
 		       stmt.setString(1, memberId);
 		       rs = stmt.executeQuery();
@@ -325,7 +325,7 @@ public class AdminDao {
 		   		+ "         ON a.address_id = m.address_id"
 		   		+ "      LIMIT ?,?";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 		       stmt = conn.prepareStatement(sql);
 		       stmt.setInt(1,beginRow);
 		       stmt.setInt(2, rowPerPage);
@@ -375,7 +375,7 @@ public class AdminDao {
 			  		+ "   WHERE pu.member_id = ?"
 			  		+ "   LIMIT ?,?";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			   stmt = conn.prepareStatement(sql);
 			   stmt.setString(1,memberId);
 			   stmt.setInt(2,beginRow);
@@ -426,7 +426,7 @@ public class AdminDao {
 		   		+ "     WHERE pu.purchase_id = ?"
 		   		+ "     GROUP BY pu.purchase_id";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			   stmt = conn.prepareStatement(sql);
 			   stmt.setInt(1, purchaseId);
 			   rs = stmt.executeQuery();
@@ -463,7 +463,7 @@ public class AdminDao {
 		   		+ "      SET status = ?"
 		   		+ "      WHERE purchase_id = ?";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			   stmt = conn.prepareStatement(sql);
 			   stmt.setString(1,status);
 			   stmt.setInt(2, purchaseId);
@@ -506,7 +506,7 @@ public class AdminDao {
 		  		
 		  		
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			  if (status.equals("") && aDate.equals("") && bDate.equals("")) { // 3개다 입력하지 않았을 때 
 		       sql +=  "   WHERE pu.member_id = ?"
 				  		+ "   LIMIT ?,?";
@@ -612,7 +612,7 @@ public class AdminDao {
 			  		+ "   JOIN purchase pu"
 			  		+ "       ON pl.purchase_id = pu.purchase_id";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			  if (status.equals("") && aDate.equals("") && bDate.equals("")) { // 3개다 입력하지 않았을 때 
 		       sql +=  "   WHERE pu.member_id = ?";
 			   stmt = conn.prepareStatement(sql);
@@ -690,7 +690,7 @@ public class AdminDao {
 		   		+ "   ORDER BY productId asc"
 		   		+ "      LIMIT ?,?";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			   stmt = conn.prepareStatement(sql);
 			   stmt.setInt(1, beginRow);
 			   stmt.setInt(2, RowPerPage);
@@ -752,7 +752,7 @@ public class AdminDao {
 		   		+ "       WHERE p.product_id = ?"
 		   		+ "    GROUP BY p.product_id";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
                stmt = conn.prepareStatement(sql);
                stmt.setInt(1, productId);
                rs = stmt.executeQuery();
@@ -794,7 +794,7 @@ public class AdminDao {
 		   		+ "            ,name componentName"
 		   		+ "        FROM component";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
                stmt = conn.prepareStatement(sql);
                rs = stmt.executeQuery();
                while (rs.next()) {
@@ -824,7 +824,7 @@ public class AdminDao {
 			   		+ "        ,name brandName"
 			   		+ "    FROM brand";
 			   try {
-				   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+				   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	               stmt = conn.prepareStatement(sql);
 	               rs = stmt.executeQuery();
 	               while (rs.next()) {
@@ -854,7 +854,7 @@ public class AdminDao {
 		   		+ "             ,name categoryName"
 		   		+ "        FROM  category";
 		   try {
-			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
                stmt = conn.prepareStatement(sql);
                rs = stmt.executeQuery();
                while (rs.next()) {
@@ -947,7 +947,7 @@ public class AdminDao {
 		 		+ "                           ,NOW()"
 		 		+ "      ) ";
 		 try {
-			 conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			 conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			 conn.setAutoCommit(false); //오토커밋 해제 
 			 productStmt = conn.prepareStatement(productSql, PreparedStatement.RETURN_GENERATED_KEYS);
 			 productStmt.setString(1,(String)map.get("productName"));
@@ -1024,7 +1024,7 @@ public class AdminDao {
 	 	String productSql = " DELETE FROM product WHERE product_id = ? ";
 	 	
 	 	 try {
-	 		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	 		conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	 	    conn.setAutoCommit(false); //오토커밋 해제 
 	 		categoryStmt = conn.prepareStatement(categorySql);
 	 		categoryStmt.setInt(1, productId);
@@ -1091,7 +1091,7 @@ public class AdminDao {
 				+ "		         ,NOW()"
 				+ "	    )";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, InfoPhotoOriginalName);
 			stmt.setString(2, InfoPhotoName);
@@ -1126,7 +1126,7 @@ public class AdminDao {
 				+ "     FROM product_component"
 				+ "    WHERE product_id = ?";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, productId);
 			  rs = stmt.executeQuery();
@@ -1157,7 +1157,7 @@ public class AdminDao {
 				+ "      FROM product_category"
 				+ "     WHERE product_id = ?";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, productId);
 			  rs = stmt.executeQuery();
@@ -1220,7 +1220,7 @@ public class AdminDao {
 			 		+ "                        ,NOW()"
 			 		+ "    )";
 		 try {
-			 conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			 conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			 conn.setAutoCommit(false); //오토커밋 해제 
 			 productStmt = conn.prepareStatement(productSql);
 			 productStmt.setString(1, (String)map.get("productName"));

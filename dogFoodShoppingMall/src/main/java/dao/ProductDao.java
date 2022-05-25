@@ -27,7 +27,7 @@ public class ProductDao {
 		ResultSet rs = null;
 		String sql = "SELECT component_id componentId, name FROM component";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
@@ -62,7 +62,7 @@ public class ProductDao {
 	      
 	      String sql = "SELECT * FROM category WHERE category_id =1 OR category_id=2 OR category_id=3";
 	      try {
-	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	         stmt = conn.prepareStatement(sql);
 	         rs = stmt.executeQuery();
 	         while(rs.next()) {
@@ -94,7 +94,7 @@ public class ProductDao {
 	      
 	      String sql = "SELECT * FROM category WHERE category_id =5 OR category_id=6 OR category_id=7";
 	      try {
-	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	         stmt = conn.prepareStatement(sql);
 	         rs = stmt.executeQuery();
 	         while(rs.next()) {
@@ -126,7 +126,7 @@ public class ProductDao {
 	      ResultSet rs = null;
 	      String sql = "";
 	      try {
-	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	         sql = "SELECT "
 	         		+ "		p.product_id productId"
 	         		+ "		, p.name productName"
@@ -185,7 +185,7 @@ public class ProductDao {
 	         		+ " ON p.product_id = pco.product_id"
 	         		+ "          GROUP BY productId";
 	         try {
-	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	            if(age==-1 && component ==-1 && feedType == -1 && "".equals(size)) {
 	               sql += " ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);

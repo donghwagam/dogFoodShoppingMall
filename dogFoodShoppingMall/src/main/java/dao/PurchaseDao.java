@@ -25,7 +25,7 @@ public class PurchaseDao {
 				+ "	  WHERE member_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			row = stmt.executeUpdate();
@@ -91,7 +91,7 @@ public class PurchaseDao {
 				+ "						, NOW())";
 	
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
 			conn.setAutoCommit(false); // 오토커밋 off
 			purchaseStmt = conn.prepareStatement(purchaseSql, PreparedStatement.RETURN_GENERATED_KEYS); // 쿼리 작성, insert한 키값 가져오는거 셋팅
 			// ?에 정보 작성
@@ -153,7 +153,7 @@ public class PurchaseDao {
 				+ "   WHERE product_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			for(Map m : basketStockList) {
 				stmt = conn.prepareStatement(sql);
 				// ?에 정보 작성
@@ -194,7 +194,7 @@ public class PurchaseDao {
 
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			rs = stmt.executeQuery();
@@ -234,7 +234,7 @@ public class PurchaseDao {
 				+ "	  WHERE purchase_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, purchaseId);
 			rs = stmt.executeQuery();
@@ -270,7 +270,7 @@ public class PurchaseDao {
 				+ "   WHERE product_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
 			stmt = conn.prepareStatement(sql); // 쿼리 작성
 			// ?에 정보 작성
 			stmt.setInt(1, stock);
@@ -305,7 +305,7 @@ public class PurchaseDao {
 				+ "   WHERE product_id=?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
 			stmt = conn.prepareStatement(sql); // 쿼리 작성
 			stmt.setInt(1, productId); // ?에 정보 작성
 			rs = stmt.executeQuery(); // 쿼리 실행 후 나온 정보 rs에 담기
@@ -374,7 +374,7 @@ public class PurchaseDao {
 				+ "						, NOW())";
 	
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
 			conn.setAutoCommit(false); // 오토커밋 off
 			purchaseStmt = conn.prepareStatement(purchaseSql, PreparedStatement.RETURN_GENERATED_KEYS); // 쿼리 작성, insert한 키값 가져오는거 셋팅
 			// ?에 정보 작성
@@ -439,7 +439,7 @@ public class PurchaseDao {
 				+ " ON p.product_id = pp.product_id"
 				+ " WHERE p.product_id=?";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
 			stmt = conn.prepareStatement(sql); // 쿼리작성
 			stmt.setInt(1, productId); // ?에 정보 작성
 			rs = stmt.executeQuery(); // 쿼리 실행 후 나오는 정보 rs에 저장
@@ -485,7 +485,7 @@ public class PurchaseDao {
 	            + "      WHERE p.member_id =?";
 	      
 	      try {
-	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+	         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 	         stmt = conn.prepareStatement(sql);
 	         stmt.setString(1, memberId);
 	         rs = stmt.executeQuery();
