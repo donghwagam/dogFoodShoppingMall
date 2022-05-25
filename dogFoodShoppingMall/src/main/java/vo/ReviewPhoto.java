@@ -6,12 +6,11 @@ public class ReviewPhoto {
 	private String name;
 	private String reviewPhoto;
 	private String type;
-	private int volume;
 	private int reviewId;
 	
 	public ReviewPhoto() {}
 
-	public ReviewPhoto(int reviewPhotoId, String originalName, String name, String reviewPhoto, String type, int volume,
+	public ReviewPhoto(int reviewPhotoId, String originalName, String name, String reviewPhoto, String type,
 			int reviewId) {
 		super();
 		this.reviewPhotoId = reviewPhotoId;
@@ -19,7 +18,6 @@ public class ReviewPhoto {
 		this.name = name;
 		this.reviewPhoto = reviewPhoto;
 		this.type = type;
-		this.volume = volume;
 		this.reviewId = reviewId;
 	}
 
@@ -63,14 +61,6 @@ public class ReviewPhoto {
 		this.type = type;
 	}
 
-	public int getVolume() {
-		return volume;
-	}
-
-	public void setVolume(int volume) {
-		this.volume = volume;
-	}
-
 	public int getReviewId() {
 		return reviewId;
 	}
@@ -82,7 +72,7 @@ public class ReviewPhoto {
 	@Override
 	public String toString() {
 		return "ReviewPhoto [reviewPhotoId=" + reviewPhotoId + ", originalName=" + originalName + ", name=" + name
-				+ ", reviewPhoto=" + reviewPhoto + ", type=" + type + ", volume=" + volume + ", reviewId=" + reviewId
-				+ "]";
+				+ ", reviewPhoto=" + reviewPhoto + ", type=" + type + ", reviewId=" + reviewId + "]";
 	}
+
 }

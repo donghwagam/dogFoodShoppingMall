@@ -27,7 +27,7 @@ public class NoticeDao {
 				+ "	  ORDER BY create_date DESC";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			
@@ -69,7 +69,7 @@ public class NoticeDao {
 				+ "		ORDER BY create_date DESC";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, noticeId);
 			rs = stmt.executeQuery();
@@ -107,7 +107,7 @@ public class NoticeDao {
 				+ "		VALUES (?, ?, NOW(), NOW());";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, notice.getNoticeTitle());
 			stmt.setString(2, notice.getNoticeContent());
@@ -144,7 +144,7 @@ public class NoticeDao {
 		String sql = "UPDATE notice SET notice_title=?, notice_content=?, update_date=NOW() WHERE notice_id=?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB연결
 	
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, notice.getNoticeTitle());
@@ -176,7 +176,7 @@ public class NoticeDao {
 		String sql = "DELETE FROM notice WHERE notice_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");// DB연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");// DB연결
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, notice.getNoticeId());
 			

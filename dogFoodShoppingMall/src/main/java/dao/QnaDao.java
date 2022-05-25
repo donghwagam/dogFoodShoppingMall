@@ -29,7 +29,7 @@ public class QnaDao {
 				+ " WHERE product_id = ?";
 
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, productId);
 			
@@ -68,7 +68,7 @@ public class QnaDao {
 				+ " VALUES (?, ?, ?, ?, NOW())";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, qna.getQnaKind());
 			stmt.setString(2, qna.getMemo());

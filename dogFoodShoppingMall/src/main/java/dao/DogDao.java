@@ -25,7 +25,7 @@ public class DogDao {
       ResultSet rs = null;
       String sql = "SELECT allergy_id allergyId, name FROM allergy";
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
          stmt = conn.prepareStatement(sql);
          rs = stmt.executeQuery();
          
@@ -58,7 +58,7 @@ public class DogDao {
       ResultSet rs = null;
       String sql = "SELECT dog_id dogId, spiece FROM dog";
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
          stmt = conn.prepareStatement(sql);
          rs = stmt.executeQuery();
          
@@ -89,7 +89,7 @@ public class DogDao {
      String sql = "INSERT INTO member_dog (member_id, dog_id, dog_name, birth, weight, create_date, update_date)"
            + "      VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
      try {
-        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
         stmt = conn.prepareStatement(sql); 
         stmt.setString(1, memberDog.getMemberId());
           stmt.setInt(2, memberDog.getDogId());
@@ -125,7 +125,7 @@ public class DogDao {
       ResultSet rs = null;
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          conn.setAutoCommit(false); // 자동커밋을 해제
 
          // 강아지등록을 해줄 쿼리문 작성
@@ -211,7 +211,7 @@ public class DogDao {
             + "      	GROUP BY md.member_dog_id";
       
       try {
-      conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+      conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
       stmt = conn.prepareStatement(sql); // sql문 전송
       stmt.setString(1, memberId );
       rs = stmt.executeQuery();
@@ -243,7 +243,7 @@ public class DogDao {
       String memberDogSql = "DELETE FROM member_dog WHERE member_dog_id=?";
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
          conn.setAutoCommit(false); // 자동커밋을 해제
 
          //memberDogAllergy 삭제
