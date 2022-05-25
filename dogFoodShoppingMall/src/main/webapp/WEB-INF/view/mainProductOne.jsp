@@ -104,33 +104,6 @@
     </header>
     <!-- Header Section End -->
 
-    <!-- Hero Section Begin -->
-    <section class="hero hero-normal">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>카테고리</span>
-                        </div>
-                         <ul>
-                            <li>
-							<c:forEach var="category" items="${categoryList}">
-								<tr>
-									<td><a href="${pageContext.request.contextPath}/MainPageController?categoryName=${category.name}">${category.name}</a></td>
-								</tr>
-							</c:forEach>
-							</li>
-						</ul>
-						
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="./Resources/img/dogLayer.png">
         <div class="container">
@@ -199,12 +172,10 @@
                             </c:otherwise>
                             </c:choose>
                             </span></li>
-                            <li><b>원산지</b> <span>${list.origin} <samp>Free pickup today</samp></span></li>
+                            <li><b>원산지</b> <span>${list.origin} </li>
                             <li><b>브랜드</b> <span>${list.brandName}</span></li>
                             <li><b>Share on</b>
                                 <div class="share">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
                                     <a href="#"><i class="fa fa-instagram"></i></a>
                                     <a href="#"><i class="fa fa-pinterest"></i></a>
                                 </div>
