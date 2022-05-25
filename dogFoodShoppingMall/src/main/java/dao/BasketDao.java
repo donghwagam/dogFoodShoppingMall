@@ -29,7 +29,7 @@ public class BasketDao {
 				+ "		WHERE p.product_id=?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, productId);
 			rs = stmt.executeQuery();
@@ -62,7 +62,7 @@ public class BasketDao {
 		String sql ="INSERT INTO basket VALUES(?,?,?,NOW(), NOW())";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, productId);
 			stmt.setString(2, memberId);
@@ -113,7 +113,7 @@ public class BasketDao {
 				+ " GROUP BY productId"
 				+ "	ORDER BY b.create_date DESC";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			rs = stmt.executeQuery();
@@ -149,7 +149,7 @@ public class BasketDao {
 		String sql ="UPDATE basket SET quantity = quantity+? WHERE product_id = ? AND member_id= ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, quantity);
 			stmt.setInt(2, productId);
@@ -183,7 +183,7 @@ public class BasketDao {
 		String sql ="DELETE FROM basket WHERE product_id = ? AND member_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, productId);
 			stmt.setString(2, memberId);
