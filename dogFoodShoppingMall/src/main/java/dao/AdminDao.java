@@ -18,9 +18,10 @@ import vo.ProductCategory;
 import vo.ProductComponent;
 
 public class AdminDao {
+	
 	// 필터에 사용할 관리자, 사용자 구분하는 메서드 
 	public int selectAdminFilterList(String memberId) {
-		int level = 0;
+		int level = -1;
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;

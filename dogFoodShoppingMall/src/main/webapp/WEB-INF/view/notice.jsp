@@ -67,11 +67,20 @@
 								<a href="https://www.instagram.com/gaebobheaven/"><i class="fa fa-linkedin"></i></a> 
 							 	<a href="https://open.kakao.com/o/gPlN8Ahe"><i class="fa fa-pinterest-p"></i></a>
 							</div>
-							<!-- 로그인/로그아웃/마이페이지 이동  -->
 							<div class="header__top__right__auth">
-								<span style="font-size: 14px">${sessionMemberId} 님 반갑습니다</span> 
-								<a href="${pageContext.request.contextPath}/memberOneController" style="display: inline">| 마이페이지 </a>
-								<a href="${pageContext.request.contextPath}/loginCheck/logoutController" style="display: inline"> | 로그아웃 </a>
+								<!--sessionMemberId 값이 null이면 로그인 출력/ null이 아니면 마이페이지,로그아웃 버튼 출력  -->
+								<c:choose> 
+									<c:when test="${sessionMemberId == null}">
+										<a href="${pageContext.request.contextPath}/loginController"><i class="fa fa-user"></i> Login</a>
+									</c:when>
+									<c:otherwise>
+										<div>
+											<span style="font-size: 14px">${sessionMemberId} 님 반갑습니다</span> 
+											<a href="${pageContext.request.contextPath}/memberOneController?memberId=${sessionMemberId}" style="display: inline">| 마이페이지 </a>
+											<a href="${pageContext.request.contextPath}/loginCheck/logoutController" style="display: inline"> | 로그아웃 </a>
+										</div>	
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
@@ -129,8 +138,8 @@
 				</div>
 				<div class="col-9">
 					<div class="bottom fs">공지사항
-					<c:if test="${level == 0}">
-					<a href="${pageContext.request.contextPath}/insertNoticeController" class="site-btn float-right bottom" role="button">공지사항 등록</a>
+					<c:if test="${level==0}">
+						<a href="${pageContext.request.contextPath}/insertNoticeController" class="site-btn float-right bottom" role="button">공지사항 등록</a>
 					</c:if>
 					</div>
 					<form>
