@@ -49,9 +49,9 @@ public class ProductSearchController extends HttpServlet {
          age = Integer.parseInt(request.getParameter("age")); 
       }
       
-      int component = -1; // 알러지 여부 구분하기 위한 상품성분
+      String component = ""; // 알러지 여부 구분하기 위한 상품성분
       if(!"".equals(request.getParameter("component")) && request.getParameter("component")!=null) { 
-         component = Integer.parseInt(request.getParameter("component"));
+         component = request.getParameter("component");
       }
       
       int feedType = -1; // 건식, 소프트, 습식
@@ -75,7 +75,7 @@ public class ProductSearchController extends HttpServlet {
 
       request.setAttribute("searchCategoryList", searchCategoryList);
       request.setAttribute("ageId", age);
-      request.setAttribute("componentId", component);
+      request.setAttribute("componentName", component);
       request.setAttribute("feedTypeId", feedType);
       request.setAttribute("size", size);
       

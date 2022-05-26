@@ -142,9 +142,9 @@
                   <select name="component" id="component">
                      <option value="">선택없음</option>
                      <c:forEach var="c" items="${componentList}">
-                        <option value="${c.componentId}"
-                        	<c:if test="${c.componentId eq componentId}">selected</c:if>
-                        />${c.name}</option>
+                        <option value="${c.name}"
+                        	<c:if test="${c.name eq componentName}">selected</c:if>
+                        >${c.name}</option>
                      </c:forEach>
                   </select>
                </td>

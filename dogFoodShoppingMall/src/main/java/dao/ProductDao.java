@@ -160,7 +160,7 @@ public class ProductDao {
 	   }
 	   
 	     // 상세검색 구현을 위한 메서드
-	      public List<Map<String, Object>> selectProductListBySearchCategory(int age, int component, int feedType, String size) {
+	      public List<Map<String, Object>> selectProductListBySearchCategory(int age, String component, int feedType, String size) {
 	         List<Map<String,Object>> list = new ArrayList<>();
 
 	         //드라이버 자원 로딩
@@ -168,121 +168,111 @@ public class ProductDao {
 	         PreparedStatement stmt = null;
 	         ResultSet rs = null;
 	         String sql = "SELECT p.product_id productId, p.name productName, p.price, p.gram, pp.name photoName"
-	         		+ "	   FROM (SELECT product_id, GROUP_CONCAT(component_id, ' ') component"
-	         		+ "    		FROM product_component"
-	         		+ "    		GROUP BY product_id) t"
+	         		+ "	   FROM (SELECT product_id, GROUP_CONCAT(c.name, ' ') component"
+	         		+ "	   		FROM product_component pc"
+	         		+ "    		JOIN component c"
+	         		+ "    			ON pc.component_id = c.component_id"
+	         		+ "	   		GROUP BY product_id) t"
 	         		+ "    LEFT JOIN product_photo pp"
 	         		+ "      ON t.product_id=pp.product_id"
 	         		+ "    LEFT JOIN product_category pca"
 	         		+ "      ON t.product_id=pca.product_id"
 	         		+ "    LEFT JOIN product p"
-	         		+ "      ON t.product_id = p.product_id"
-	         		+ "   WHERE t.component NOT LIKE ?";
+	         		+ "      ON t.product_id = p.product_id";
 	         try {
 	            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
-	            if(age==-1 && component ==-1 && feedType == -1 && "".equals(size)) {
+	            if(age==-1 && "".equals(component) && feedType == -1 && "".equals(size)) {
 	               sql += " GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
 	               
-	            } else if(age!=-1 && component ==-1 && feedType == -1 && "".equals(size)) {
+	            } else if(age!=-1 && "".equals(component) && feedType == -1 && "".equals(size)) {
 	               sql += " WHERE pca.category_id=? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
-	               stmt.setInt(2, age);
+	               stmt.setInt(1, age);
 	               
-	            } else if(age==-1 && component !=-1 && feedType == -1 && "".equals(size)) {
-	               sql += " GROUP BY p.product_id ORDER BY p.create_date DESC LIMIT 0,10";
+	            } else if(age==-1 && !"".equals(component) && feedType == -1 && "".equals(size)) {
+	               sql += " WHERE t.component NOT LIKE ? GROUP BY p.product_id ORDER BY p.create_date DESC LIMIT 0,10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
+	               stmt.setString(1, "%"+component+"%");
 	               
-	            } else if(age==-1 && component ==-1 && feedType != -1 && "".equals(size)) {
+	            } else if(age==-1 && "".equals(component) && feedType != -1 && "".equals(size)) {
 	               sql += " WHERE pca.category_id=? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
-	               stmt.setInt(2, feedType);
+	               stmt.setInt(1, feedType);
 	               
-	            } else if(age==-1 && component ==-1 && feedType == -1 && !"".equals(size)) {
+	            } else if(age==-1 && "".equals(component) && feedType == -1 && !"".equals(size)) {
 	               sql += " WHERE p.feed_size=? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
 	               stmt.setString(1, size);
 	               
-	            } else if(age!=-1 && component !=-1 && feedType == -1 && "".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	            } else if(age!=-1 && !"".equals(component) && feedType == -1 && "".equals(size)) {
+	               sql += " WHERE t.component NOT LIKE ? AND pca.category_id = ? AND GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
+	               stmt.setString(1, "%"+component+"%");
 	               stmt.setInt(2, age);
-	               stmt.setInt(3, component);
 	               
-	            } else if(age!=-1 && component ==-1 && feedType != -1 && "".equals(size)) {
+	            } else if(age!=-1 && "".equals(component) && feedType != -1 && "".equals(size)) {
 	               sql += " WHERE pca.category_id=? AND pca.category_id = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
-	               stmt.setInt(2, age);
-	               stmt.setInt(3, feedType);
-	               
-	            } else if(age!=-1 && component ==-1 && feedType == -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id=? AND p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
-	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
-	               stmt.setInt(2, age);
-	               stmt.setString(3, size);
-	               
-	            } else if(age==-1 && component !=-1 && feedType != -1 && "".equals(size)) {
-	               sql += " WHERE pca.category_id = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
-	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
-	               stmt.setInt(2, component);
-	               stmt.setInt(3, feedType);
-	               
-	            } else if(age==-1 && component !=-1 && feedType == -1 && !"".equals(size)) {
-	               sql += " WHERE p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
-	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
-	               stmt.setInt(2, component);
-	               stmt.setString(3, size);
-	               
-	            } else if(age==-1 && component ==-1 && feedType != -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id=? AND p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
-	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
+	               stmt.setInt(1, age);
 	               stmt.setInt(2, feedType);
-	               stmt.setString(3, size);
 	               
-	            } else if(age!=-1 && component !=-1 && feedType != -1 && "".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND pca.category_id = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	            } else if(age!=-1 && "".equals(component) && feedType == -1 && !"".equals(size)) {
+	               sql += " WHERE pca.category_id=? AND p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
+	               stmt.setInt(1, age);
+	               stmt.setString(2, size);
+	               
+	            } else if(age==-1 && !"".equals(component) && feedType != -1 && "".equals(size)) {
+	               sql += " WHERE t.component NOT LIKE ? AND pca.category_id = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setString(1, "%"+component+"%");
+	               stmt.setInt(2, feedType);
+	               
+	            } else if(age==-1 && !"".equals(component) && feedType == -1 && !"".equals(size)) {
+	               sql += " WHERE t.component NOT LIKE ? AND p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setString(1, "%"+component+"%");
+	               stmt.setString(2, size);
+	               
+	            } else if(age==-1 && "".equals(component) && feedType != -1 && !"".equals(size)) {
+	               sql += " WHERE pca.category_id=? AND p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setInt(1, feedType);
+	               stmt.setString(2, size);
+	               
+	            } else if(age!=-1 && !"".equals(component) && feedType != -1 && "".equals(size)) {
+	               sql += " WHERE t.component NOT LIKE ? AND pca.category_id = ? AND pca.category_id = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setString(1, "%"+component+"%");
 	               stmt.setInt(2, age);
 	               stmt.setInt(3, feedType);
 	               
-	            } else if(age!=-1 && component !=-1 && feedType == -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND pca.category_id = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	            } else if(age!=-1 && !"".equals(component) && feedType == -1 && !"".equals(size)) {
+	               sql += " WHERE t.component NOT LIKE ? AND pca.category_id = ? AND pca.category_id = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
+	               stmt.setString(1, "%"+component+"%");
 	               stmt.setInt(2, age);
 	               stmt.setString(3, size);
 	               
-	            } else if(age!=-1 && component ==-1 && feedType != -1 && !"".equals(size)) {
+	            } else if(age!=-1 && "".equals(component) && feedType != -1 && !"".equals(size)) {
 	               sql += " WHERE pca.category_id = ? AND pca.category_id=? AND p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
-	               stmt.setInt(2, age);
-	               stmt.setInt(3, feedType);
-	               stmt.setString(4, size);
-	               
-	            } else if(age==-1 && component !=-1 && feedType != -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND p.feed_size =? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
-	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
+	               stmt.setInt(1, age);
 	               stmt.setInt(2, feedType);
 	               stmt.setString(3, size);
 	               
-	            } else if(age!=-1 && component !=-1 && feedType != -1 && !"".equals(size)) {
-	               sql += " WHERE pca.category_id = ? AND pca.category_id = ? AND p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	            } else if(age==-1 && !"".equals(component) && feedType != -1 && !"".equals(size)) {
+	               sql += " WHERE t.component NOT LIKE ? AND pca.category_id = ? AND p.feed_size =? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
 	               stmt = conn.prepareStatement(sql);
-	               stmt.setString(1, component+"%");
+	               stmt.setString(1, "%"+component+"%");
+	               stmt.setInt(2, feedType);
+	               stmt.setString(3, size);
+	               
+	            } else if(age!=-1 && !"".equals(component) && feedType != -1 && !"".equals(size)) {
+	               sql += " WHERE t.component NOT LIKE ? AND pca.category_id = ? AND pca.category_id = ? AND p.feed_size = ? GROUP BY p.product_id ORDER BY p.create_date desc LIMIT 0, 10";
+	               stmt = conn.prepareStatement(sql);
+	               stmt.setString(1, "%"+component+"%");
 	               stmt.setInt(2, age);
 	               stmt.setInt(3, feedType);
 	               stmt.setString(4, size);   
