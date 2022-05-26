@@ -4,19 +4,16 @@ public class ReviewPhoto {
 	private int reviewPhotoId;
 	private String originalName;
 	private String name;
-	private String reviewPhoto;
 	private String type;
 	private int reviewId;
 	
 	public ReviewPhoto() {}
 
-	public ReviewPhoto(int reviewPhotoId, String originalName, String name, String reviewPhoto, String type,
-			int reviewId) {
+	public ReviewPhoto(int reviewPhotoId, String originalName, String name, String type, int reviewId) {
 		super();
 		this.reviewPhotoId = reviewPhotoId;
 		this.originalName = originalName;
 		this.name = name;
-		this.reviewPhoto = reviewPhoto;
 		this.type = type;
 		this.reviewId = reviewId;
 	}
@@ -45,14 +42,6 @@ public class ReviewPhoto {
 		this.name = name;
 	}
 
-	public String getReviewPhoto() {
-		return reviewPhoto;
-	}
-
-	public void setReviewPhoto(String reviewPhoto) {
-		this.reviewPhoto = reviewPhoto;
-	}
-
 	public String getType() {
 		return type;
 	}
@@ -72,7 +61,7 @@ public class ReviewPhoto {
 	@Override
 	public String toString() {
 		return "ReviewPhoto [reviewPhotoId=" + reviewPhotoId + ", originalName=" + originalName + ", name=" + name
-				+ ", reviewPhoto=" + reviewPhoto + ", type=" + type + ", reviewId=" + reviewId + "]";
+				+ ", type=" + type + ", reviewId=" + reviewId + "]";
 	}
 
 }

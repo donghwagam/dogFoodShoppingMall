@@ -145,6 +145,9 @@
 						<ul>
                             <li><a href="${pageContext.request.contextPath}/memberOneController">회원/애견 정보</a></li>
 							<li><a href="${pageContext.request.contextPath}/purchaseMemberListController">구매내역</a></li>
+							<c:if test="${sessionMemberId eq 'admin'}">
+								<li><a href="${pageContext.request.contextPath}/adminCheck/adminPageController">관리자페이지</a></li>
+							</c:if>
 						</ul>
 					</div>
 				</div>
