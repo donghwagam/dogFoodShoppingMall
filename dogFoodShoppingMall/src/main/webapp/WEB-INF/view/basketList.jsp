@@ -238,7 +238,7 @@
                        </form>
                   		
               	   		<div >
-                   		  <a href="${pageContext.request.contextPath}/productSearchController" class="site-btn top">쇼핑 계속하기</a>
+                   		  <a href="${pageContext.request.contextPath}/mainPageController" class="site-btn top">쇼핑 계속하기</a>
                 		</div>
                 </div>
              </div>
