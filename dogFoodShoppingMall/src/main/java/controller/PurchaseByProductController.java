@@ -22,7 +22,7 @@ public class PurchaseByProductController extends HttpServlet {
 		int productId = Integer.parseInt(request.getParameter("productId")); // 상품번호
 		String photoName = request.getParameter("photoName"); // 사진이름
 		String productName = request.getParameter("productName"); // 상품이름
-		int quantity = Integer.parseInt(request.getParameter("quantity")); // 수량
+		int quantity = Math.abs(Integer.parseInt(request.getParameter("quantity"))); // 수량
 		int totalPriceByProduct = Integer.parseInt(request.getParameter("totalPriceByProduct")); // 상품 1개의 총 가격
 		
 		// 디버깅
@@ -58,7 +58,7 @@ public class PurchaseByProductController extends HttpServlet {
 		String sessionMemberId = (String)session.getAttribute("sessionMemberId"); // 현제 로그인한 아이디 가져오기
 		// 구매하기 버튼을 눌렀을때 넘어오는 값 받아오기
 		int productId = Integer.parseInt(request.getParameter("productId")); // 상품번호
-		int quantity = Integer.parseInt(request.getParameter("quantity")); // 수량
+		int quantity = Math.abs(Integer.parseInt(request.getParameter("quantity"))); // 수량
 		
 		// 디버깅
 		System.out.println("PurchaseByProductController.doPost() productId : " + productId);
