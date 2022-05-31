@@ -126,6 +126,7 @@
             </div>
             <form method="post" action="${pageContext.request.contextPath}/loginController" id="Login">
                <div class="form-group">
+               	  <input type="hidden" name="productId" value="${productId}">
                   <input type="text" class="form-control" name="memberId" id="memberId" value="${cookieId}" placeholder="아이디">
                </div>
                <div class="form-group">

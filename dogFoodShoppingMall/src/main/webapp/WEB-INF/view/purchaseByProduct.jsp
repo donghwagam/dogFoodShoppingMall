@@ -228,6 +228,7 @@
 		    							<tbody>
 			    							<!-- foreach ($order->lineItems as $line) or some such thing here -->
 			    							<tr>
+			    								<input type="hidden" name="photoName" value="${photoName}">
 			    								<td><img src="${pageContext.request.contextPath}/images/${photoName}" width="100px" height="100px"></td>
 			    								<td class="text-center"><input class="text-center" type="text" name="photoName" value="${productName}" readonly="readonly" style="border:0 solid black"></td>
 			    								<td class="text-center"><input class="text-center" type="text" name="quantity" value="${quantity}" readonly="readonly" style="border:0 solid black"></td>

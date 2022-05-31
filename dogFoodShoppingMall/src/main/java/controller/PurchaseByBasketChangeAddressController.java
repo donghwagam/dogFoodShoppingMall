@@ -20,7 +20,6 @@ public class PurchaseByBasketChangeAddressController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
-		System.out.println("sefesfs : " + sessionMemberId);
 		
 		basketDao = new BasketDao();
 		List<MemberBasket> memberBasketList = basketDao.selectMemberBasketList(sessionMemberId);

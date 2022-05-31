@@ -144,7 +144,7 @@
                         <p>${list.info} </p>
                         <c:choose>
                         <c:when test="${memberId == null}">
-                        <a href="${pageContext.request.contextPath}/loginController?productId=${productId}" class="primary-btn">구매하기</a>
+                        	<a href="${pageContext.request.contextPath}/loginController?productId=${productId}" class="primary-btn">구매하기</a>
                         </c:when>
                         <c:otherwise>	
                         <form method="post" action="${pageContext.request.contextPath}/loginCheck/purchaseByProductController">

@@ -209,9 +209,7 @@
 										</td>
 										<td class="shoping__cart__quantity">
 	                                        <div class="quantity">
-	                                            <div class="pro-qty">
-	                                                <input type="text" name="basketCount"  value="${m.quantity}">
-	                                            </div>
+                                                <input type="text" name="basketCount"  value="${m.quantity}" class="text-center" readonly="readonly">
 	                                  	     </div>
 		                                </td>
 										<td class="shoping__cart__price">
