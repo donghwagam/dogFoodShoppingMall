@@ -43,6 +43,9 @@ public class BasketListController extends HttpServlet {
           loginBasketEmpty = "loginBasketEmpty";
        }
        
+       System.out.println("BasketListController.doGet() logoutBasketEmpty : " + logoutBasketEmpty);
+       System.out.println("BasketListController.doGet() loginBasketEmpty : " + loginBasketEmpty);
+       
        request.setAttribute("logoutBasketEmpty", logoutBasketEmpty);
        request.setAttribute("loginBasketEmpty", loginBasketEmpty);
        

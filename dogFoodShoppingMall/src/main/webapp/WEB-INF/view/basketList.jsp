@@ -225,10 +225,12 @@
                          
                         <c:choose>
 	                         <c:when test="${sessionMemberId == null}">
-	                         	<a href="${pageContext.request.contextPath}/loginController" class="float-right site-btn top">결제하기</a>
+	                         	<c:if test="${null eq logoutBasketEmpty}">
+	                         		<a href="${pageContext.request.contextPath}/loginController" class="float-right site-btn top">결제하기</a>
+	                         	</c:if>
 	                         </c:when>
 	                         <c:otherwise>
-	                         	<c:if test="${null eq logoutBasketEmpty || null eq loginBasketEmpty}">
+	                         	<c:if test="${null eq loginBasketEmpty}">
                            			<button class="float-right site-btn top" type="submit">결제하기</button>
                         		</c:if>
 	                         </c:otherwise>
