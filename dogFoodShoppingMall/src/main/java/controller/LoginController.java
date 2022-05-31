@@ -41,7 +41,6 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession(); // 현재 세션 받아오기
 		String memberId = request.getParameter("memberId"); // memberId 받아오기
 		String memberPw = request.getParameter("memberPw"); // memberPw 받아오기
-		int productId = 0;
 
 		this.memberDao = new MemberDao(); // 메서드 사용을 위한 memberDao 객체 생성
 
@@ -89,14 +88,14 @@ public class LoginController extends HttpServlet {
 				request.setAttribute("msg", msg);
 				request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response); // 로그인 페이지 연결
 			} else {
-				if(request.getParameter("productId") != null) {
-					productId = Integer.parseInt(request.getParameter("productId"));
+				if(request.getParameter("productId") != null && !request.getParameter("productId").equals("0")) {
+					int productId = Integer.parseInt(request.getParameter("productId"));
 					response.sendRedirect(request.getContextPath()+"/mainProductOneController?productId="+productId);
+				} else {
+					response.sendRedirect(request.getContextPath()+"/mainPageController");
+					System.out.println("활성화 된 아이디로 로그인 성공 하였습니다.");
 					return;
 				}
-				response.sendRedirect(request.getContextPath()+"/mainPageController");
-				System.out.println("활성화 된 아이디로 로그인 성공 하였습니다.");
-				return;
 			}
 		} else {
 			response.sendRedirect(request.getContextPath()+"/loginController"); // 로그인 성공 후 메인페이지로 이동
