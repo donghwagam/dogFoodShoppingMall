@@ -34,7 +34,8 @@ public class BasketListController extends HttpServlet {
        int quantity = 1;  // 초기 수량을 1로 정해주기
        
        String logoutBasketEmpty = null;
-       if(session.getAttribute("guestBasketList") == null) {
+       System.out.println("-------------------"+session.getAttribute("guestBasketList"));
+       if(session.getAttribute("guestBasketList") == null || ((List<MemberBasket>) session.getAttribute("guestBasketList")).size() == 0) {
           logoutBasketEmpty = "logoutBasketEmpty";
        }
        
@@ -59,8 +60,8 @@ public class BasketListController extends HttpServlet {
                 boolean chk = false; // 회원장바구니에 원래 있던 상품인지 아닌지를 체크하기 위한 변수
                 
                 for(int i=0; i<memberBasketList.size(); i=i+1) { // 멤버 장바구니 리스트 돌리면서 (DB)
-                   System.out.println("guestBasketList--------------" + guestBasketList.get(j).getProductId());
-                   System.out.println("memberBasketList--------------" + memberBasketList.get(i).getProductId());
+                   System.out.println("BasketListController.doGet() guestBasketList : " + guestBasketList.get(j).getProductId());
+                   System.out.println("BasketListController.doGet() memberBasketList : " + memberBasketList.get(i).getProductId());
                    if(guestBasketList.get(j).getProductId() == memberBasketList.get(i).getProductId()) { // 같은 아이디가 있다면
                       productId = memberBasketList.get(i).getProductId();
                       quantity = guestBasketList.get(j).getQuantity();
@@ -69,7 +70,7 @@ public class BasketListController extends HttpServlet {
                    }
                 }
                 
-                System.out.println("chk  -------:"+chk);
+                System.out.println("BasketListController.doGet() chk : "+chk);
                 if(!chk) { // 같은 상품이 없었다면
                    productId = guestBasketList.get(j).getProductId(); // 리스트 돌리면서 productId 들고와서 
                     basketDao.insertBasket(productId, memberId, quantity); // db에 넣어주기

@@ -35,6 +35,7 @@ public class RemoveGuestBasketController extends HttpServlet {
 		}
 		
 		System.out.println("RemoveGuestBasketController (doGet) : " +session.getAttribute("guestBasketList"));
+		System.out.println("RemoveGuestBasketController (doGet) ------------------ : "+guestBasketList.size());
 		//리다이렉트
 		response.sendRedirect(request.getContextPath()+"/basketListController");
 	}
