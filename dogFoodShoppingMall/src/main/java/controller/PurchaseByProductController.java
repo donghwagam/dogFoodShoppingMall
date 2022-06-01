@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.MemberDao;
+import dao.ProductDao;
 import dao.PurchaseDao;
 
 @WebServlet("/loginCheck/purchaseByProductController")
@@ -63,6 +64,15 @@ public class PurchaseByProductController extends HttpServlet {
 		// 디버깅
 		System.out.println("PurchaseByProductController.doPost() productId : " + productId);
 		System.out.println("PurchaseByProductController.doPost() quantity : " + quantity);
+		
+		purchaseDao = new PurchaseDao();
+		
+		int stock = purchaseDao.selectStockByProduct(productId);
+		
+		if(quantity > stock) {
+			response.sendRedirect(request.getContextPath()+"/mainProductOneController?productId="+productId);
+			return;
+		}
 		
 		purchaseDao = new PurchaseDao(); // 메서드 사용을 위한 객체 생성
 		Map<String, Object> map = purchaseDao.selectPurchaseByProduct(productId, quantity); // 구매한 상품정보 가져오는 메서드 실행 후 저장

@@ -13,12 +13,14 @@ import javax.servlet.http.HttpSession;
 
 import dao.BasketDao;
 import dao.MemberDao;
+import dao.PurchaseDao;
 import vo.MemberBasket;
 
 @WebServlet("/loginCheck/purchaseByBasketController")
 public class PurchaseByBasketController extends HttpServlet {
 	private BasketDao basketDao;
 	private MemberDao memberDao;
+	private PurchaseDao purchaseDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int totalPriceByBasket = 0;
@@ -52,6 +54,16 @@ public class PurchaseByBasketController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+		
+		purchaseDao = new PurchaseDao();
+		List<Map<String, Object>> stockByBasketMap = purchaseDao.selectStockByBasket(sessionMemberId);
+		
+		for(Map m : stockByBasketMap) {
+			if((int)m.get("quantity") > (int)m.get("stock")) {
+				response.sendRedirect(request.getContextPath()+"/basketListController");
+				return;
+			}
+		}
 		
 		basketDao = new BasketDao();
 		List<MemberBasket> memberBasketList = basketDao.selectMemberBasketList(sessionMemberId);
