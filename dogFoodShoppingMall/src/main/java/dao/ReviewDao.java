@@ -9,6 +9,44 @@ import java.util.*;
 
 public class ReviewDao {
 	
+	// review count 메서드
+	public int selectCountReview(int productId) {
+		
+		int cnt = 0; 
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT COUNT(*) cnt"
+				+ " FROM review"
+				+ " WHERE product_id = ?";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, productId);
+			rs = stmt.executeQuery();
+
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cnt;
+	}
+	
+	
+	// 결제 정보 받아오는 메서드(결제전, 결제완료, 배송완료) -> 배송완료 된 후 리뷰작성 해야해서 확인
 	public String selectStatus(int purchaseId) {
 		
 		String status = null;
@@ -47,7 +85,7 @@ public class ReviewDao {
 		return status;
 	}
 	
-	
+	// 리뷰 작성 여부 확인하는 메서드(cnt 1 반환시 리뷰 이미 작성, cnt 0 반환시 리뷰 미작성)
 	public int checkInsertReview(Map<String, Object> map) {
 		
 		Connection conn = null;
@@ -87,6 +125,7 @@ public class ReviewDao {
 		
 	}
 	
+	// 상품 리뷰 입력하는 메서드
 	public int insertReview(Map<String, Object> map){
 		
 		int row = 0;
@@ -155,7 +194,7 @@ public class ReviewDao {
 		return row;
 	}
 	
-	
+	// 상품 리뷰 평점 가져오는 메서드
 	public double selectStarAverage(int productId) {
 		Connection conn = null;
 		PreparedStatement stmt = null;

@@ -12,6 +12,43 @@ import vo.Qna;
 
 public class QnaDao {
 	
+	// QnA 질문 count 메서드
+	public int selectCountQna(int productId) {
+		
+		int cnt = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT COUNT(*) cnt"
+				+ " FROM qna"
+				+ " WHERE product_id = ? AND qna_kind = '질문';";
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, productId);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return cnt;
+		
+	}
+	
+	
 	public List<Qna> selectQna(int productId){
 		
 		List<Qna> list = new ArrayList<Qna>();

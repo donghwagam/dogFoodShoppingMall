@@ -195,11 +195,11 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                    aria-selected="false">리뷰</a>
+                                    aria-selected="false">리뷰<span> (${reviewCnt})</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">Q&A <span>(1)</span></a>
+                                    aria-selected="false">Q&A<span> (${qnaCnt})</span></a>
                             </li>
                         </ul>
                         <div class="tab-content">

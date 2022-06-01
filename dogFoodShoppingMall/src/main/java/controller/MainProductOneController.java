@@ -48,10 +48,22 @@ public class MainProductOneController extends HttpServlet {
 		request.setAttribute("selectReviewList", selectReviewList);
 		System.out.println("MainProductController.doGet() selectReviewList size : " + selectReviewList.size());
 		
+		// 선택한 상품 리뷰 count 가져오는 메서드
+		int reviewCnt = reviewDao.selectCountReview(productId);
+		request.setAttribute("reviewCnt", reviewCnt);
+		System.out.println("MainProductOneController.doGet() reviewCnt : " + reviewCnt);
+		
+		// 선택한 상품 상세정보 페이지에서 qna 불러오는 리스트
 		this.qnaDao = new QnaDao();
 		List<Qna> selectQnaList = qnaDao.selectQna(productId);
 		request.setAttribute("selectQnaList", selectQnaList);
 		System.out.println("MainProductController.doGet() selectQnaList size : " + selectQnaList.size());
+		
+		// 선택한 상품 qna 질문 count 가져오는 메서드
+		int qnaCnt = qnaDao.selectCountQna(productId);
+		request.setAttribute("qnaCnt", qnaCnt);
+		System.out.println("MainProductOneController.doGet() qnaCnt : " + qnaCnt);
+		
 		
 		// 상품의 평점을 나타내는 메서드
 		double star = reviewDao.selectStarAverage(productId);
@@ -62,8 +74,6 @@ public class MainProductOneController extends HttpServlet {
 		
 		//정보제공용 사진 불러오는 리스트 
 		List<ProductPhoto> photoList = mainProductDao.selectPhotoList(productId);
-		
-
 		
 		System.out.println("MainProductController.doGet() categoryList size :" + categoryList.size());
 		request.setAttribute("categoryList", categoryList);
