@@ -6,13 +6,13 @@ public class MemberDog {
    private int dogId;
    private String dogName;
    private String birth;
-   private int weight;
+   private double weight;
    private String createDate;
    private String updateDate;
    
    public MemberDog() {}
    
-   public MemberDog(int memberDogId, String memberId, int dogId, String dogName, String birth, int weight,
+   public MemberDog(int memberDogId, String memberId, int dogId, String dogName, String birth, double weight,
          String createDate, String updateDate) {
       super();
       this.memberDogId = memberDogId;
@@ -65,11 +65,11 @@ public class MemberDog {
       this.birth = birth;
    }
 
-   public int getWeight() {
+   public double getWeight() {
       return weight;
    }
 
-   public void setWeight(int weight) {
+   public void setWeight(double weight) {
       this.weight = weight;
    }
 

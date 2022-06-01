@@ -62,7 +62,7 @@ public class InsertDogController extends HttpServlet {
       String dogName = request.getParameter("dogName"); // 개 이름
       int dogId = Integer.parseInt(request.getParameter("spiece")); // 견종 번호
       String birth = request.getParameter("birth"); // 태어난 년도
-      int weight = Integer.parseInt(request.getParameter("weight")); // 체중
+      double weight = Double.parseDouble(request.getParameter("weight")); // 체중
       
       String[] allergy = null; // 알러지 번호 // 여러개라서 배열로 선언
       System.out.println(request.getParameterValues("allergy"));
