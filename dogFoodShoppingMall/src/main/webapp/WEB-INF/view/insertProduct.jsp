@@ -5,10 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <style type="text/css">
+.helper {
+       color : #FF0000;
+    }
 	h1.page-header {
     margin-top: -5px;
 }
@@ -423,102 +426,117 @@
   	<div class="container">
 	<div class="row">
 		<div class="span5">
-		<form method="post" action="${pageContext.request.contextPath}/insertProductController" enctype="multipart/form-data">
+		<form method="post" id="insertProductForm" action="${pageContext.request.contextPath}/insertProductController" enctype="multipart/form-data">
             <table class="table table-striped table-condensed">
                   <tr>
                       <th>상품 이름</th>
                       <td>
-                     	 <input type="text" name="productName">
+                     	 <input type="text" name="productName" id="productName" placeholder="상품이름" >
+                     	 <span id="productNameHelper" class="helper"></span>
                       </td>
                       
                   </tr>
                   <tr>
                       <th>가격</th>
                       <td>
-                     	 <input type="number" name="price">원
+                     	 <input type="number" id= "price" name="price" placeholder="가격">원
+                     	 <span id="priceHelper" class="helper"></span>
                       </td>
                   </tr>
                   <tr>
                       <th>그램</th>
                       <td>
-                      	<input type="text" name="gram">g
+                      	<input type="text" name="gram" id="gram" placeholder="무게">g
+                      	<span id="gramHelper" class="helper"></span>
                       </td>
                   </tr>
                   <tr>
                   	<th>등급</th>
                   	<td>
-                  		<select name="rate">
+                  		<select name="rate" id="rate">
+                  				<option value="" selected="selected">::등급선택::</option>
 	                    		<option value="로가닉">로가닉</option>
 	                    		<option value="오가닉">오가닉</option>
 	                    		<option value="홀리스틱">홀리스틱</option>
 	                    		<option value="슈퍼프리미엄">슈퍼프리미엄</option>
 	                    		<option value="프리미엄">프리미엄</option>
-	                    		<option value="일반" selected="selected">일반</option>
+	                    		<option value="일반">일반</option>
 	                    </select>
+	                    <span id="rateHelper" class="helper"></span>
                   	</td>
                   </tr>
                   <tr>
                       <th>알갱이크기</th>
                       <td>
-                      	<select name="feedSize">
+                      	<select name="feedSize" id="feedSize">
+                      			<option value="" selected="selected">::크기선택::</option>
 	                    		<option value="소">소</option>
-	                    		<option value="중" selected="selected">중</option>
+	                    		<option value="중">중</option>
 	                    		<option value="대">대</option>
 	                    </select>
+	                    <span id="feedSizeHelper" class="helper"></span>
                       </td>
                   </tr>
                   <tr>
                       <th>원산지</th>
                       <td>
-                      	<input type="text" name="origin">
+                      	<input type="text" name="origin" id="origin" placeholder="원산지">
+                      	<span id="originHelper" class="helper"></span>
                       </td>
                   </tr>
                   <tr>
                       <th>정보</th>
                       <td>
-                      <textarea name="info"></textarea>
+                      <textarea name="info" id="info"></textarea>
+                      <span id="infoHelper" class="helper"></span>
                       </td>
                   </tr>
                   <tr>
                       <th>상품 사진</th>
                       <td>
-                      	<input type="file" name="productPhoto">
+                      	<input type="file" name="productPhoto" id="productPhoto">
+                      	<span id="productPhotoHelper" class="helper"></span>
                       </td>
                   </tr>
                   <tr>
                       <th>재고</th>
                       <td>
-                      	<input type="number" name="stock">
+                      	<input type="number" name="stock" id="stock">
+                      	<span id="stockHelper" class="helper"></span>
                       </td>
                   </tr>
                   <tr>
                       <th>브랜드</th>
                       <td>
-                      	<select name="brandId">
+                      	<select name="brandId" id="brandId">
+                      			<option value="" selected="selected">::브랜드선택::</option>
                       		<c:forEach var="b" items="${brandList}">
 	                    		<option value="${b.brandId}">${b.name}</option>
 	                    	</c:forEach>
 	                    </select>
+	                    <span id="brandHelper" class="helper"></span>
                       </td>
                   </tr>
                   <tr>
                   	<th>구성 성분</th>
                   	<td>
                   	<c:forEach var="co" items="${componentList}">
-	                  	<input type="checkbox" name="component" value="${co.componentId}">${co.name} 
+	                  	<input type="checkbox" name="component" id="component" value="${co.componentId}">${co.name}
 	                 </c:forEach>
+	                 <span id="componentHelper" class="helper"></span>
                   	</td>
                   </tr>
                   <tr>
                       <th>카테고리</th>
                       <td>
                       	<c:forEach var="c" items="${categoryList}">
-                      		<input type="checkbox" name="category" value="${c.categoryId}">${c.name}
+                      		<input type="checkbox" name="category" id="category" value="${c.categoryId}">${c.name}
                        	</c:forEach>
+                       	<span id="categoryHelper" class="helper"></span>
                       </td>
                   </tr>
 			</table>
-			 <button type="submit" class="btn btn-success form-control">제품 추가</button>
+			 <button id="insertProduct" type="submit" class="btn btn-success form-control">제품 추가</button>
 			</form>
 		</div>
 	</div>
@@ -531,4 +549,190 @@
   		</footer>
   	</div>
 </body>
+<script>
+	
+	// priductName 유효성 검사 
+	$('#productName').blur(function() {
+		if($('#productName').val().length > 0 && $('#productName').val().length < 4) {
+			$('#productNameHelper').text('상품이름은 4자 이상 입력해주세요');
+			$('#productName').focus();
+		} else if ($('#productName').val().length > 50) {
+			$('#productNameHelper').text('상품이름은 50자 이내로 입력해주세요');
+			$('#productName').focus();
+		} else {
+			$('#productNameHelper').text('');
+		}
+	});
+	// price 유효성 검사 
+	$('#price').blur(function(){
+		if($('#price').val() == '') {
+			$('#priceHelper').text('가격을 입력해주새요');
+			$('#price').focus();
+		} else if ($('#price').val() < 1000) {
+			$('#priceHelper').text('상품가격은 1000원이상 입력해주세요');
+			$('#price').focus();
+		} else {
+			$('#priceHelper').text('');
+		}
+		
+	});
+	// gram 유효성 검사 
+	$('#gram').blur(function(){
+		if($('#gram').val() == '') {
+			$('#gramHelper').text('무게를 입력해주세요');
+			$('#gram').focus();
+		} else if ($('#gram').val() < 100) {
+			$('#gramHelper').text('100그램 이상 입력해주세요');
+			$('#gram').focus();
+		} else {
+			$('#gramHelper').text('');
+		}
+	});
+	//rate 유효성 검사 
+	$('#rate').blur(function(){
+		if($('#rate').val() == '') {
+			$('#rateHelper').text('등급을 선택해주세요');
+			$('#rate').focus();
+		} else {
+			$('#rateHelper').text('');
+		}
+	});
+	//feedSize 유효성 검사 
+	$('#feedSize').blur(function(){
+		if($('#feedSize').val() == '') {
+			$('#feedSizeHelper').text('크기를 선택해주세요');
+			$('#feedSize').focus();
+		} else {
+			$('#feedSizeHelper').text('');
+		}
+	});
+	// origin 유효성 검사 
+	$('#origin').blur(function() {
+		if($('#origin').val() == '') {
+			$('#originHelper').text('원산지를 입력해주세요');
+			$('#origin').focus();
+		} else {
+			$('#originHelper').text('');
+		}
+	});
+	//info 유효성 검사
+	$('#info').blur(function(){
+		if($('#info').val() == '') {
+			$('#infoHelper').text('정보를 입력해주세요');
+			$('#info').focus();
+		} else {
+			$('#infoHelper').text('');
+		}
+	});
+	// productPhoto 유효성 검사 
+	$('#productPhoto').blur(function(){
+		if($('#productPhoto').val() == '') {
+			$('#productPhotoHelper').text('사진파일을 등록해주세요');
+			$('#productPhoto').focus();
+		} else if ($('productPhoto').val() != '') {
+			if(!$('#productPhoto').val().match(/(.*?)\.(jpg|jpeg|png)$/)) {
+				$('#productPhotoHelper').text('사진파일만 올려주세요');
+				$('#productPhoto').focus();
+			} else {
+				$('#productPhotoHelper').text('');
+			}
+		}
+	});
+	// stock 유효성 검사 
+	$('#stock').blur(function(){
+		if($('#stock').val() == '') {
+			$('#stockHelper').text('재고수량을 등록해주세요');
+			$('#stock').focus();
+		} else {
+			$('#stockHelper').text('');
+		}
+	});
+	// brand유효성 검사 
+	$('#brandId').blur(function() {
+		if($('#brandId').val() == '') {
+			$('#brandHelper').text('브랜드를 선택해주세요');
+			$('#brandId').focus();
+		} else {
+			$('#brandHelper').text('');
+		}
+	});
+	
+	$('#insertProduct').click(function(){
+		if($('#productName').val() == '') {
+			$('#productNameHelper').text('상품이름을 등록해주세요');
+			$('#productName').focus();
+			return false;
+		} else if ($('#price').val() == ''){
+			$('#productNameHelper').text('');
+					
+			$('#priceHelper').text('가격을 입력해주세요');
+			$('#price').focus();
+			return false;
+		} else if ($('#gram').val() == '') {
+			$('#priceHelper').text('');
+			
+			$('#gramHelper').text('무게를 입력해주세요');
+			$('#gram').focus();
+			return false;
+		} else if ($('#rate').val() =='') {
+			$('#gramHelper').text('');
+			
+			$('#rateHelper').text('등급을 입력해주세요');
+			$('#rate').focus();
+			return false;
+		} else if ($('#feedSize').val() == '') {
+			$('#rateHelper').text('');
+			
+			$('#feedSizeHelper').text('알맹이 크기를 입력해주세요');
+			$('#feedSize').focus();
+			return false;
+		} else if ($('#origin').val() == '') {
+			$('#feedSzieHelper').text('');
+			
+			$('#originHelper').text('원산지를 입력해주세요');
+			$('#origin').focus();
+			return false;
+		} else if($('#info').val() == '') {
+			$('#originHelper').text('');
+			
+			$('#infoHelper').text('정보를 입력해주세요');
+			$('#info').focus();
+			return false;
+		} else if ($('#productPhoto').val() == '') {
+			$('#infoHelper').text('');
+			
+			$('#productPhotoHelper').text('사진을 등록해주세요');
+			$('#productPhoto').focus();
+			return false;
+		} else if ($('#stock').val() == '') {
+			$('#productPhotoHelper').text('');
+			
+			$('#stockHelper').text('재고를 등록해주세요');
+			$('#stock').focus();
+			return false;
+		} else if ($('#brandId').val() == '') {
+			$('#stockHelper').text('');
+			
+			$('#brandHelper').text('브랜드를 입력해주세요');
+			$('#brandId').focus();
+			return false;
+		} else if ($('#component:checked').length == 0) {
+			$('#brandHelper').text('');
+			
+			$('#componentHelper').text('구성성분을 한개 이상 선택해주세요');
+			$('#component').focus();
+			return false;
+		} else if ($('#category:checked').length == 0) {
+			$('#componentHelper').text('');
+			
+			$('#categoryHelper').text('카테고리를 하나 이상선택해주세요');
+			$('#category').focus();
+			return false;
+		} else {
+			$('#insertProductForm').submit();
+		}
+	});
+	
+	
+</script>
 </html>
