@@ -40,9 +40,12 @@ public class SearchAddressController extends HttpServlet {
 		request.setAttribute("searchAddressList", list); // 리스트 값 searchAddressList에 setting
 		
 		
-		if(msg.equals("insertMemberAddr")) { // msg가 insert라면
+		if(msg.equals("insertMemberAddr")) { // msg가 insertMemberAddr라면 
+			
 			request.getRequestDispatcher("/WEB-INF/view/insertMember.jsp").forward(request, response); // 회원가입 페이지로 이동
-		} else if (msg.equals("purchaseByProductChangeAddr")) { // msg가 purchase라면
+		
+		} else if (msg.equals("purchaseByProductChangeAddr")) { // msg가 purchaseByProductChangeAddr라면
+			
 			int productId = Integer.parseInt(request.getParameter("productId"));
 			String photoName = request.getParameter("photoName");
 			String productName = request.getParameter("productName");
@@ -63,7 +66,9 @@ public class SearchAddressController extends HttpServlet {
 			request.setAttribute("totalPriceByProduct", totalPriceByProduct);
 			
 			request.getRequestDispatcher("/WEB-INF/view/purchaseByProductChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
-		} else if(msg.equals("purchaseByBasketChangeAddr")) {
+	
+		} else if(msg.equals("purchaseByBasketChangeAddr")) { // msg가 purchaseByProductChangeAddr라면
+			
 			HttpSession session = request.getSession();
 			String sessionMemberId = (String)session.getAttribute("sessionMemberId");
 			basketDao = new BasketDao();
@@ -78,6 +83,7 @@ public class SearchAddressController extends HttpServlet {
 			request.setAttribute("totalPriceByBasket", totalPriceByBasket);
 			
 			request.getRequestDispatcher("/WEB-INF/view/purchaseByBasketChangeAddress.jsp").forward(request, response); // 구매 페이지로 이동
+			
 		} else if (msg.equals("updateMemberAddr")) { // msg가 updateMemberAddr 라면
 			// 세션 호출
 			HttpSession session = request.getSession();

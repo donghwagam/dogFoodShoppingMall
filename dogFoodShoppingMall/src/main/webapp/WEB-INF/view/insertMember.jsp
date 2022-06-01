@@ -21,18 +21,18 @@
 	    <div class="row">
 	        <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
 	            <legend style="text-align:center;">회원가입</legend>
-	            <form method="post" action="${pageContext.request.contextPath}/searchAddressController?msg=insertMemberAddr">
-		          	<input class="form-control" name="searchAddress" placeholder="주소" type="text"/>
-		          	<button class="btn btn-sm btn-danger btn-block" type="submit">주소검색</button><br>
+	            <form id="searchAddrForm" method="post" action="${pageContext.request.contextPath}/searchAddressController?msg=insertMemberAddr">
+		          	<input class="form-control" name="searchAddress" id="addressId"  placeholder="주소" type="text"/>
+		          	<span id="addressHelper" class="helper"></span>
+		          	<button id="searchAddr" class="btn btn-sm btn-danger btn-block" type="button">주소검색</button><br>
 		        </form>
 	            <form id="signupForm" action="${pageContext.request.contextPath}/insertMemberController" method="post" class="form" role="form">
 	            	<c:if test="${searchAddressList != null}">
-	            		<select class="form-control" id="addressId" name="addressId">
+	            		<select class="form-control" name="addressId">
 		       		    	<option value = "" style="text-align:center;">:: 주소 선택 ::</option>
 				            <c:forEach var="s" items="${searchAddressList}">
 				            		<option value="${s.addressId}" style="text-align:center;">${s.addr}</option>
 				            </c:forEach>
-				            <span id="addressHelper" class="helper"></span>
 		            	</select>
 	            	</c:if>
 	            	
@@ -76,6 +76,17 @@
 	</div>
 </body>
 <script>
+	
+	$('#searchAddr').click(function() {
+		if($('#addressId').val() == '') {
+			$('#addressHelper').text('검색할 주소를 입력해주세요.');
+			$('#addressId').focus();
+		} else if($('#detailAddr').val() == '') {
+			$('#addressHelper').text('');
+			$('#signupForm').submit();
+		}
+	});
+	
 	$('#detailAddr').blur(function() {
 		if($('#detailAddr').val().length > 30) {
 			$('#detailAddressHelper').text('상세주소는 30자 이내로 입력해주세요.');
@@ -140,9 +151,10 @@
 		}
 	});
 	
+	
 	$('#signUp').click(function() {
 		if($('#addressId').val() == '') {
-			$('#addressHelper').text('주소를 선택해주세요.');
+			$('#addressHelper').text('주소를 입력해주세요.');
 			$('#addressId').focus();
 		} else if($('#detailAddr').val() == '') {
 			$('#addressHelper').text('');
