@@ -26,7 +26,7 @@ public class BasketDao {
 				+ "		FROM product p"
 				+ "  	LEFT JOIN product_photo pp"
 				+ "   		ON p.product_id = pp.product_id"
-				+ "		WHERE p.product_id=?";
+				+ "		WHERE p.product_id=? AND pp.name NOT LIKE '%info%'";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
