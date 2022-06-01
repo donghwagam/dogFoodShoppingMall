@@ -23,7 +23,7 @@ public class ReviewDao {
 				+ " WHERE product_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, productId);
 			rs = stmt.executeQuery();
@@ -60,7 +60,7 @@ public class ReviewDao {
 				+ " WHERE purchase_id = ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, purchaseId);
 			
@@ -97,7 +97,7 @@ public class ReviewDao {
 				+ " WHERE purchase_id = ? AND product_id = ?";
 				
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			
 			stmt.setInt(1, (int)(map.get("purchaseId")));
@@ -155,7 +155,7 @@ public class ReviewDao {
 				+ " VALUES(?, ?, ?, ?)";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			conn.setAutoCommit(false); // 오토커밋 off
 			reviewStmt = conn.prepareStatement(reviewSql, PreparedStatement.RETURN_GENERATED_KEYS);
 			
@@ -209,7 +209,7 @@ public class ReviewDao {
 				+ " WHERE product_id=?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			
 			stmt.setInt(1, productId);
@@ -266,7 +266,7 @@ public class ReviewDao {
 				
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			
 			stmt.setInt(1, productId);

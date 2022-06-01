@@ -24,7 +24,7 @@ public class AddressDao {
 				+ "   LIKE ?";
 		
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
 			stmt = conn.prepareStatement(sql); // 쿼리 작성
 			
 			// ?에 정보 입력

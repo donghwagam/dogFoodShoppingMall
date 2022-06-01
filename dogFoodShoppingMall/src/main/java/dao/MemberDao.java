@@ -21,7 +21,7 @@ public class MemberDao {
 				+ " WHERE member_id = ?";
 	
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			
@@ -75,7 +75,7 @@ public class MemberDao {
       
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
          stmt = conn.prepareStatement(sql);
          stmt.setString(1, memberId);
          rs = stmt.executeQuery();
@@ -120,7 +120,7 @@ public class MemberDao {
       String sql = "UPDATE member SET address_id=?, detail_addr=? WHERE member_id=?";
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
          stmt = conn.prepareStatement(sql);
          stmt.setInt(1, member.getAddressId());
          stmt.setString(2, member.getDetailAddr());
@@ -155,7 +155,7 @@ public class MemberDao {
       ResultSet rs = null;
       String sql = "SELECT member_id FROM member WHERE member_pw = PASSWORD(?) AND member_id = ?";
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          stmt = conn.prepareStatement(sql);
          stmt.setString(1, nowPw);
          stmt.setString(2, memberId);
@@ -192,7 +192,7 @@ public class MemberDao {
       String InsertPwRecordSql = "INSERT INTO member_pw_record VALUES(?,PASSWORD(?),NOW())";
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          conn.setAutoCommit(false); // 자동커밋을 해제
          
          //비밀번호 변경 
@@ -256,7 +256,7 @@ public class MemberDao {
       String insertPwRecordSql = "INSERT INTO member_pw_record VALUES(?,PASSWORD(?),NOW())";
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          conn.setAutoCommit(false); // 자동커밋을 해제
          
          // 비밀번호 변경
@@ -317,7 +317,7 @@ public class MemberDao {
             + " FROM member"
             + " WHERE member_id=? And name=? AND phone=?";
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          stmt = conn.prepareStatement(sql); // 쿼리 작성
          // ?에 정보 입력
          stmt.setString(1, member.getMemberId()); // 아이디
@@ -361,7 +361,7 @@ public class MemberDao {
                   + " WHERE name=? AND phone=?";
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          stmt = conn.prepareStatement(sql); // 쿼리 작성
          // ?에 정보 입력
          stmt.setString(1, member.getName()); // 이름
@@ -402,7 +402,7 @@ public class MemberDao {
       
       String insertPwRecordSql = "INSERT INTO member_pw_record VALUES(?,PASSWORD(?),NOW())";
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          conn.setAutoCommit(false); // 자동커밋을 해제
          
          //member테이블에 정보입력
@@ -460,7 +460,7 @@ public class MemberDao {
       		+ "		WHERE member_id = ?";
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          stmt = conn.prepareStatement(sql); // sql문 전송
          stmt.setString(1, memberId); 
          
@@ -492,7 +492,7 @@ public class MemberDao {
 	    
 	       
 	    try {
-	       conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+	       conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
 	       
 	       stmt = conn.prepareStatement(sql);
 	       stmt.setString(1, memberId);
@@ -528,7 +528,7 @@ public class MemberDao {
       String sql = "SELECT member_id memberId FROM member WHERE member_id=? AND member_pw=PASSWORD(?)";
       
       try {
-         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234"); // DB 연결
+         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
          stmt = conn.prepareStatement(sql); // sql문 전송
          stmt.setString(1, member.getMemberId()); // ? 값에 memberId 값 넣어주기
          stmt.setString(2, member.getMemberPw()); // ? 값에 memberPw 값 넣어주기
@@ -571,7 +571,7 @@ public class MemberDao {
                + "      WHERE member_id=?";
          
          try {
-            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
             
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, member.getName());
@@ -617,7 +617,7 @@ public class MemberDao {
             String basketSql = "DELETE FROM basket WHERE member_id=?";
             
             try {
-            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
             conn.setAutoCommit(false); // 자동커밋을 해제
             
             // 장바구니 삭제 
@@ -679,7 +679,7 @@ public class MemberDao {
                 + "     WHERE member_id=?";
 
           try {
-            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","mariadb1234");
+            conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234");
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, memberId);
             rs = stmt.executeQuery();
