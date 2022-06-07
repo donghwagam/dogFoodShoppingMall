@@ -54,8 +54,8 @@
 					<div class="col-lg-6 col-md-6">
 						<div class="header__top__right">
 							<div class="header__top__right__social">
-								<a href="https://www.instagram.com/gaebobheaven/"><i class="fa fa-linkedin"></i></a> 
-							 	<a href="https://open.kakao.com/o/gPlN8Ahe"><i class="fa fa-pinterest-p"></i></a>
+								<a href="https://www.instagram.com/gaebobheaven/"><i class="fa fa-instagram"></i></a> 
+							 	<a href="https://open.kakao.com/o/gPlN8Ahe"><i class="fa fa-comment"></i></a>
 							</div>
                             <div class="header__top__right__auth">
                                 <c:choose>
@@ -178,7 +178,7 @@
                             <li><b>Share on</b>
                                 <div class="share">
                                     <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    <a href="#"><i class="fa fa-comment"></i></a>
                                 </div>
                             </li>
                         </ul>
@@ -327,7 +327,7 @@
 						</form>
 						<div class="footer__widget__social">
 							 <a href="https://www.instagram.com/gaebobheaven/"><i class="fa fa-instagram"></i></a> 
-							 <a href="https://open.kakao.com/o/gPlN8Ahe"><i class="fa fa-pinterest"></i></a>
+							 <a href="https://open.kakao.com/o/gPlN8Ahe"><i class="fa fa-comment"></i></a>
 						</div>
 					</div>
 				</div>
