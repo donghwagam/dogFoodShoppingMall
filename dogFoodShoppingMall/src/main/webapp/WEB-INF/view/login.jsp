@@ -127,10 +127,17 @@
             <form method="post" action="${pageContext.request.contextPath}/loginController" id="Login">
                <div class="form-group">
                	  <input type="hidden" name="productId" value="${productId}">
-                  <input type="text" class="form-control" name="memberId" id="memberId" value="${cookieId}" placeholder="아이디">
+               	  <c:choose>
+               	  	<c:when test="${cookieId!=null}">
+               	  		<input type="text" class="form-control" name="memberId" id="memberId" value="${cookieId}" placeholder="아이디">
+               	  	</c:when>
+               	  	<c:otherwise>
+               	  		<input type="text" class="form-control" name="memberId" id="memberId" value="admin" placeholder="아이디">
+               	  	</c:otherwise>
+               	  </c:choose>
                </div>
                <div class="form-group">
-                  <input type="password" class="form-control" name="memberPw" id="memberPw" placeholder="비밀번호">
+                  <input type="password" class="form-control" name="memberPw" id="memberPw" value="1234" placeholder="비밀번호">
                </div>
                <div class="forgot" style="text-align:right;">
                   <input type="checkbox" name="idSave"> 아이디 저장<br>
