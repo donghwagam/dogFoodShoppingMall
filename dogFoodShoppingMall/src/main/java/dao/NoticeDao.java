@@ -103,14 +103,15 @@ public class NoticeDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
-		String sql = "INSERT INTO notice (notice_title, notice_content, create_date, update_date)\r\n"
-				+ "		VALUES (?, ?, NOW(), NOW());";
+		String sql = "INSERT INTO notice (notice_title, notice_content, member_id, create_date, update_date)"
+				+ "	  VALUES (?, ?, ?, NOW(), NOW())";
 		
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopping","root","java1234"); // DB 연결
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, notice.getNoticeTitle());
 			stmt.setString(2, notice.getNoticeContent());
+			stmt.setString(3, notice.getMemberId());
 			
 			row = stmt.executeUpdate();
 			if(row != 1) {

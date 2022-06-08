@@ -4,16 +4,19 @@ public class Notice {
 	private int noticeId;
 	private String noticeTitle;
 	private String noticeContent;
+	private String memberId;
 	private String createDate;
 	private String updateDate;
 	
 	public Notice() {}
 
-	public Notice(int noticeId, String noticeTitle, String noticeContent, String createDate, String updateDate) {
+	public Notice(int noticeId, String noticeTitle, String noticeContent, String memberId, String createDate,
+			String updateDate) {
 		super();
 		this.noticeId = noticeId;
 		this.noticeTitle = noticeTitle;
 		this.noticeContent = noticeContent;
+		this.memberId = memberId;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
@@ -42,6 +45,14 @@ public class Notice {
 		this.noticeContent = noticeContent;
 	}
 
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 	public String getCreateDate() {
 		return createDate;
 	}
@@ -61,7 +72,7 @@ public class Notice {
 	@Override
 	public String toString() {
 		return "Notice [noticeId=" + noticeId + ", noticeTitle=" + noticeTitle + ", noticeContent=" + noticeContent
-				+ ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
+				+ ", memberId=" + memberId + ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
 	}
-	
+
 }

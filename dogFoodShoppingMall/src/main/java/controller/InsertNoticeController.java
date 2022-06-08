@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.NoticeDao;
 import vo.Notice;
@@ -21,6 +22,8 @@ public class InsertNoticeController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
 		this.noticeDao = new NoticeDao(); // 메서드 사용을 위한 NoticeDao 객체생성
 		
 			
@@ -30,9 +33,11 @@ public class InsertNoticeController extends HttpServlet {
 		Notice notice = new Notice(); // notice 데이터바인딩
 		notice.setNoticeTitle(noticeTitle);
 		notice.setNoticeContent(noticeContent);
+		notice.setMemberId(sessionMemberId);
 		
 		System.out.println("InsertNoticeController.doPost() noticeTitle : "+noticeTitle);
 		System.out.println("InsertNoticeController.doPost() noticeContent : "+noticeContent);
+		System.out.println("InsertNoticeController.doPost() sessionMemberId : "+sessionMemberId);
 		
 		int row = noticeDao.insertNoitce(notice);
 		
